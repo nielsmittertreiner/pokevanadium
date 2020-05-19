@@ -1562,6 +1562,21 @@
 
 @ Supplementary
 
+	.macro load_speech_bubble x:req, y=0xFF
+		.if \y == 0xFF
+			setvar VAR_0x8004, \x
+			callnative LoadTailAuto
+		.else
+			setvar VAR_0x8005, \x
+			setvar VAR_0x8006, \y
+			callnative LoadTail
+		.endif
+	.endm
+
+	.macro destroy_speech_bubble
+	callnative DestroyTail
+	.endm
+	
 	.macro goto_if_unset flag:req, dest:req
 	checkflag \flag
 	goto_if FALSE, \dest
