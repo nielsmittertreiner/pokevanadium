@@ -293,7 +293,9 @@ LittlerootTown_EventScript_YouSavedBirch:: @ 81E807A
 	end
 
 LittlerootTown_EventScript_GoodLuck:: @ 81E8087
+	load_speech_bubble VAR_LAST_TALKED
 	msgbox LittlerootTown_Text_GoodLuckCatchingPokemon, MSGBOX_DEFAULT
+	destroy_speech_bubble
 	release
 	end
 

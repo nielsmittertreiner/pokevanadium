@@ -86,12 +86,14 @@ void LoadTailAuto(void)
     struct ObjectEvent *objectEvent;
     struct Sprite *sprite;
 
-    objectEvent = &gObjectEvents[GetObjectEventIdByLocalIdAndMap(VarGet(gSpecialVar_0x8004), gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup)];
+    objectEvent = &gObjectEvents[GetObjectEventIdByLocalIdAndMap(VarGet(VarGet(gSpecialVar_0x8004)), gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup)];
     sprite = &gSprites[objectEvent->spriteId];
 
-    gSpecialVar_0x8005 = sprite->pos1.x + sprite->pos2.x;
-    gSpecialVar_0x8006 = sprite->pos1.y + sprite->pos2.y;
+    gSpecialVar_0x8005 = sprite->oam.x - (sprite->pos2.x + sprite->centerToCornerVecX);
+    gSpecialVar_0x8006 = sprite->oam.y - (sprite->pos2.y + sprite->centerToCornerVecY);
 
+    gSpecialVar_0x8005 += (gSpecialVar_0x8005 < 120) ? -5 : 5;
+    gSpecialVar_0x8006 += 5;
     LoadTail();
 }
 
