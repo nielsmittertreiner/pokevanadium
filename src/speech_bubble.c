@@ -2,7 +2,8 @@
 #include "event_data.h"
 #include "decompress.h"
 #include "sprite.h"
-#include "trig.h"
+#include "constants/event_objects.h"
+#include "event_object_movement.h"
 
 #define TAG_SPEECH_BUBBLE_TAIL 0x3333
 
@@ -58,9 +59,10 @@ void LoadTail(void) {
         LoadSpritePalette(&palSheet);
     }
 
+
     oam.size = sTail.size;
     oam.shape = sTail.shape;
-    oam.priority = 1;
+    oam.priority = 0;
     oam.affineMode = ST_OAM_AFFINE_DOUBLE;
 
     spriteTemp1 = gDummySpriteTemplate;
@@ -76,13 +78,19 @@ void LoadTail(void) {
                  Q_8_8(1.0 / ((float)(y2 - TEXTBOX_Y) / -(x2 - x1))), // calculate x shear factor
                  Q_8_8(0), 
                  Q_8_8(IMAGE_HEIGHT / (double)(TEXTBOX_Y - y2))); // calculate y scale factor
-} // (TEXTBOX_Y - y2) / IMAGE_HEIGHT
+}
 
+// gSpecialVar_0x8004 is the object event id
 void LoadTailAuto(void) 
 {
-    // TODO: position calculations
-    gSpecialVar_0x8005 = 0;
-    gSpecialVar_0x8006 = 0;
+    struct ObjectEvent *objectEvent;
+    struct Sprite *sprite;
+
+    objectEvent = &gObjectEvents[GetObjectEventIdByLocalIdAndMap(VarGet(gSpecialVar_0x8004), gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup)];
+    sprite = &gSprites[objectEvent->spriteId];
+
+    gSpecialVar_0x8005 = sprite->pos1.x + sprite->pos2.x;
+    gSpecialVar_0x8006 = sprite->pos1.y + sprite->pos2.y;
 
     LoadTail();
 }

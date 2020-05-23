@@ -254,11 +254,15 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgradeFemale:: @ 81E8013
 	end
 
 LittlerootTown_EventScript_FatMan:: @ 81E8022
+	load_speech_bubble VAR_LAST_TALKED
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_NPC
+	destroy_speech_bubble
 	end
 
 LittlerootTown_EventScript_Boy:: @ 81E802B
+	load_speech_bubble VAR_LAST_TALKED
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_NPC
+	destroy_speech_bubble
 	end
 
 LittlerootTown_EventScript_Twin:: @ 81E8034
