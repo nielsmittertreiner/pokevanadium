@@ -1496,11 +1496,13 @@ u8 AtkCanceller_UnableToUseMove(void)
                     }
                     gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfused;
                 }
+                /*
                 else // snapped out of confusion
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfusedNoMore;
                 }
+                */
                 effect = 1;
             }
             gBattleStruct->atkCancellerTracker++;
@@ -2272,7 +2274,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                         gBattleMons[battler].status1 = 0;
                         break;
                     case 2: // get rid of confusion
-                        gBattleMons[battler].status2 &= ~(STATUS2_CONFUSION);
+                        //gBattleMons[battler].status2 &= ~(STATUS2_CONFUSION);
                         break;
                     case 3: // get rid of infatuation
                         gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
