@@ -13,6 +13,10 @@ It builds the following ROM:
 
 To set up the repository, see [INSTALL.md](INSTALL.md).
 
+# About this branch
+This branch will confuse all of the Pokémon in your party permanently at the start of the battle and when you switch a Pokémon in or out.
+
+Your opponent's party will stay unaffected.
 
 ## See also
 
