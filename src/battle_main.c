@@ -3400,7 +3400,10 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
             for (i = 0; i < NUM_BATTLE_STATS; i++)
                 gBattleMons[gActiveBattler].statStages[i] = 6;
             gBattleMons[gActiveBattler].status2 = 0;
-            gBattleMons[gBattlerAttacker].status2 = STATUS2_CONFUSION; // apply confusion status when a pokemon is being sent out
+            // apply confusion status when a pokemon is being sent out
+            if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER) {
+                gBattleMons[gActiveBattler].status2 = STATUS2_CONFUSION;
+            }
         }
 
         if (GetBattlerPosition(gActiveBattler) == B_POSITION_PLAYER_LEFT)

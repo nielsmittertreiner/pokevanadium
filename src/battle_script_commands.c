@@ -4913,6 +4913,10 @@ static void Cmd_switchindataupdate(void)
 
     gBattleScripting.battler = gActiveBattler;
 
+    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER) {
+        gBattleMons[gActiveBattler].status2 = STATUS2_CONFUSION;
+    }
+
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gActiveBattler, gBattlerPartyIndexes[gActiveBattler]);
 
     gBattlescriptCurrInstr += 2;

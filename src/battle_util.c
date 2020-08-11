@@ -1478,7 +1478,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_CONFUSED: // confusion
             if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION)
             {
-                gBattleMons[gBattlerAttacker].status2 -= STATUS2_CONFUSION_TURN(1);
+                gBattleMons[gBattlerAttacker].status2 = STATUS2_CONFUSION_TURN(1);
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION)
                 {
                     if (Random() & 1)
