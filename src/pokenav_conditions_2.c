@@ -208,15 +208,15 @@ u32 sub_81CDE94(s32 state)
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_WIN1_ON | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG3_ON);
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG2 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3);
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(11, 4));
-        decompress_and_copy_tile_data_to_vram(3, gPokenavCondition_Gfx, 0, 0, 0);
+        DecompressAndCopyTileDataToVram(3, gPokenavCondition_Gfx, 0, 0, 0);
         return LT_INC_AND_PAUSE;
     case 2:
-        if (free_temp_tile_data_buffers_if_possible())
+        if (FreeTempTileDataBuffersIfPossible())
             return LT_PAUSE;
-        decompress_and_copy_tile_data_to_vram(2, gUnknown_08623228, 0, 0, 0);
+        DecompressAndCopyTileDataToVram(2, gUnknown_08623228, 0, 0, 0);
         return LT_INC_AND_PAUSE;
     case 3:
-         if (free_temp_tile_data_buffers_if_possible())
+         if (FreeTempTileDataBuffersIfPossible())
             return LT_PAUSE;
 
         LZ77UnCompVram(gPokenavCondition_Tilemap, structPtr->tilemapBuffers[0]);
@@ -230,7 +230,7 @@ u32 sub_81CDE94(s32 state)
         structPtr->unk1814 = -80;
         return LT_INC_AND_PAUSE;
     case 4:
-        if (free_temp_tile_data_buffers_if_possible())
+        if (FreeTempTileDataBuffersIfPossible())
             return LT_PAUSE;
 
         LZ77UnCompVram(gUnknown_0862323C, structPtr->tilemapBuffers[2]);
@@ -246,7 +246,7 @@ u32 sub_81CDE94(s32 state)
         SetBgTilemapBuffer(1, structPtr->tilemapBuffers[1]);
         return LT_INC_AND_PAUSE;
     case 6:
-        if (free_temp_tile_data_buffers_if_possible())
+        if (FreeTempTileDataBuffersIfPossible())
             return LT_PAUSE;
 
         structPtr->unk1820 = AddWindow(&gUnknown_08623364);
@@ -581,10 +581,10 @@ bool32 sub_81CE754(u8 a0, u16 a1, bool8 a2)
             str = sub_81CDD24(a1);
             AddTextPrinterParameterized(structPtr->unk1820, 1, str, 0, 17, 0, NULL);
             text[0] = EXT_CTRL_CODE_BEGIN;
-            text[1] = 4;
-            text[2] = 8;
-            text[3] = 0;
-            text[4] = 9;
+            text[1] = EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW;
+            text[2] = TEXT_COLOR_BLUE;
+            text[3] = TEXT_COLOR_TRANSPARENT;
+            text[4] = TEXT_COLOR_LIGHT_BLUE;
             StringCopy(text + 5, gText_Number2);
             AddTextPrinterParameterized(structPtr->unk1821, 1, text, 4, 1, 0, NULL);
             ConvertIntToDecimalStringN(text + 5, sub_81CDD48(), STR_CONV_MODE_RIGHT_ALIGN, 4);
