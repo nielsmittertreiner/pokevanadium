@@ -212,6 +212,7 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *printerTemplate, u8 speed, voi
 void RunTextPrinters(void)
 {
     int i;
+    int j;
 
     if (gUnknown_03002F84 == 0)
     {
@@ -219,18 +220,23 @@ void RunTextPrinters(void)
         {
             if (gTextPrinters[i].active)
             {
-                u16 temp = RenderFont(&gTextPrinters[i]);
-                switch (temp)
+                for (j = 0; j < 2; j++)
                 {
-                case 0:
-                    CopyWindowToVram(gTextPrinters[i].printerTemplate.windowId, 2);
-                case 3:
-                    if (gTextPrinters[i].callback != 0)
-                        gTextPrinters[i].callback(&gTextPrinters[i].printerTemplate, temp);
-                    break;
-                case 1:
-                    gTextPrinters[i].active = 0;
-                    break;
+                u16 temp = RenderFont(&gTextPrinters[i]);
+                    switch (temp)
+                    {
+                    case 0:
+                        CopyWindowToVram(gTextPrinters[i].printerTemplate.windowId, 2);
+                    case 3:
+                        if (gTextPrinters[i].callback != 0)
+                            gTextPrinters[i].callback(&gTextPrinters[i].printerTemplate, temp);
+                        break;
+                    case 1:
+                        gTextPrinters[i].active = 0;
+                        break;
+                    }
+                    if (temp != 0)
+                        break;
                 }
             }
         }
