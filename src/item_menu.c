@@ -885,6 +885,7 @@ void BagMenu_MoveCursorCallback(s32 itemIndex, bool8 onInit, struct ListMenu *li
     }
     if (gBagMenu->itemOriginalLocation == 0xFF)
     {
+        HideBagItemIconSprite(gBagMenu->itemIconSlot);
         RemoveBagItemIconSprite(gBagMenu->itemIconSlot ^ 1);
         if (itemIndex != LIST_CANCEL)
            AddBagItemIconSprite(BagGetItemIdByPocketPosition(gBagPositionStruct.pocket + 1, itemIndex), gBagMenu->itemIconSlot);

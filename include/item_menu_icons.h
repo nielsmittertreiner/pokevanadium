@@ -14,6 +14,7 @@ void ShakeBagSprite(void);
 void AddSwitchPocketRotatingBallSprite(s16 rotationDirection);
 void AddBagItemIconSprite(u16 itemId, u8 id);
 void RemoveBagItemIconSprite(u8 id);
+void HideBagItemIconSprite(u8 id);
 void sub_80D4FAC(void);
 void sub_80D4FC8(u8 arg0);
 void sub_80D4FEC(u8 arg0);
