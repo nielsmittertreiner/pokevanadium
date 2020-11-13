@@ -60,7 +60,7 @@
 #define VAR_POISON_STEP_COUNTER              0x402B
 #define VAR_RESET_RTC_ENABLE                 0x402C
 #define VAR_ENIGMA_BERRY_AVAILABLE           0x402D
-#define VAR_REPEL_LAST_USED                  0x402E
+#define VAR_0x402E                           0x402E
 
 #define VAR_FRONTIER_MANIAC_FACILITY         0x402F
 #define VAR_FRONTIER_GAMBLER_CHALLENGE       0x4030
@@ -271,7 +271,7 @@
 #define VAR_UNUSED_0x40FC                    0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                    0x40FD // Unused Var
 #define VAR_UNUSED_0x40FE                    0x40FE // Unused Var
-#define VAR_UNUSED_0x40FF                    0x40FF // Unused Var
+#define VAR_REPEL_LAST_USED                  0x40FF // Unused Var
 
 #define VARS_END                             0x40FF
 #define VARS_COUNT                           (VARS_END - VARS_START + 1)
