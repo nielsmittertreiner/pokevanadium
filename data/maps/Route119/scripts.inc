@@ -5,6 +5,7 @@
 Route119_MapScripts:: @ 81F4424
 	map_script MAP_SCRIPT_ON_RESUME, Route119_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, Route119_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Route119_OnLoad
 	.byte 0
 
 Route119_OnResume: @ 81F442F
@@ -31,6 +32,10 @@ Route119_EventScript_MoveInstituteWorkersDownstairs:: @ 81F4466
 	clearflag FLAG_HIDE_WEATHER_INSTITUTE_1F_WORKERS
 	setvar VAR_WEATHER_INSTITUTE_STATE, 2
 	return
+
+Route119_OnLoad:
+	callnative HighlightFeebasSpots
+	end
 
 Route119_EventScript_RivalTrigger1:: @ 81F4472
 	setvar VAR_TEMP_1, 1

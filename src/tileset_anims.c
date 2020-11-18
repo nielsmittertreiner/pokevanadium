@@ -30,6 +30,7 @@ static void TilesetAnim_Dewford(u16);
 static void TilesetAnim_Slateport(u16);
 static void TilesetAnim_Mauville(u16);
 static void TilesetAnim_Lavaridge(u16);
+static void TilesetAnim_Fortree(u16);
 static void TilesetAnim_EverGrande(u16);
 static void TilesetAnim_Pacifidlog(u16);
 static void TilesetAnim_Sootopolis(u16);
@@ -61,6 +62,7 @@ static void BlendAnimPalette_BattleDome_FloorLights(u16);
 static void BlendAnimPalette_BattleDome_FloorLightsNoBlend(u16);
 static void QueueAnimTiles_Lavaridge_Steam(u8);
 static void QueueAnimTiles_Lavaridge_Lava(u16);
+static void QueueAnimTiles_Fortree_FeebasSpot(u16);
 static void QueueAnimTiles_EverGrande_Flowers(u16, u8);
 static void QueueAnimTiles_Pacifidlog_LogBridges(u8);
 static void QueueAnimTiles_Pacifidlog_WaterCurrents(u8);
@@ -337,6 +339,17 @@ const u16 *const gTilesetAnims_Lavaridge_Cave_Lava[] = {
     gTilesetAnims_Lavaridge_Cave_Lava_Frame1,
     gTilesetAnims_Lavaridge_Cave_Lava_Frame2,
     gTilesetAnims_Lavaridge_Cave_Lava_Frame3
+};
+
+const u16 gTilesetAnims_Fortree_FeebasSpot_Frame0[] = INCBIN_U16("data/tilesets/secondary/fortree/anim/0.4bpp");
+const u16 gTilesetAnims_Fortree_FeebasSpot_Frame1[] = INCBIN_U16("data/tilesets/secondary/fortree/anim/1.4bpp");
+const u16 gTilesetAnims_Fortree_FeebasSpot_Frame2[] = INCBIN_U16("data/tilesets/secondary/fortree/anim/2.4bpp");
+
+const u16 *const gTilesetAnims_Fortree0[] = {
+    gTilesetAnims_Fortree_FeebasSpot_Frame0,
+    gTilesetAnims_Fortree_FeebasSpot_Frame1,
+	gTilesetAnims_Fortree_FeebasSpot_Frame2,
+	gTilesetAnims_Fortree_FeebasSpot_Frame1
 };
 
 const u16 gTilesetAnims_EverGrande_Flowers_Frame0[] = INCBIN_U16("data/tilesets/secondary/ever_grande/anim/flowers/0.4bpp");
@@ -726,7 +739,7 @@ void InitTilesetAnim_Fortree(void)
 {
     sSecondaryTilesetAnimCounter = 0;
     sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
-    sSecondaryTilesetAnimCallback = NULL;
+    sSecondaryTilesetAnimCallback = TilesetAnim_Fortree;
 }
 
 void InitTilesetAnim_Lilycove(void)
@@ -897,6 +910,12 @@ static void TilesetAnim_Lavaridge(u16 timer)
         QueueAnimTiles_Lavaridge_Lava(timer >> 4);
 }
 
+static void TilesetAnim_Fortree(u16 timer)
+{
+    if ((timer & 7) == 0)
+		QueueAnimTiles_Fortree_FeebasSpot(timer >> 3);
+}
+
 static void TilesetAnim_EverGrande(u16 timer)
 {
     if (timer % 8 == 0)
@@ -1023,6 +1042,12 @@ static void QueueAnimTiles_Lavaridge_Lava(u16 timer)
 {
     u16 i = timer % 4;
     AppendTilesetAnimToBuffer(gTilesetAnims_Lavaridge_Cave_Lava[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 160)), 0x80);
+}
+
+static void QueueAnimTiles_Fortree_FeebasSpot(u16 timer)
+{
+    u16 i = timer % 4;
+    AppendTilesetAnimToBuffer(gTilesetAnims_Fortree0[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 240)), 0x80);
 }
 
 static void QueueAnimTiles_EverGrande_Flowers(u16 timer_div, u8 timer_mod)
