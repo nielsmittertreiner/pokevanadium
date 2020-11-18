@@ -258,65 +258,6 @@ void HighlightFeebasSpots()
     }
 }
 
-
-/*
-        case 0x02C:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x318);
-            break;
-        case 0x034:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x319);
-            break;
-        case 0x03C:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x31A);
-            break;
-        case 0x11D:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x31B);
-            break;
-        case 0x125:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x31C);
-            break;
-        case 0x12C:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x31D);
-            break;
-        case 0x12D:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x31E);
-            break;
-        case 0x170:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x31F);
-            break;
-        case 0x178:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x320);
-            break;
-        case 0x179:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x321);
-            break;
-        case 0x189:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x322);
-            break;
-        case 0x190:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x323);
-            break;
-        case 0x192:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x324);
-            break;
-        case 0x198:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x325);
-            break;
-        case 0x19A:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x326);
-            break;
-        case 0x20F:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x327);
-            break;
-        case 0x266:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x328);
-            break;
-        case 0x267:
-            MapGridSetMetatileIdAt(feebasCoords[i].x + 7, feebasCoords[i].y + 7, 0x329);
-*/
-
-
-
 static u8 ChooseWildMonIndex_Land(void)
 {
     u8 rand = Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL;
