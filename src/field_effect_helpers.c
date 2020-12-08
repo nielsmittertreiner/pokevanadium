@@ -81,15 +81,15 @@ static void LoadObjectRegularReflectionPalette(struct ObjectEvent *objectEvent, 
     const struct ObjectEventGraphicsInfo *graphicsInfo;
 
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
-    if (graphicsInfo->paletteTag2 != OBJ_EVENT_PAL_TAG_NONE)
+    if (graphicsInfo->reflectionPaletteTag != OBJ_EVENT_PAL_TAG_NONE)
     {
         if (graphicsInfo->paletteSlot == 0)
         {
-            LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag1, paletteIndex);
+            LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag, paletteIndex);
         }
         else if (graphicsInfo->paletteSlot == 10)
         {
-            LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag1, paletteIndex);
+            LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, paletteIndex);
         }
         else
         {
@@ -106,9 +106,9 @@ static void LoadObjectHighBridgeReflectionPalette(struct ObjectEvent *objectEven
     const struct ObjectEventGraphicsInfo *graphicsInfo;
 
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
-    if (graphicsInfo->paletteTag2 != OBJ_EVENT_PAL_TAG_NONE)
+    if (graphicsInfo->reflectionPaletteTag != OBJ_EVENT_PAL_TAG_NONE)
     {
-        PatchObjectPalette(graphicsInfo->paletteTag2, paletteNum);
+        PatchObjectPalette(graphicsInfo->reflectionPaletteTag, paletteNum);
         UpdateSpritePaletteWithWeather(paletteNum);
     }
 }
@@ -623,7 +623,7 @@ u32 FldEff_Splash(void)
         sprite->data[1] = gFieldEffectArguments[1];
         sprite->data[2] = gFieldEffectArguments[2];
         sprite->pos2.y = (graphicsInfo->height >> 1) - 4;
-        PlaySE(SE_MIZU);
+        PlaySE(SE_PUDDLE);
     }
     return 0;
 }
@@ -733,7 +733,7 @@ static void UpdateFeetInFlowingWaterFieldEffect(struct Sprite *sprite)
             sprite->data[4] = objectEvent->currentCoords.y;
             if (!sprite->invisible)
             {
-                PlaySE(SE_MIZU);
+                PlaySE(SE_PUDDLE);
             }
         }
     }
