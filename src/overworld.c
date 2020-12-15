@@ -131,7 +131,7 @@ static s32 sub_80878E4(u8 linkPlayerId);
 static u8 GetLinkPlayerIdAt(s16 x, s16 y);
 static void SetPlayerFacingDirection(u8 linkPlayerId, u8 a2);
 static void ZeroObjectEvent(struct ObjectEvent *objEvent);
-static void SpawnLinkPlayerObjectEvent(u8 linkPlayerId, s16 x, s16 y, u8 a4);
+static void SpawnLinkPlayerObjectEvent(u8 linkPlayerId, s16 x, s16 y, u8 gender);
 static void InitLinkPlayerObjectEventPos(struct ObjectEvent *objEvent, s16 x, s16 y);
 static void sub_80877DC(u8 linkPlayerId, u8 a2);
 static void sub_808780C(u8 linkPlayerId);
@@ -2916,7 +2916,14 @@ static void ZeroObjectEvent(struct ObjectEvent *objEvent)
     memset(objEvent, 0, sizeof(struct ObjectEvent));
 }
 
-static void SpawnLinkPlayerObjectEvent(u8 linkPlayerId, s16 x, s16 y, u8 a4)
+// Note: Emerald reuses the direction and range variables during Link mode
+// as special gender and direction values. The types and placement
+// conflict with the usual Event Object struct, thus the definitions.
+#define linkGender(obj) obj->singleMovementActive
+// not even one can reference *byte* aligned bitfield members...
+#define linkDirection(obj) ((u8*)obj)[offsetof(typeof(*obj), fieldEffectSpriteId) - 1] // -> rangeX
+
+static void SpawnLinkPlayerObjectEvent(u8 linkPlayerId, s16 x, s16 y, u8 gender)
 {
     u8 objEventId = GetFirstInactiveObjectEventId();
     struct LinkPlayerObjectEvent *linkPlayerObjEvent = &gLinkPlayerObjectEvents[linkPlayerId];
