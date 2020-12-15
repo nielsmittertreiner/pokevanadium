@@ -2938,8 +2938,8 @@ static void SpawnLinkPlayerObjectEvent(u8 linkPlayerId, s16 x, s16 y, u8 gender)
     linkPlayerObjEvent->movementMode = MOVEMENT_MODE_FREE;
 
     objEvent->active = 1;
-    objEvent->singleMovementActive = gender;
-    objEvent->range.as_byte = 2;
+    linkGender(objEvent) = gender;
+    linkDirection(objEvent) = DIR_NORTH;
     objEvent->spriteId = 64;
 
     InitLinkPlayerObjectEventPos(objEvent, x, y);
