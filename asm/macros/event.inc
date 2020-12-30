@@ -1627,11 +1627,11 @@
 	.macro load_speech_bubble x:req, y=0xFF
 		.if \y == 0xFF
 			setvar VAR_0x8004, \x
-			callnative LoadTailAuto
+			callnative LoadTailAutoFromScript
 		.else
 			setvar VAR_0x8005, \x
 			setvar VAR_0x8006, \y
-			callnative LoadTail
+			callnative LoadTailFromScript
 		.endif
 	.endm
 
