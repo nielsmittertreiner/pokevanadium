@@ -95,7 +95,7 @@ struct FactoryMonPic
     u8 bgSpriteId;
 };
 
-struct FactorySelectMonsStruct
+struct FactorySelectScreen
 {
     u8 menuCursorPos;
     u8 menuCursor1SpriteId;
@@ -118,17 +118,13 @@ struct FactorySelectMonsStruct
     u8 faceSpeciesNameDelay;
 };
 
-// 'Action' refers to the 3 Selectable mons, Cancel, Pknm for swap windows.
-#define ACTIONS_PLAYER_SCREEN 0
-#define ACTIONS_ENEMY_SCREEN 1
-
-struct SwapActionIdAndFunc
+struct SwapScreenAction
 {
     u8 id;
     void (*func)(u8 taskId);
 };
 
-struct FactorySwapMonsStruct
+struct FactorySwapScreen
 {
     u8 menuCursorPos;
     u8 menuCursor1SpriteId;
@@ -171,7 +167,7 @@ static void CB2_InitSelectScreen(void);
 static void Select_SetWinRegs(s16, s16, s16, s16);
 static void Select_InitMonsData(void);
 static void Select_InitAllSprites(void);
-static void Select_ShowSummaryMonSprite(void);
+static void Select_ReshowMonSprite(void);
 static void Select_PrintSelectMonString(void);
 static void Select_PrintMonSpecies(void);
 static void Select_PrintMonCategory(void);
@@ -243,70 +239,67 @@ static void Swap_ActionCancel(u8);
 static void Swap_ActionPkmnForSwap(u8);
 
 static EWRAM_DATA u8 *sSelectMenuTilesetBuffer = NULL;
-static EWRAM_DATA u8 *sSelectMonCardBgTilesetBuffer = NULL;
+static EWRAM_DATA u8 *sSelectMonPicBgTilesetBuffer = NULL;
 static EWRAM_DATA u8 *sSelectMenuTilemapBuffer = NULL;
-static EWRAM_DATA u8 *sSelectMonCardBgTilemapBuffer = NULL;
+static EWRAM_DATA u8 *sSelectMonPicBgTilemapBuffer = NULL;
 static EWRAM_DATA struct Pokemon *sFactorySelectMons = NULL;
 static EWRAM_DATA u8 *sSwapMenuTilesetBuffer = NULL;
-static EWRAM_DATA u8 *sSwapMonCardBgTilesetBuffer = NULL;
+static EWRAM_DATA u8 *sSwapMonPicBgTilesetBuffer = NULL;
 static EWRAM_DATA u8 *sSwapMenuTilemapBuffer = NULL;
-static EWRAM_DATA u8 *sSwapMonCardBgTilemapBuffer = NULL;
+static EWRAM_DATA u8 *sSwapMonPicBgTilemapBuffer = NULL;
 
-// IWRAM bss
-static struct FactorySelectMonsStruct *sFactorySelectScreen;
-static void (*sSwap_CurrentTableFunc)(u8 taskId);
-static struct FactorySwapMonsStruct *sFactorySwapScreen;
+static struct FactorySelectScreen *sFactorySelectScreen;
+static void (*sSwap_CurrentOptionFunc)(u8 taskId);
+static struct FactorySwapScreen *sFactorySwapScreen;
 
-// IWRAM common
-u8 (*gUnknown_030062E8)(void);
+u8 (*gFactorySelect_CurrentOptionFunc)(void);
 
-// Const rom data.
-static const u16 gUnknown_0860F13C[] = INCBIN_U16("graphics/unknown/unknown_60F13C.gbapal");
-static const u16 gUnknown_0860F15C[] = INCBIN_U16("graphics/unknown/unknown_60F15C.gbapal");
-static const u16 gUnknown_0860F17C[] = INCBIN_U16("graphics/unknown/unknown_60F17C.gbapal");
-static const u8 gUnknown_0860F1BC[] = INCBIN_U8("graphics/unknown/unknown_60F1BC.4bpp");
-static const u8 gUnknown_0860F3BC[] = INCBIN_U8("graphics/unknown/unknown_60F3BC.4bpp");
-static const u8 gUnknown_0860F43C[] = INCBIN_U8("graphics/unknown/unknown_60F43C.4bpp");
-static const u8 gUnknown_0860F53C[] = INCBIN_U8("graphics/unknown/unknown_60F53C.4bpp");
-static const u8 gUnknown_0860F63C[] = INCBIN_U8("graphics/unknown/unknown_60F63C.4bpp");
-static const u8 gUnknown_0860F6BC[] = INCBIN_U8("graphics/unknown/unknown_60F6BC.4bpp");
-static const u8 gUnknown_0860F7BC[] = INCBIN_U8("graphics/unknown/unknown_60F7BC.4bpp");
-static const u8 gUnknown_0860F83C[] = INCBIN_U8("graphics/unknown/unknown_60F83C.4bpp");
-static const u8 gUnknown_0860F93C[] = INCBIN_U8("graphics/unknown/unknown_60F93C.4bpp");
-static const u8 gUnknown_0860FA3C[] = INCBIN_U8("graphics/unknown/unknown_60FA3C.4bpp");
-static const u8 gUnknown_0861023C[] = INCBIN_U8("graphics/unknown/unknown_61023C.bin");
-static const u8 gUnknown_0861033C[] = INCBIN_U8("graphics/unknown/unknown_61033C.4bpp");
-static const u16 gUnknown_0861039C[] = INCBIN_U16("graphics/unknown/unknown_61039C.gbapal");
+static const u16 sPokeballGray_Pal[]         = INCBIN_U16("graphics/battle_frontier/factory_screen/pokeball_gray.gbapal");
+static const u16 sPokeballSelected_Pal[]     = INCBIN_U16("graphics/battle_frontier/factory_screen/pokeball_selected.gbapal");
+static const u16 sInterface_Pal[]            = INCBIN_U16("graphics/battle_frontier/factory_screen/interface.gbapal"); // Arrow, menu/action highlights, action box, etc
+static const u8 sPokeball_Gfx[]              = INCBIN_U8( "graphics/battle_frontier/factory_screen/pokeball.4bpp"); // Unused, gPokeballSelection_Gfx used instead
+static const u8 sArrow_Gfx[]                 = INCBIN_U8( "graphics/battle_frontier/factory_screen/arrow.4bpp");
+static const u8 sMenuHighlightLeft_Gfx[]     = INCBIN_U8( "graphics/battle_frontier/factory_screen/menu_highlight_left.4bpp");
+static const u8 sMenuHighlightRight_Gfx[]    = INCBIN_U8( "graphics/battle_frontier/factory_screen/menu_highlight_right.4bpp");
+static const u8 sActionBoxLeft_Gfx[]         = INCBIN_U8( "graphics/battle_frontier/factory_screen/action_box_left.4bpp");
+static const u8 sActionBoxRight_Gfx[]        = INCBIN_U8( "graphics/battle_frontier/factory_screen/action_box_right.4bpp");
+static const u8 sActionHighlightLeft_Gfx[]   = INCBIN_U8( "graphics/battle_frontier/factory_screen/action_highlight_left.4bpp");
+static const u8 sActionHighlightMiddle_Gfx[] = INCBIN_U8( "graphics/battle_frontier/factory_screen/action_highlight_middle.4bpp");
+static const u8 sActionHighlightRight_Gfx[]  = INCBIN_U8( "graphics/battle_frontier/factory_screen/action_highlight_right.4bpp");
+static const u8 sMonPicBgAnim_Gfx[]          = INCBIN_U8( "graphics/battle_frontier/factory_screen/mon_pic_bg_anim.4bpp");
+static const u8 sMonPicBg_Tilemap[]          = INCBIN_U8( "graphics/battle_frontier/factory_screen/mon_pic_bg.bin");
+static const u8 sMonPicBg_Gfx[]              = INCBIN_U8( "graphics/battle_frontier/factory_screen/mon_pic_bg.4bpp");
+static const u16 sMonPicBg_Pal[]             = INCBIN_U16("graphics/battle_frontier/factory_screen/mon_pic_bg.gbapal");
 
-static const struct SpriteSheet gUnknown_086103BC[] =
+static const struct SpriteSheet sSelect_SpriteSheets[] =
 {
-    {gUnknown_0860F3BC, sizeof(gUnknown_0860F3BC), TAG_TILE_65},
-    {gUnknown_0860F43C, sizeof(gUnknown_0860F43C), TAG_TILE_66},
-    {gUnknown_0860F53C, sizeof(gUnknown_0860F53C), TAG_TILE_67},
-    {gUnknown_0860FA3C, sizeof(gUnknown_0860FA3C), TAG_TILE_6D},
+    {sArrow_Gfx,              sizeof(sArrow_Gfx),              GFXTAG_ARROW},
+    {sMenuHighlightLeft_Gfx,  sizeof(sMenuHighlightLeft_Gfx),  GFXTAG_MENU_HIGHLIGHT_LEFT},
+    {sMenuHighlightRight_Gfx, sizeof(sMenuHighlightRight_Gfx), GFXTAG_MENU_HIGHLIGHT_RIGHT},
+    {sMonPicBgAnim_Gfx,       sizeof(sMonPicBgAnim_Gfx),       GFXTAG_MON_PIC_BG_ANIM},
     {},
 };
 
-static const struct CompressedSpriteSheet gUnknown_086103E4[] =
+static const struct CompressedSpriteSheet sSelect_BallGfx[] =
 {
-    {gPokeballSelection_Gfx, 0x800, TAG_TILE_64},
+    {gPokeballSelection_Gfx, 0x800, GFXTAG_BALL},
     {},
 };
 
-static const struct SpritePalette gUnknown_086103F4[] =
+static const struct SpritePalette sSelect_SpritePalettes[] =
 {
-    {gUnknown_0860F13C, TAG_PAL_BALL_GREY},
-    {gUnknown_0860F15C, TAG_PAL_BALL_SELECTED},
-    {gUnknown_0860F17C, TAG_PAL_66},
-    {gUnknown_0861039C, TAG_PAL_67},
+    {sPokeballGray_Pal,     PALTAG_BALL_GRAY},
+    {sPokeballSelected_Pal, PALTAG_BALL_SELECTED},
+    {sInterface_Pal,        PALTAG_INTERFACE},
+    {sMonPicBg_Pal,         PALTAG_MON_PIC_BG},
     {},
 };
 
 u8 static (* const sSelect_MenuOptionFuncs[])(void) =
 {
-    [MENU_SUMMARY] = Select_OptionSummary,
-    [MENU_RENT] /*Or Deselect*/ = Select_OptionRentDeselect,
-    [MENU_OTHERS] = Select_OptionOthers
+    Select_OptionSummary,
+    Select_OptionRentDeselect,
+    Select_OptionOthers
 };
 
 static const struct BgTemplate sSelect_BgTemplates[] =
@@ -408,12 +401,11 @@ static const struct WindowTemplate sSelect_WindowTemplates[] =
     DUMMY_WIN_TEMPLATE,
 };
 
-static const u16 gUnknown_0861046C[] = INCBIN_U16("graphics/unknown/unknown_61046C.gbapal");
-
+static const u16 sSelectText_Pal[] = INCBIN_U16("graphics/battle_frontier/factory_screen/text.gbapal");
 static const u8 sMenuOptionTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GREY, TEXT_COLOR_TRANSPARENT};
 static const u8 sSpeciesNameTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_RED, TEXT_COLOR_TRANSPARENT};
 
-static const struct OamData gUnknown_0861047C =
+static const struct OamData sOam_Select_Pokeball =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -430,7 +422,7 @@ static const struct OamData gUnknown_0861047C =
     .affineParam = 0,
 };
 
-static const struct OamData gUnknown_08610484 =
+static const struct OamData sOam_Select_Arrow =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -447,7 +439,7 @@ static const struct OamData gUnknown_08610484 =
     .affineParam = 0,
 };
 
-static const struct OamData gUnknown_0861048C =
+static const struct OamData sOam_Select_MenuHighlight =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -464,7 +456,7 @@ static const struct OamData gUnknown_0861048C =
     .affineParam = 0,
 };
 
-static const struct OamData gUnknown_08610494 =
+static const struct OamData sOam_Select_MonPicBgAnim =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_DOUBLE,
@@ -481,25 +473,25 @@ static const struct OamData gUnknown_08610494 =
     .affineParam = 1,
 };
 
-static const union AnimCmd gUnknown_0861049C[] =
+static const union AnimCmd sAnim_Select_Interface[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
 
-static const union AnimCmd gUnknown_086104A4[] =
+static const union AnimCmd sAnim_Select_MonPicBgAnim[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
 
-static const union AnimCmd gUnknown_086104AC[] =
+static const union AnimCmd sAnim_Select_Pokeball_Still[] =
 {
     ANIMCMD_FRAME(0, 30),
     ANIMCMD_END,
 };
 
-static const union AnimCmd gUnknown_086104B4[] =
+static const union AnimCmd sAnim_Select_Pokeball_Moving[] =
 {
     ANIMCMD_FRAME(16, 4),
     ANIMCMD_FRAME(0, 4),
@@ -521,20 +513,20 @@ static const union AnimCmd gUnknown_086104B4[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd * const gUnknown_086104FC[] =
+static const union AnimCmd * const sAnims_Select_Interface[] =
 {
-    gUnknown_0861049C,
+    sAnim_Select_Interface,
 };
 
-static const union AnimCmd * const gUnknown_08610500[] =
+static const union AnimCmd * const sAnims_Select_MonPicBgAnim[] =
 {
-    gUnknown_086104A4,
+    sAnim_Select_MonPicBgAnim,
 };
 
-static const union AnimCmd * const gUnknown_08610504[] =
+static const union AnimCmd * const sAnims_Select_Pokeball[] =
 {
-    gUnknown_086104AC,
-    gUnknown_086104B4,
+    sAnim_Select_Pokeball_Still,
+    sAnim_Select_Pokeball_Moving,
 };
 
 static const union AffineAnimCmd gUnknown_0861050C[] =
@@ -573,98 +565,98 @@ static const union AffineAnimCmd gUnknown_086105BC[] =
     AFFINEANIMCMD_END,
 };
 
-static const union AffineAnimCmd * const gUnknown_086105CC[] =
+static const union AffineAnimCmd * const sAffineAnims_Select_MonPicBgAnim[] =
 {
     gUnknown_0861050C,
     gUnknown_0861056C,
     gUnknown_086105BC,
 };
 
-static const struct SpriteTemplate gUnknown_086105D8 =
+static const struct SpriteTemplate sSpriteTemplate_Select_Pokeball =
 {
-    .tileTag = TAG_TILE_64,
-    .paletteTag = TAG_PAL_BALL_GREY,
-    .oam = &gUnknown_0861047C,
-    .anims = gUnknown_08610504,
+    .tileTag = GFXTAG_BALL,
+    .paletteTag = PALTAG_BALL_GRAY,
+    .oam = &sOam_Select_Pokeball,
+    .anims = sAnims_Select_Pokeball,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = sub_819A44C
+    .callback = SpriteCB_Pokeball
 };
 
-static const struct SpriteTemplate gUnknown_086105F0 =
+static const struct SpriteTemplate sSpriteTemplate_Select_Arrow =
 {
-    .tileTag = TAG_TILE_65,
-    .paletteTag = TAG_PAL_66,
-    .oam = &gUnknown_08610484,
-    .anims = gUnknown_086104FC,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct SpriteTemplate gUnknown_08610608 =
-{
-    .tileTag = TAG_TILE_66,
-    .paletteTag = TAG_PAL_66,
-    .oam = &gUnknown_0861048C,
-    .anims = gUnknown_086104FC,
+    .tileTag = GFXTAG_ARROW,
+    .paletteTag = PALTAG_INTERFACE,
+    .oam = &sOam_Select_Arrow,
+    .anims = sAnims_Select_Interface,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
 
-static const struct SpriteTemplate gUnknown_08610620 =
+static const struct SpriteTemplate sSpriteTemplate_Select_MenuHighlightLeft =
 {
-    .tileTag = TAG_TILE_67,
-    .paletteTag = TAG_PAL_66,
-    .oam = &gUnknown_0861048C,
-    .anims = gUnknown_086104FC,
+    .tileTag = GFXTAG_MENU_HIGHLIGHT_LEFT,
+    .paletteTag = PALTAG_INTERFACE,
+    .oam = &sOam_Select_MenuHighlight,
+    .anims = sAnims_Select_Interface,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
 
-static const struct SpriteTemplate gUnknown_08610638 =
+static const struct SpriteTemplate sSpriteTemplate_Select_MenuHighlightRight =
 {
-    .tileTag = TAG_TILE_6D,
-    .paletteTag = TAG_PAL_67,
-    .oam = &gUnknown_08610494,
-    .anims = gUnknown_08610500,
+    .tileTag = GFXTAG_MENU_HIGHLIGHT_RIGHT,
+    .paletteTag = PALTAG_INTERFACE,
+    .oam = &sOam_Select_MenuHighlight,
+    .anims = sAnims_Select_Interface,
     .images = NULL,
-    .affineAnims = gUnknown_086105CC,
+    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
 
-static const struct SpriteSheet gUnknown_08610650[] =
+static const struct SpriteTemplate sSpriteTemplate_Select_MonPicBgAnim =
 {
-    {gUnknown_0860F3BC, sizeof(gUnknown_0860F3BC), TAG_TILE_65},
-    {gUnknown_0860F43C, sizeof(gUnknown_0860F43C), TAG_TILE_66},
-    {gUnknown_0860F53C, sizeof(gUnknown_0860F53C), TAG_TILE_67},
-    {gUnknown_0860F63C, sizeof(gUnknown_0860F63C), TAG_TILE_68},
-    {gUnknown_0860F6BC, sizeof(gUnknown_0860F6BC), TAG_TILE_69},
-    {gUnknown_0860F7BC, 0x100, TAG_TILE_6A},
-    {gUnknown_0860F83C, sizeof(gUnknown_0860F83C), TAG_TILE_6B},
-    {gUnknown_0860F93C, sizeof(gUnknown_0860F93C), TAG_TILE_6C},
-    {gUnknown_0860FA3C, sizeof(gUnknown_0860FA3C), TAG_TILE_6D},
+    .tileTag = GFXTAG_MON_PIC_BG_ANIM,
+    .paletteTag = PALTAG_MON_PIC_BG,
+    .oam = &sOam_Select_MonPicBgAnim,
+    .anims = sAnims_Select_MonPicBgAnim,
+    .images = NULL,
+    .affineAnims = sAffineAnims_Select_MonPicBgAnim,
+    .callback = SpriteCallbackDummy
+};
+
+static const struct SpriteSheet sSwap_SpriteSheets[] =
+{
+    {sArrow_Gfx,                 sizeof(sArrow_Gfx),                 GFXTAG_ARROW},
+    {sMenuHighlightLeft_Gfx,     sizeof(sMenuHighlightLeft_Gfx),     GFXTAG_MENU_HIGHLIGHT_LEFT},
+    {sMenuHighlightRight_Gfx,    sizeof(sMenuHighlightRight_Gfx),    GFXTAG_MENU_HIGHLIGHT_RIGHT},
+    {sActionBoxLeft_Gfx,         sizeof(sActionBoxLeft_Gfx),         GFXTAG_ACTION_BOX_LEFT},
+    {sActionBoxRight_Gfx,        sizeof(sActionBoxRight_Gfx),        GFXTAG_ACTION_BOX_RIGHT},
+    {sActionHighlightLeft_Gfx,   0x100,                              GFXTAG_ACTION_HIGHLIGHT_LEFT},
+    {sActionHighlightMiddle_Gfx, sizeof(sActionHighlightMiddle_Gfx), GFXTAG_ACTION_HIGHLIGHT_MIDDLE},
+    {sActionHighlightRight_Gfx,  sizeof(sActionHighlightRight_Gfx),  GFXTAG_ACTION_HIGHLIGHT_RIGHT},
+    {sMonPicBgAnim_Gfx,          sizeof(sMonPicBgAnim_Gfx),          GFXTAG_MON_PIC_BG_ANIM},
     {},
 };
 
-static const struct CompressedSpriteSheet gUnknown_086106A0[] =
+static const struct CompressedSpriteSheet sSwap_BallGfx[] =
 {
-    {gPokeballSelection_Gfx, 0x800, TAG_TILE_64},
+    {gPokeballSelection_Gfx, 0x800, GFXTAG_BALL},
     {},
 };
 
-static const struct SpritePalette gUnknown_086106B0[] =
+static const struct SpritePalette sSwap_SpritePalettes[] =
 {
-    {gUnknown_0860F13C, TAG_PAL_BALL_GREY},
-    {gUnknown_0860F15C, TAG_PAL_BALL_SELECTED},
-    {gUnknown_0860F17C, TAG_PAL_66},
-    {gUnknown_0861039C, TAG_PAL_67},
+    {sPokeballGray_Pal,     PALTAG_BALL_GRAY},
+    {sPokeballSelected_Pal, PALTAG_BALL_SELECTED},
+    {sInterface_Pal,        PALTAG_INTERFACE},
+    {sMonPicBg_Pal,         PALTAG_MON_PIC_BG},
     {},
 };
 
-static const struct OamData gUnknown_086106D8 =
+static const struct OamData sOam_Swap_Pokeball =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -681,7 +673,7 @@ static const struct OamData gUnknown_086106D8 =
     .affineParam = 0,
 };
 
-static const struct OamData gUnknown_086106E0 =
+static const struct OamData sOam_Swap_Arrow =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -698,7 +690,7 @@ static const struct OamData gUnknown_086106E0 =
     .affineParam = 0,
 };
 
-static const struct OamData gUnknown_086106E8 =
+static const struct OamData sOam_Swap_MenuHighlight =
 {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -732,7 +724,7 @@ static const struct OamData sOam_Swap_MonPicBgAnim =
     .affineParam = 1,
 };
 
-static const union AnimCmd gUnknown_086106F8[] =
+static const union AnimCmd sAnim_Swap_Interface[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
@@ -744,13 +736,13 @@ static const union AnimCmd sAnim_Swap_MonPicBgAnim[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd gUnknown_08610708[] =
+static const union AnimCmd sAnim_Swap_Pokeball_Still[] =
 {
     ANIMCMD_FRAME(0, 30),
     ANIMCMD_END,
 };
 
-static const union AnimCmd gUnknown_08610710[] =
+static const union AnimCmd sAnim_Swap_Pokeball_Moving[] =
 {
     ANIMCMD_FRAME(16, 4),
     ANIMCMD_FRAME(0, 4),
@@ -772,9 +764,9 @@ static const union AnimCmd gUnknown_08610710[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd * const gUnknown_08610758[] =
+static const union AnimCmd * const sAnims_Swap_Interface[] =
 {
-    gUnknown_086106F8,
+    sAnim_Swap_Interface,
 };
 
 static const union AnimCmd * const sAnims_Swap_MonPicBgAnim[] =
@@ -782,10 +774,10 @@ static const union AnimCmd * const sAnims_Swap_MonPicBgAnim[] =
     sAnim_Swap_MonPicBgAnim,
 };
 
-static const union AnimCmd * const gUnknown_08610760[] =
+static const union AnimCmd * const sAnims_Swap_Pokeball[] =
 {
-    gUnknown_08610708,
-    gUnknown_08610710,
+    sAnim_Swap_Pokeball_Still,
+    sAnim_Swap_Pokeball_Moving,
 };
 
 static const union AffineAnimCmd gUnknown_08610768[] =
@@ -831,51 +823,51 @@ static const union AffineAnimCmd * const sAffineAnims_Swap_MonPicBgAnim[] =
     gUnknown_08610818,
 };
 
-static const struct SpriteTemplate gUnknown_08610834 =
+static const struct SpriteTemplate sSpriteTemplate_Swap_Pokeball =
 {
-    .tileTag = TAG_TILE_64,
-    .paletteTag = TAG_PAL_BALL_GREY,
-    .oam = &gUnknown_086106D8,
-    .anims = gUnknown_08610760,
+    .tileTag = GFXTAG_BALL,
+    .paletteTag = PALTAG_BALL_GRAY,
+    .oam = &sOam_Swap_Pokeball,
+    .anims = sAnims_Swap_Pokeball,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = sub_819A44C
+    .callback = SpriteCB_Pokeball
 };
 
-static const struct SpriteTemplate gUnknown_0861084C =
+static const struct SpriteTemplate sSpriteTemplate_Swap_Arrow =
 {
-    .tileTag = TAG_TILE_65,
-    .paletteTag = TAG_PAL_66,
-    .oam = &gUnknown_086106E0,
-    .anims = gUnknown_08610758,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct SpriteTemplate gUnknown_08610864 =
-{
-    .tileTag = TAG_TILE_66,
-    .paletteTag = TAG_PAL_66,
-    .oam = &gUnknown_086106E8,
-    .anims = gUnknown_08610758,
+    .tileTag = GFXTAG_ARROW,
+    .paletteTag = PALTAG_INTERFACE,
+    .oam = &sOam_Swap_Arrow,
+    .anims = sAnims_Swap_Interface,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
 
-static const struct SpriteTemplate gUnknown_0861087C =
+static const struct SpriteTemplate sSpriteTemplate_Swap_MenuHighlightLeft =
 {
-    .tileTag = TAG_TILE_67,
-    .paletteTag = TAG_PAL_66,
-    .oam = &gUnknown_086106E8,
-    .anims = gUnknown_08610758,
+    .tileTag = GFXTAG_MENU_HIGHLIGHT_LEFT,
+    .paletteTag = PALTAG_INTERFACE,
+    .oam = &sOam_Swap_MenuHighlight,
+    .anims = sAnims_Swap_Interface,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
 
-static const struct SpriteTemplate gUnknown_08610894 =
+static const struct SpriteTemplate sSpriteTemplate_Swap_MenuHighlightRight =
+{
+    .tileTag = GFXTAG_MENU_HIGHLIGHT_RIGHT,
+    .paletteTag = PALTAG_INTERFACE,
+    .oam = &sOam_Swap_MenuHighlight,
+    .anims = sAnims_Swap_Interface,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
+
+static const struct SpriteTemplate sSpriteTemplate_Swap_MonPicBgAnim =
 {
     .tileTag = GFXTAG_MON_PIC_BG_ANIM,
     .paletteTag = PALTAG_MON_PIC_BG,
@@ -888,9 +880,9 @@ static const struct SpriteTemplate gUnknown_08610894 =
 
 void static (* const sSwap_MenuOptionFuncs[])(u8 taskId) =
 {
-    sub_819F114,
-    sub_819F0CC,
-    sub_819F134,
+    Swap_OptionSummary,
+    Swap_OptionSwap,
+    Swap_OptionRechoose,
 };
 
 static const struct BgTemplate sSwap_BgTemplates[4] =
@@ -1031,7 +1023,7 @@ static const struct WindowTemplate sSwap_WindowTemplates[] =
     DUMMY_WIN_TEMPLATE,
 };
 
-static const u16 gUnknown_08610918[] = {RGB_BLACK, RGB_BLACK, RGB_WHITE, RGB_BLACK, RGB_RED}; // Palette.
+static const u16 sSwapText_Pal[] = INCBIN_U16("graphics/battle_frontier/factory_screen/text.gbapal"); // Identical to sSelectText_Pal
 static const u8 sSwapMenuOptionsTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GREY, TEXT_COLOR_TRANSPARENT};
 static const u8 sSwapSpeciesNameTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_RED, TEXT_COLOR_TRANSPARENT};
 
@@ -1047,7 +1039,7 @@ static const struct SwapScreenAction sSwap_PlayerScreenActions[] =
     {.id = SWAPACTION_CANCEL, .func = Swap_ActionCancel},
 };
 
-static const struct SwapActionIdAndFunc sSwap_EnemyScreenActions[] =
+static const struct SwapScreenAction sSwap_EnemyScreenActions[] =
 {
     {.id = SWAPACTION_MON, .func = Swap_ActionMon},
     {.id = SWAPACTION_MON, .func = Swap_ActionMon},
@@ -1058,8 +1050,9 @@ static const struct SwapActionIdAndFunc sSwap_EnemyScreenActions[] =
 
 static void SpriteCB_Pokeball(struct Sprite *sprite)
 {
-    if (sprite->oam.paletteNum == IndexOfSpritePaletteTag(TAG_PAL_BALL_SELECTED))
+    if (sprite->oam.paletteNum == IndexOfSpritePaletteTag(PALTAG_BALL_SELECTED))
     {
+        // Pokeball selected, do rocking animation
         if (sprite->animEnded)
         {
             if (sprite->data[0] != 0)
@@ -1083,11 +1076,12 @@ static void SpriteCB_Pokeball(struct Sprite *sprite)
     }
     else
     {
+        // Pokeball not selected, remain still
         StartSpriteAnimIfDifferent(sprite, 0);
     }
 }
 
-static void Select_CB2(void)
+static void CB2_SelectScreen(void)
 {
     AnimateSprites();
     BuildOamBuffer();
@@ -1096,7 +1090,7 @@ static void Select_CB2(void)
     RunTasks();
 }
 
-static void Select_VblankCb(void)
+static void VBlankCB_SelectScreen(void)
 {
     LoadOam();
     ProcessSpriteCopyRequests();
@@ -1150,9 +1144,9 @@ static void CB2_InitSelectScreen(void)
         break;
     case 1:
         sSelectMenuTilesetBuffer = Alloc(0x440);
-        sSelectMonCardBgTilesetBuffer = AllocZeroed(0x440);
-        sSelectMenuTilemapBuffer = Alloc(0x800);
-        sSelectMonCardBgTilemapBuffer = AllocZeroed(0x800);
+        sSelectMonPicBgTilesetBuffer = AllocZeroed(0x440);
+        sSelectMenuTilemapBuffer = Alloc(BG_SCREEN_SIZE);
+        sSelectMonPicBgTilemapBuffer = AllocZeroed(BG_SCREEN_SIZE);
         ChangeBgX(0, 0, 0);
         ChangeBgY(0, 0, 0);
         ChangeBgX(1, 0, 0);
@@ -1177,35 +1171,35 @@ static void CB2_InitSelectScreen(void)
         ResetTasks();
         FreeAllSpritePalettes();
         CpuCopy16(gFrontierFactorySelectMenu_Gfx, sSelectMenuTilesetBuffer, 0x440);
-        CpuCopy16(gUnknown_0861033C, sSelectMonCardBgTilesetBuffer, 0x60);
+        CpuCopy16(sMonPicBg_Gfx, sSelectMonPicBgTilesetBuffer, 0x60);
         LoadBgTiles(1, sSelectMenuTilesetBuffer, 0x440, 0);
-        LoadBgTiles(3, sSelectMonCardBgTilesetBuffer, 0x60, 0);
-        CpuCopy16(gFrontierFactorySelectMenu_Tilemap, sSelectMenuTilemapBuffer, 0x800);
-        LoadBgTilemap(1, sSelectMenuTilemapBuffer, 0x800, 0);
+        LoadBgTiles(3, sSelectMonPicBgTilesetBuffer, 0x60, 0);
+        CpuCopy16(gFrontierFactorySelectMenu_Tilemap, sSelectMenuTilemapBuffer, BG_SCREEN_SIZE);
+        LoadBgTilemap(1, sSelectMenuTilemapBuffer, BG_SCREEN_SIZE, 0);
         LoadPalette(gFrontierFactorySelectMenu_Pal, 0, 0x40);
-        LoadPalette(gUnknown_0861046C, 0xF0, 8);
-        LoadPalette(gUnknown_0861046C, 0xE0, 10);
+        LoadPalette(sSelectText_Pal, 0xF0, 8);
+        LoadPalette(sSelectText_Pal, 0xE0, 10);
 #ifdef UBFIX
         if (sFactorySelectScreen && sFactorySelectScreen->fromSummaryScreen)
-        #else
+#else
         if (sFactorySelectScreen->fromSummaryScreen == TRUE)
-        #endif
-            gPlttBufferUnfaded[228] = sFactorySelectScreen->unk2A4;
-        LoadPalette(gUnknown_0861039C, 0x20, 4);
+#endif
+            gPlttBufferUnfaded[228] = sFactorySelectScreen->speciesNameColorBackup;
+        LoadPalette(sMonPicBg_Pal, 0x20, 4);
         gMain.state++;
         break;
     case 3:
-        SetBgTilemapBuffer(3, sSelectMonCardBgTilemapBuffer);
-        CopyToBgTilemapBufferRect(3, gUnknown_0861023C, 11, 4, 8, 8);
-        CopyToBgTilemapBufferRect(3, gUnknown_0861023C,  2, 4, 8, 8);
-        CopyToBgTilemapBufferRect(3, gUnknown_0861023C, 20, 4, 8, 8);
+        SetBgTilemapBuffer(3, sSelectMonPicBgTilemapBuffer);
+        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 11, 4, 8, 8);
+        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap,  2, 4, 8, 8);
+        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 20, 4, 8, 8);
         CopyBgTilemapBufferToVram(3);
         gMain.state++;
         break;
     case 4:
-        LoadSpritePalettes(gUnknown_086103F4);
-        LoadSpriteSheets(gUnknown_086103BC);
-        LoadCompressedSpriteSheet(gUnknown_086103E4);
+        LoadSpritePalettes(sSelect_SpritePalettes);
+        LoadSpriteSheets(sSelect_SpriteSheets);
+        LoadCompressedSpriteSheet(sSelect_BallGfx);
         ShowBg(0);
         ShowBg(1);
         SetVBlankCallback(VBlankCB_SelectScreen);
@@ -1213,9 +1207,9 @@ static void CB2_InitSelectScreen(void)
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_OBJ_1D_MAP);
 #ifdef UBFIX
         if (sFactorySelectScreen && sFactorySelectScreen->fromSummaryScreen)
-        #else
+#else
         if (sFactorySelectScreen->fromSummaryScreen == TRUE)
-        #endif
+#endif
         {
             Select_SetWinRegs(88, 152, 32, 96);
             ShowBg(3);
@@ -1231,14 +1225,14 @@ static void CB2_InitSelectScreen(void)
     case 5:
 #ifdef UBFIX
         if (sFactorySelectScreen && sFactorySelectScreen->fromSummaryScreen)
-        #else
+#else
         if (sFactorySelectScreen->fromSummaryScreen == TRUE)
-        #endif
+#endif
             sFactorySelectScreen->cursorPos = gLastViewedMonIndex;
         Select_InitMonsData();
         Select_InitAllSprites();
         if (sFactorySelectScreen->fromSummaryScreen == TRUE)
-            Select_ShowSummaryMonSprite();
+            Select_ReshowMonSprite();
         gMain.state++;
         break;
     case 6:
@@ -1276,7 +1270,7 @@ static void CB2_InitSelectScreen(void)
             taskId = CreateTask(Select_Task_HandleMenu, 0);
             gTasks[taskId].tState = STATE_MENU_RESHOW;
         }
-        SetMainCallback2(Select_CB2);
+        SetMainCallback2(CB2_SelectScreen);
         break;
     }
 }
@@ -1428,7 +1422,7 @@ static void Select_HandleMonSelectionChange(void)
     }
     else // Select a mon.
     {
-        paletteNum = IndexOfSpritePaletteTag(TAG_PAL_BALL_SELECTED);
+        paletteNum = IndexOfSpritePaletteTag(PALTAG_BALL_SELECTED);
         sFactorySelectScreen->mons[cursorPos].selectedId = sFactorySelectScreen->selectingMonsState;
         sFactorySelectScreen->selectingMonsState++;
     }
@@ -1441,9 +1435,9 @@ static void Select_SetBallSpritePaletteNum(u8 id)
     u8 palNum;
 
     if (sFactorySelectScreen->mons[id].selectedId)
-        palNum = IndexOfSpritePaletteTag(TAG_PAL_BALL_SELECTED);
+        palNum = IndexOfSpritePaletteTag(PALTAG_BALL_SELECTED);
     else
-        palNum = IndexOfSpritePaletteTag(TAG_PAL_BALL_GREY);
+        palNum = IndexOfSpritePaletteTag(PALTAG_BALL_GRAY);
 
     gSprites[sFactorySelectScreen->mons[id].ballSpriteId].oam.paletteNum = palNum;
 }
@@ -1467,9 +1461,9 @@ static void Select_Task_OpenSummaryScreen(u8 taskId)
             HideMonPic(sFactorySelectScreen->monPics[1], &sFactorySelectScreen->monPicAnimating);
             Select_DestroyAllSprites();
             FREE_AND_SET_NULL(sSelectMenuTilesetBuffer);
-            FREE_AND_SET_NULL(sSelectMonCardBgTilesetBuffer);
+            FREE_AND_SET_NULL(sSelectMonPicBgTilesetBuffer);
             FREE_AND_SET_NULL(sSelectMenuTilemapBuffer);
-            FREE_AND_SET_NULL(sSelectMonCardBgTilemapBuffer);
+            FREE_AND_SET_NULL(sSelectMonPicBgTilemapBuffer);
             FreeAllWindowBuffers();
             gTasks[taskId].tState = STATE_SUMMARY_SHOW;
         }
@@ -1482,7 +1476,7 @@ static void Select_Task_OpenSummaryScreen(u8 taskId)
         sFactorySelectMons = AllocZeroed(sizeof(struct Pokemon) * SELECTABLE_MONS_COUNT);
         for (i = 0; i < SELECTABLE_MONS_COUNT; i++)
             sFactorySelectMons[i] = sFactorySelectScreen->mons[i].monData;
-        ShowPokemonSummaryScreen(1, sFactorySelectMons, currMonId, SELECTABLE_MONS_COUNT - 1, CB2_InitSelectScreen);
+        ShowPokemonSummaryScreen(PSS_MODE_LOCK_MOVES, sFactorySelectMons, currMonId, SELECTABLE_MONS_COUNT - 1, CB2_InitSelectScreen);
         break;
     }
 }
@@ -1648,7 +1642,7 @@ static void Select_Task_HandleMenu(u8 taskId)
         {
             if (sFactorySelectScreen->fromSummaryScreen == TRUE)
             {
-                gPlttBufferFaded[228] = sFactorySelectScreen->unk2A4;
+                gPlttBufferFaded[228] = sFactorySelectScreen->speciesNameColorBackup;
                 gPlttBufferUnfaded[228] = gPlttBufferUnfaded[244];
             }
             sFactorySelectScreen->fromSummaryScreen = FALSE;
@@ -1733,7 +1727,7 @@ static void CreateFrontierFactorySelectableMons(u8 firstMonId)
     u8 i, j = 0;
     u8 ivs = 0;
     u8 level = 0;
-    u8 happiness = 0;
+    u8 friendship = 0;
     u32 otId = 0;
     u8 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
     u8 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
@@ -1764,10 +1758,10 @@ static void CreateFrontierFactorySelectableMons(u8 firstMonId)
                                              ivs,
                                              gFacilityTrainerMons[monId].evSpread,
                                              otId);
-        happiness = 0;
+        friendship = 0;
         for (j = 0; j < MAX_MON_MOVES; j++)
             SetMonMoveAvoidReturn(&sFactorySelectScreen->mons[i + firstMonId].monData, gFacilityTrainerMons[monId].moves[j], j);
-        SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_FRIENDSHIP, &happiness);
+        SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_FRIENDSHIP, &friendship);
         SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
     }
 }
@@ -1777,7 +1771,7 @@ static void CreateSlateportTentSelectableMons(u8 firstMonId)
     u8 i, j;
     u8 ivs = 0;
     u8 level = 30;
-    u8 happiness = 0;
+    u8 friendship = 0;
     u32 otId = 0;
 
     gFacilityTrainerMons = gSlateportBattleTentMons;
@@ -1794,10 +1788,10 @@ static void CreateSlateportTentSelectableMons(u8 firstMonId)
                                              ivs,
                                              gFacilityTrainerMons[monId].evSpread,
                                              otId);
-        happiness = 0;
+        friendship = 0;
         for (j = 0; j < MAX_MON_MOVES; j++)
             SetMonMoveAvoidReturn(&sFactorySelectScreen->mons[i + firstMonId].monData, gFacilityTrainerMons[monId].moves[j], j);
-        SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_FRIENDSHIP, &happiness);
+        SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_FRIENDSHIP, &friendship);
         SetMonData(&sFactorySelectScreen->mons[i + firstMonId].monData, MON_DATA_HELD_ITEM, &gBattleFrontierHeldItems[gFacilityTrainerMons[monId].itemTableId]);
     }
 }
@@ -1806,7 +1800,7 @@ static void Select_CopyMonsToPlayerParty(void)
 {
     u8 i, j;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
         for (j = 0; j < SELECTABLE_MONS_COUNT; j++)
         {
@@ -1937,8 +1931,8 @@ static void Select_PrintYesNoOptions(void)
 
 static u8 Select_RunMenuOptionFunc(void)
 {
-    gUnknown_030062E8 = sSelect_MenuOptionFuncs[sFactorySelectScreen->menuCursorPos];
-    return gUnknown_030062E8();
+    gFactorySelect_CurrentOptionFunc = sSelect_MenuOptionFuncs[sFactorySelectScreen->menuCursorPos];
+    return gFactorySelect_CurrentOptionFunc();
 }
 
 static u8 Select_OptionRentDeselect(void)
@@ -2026,7 +2020,7 @@ static void Select_SetMonPicAnimating(bool8 animating)
     sFactorySelectScreen->monPicAnimating = animating;
 }
 
-static void Select_ShowSummaryMonSprite(void)
+static void Select_ReshowMonSprite(void)
 {
     struct Pokemon *mon;
     u16 species;
@@ -2051,7 +2045,7 @@ static void Select_CreateChosenMonsSprites(void)
 {
     u8 i, j;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
         for (j = 0; j < SELECTABLE_MONS_COUNT; j++)
         {
@@ -2344,13 +2338,13 @@ static void Swap_VblankCb(void)
 
 static void CopySwappedMonData(void)
 {
-    u8 happiness;
+    u8 friendship;
 
     gPlayerParty[sFactorySwapScreen->playerMonId] = gEnemyParty[sFactorySwapScreen->enemyMonId];
-    happiness = 0;
-    SetMonData(&gPlayerParty[sFactorySwapScreen->playerMonId], MON_DATA_FRIENDSHIP, &happiness);
-    gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].monId = gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->enemyMonId + 3].monId;
-    gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].ivs = gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->enemyMonId + 3].ivs;
+    friendship = 0;
+    SetMonData(&gPlayerParty[sFactorySwapScreen->playerMonId], MON_DATA_FRIENDSHIP, &friendship);
+    gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].monId = gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->enemyMonId + FRONTIER_PARTY_SIZE].monId;
+    gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].ivs = gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->enemyMonId + FRONTIER_PARTY_SIZE].ivs;
     gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].personality = GetMonData(&gEnemyParty[sFactorySwapScreen->enemyMonId], MON_DATA_PERSONALITY, NULL);
     gSaveBlock2Ptr->frontier.rentalMons[sFactorySwapScreen->playerMonId].abilityNum = GetBoxMonData(&gEnemyParty[sFactorySwapScreen->enemyMonId].box, MON_DATA_ABILITY_NUM, NULL);
 }
@@ -2385,9 +2379,9 @@ static void Swap_Task_OpenSummaryScreen(u8 taskId)
             HideMonPic(sFactorySwapScreen->monPic, &sFactorySwapScreen->monPicAnimating);
             Swap_DestroyAllSprites();
             FREE_AND_SET_NULL(sSwapMenuTilesetBuffer);
-            FREE_AND_SET_NULL(sSwapMonCardBgTilesetBuffer);
+            FREE_AND_SET_NULL(sSwapMonPicBgTilesetBuffer);
             FREE_AND_SET_NULL(sSwapMenuTilemapBuffer);
-            FREE_AND_SET_NULL(sSwapMonCardBgTilemapBuffer);
+            FREE_AND_SET_NULL(sSwapMonPicBgTilemapBuffer);
             FreeAllWindowBuffers();
             gTasks[taskId].tState = STATE_SUMMARY_SHOW;
         }
@@ -2797,7 +2791,7 @@ static void Swap_Task_SlideCycleBalls(u8 taskId)
         lastX = 0;
         for (i = FRONTIER_PARTY_SIZE - 1; i >= 0; i--)
         {
-            if (i != 2)
+            if (i != FRONTIER_PARTY_SIZE - 1)
             {
                 u8 posX = lastX - gSprites[sFactorySwapScreen->ballSpriteIds[i]].pos1.x;
                 if (posX == 16 || gTasks[taskId].tBallCycled(i + 1) == TRUE)
@@ -2845,9 +2839,9 @@ static void Swap_Task_SlideCycleBalls(u8 taskId)
                 lastX = gSprites[sFactorySwapScreen->ballSpriteIds[i]].pos1.x;
                 gSprites[sFactorySwapScreen->ballSpriteIds[i]].pos1.x = -16;
                 if (sFactorySwapScreen->inEnemyScreen == TRUE)
-                    gSprites[sFactorySwapScreen->ballSpriteIds[i]].oam.paletteNum = IndexOfSpritePaletteTag(TAG_PAL_BALL_SELECTED);
+                    gSprites[sFactorySwapScreen->ballSpriteIds[i]].oam.paletteNum = IndexOfSpritePaletteTag(PALTAG_BALL_SELECTED);
                 else
-                    gSprites[sFactorySwapScreen->ballSpriteIds[i]].oam.paletteNum = IndexOfSpritePaletteTag(TAG_PAL_BALL_GREY);
+                    gSprites[sFactorySwapScreen->ballSpriteIds[i]].oam.paletteNum = IndexOfSpritePaletteTag(PALTAG_BALL_GRAY);
 
                 gTasks[taskId].tBallCycled(i) = TRUE;
             }
@@ -3001,7 +2995,7 @@ static void Swap_Task_ScreenInfoTransitionOut(u8 taskId)
     switch (gTasks[taskId].tState)
     {
     case 0:
-        LoadPalette(gUnknown_08610918, 0xE0, sizeof(gUnknown_08610918));
+        LoadPalette(sSwapText_Pal, 0xE0, sizeof(sSwapText_Pal));
         Swap_PrintActionStrings();
         PutWindowTilemap(SWAP_WIN_ACTION_FADE);
         gTasks[taskId].tState++;
@@ -3132,7 +3126,7 @@ static void Swap_Task_ScreenInfoTransitionIn(u8 taskId)
         if (gTasks[taskId].tSlideFinishedPkmn == TRUE 
          && gTasks[taskId].tSlideFinishedCancel == TRUE)
         {
-            gPlttBufferFaded[226] = gUnknown_0860F13C[37];
+            gPlttBufferFaded[226] = sPokeballGray_Pal[37];
             Swap_PrintActionStrings();
             PutWindowTilemap(SWAP_WIN_ACTION_FADE);
             gTasks[taskId].tState++;
@@ -3164,7 +3158,7 @@ static void Swap_Task_ScreenInfoTransitionIn(u8 taskId)
             Swap_PrintOnInfoWindow(gText_SelectPkmnToSwap);
         else
             Swap_PrintOnInfoWindow(gText_SelectPkmnToAccept);
-        if (sFactorySwapScreen->cursorPos < 3)
+        if (sFactorySwapScreen->cursorPos < FRONTIER_PARTY_SIZE)
             gSprites[sFactorySwapScreen->cursorSpriteId].invisible = FALSE;
         Swap_PrintMonCategory();
         gTasks[taskId].tState++;
@@ -3283,9 +3277,9 @@ static void CB2_InitSwapScreen(void)
         break;
     case 1:
         sSwapMenuTilesetBuffer = Alloc(0x440);
-        sSwapMonCardBgTilesetBuffer = AllocZeroed(0x440);
-        sSwapMenuTilemapBuffer = Alloc(0x800);
-        sSwapMonCardBgTilemapBuffer = AllocZeroed(0x800);
+        sSwapMonPicBgTilesetBuffer = AllocZeroed(0x440);
+        sSwapMenuTilemapBuffer = Alloc(BG_SCREEN_SIZE);
+        sSwapMonPicBgTilemapBuffer = AllocZeroed(BG_SCREEN_SIZE);
         ChangeBgX(0, 0, 0);
         ChangeBgY(0, 0, 0);
         ChangeBgX(1, 0, 0);
@@ -3311,36 +3305,36 @@ static void CB2_InitSwapScreen(void)
         FreeAllSpritePalettes();
         ResetAllPicSprites();
         CpuCopy16(gFrontierFactorySelectMenu_Gfx, sSwapMenuTilesetBuffer, 0x440);
-        CpuCopy16(gUnknown_0861033C, sSwapMonCardBgTilesetBuffer, 0x60);
+        CpuCopy16(sMonPicBg_Gfx, sSwapMonPicBgTilesetBuffer, 0x60);
         LoadBgTiles(1, sSwapMenuTilesetBuffer, 0x440, 0);
-        LoadBgTiles(3, sSwapMonCardBgTilesetBuffer, 0x60, 0);
-        CpuCopy16(gFrontierFactorySelectMenu_Tilemap, sSwapMenuTilemapBuffer, 0x800);
-        LoadBgTilemap(1, sSwapMenuTilemapBuffer, 0x800, 0);
+        LoadBgTiles(3, sSwapMonPicBgTilesetBuffer, 0x60, 0);
+        CpuCopy16(gFrontierFactorySelectMenu_Tilemap, sSwapMenuTilemapBuffer, BG_SCREEN_SIZE);
+        LoadBgTilemap(1, sSwapMenuTilemapBuffer, BG_SCREEN_SIZE, 0);
         LoadPalette(gFrontierFactorySelectMenu_Pal, 0, 0x40);
-        LoadPalette(gUnknown_08610918, 0xF0, sizeof(gUnknown_08610918));
-        LoadPalette(gUnknown_08610918, 0xE0, sizeof(gUnknown_08610918));
-        LoadPalette(gUnknown_0861039C, 0x20, 4);
+        LoadPalette(sSwapText_Pal, 0xF0, sizeof(sSwapText_Pal));
+        LoadPalette(sSwapText_Pal, 0xE0, sizeof(sSwapText_Pal));
+        LoadPalette(sMonPicBg_Pal, 0x20, 4);
         gMain.state++;
         break;
     case 3:
-        SetBgTilemapBuffer(3, sSwapMonCardBgTilemapBuffer);
-        CopyToBgTilemapBufferRect(3, gUnknown_0861023C, 11, 4, 8, 8);
+        SetBgTilemapBuffer(3, sSwapMonPicBgTilemapBuffer);
+        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 11, 4, 8, 8);
         CopyBgTilemapBufferToVram(3);
         gMain.state++;
         break;
     case 4:
-        LoadSpritePalettes(gUnknown_086106B0);
-        LoadSpriteSheets(gUnknown_08610650);
-        LoadCompressedSpriteSheet(gUnknown_086106A0);
+        LoadSpritePalettes(sSwap_SpritePalettes);
+        LoadSpriteSheets(sSwap_SpriteSheets);
+        LoadCompressedSpriteSheet(sSwap_BallGfx);
         SetVBlankCallback(Swap_VblankCb);
         gMain.state++;
         break;
     case 5:
 #ifdef UBFIX
         if (sFactorySwapScreen && sFactorySwapScreen->fromSummaryScreen)
-        #else
+#else
         if (sFactorySwapScreen->fromSummaryScreen == TRUE)
-        #endif
+#endif
             sFactorySwapScreen->cursorPos = gLastViewedMonIndex;
         gMain.state++;
         break;
@@ -3431,17 +3425,17 @@ static void Swap_InitAllSprites(void)
     u8 x;
     struct SpriteTemplate spriteTemplate;
 
-    spriteTemplate = gUnknown_08610834;
-    spriteTemplate.paletteTag = TAG_PAL_BALL_SELECTED;
+    spriteTemplate = sSpriteTemplate_Swap_Pokeball;
+    spriteTemplate.paletteTag = PALTAG_BALL_SELECTED;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
         sFactorySwapScreen->ballSpriteIds[i] = CreateSprite(&spriteTemplate, (48 * i) + 72, 64, 1);
         gSprites[sFactorySwapScreen->ballSpriteIds[i]].data[0] = 0;
     }
-    sFactorySwapScreen->cursorSpriteId = CreateSprite(&gUnknown_0861084C, gSprites[sFactorySwapScreen->ballSpriteIds[sFactorySwapScreen->cursorPos]].pos1.x, 88, 0);
-    sFactorySwapScreen->menuCursor1SpriteId = CreateSprite(&gUnknown_08610864, 176, 112, 0);
-    sFactorySwapScreen->menuCursor2SpriteId = CreateSprite(&gUnknown_0861087C, 176, 144, 0);
+    sFactorySwapScreen->cursorSpriteId = CreateSprite(&sSpriteTemplate_Swap_Arrow, gSprites[sFactorySwapScreen->ballSpriteIds[sFactorySwapScreen->cursorPos]].pos1.x, 88, 0);
+    sFactorySwapScreen->menuCursor1SpriteId = CreateSprite(&sSpriteTemplate_Swap_MenuHighlightLeft, 176, 112, 0);
+    sFactorySwapScreen->menuCursor2SpriteId = CreateSprite(&sSpriteTemplate_Swap_MenuHighlightRight, 176, 144, 0);
     gSprites[sFactorySwapScreen->menuCursor1SpriteId].invisible = TRUE;
     gSprites[sFactorySwapScreen->menuCursor2SpriteId].invisible = TRUE;
     gSprites[sFactorySwapScreen->menuCursor1SpriteId].centerToCornerVecX = 0;
@@ -3523,7 +3517,7 @@ static void Swap_DestroyAllSprites(void)
 {
     u8 i, j;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
         DestroySprite(&gSprites[sFactorySwapScreen->ballSpriteIds[i]]);
     DestroySprite(&gSprites[sFactorySwapScreen->cursorSpriteId]);
     DestroySprite(&gSprites[sFactorySwapScreen->menuCursor1SpriteId]);
@@ -3542,7 +3536,7 @@ static void Swap_DestroyAllSprites(void)
 
 static void Swap_HandleActionCursorChange(u8 cursorId)
 {
-    if (cursorId < 3)
+    if (cursorId < FRONTIER_PARTY_SIZE)
     {
         // Cursor is on one of the pokemon
         gSprites[sFactorySwapScreen->cursorSpriteId].invisible = FALSE;
@@ -3586,8 +3580,8 @@ static void Swap_UpdateActionCursorPosition(s8 direction)
     PlaySE(SE_SELECT);
     if (direction > 0) // Move cursor down.
     {
-        if (sFactorySwapScreen->cursorPos < 3)
-            sFactorySwapScreen->cursorPos = 3;
+        if (sFactorySwapScreen->cursorPos < FRONTIER_PARTY_SIZE)
+            sFactorySwapScreen->cursorPos = FRONTIER_PARTY_SIZE;
         else if (sFactorySwapScreen->cursorPos + 1 != sFactorySwapScreen->actionsCount)
             sFactorySwapScreen->cursorPos++;
         else
@@ -3595,7 +3589,7 @@ static void Swap_UpdateActionCursorPosition(s8 direction)
     }
     else // Move cursor up.
     {
-        if (sFactorySwapScreen->cursorPos < 3)
+        if (sFactorySwapScreen->cursorPos < FRONTIER_PARTY_SIZE)
             sFactorySwapScreen->cursorPos = sFactorySwapScreen->actionsCount - 1;
         else if (sFactorySwapScreen->cursorPos != 0)
             sFactorySwapScreen->cursorPos--;
@@ -3869,7 +3863,7 @@ static void Swap_PrintMonSpeciesAtFade(void)
     u8 x;
     u16 pal[5];
 
-    CpuCopy16(gUnknown_08610918, pal, 8);
+    CpuCopy16(sSwapText_Pal, pal, 8);
     if (!sFactorySwapScreen->fromSummaryScreen)
         pal[4] = gPlttBufferFaded[228];
     else
@@ -3905,7 +3899,7 @@ static void Swap_PrintMonSpeciesForTransition(void)
     LoadPalette(sSwapText_Pal, 0xE0, sizeof(sSwapText_Pal));
     CpuCopy16(&gPlttBufferUnfaded[240], &gPlttBufferFaded[224], 10);
 
-    if (sFactorySwapScreen->cursorPos > 2)
+    if (sFactorySwapScreen->cursorPos >= FRONTIER_PARTY_SIZE)
     {
         CopyWindowToVram(SWAP_WIN_SPECIES, 2);
     }
@@ -3973,11 +3967,11 @@ static void Swap_InitActions(u8 id)
 
 static void Swap_RunMenuOptionFunc(u8 taskId)
 {
-    sSwap_CurrentTableFunc = sSwap_MenuOptionFuncs[sFactorySwapScreen->menuCursorPos];
-    sSwap_CurrentTableFunc(taskId);
+    sSwap_CurrentOptionFunc = sSwap_MenuOptionFuncs[sFactorySwapScreen->menuCursorPos];
+    sSwap_CurrentOptionFunc(taskId);
 }
 
-static void sub_819F0CC(u8 taskId)
+static void Swap_OptionSwap(u8 taskId)
 {
     CloseMonPic(sFactorySwapScreen->monPic, &sFactorySwapScreen->monPicAnimating, TRUE);
     sFactorySwapScreen->playerMonId = sFactorySwapScreen->cursorPos;
@@ -3986,13 +3980,13 @@ static void sub_819F0CC(u8 taskId)
     gTasks[taskId].func = Swap_Task_SwitchPartyScreen;
 }
 
-static void sub_819F114(u8 taskId)
+static void Swap_OptionSummary(u8 taskId)
 {
     gTasks[taskId].tState = STATE_SUMMARY_FADE;
     gTasks[taskId].func = Swap_Task_OpenSummaryScreen;
 }
 
-static void sub_819F134(u8 taskId)
+static void Swap_OptionRechoose(u8 taskId)
 {
     CloseMonPic(sFactorySwapScreen->monPic, &sFactorySwapScreen->monPicAnimating, TRUE);
     Swap_ErasePopupMenu(SWAP_WIN_OPTIONS);
@@ -4005,8 +3999,8 @@ static void sub_819F134(u8 taskId)
 
 static void Swap_RunActionFunc(u8 taskId)
 {
-    sSwap_CurrentTableFunc = sFactorySwapScreen->actionsData[sFactorySwapScreen->cursorPos].func;
-    sSwap_CurrentTableFunc(taskId);
+    sSwap_CurrentOptionFunc = sFactorySwapScreen->actionsData[sFactorySwapScreen->cursorPos].func;
+    sSwap_CurrentOptionFunc(taskId);
 }
 
 static void Swap_ActionCancel(u8 taskId)
@@ -4077,7 +4071,11 @@ static void Swap_ShowSummaryMonSprite(void)
     personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
     otId = GetMonData(mon, MON_DATA_OT_ID, NULL);
 
-    sFactorySwapScreen->monPic.monSpriteId = CreateMonPicSprite_HandleDeoxys(species, personality, otId, TRUE, 88, 32, 15, 0xFFFF); // BUG: otId and personality should be switched.
+#ifdef BUGFIX
+    sFactorySwapScreen->monPic.monSpriteId = CreateMonPicSprite_HandleDeoxys(species, otId, personality, TRUE, 88, 32, 15, 0xFFFF);
+#else
+    sFactorySwapScreen->monPic.monSpriteId = CreateMonPicSprite_HandleDeoxys(species, personality, otId, TRUE, 88, 32, 15, 0xFFFF);
+#endif
     gSprites[sFactorySwapScreen->monPic.monSpriteId].centerToCornerVecX = 0;
     gSprites[sFactorySwapScreen->monPic.monSpriteId].centerToCornerVecY = 0;
 
@@ -4151,7 +4149,7 @@ static bool8 Swap_AlreadyHasSameSpecies(u8 monId)
     u8 i;
     u16 species = GetMonData(&gEnemyParty[monId], MON_DATA_SPECIES, NULL);
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
         if (i != sFactorySwapScreen->playerMonId && (u16)(GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL)) == species)
             return TRUE;
@@ -4159,7 +4157,7 @@ static bool8 Swap_AlreadyHasSameSpecies(u8 monId)
     return FALSE;
 }
 
-static void sub_819F600(struct Sprite *sprite)
+static void SpriteCB_OpenMonPic(struct Sprite *sprite)
 {
     u8 taskId;
 
@@ -4186,7 +4184,7 @@ static void SpriteCB_CloseMonPic(struct Sprite *sprite)
     }
 }
 
-static void sub_819F69C(u8 taskId)
+static void Task_OpenMonPic(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
     switch (task->tState)
@@ -4225,8 +4223,8 @@ static void sub_819F69C(u8 taskId)
     default:
         DestroyTask(taskId);
         // UB: Should not use the task after it has been deleted.
-        if (gTasks[taskId].data[7] == TRUE)
-            Swap_ShowMonSprite();
+        if (gTasks[taskId].tIsSwapScreen == TRUE)
+            Swap_CreateMonSprite();
         else
             Select_CreateMonSprite();
         return;
@@ -4234,10 +4232,10 @@ static void sub_819F69C(u8 taskId)
     task->tState++;
 }
 
-static void sub_819F7B4(u8 taskId)
+static void Task_CloseMonPic(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
-    switch (task->data[0])
+    switch (task->tState)
     {
     case 0:
         // Init
@@ -4278,7 +4276,7 @@ static void sub_819F7B4(u8 taskId)
     }
 }
 
-static void Swap_ShowMonSprite(void)
+static void Swap_CreateMonSprite(void)
 {
     struct Pokemon *mon;
     u16 species;
