@@ -21,7 +21,6 @@
 #include "constants/items.h"
 #include "constants/layouts.h"
 #include "constants/maps.h"
-#include "constants/species.h"
 #include "constants/weather.h"
 
 extern const u8 EventScript_RepelWoreOff[];
@@ -184,13 +183,6 @@ static u8 ChooseWildMonIndex_WaterRock(void)
     else
         return 4;
 }
-
-enum
-{
-    OLD_ROD,
-    GOOD_ROD,
-    SUPER_ROD
-};
 
 static u8 ChooseWildMonIndex_Fishing(u8 rod)
 {

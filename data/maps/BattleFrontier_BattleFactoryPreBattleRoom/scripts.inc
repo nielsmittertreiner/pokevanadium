@@ -62,13 +62,13 @@ BattleFrontier_BattleFactoryPreBattleRoom_EventScript_ReturnToRoomFromBattle:: @
 	factory_setopponentmons
 	factory_resethelditems
 	msgbox BattleFrontier_BattleFactoryPreBattleRoom_Text_LetUsRestoreMons, MSGBOX_DEFAULT
-	playfanfare MUS_ME_ASA
+	playfanfare MUS_HEAL
 	waitfanfare
 	special HealPlayerParty
 	frontier_getbrainstatus
 	compare VAR_RESULT, FRONTIER_BRAIN_NOT_READY
 	goto_if_eq BattleFrontier_BattleFactoryPreBattleRoom_EventScript_AskReadyForRegularOpponent
-	playse SE_TOREEYE
+	playse SE_POKENAV_CALL
 	waitse
 	msgbox BattleFrontier_BattleFactoryPreBattleRoom_Text_WaitFewMoments, MSGBOX_DEFAULT
 	closemessage
@@ -168,7 +168,7 @@ BattleFrontier_BattleFactoryPreBattleRoom_EventScript_SwapMons:: @ 8259DF2
 	fadescreen FADE_TO_BLACK
 	factory_swapmons
 	waitstate
-	compare VAR_RESULT, 1
+	compare VAR_RESULT, TRUE  @ Did player keep current pokemon
 	goto_if_eq BattleFrontier_BattleFactoryPreBattleRoom_EventScript_EnterBattleRoom
 	factory_setswapped
 	msgbox BattleFrontier_BattleFactoryPreBattleRoom_Text_YourSwapIsComplete, MSGBOX_DEFAULT
