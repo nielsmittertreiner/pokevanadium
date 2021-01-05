@@ -6,7 +6,7 @@ SunsetTown_MapScripts::
 SunsetTown_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	setrespawn HEAL_LOCATION_SUNSET_TOWN
 	setflag FLAG_VISITED_SUNSET_TOWN
-	compare VAR_SUNSET_TOWN_STATE, 5
+	compare VAR_SUNSET_TOWN_STATE, 3
 	goto_if_eq SunsetTown_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	return
 
@@ -15,7 +15,7 @@ SunsetTown_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	return
 
 SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_SUNSET_TOWN_STATE, 4, SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
+	map_script_2 VAR_SUNSET_TOWN_STATE, 2, SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
 	.2byte 0
 
 SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
@@ -24,13 +24,14 @@ SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp
 	applymovement 3, Common_Movement_WalkInPlaceFastestDown
 	waitmovement 0
-	setvar VAR_LAST_TALKED, 3
-	msgbox SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_0, MSGBOX_NPC
+	load_speech_bubble 3
+	msgbox SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_0
+	destroy_speech_bubble
 	loadword 0, SunsetTown_EventScript_FollowerScript
 	setfollower 3, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT
 	setflag FLAG_DISABLE_ENCOUNTERS
 	setflag FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER
-	setvar VAR_SUNSET_TOWN_STATE, 5
+	setvar VAR_SUNSET_TOWN_STATE, 3
 	setvar VAR_CEDARRED_TOWN_STATE, 0
 	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE, 1
 	end
@@ -39,13 +40,11 @@ SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 SunsetTown_EventScript_FollowerScript::
 	lock
 	facefollower
-	load_speech_bubble OBJ_EVENT_ID_FOLLOWER
 	switch VAR_SUNSET_TOWN_FOLLOWER_STATE
 	case 1, SunsetTown_EventScript_FollowerScript_3
 	case 2, SunsetTown_EventScript_FollowerScript_4
 	case 3, SunsetTown_EventScript_FollowerScript_5
 SunsetTown_EventScript_FollowerScript_1:
-	destroy_speech_bubble
 	closemessage
 	release
 	end
@@ -55,7 +54,7 @@ SunsetTown_EventScript_FollowerScript_3:
 	goto SunsetTown_EventScript_FollowerScript_1
 
 SunsetTown_EventScript_FollowerScript_4:
-	msgbox SunsetTown_EventScript_FollowerScript_Text_1
+	msgbox SunsetTown_EventScript_FollowerScript_Text_1, MSGBOX_NPC
 	goto SunsetTown_EventScript_FollowerScript_1
 
 SunsetTown_EventScript_FollowerScript_5:
@@ -96,7 +95,6 @@ SunsetTown_EventScript_Lass::
 SunsetTown_EventScript_ProfessorConifer::
 	lock
 	fadenewbgm MUS_BIRCH_LAB
-	setflag FLAG_BLOCK_SUNSET_TOWN_NURSERY
 	msgbox SunsetTown_EventScript_ProfessorConifer_Text_0, MSGBOX_NPC
 	opendoor 15, 6
 	applymovement 3, Common_Movement_FaceUp
@@ -108,7 +106,7 @@ SunsetTown_EventScript_ProfessorConifer::
 SunsetTown_EventScript_ProfessorConifer_1:
 	closedoor 15, 6
 	waitdooranim
-	warp MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 1, 12, 9
+	warp MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 0, 12, 9
 	waitstate
 	end
 
@@ -137,7 +135,7 @@ SunsetTown_EventScript_BlockPlayer::
 	fadenewbgm MUS_BIRCH_LAB
 	applymovement 3, Common_Movement_FaceDown
 	applymovement 3, Common_Movement_ExclamationMark
-	setvar VAR_LAST_TALKED, 3
+	load_speech_bubble 3
 	msgbox SunsetTown_EventScript_BlockPlayer_Text_0, MSGBOX_NPC
 	waitmovement 0
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
@@ -150,7 +148,7 @@ SunsetTown_EventScript_BlockPlayer_1:
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
 	applymovement 3, SunsetTown_Movement_WalkToPlayerX
 	waitmovement 0
-	setvar VAR_LAST_TALKED, 3
+	load_speech_bubble 3
 	msgbox SunsetTown_EventScript_BlockPlayer_Text_1, MSGBOX_NPC
 	warp MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 1, 12, 9
 	waitstate

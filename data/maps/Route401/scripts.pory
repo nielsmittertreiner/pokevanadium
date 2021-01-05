@@ -1,6 +1,6 @@
 mapscripts Route401_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
-        if (var(VAR_SUNSET_TOWN_STATE) == 5)
+        if (var(VAR_SUNSET_TOWN_STATE) == 3)
         {
             setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 2)
         }

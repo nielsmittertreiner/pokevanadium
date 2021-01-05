@@ -4,10 +4,8 @@ const LOCALID_CONIFER = 3
 
 mapscripts SunsetTown_ProfessorConiferLab_MapScripts {
     MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
-        VAR_SUNSET_TOWN_STATE, 3 {
-            if (var(VAR_SUNSET_TOWN_STATE) == 3) {
-                setobjectxy(LOCALID_CONIFER, 12, 8)
-            }
+        VAR_SUNSET_TOWN_STATE, 1 {
+            setobjectxy(LOCALID_CONIFER, 12, 8)
         }
     ]
     MAP_SCRIPT_ON_TRANSITION {
@@ -19,7 +17,7 @@ mapscripts SunsetTown_ProfessorConiferLab_MapScripts {
         }
     }
     MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_SUNSET_TOWN_STATE, 3 {
+        VAR_SUNSET_TOWN_STATE, 1 {
             lock
             applymovement(LOCALID_CONIFER, SunsetTown_ProfessorConiferLab_Movement_ConiferWalkToMachine)
             applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_ProfessorConiferLab_Movement_PlayerWalkToMachine)
@@ -38,7 +36,7 @@ mapscripts SunsetTown_ProfessorConiferLab_MapScripts {
             destroy_speech_bubble
             closemessage
             addobject(LOCALID_CONIFER, MAP_SUNSET_TOWN)
-            setvar(VAR_SUNSET_TOWN_STATE, 4)
+            setvar(VAR_SUNSET_TOWN_STATE, 2)
             warp(MAP_SUNSET_TOWN, 0xFF, 15, 8)
             waitstate
             end

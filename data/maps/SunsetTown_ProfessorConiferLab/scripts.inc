@@ -16,20 +16,15 @@ SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	return
 
 SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
-	map_script_2 VAR_SUNSET_TOWN_STATE, 3, SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0
+	map_script_2 VAR_SUNSET_TOWN_STATE, 1, SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0
 	.2byte 0
 
 SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0:
-	compare VAR_SUNSET_TOWN_STATE, 3
-	goto_if_eq SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0_1
-	return
-
-SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0_1:
 	setobjectxy 3, 12, 8
 	return
 
 SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_SUNSET_TOWN_STATE, 3, SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
+	map_script_2 VAR_SUNSET_TOWN_STATE, 1, SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
 	.2byte 0
 
 SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
@@ -44,7 +39,7 @@ SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 	destroy_speech_bubble
 	closemessage
 	addobject 3, MAP_SUNSET_TOWN
-	setvar VAR_SUNSET_TOWN_STATE, 4
+	setvar VAR_SUNSET_TOWN_STATE, 2
 	warp MAP_SUNSET_TOWN, 0xFF, 15, 8
 	waitstate
 	end

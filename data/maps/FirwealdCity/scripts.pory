@@ -45,12 +45,6 @@ script FirwealdCity_EventScript_TournamentHallSign {
     end
 }
 
-script FirwealdCity_EventScript_Phyllos {
-    // msgbox or something idk
-    release
-    end
-}
-
 script FirwealdCity_EventScript_PhyllosEncounter {
     lock
     setmetatile(37, 16, METATILE_Petalburg_Door_BattleTent, 1)
@@ -109,14 +103,15 @@ script FirwealdCity_EventScript_BlockPath {
     waitmovement(0)
     applymovement(LOCALID_MANIAC, FirwealdCity_Movement_WalkInFrontOfPlayer)
     waitmovement(0)
-    setvar(VAR_LAST_TALKED, LOCALID_MANIAC)
+    load_speech_bubble(LOCALID_MANIAC)
     msgbox("Hmmmm…\n"
 	       "That glint in your eyes…\p"
 	       "I'm sure you have some business\n"
 	       "to do here in FIRWEALD CITY.\p"
 	       "Fufufu… Fufufu…\p"
 	       "Go do your thing while I inspect this\n"
-	       "tree right here.", MSGBOX_NPC)
+	       "tree right here.")
+    destroy_speech_bubble
     applymovement(LOCALID_MANIAC FirwealdCity_Movement_PushBackPlayer)
     applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack)
     waitmovement(0)

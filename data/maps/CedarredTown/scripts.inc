@@ -5,7 +5,7 @@ CedarredTown_MapScripts::
 CedarredTown_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	setrespawn HEAL_LOCATION_CEDARRED_TOWN
 	setflag FLAG_VISITED_CEDARRED_TOWN
-	compare VAR_SUNSET_TOWN_STATE, 5
+	compare VAR_SUNSET_TOWN_STATE, 3
 	goto_if_eq CedarredTown_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	return
 
@@ -61,8 +61,9 @@ CedarredTown_EventScript_ShowLoggersCabin::
 	applymovement OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark
 	waitmovement 0
 	facefollower
-	setvar VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER
-	msgbox CedarredTown_EventScript_ShowLoggersCabin_Text_0, MSGBOX_NPC
+	load_speech_bubble OBJ_EVENT_ID_FOLLOWER
+	msgbox CedarredTown_EventScript_ShowLoggersCabin_Text_0
+	destroy_speech_bubble
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	special SpawnCameraObject
 	switch VAR_TEMP_1
@@ -122,8 +123,9 @@ CedarredTown_EventScript_EnterLoggersCabin::
 	applymovement OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark
 	waitmovement 0
 	facefollower
-	setvar VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER
-	msgbox CedarredTown_EventScript_EnterLoggersCabin_Text_0, MSGBOX_NPC
+	load_speech_bubble OBJ_EVENT_ID_FOLLOWER
+	msgbox CedarredTown_EventScript_EnterLoggersCabin_Text_0
+	destroy_speech_bubble
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	switch VAR_TEMP_0
 	case 14, CedarredTown_EventScript_EnterLoggersCabin_3
@@ -172,8 +174,9 @@ CedarredTown_EventScript_PreventWander::
 	applymovement OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark
 	waitmovement 0
 	facefollower
-	setvar VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER
-	msgbox CedarredTown_EventScript_PreventWander_Text_0, MSGBOX_NPC
+	load_speech_bubble OBJ_EVENT_ID_FOLLOWER
+	msgbox CedarredTown_EventScript_PreventWander_Text_0
+	destroy_speech_bubble
 	applymovement OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_WalkDown
 	waitmovement 0
 	turnobject OBJ_EVENT_ID_FOLLOWER, DIR_SOUTH

@@ -4,7 +4,7 @@ mapscripts CedarredTown_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         setrespawn(HEAL_LOCATION_CEDARRED_TOWN)
         setflag(FLAG_VISITED_CEDARRED_TOWN)
-        if (var(VAR_SUNSET_TOWN_STATE) == 5)
+        if (var(VAR_SUNSET_TOWN_STATE) == 3)
         {
             setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 3)
         }
@@ -81,11 +81,12 @@ script CedarredTown_EventScript_ShowLoggersCabin {
     applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
     waitmovement(0)
     facefollower
-    setvar(VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER)
+    load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
     msgbox("Ah, we're here!\n"
 	       "This is CEDARRED TOWN\p"
 	       "The LOGGERS CABIN should be at the\n"
-	       "far EAST of town.", MSGBOX_NPC)
+	       "far EAST of town.")
+    destroy_speech_bubble
     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
     special(SpawnCameraObject)
     switch (var(VAR_TEMP_1))
@@ -130,11 +131,12 @@ script CedarredTown_EventScript_EnterLoggersCabin {
     applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
     waitmovement(0)
     facefollower
-    setvar(VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER)
+    load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
     msgbox("Remember {PLAYER}, we're here to help\n"
 	       "the LOGGERS with a problem in\l"
 	       "the ACREN FOREST.\p"
-	       "Let's head in and see what happened.", MSGBOX_NPC)
+	       "Let's head in and see what happened.")
+    destroy_speech_bubble
     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
     switch (var(VAR_TEMP_0))
     {
@@ -172,10 +174,11 @@ script CedarredTown_EventScript_PreventWander {
     applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
     waitmovement(0)
     facefollower
-    setvar(VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER)
+    load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
     msgbox("We should be going to the LOGGERS\n"
 	       "CABIN, {PLAYER}.\p"
-	       "Let's move!", MSGBOX_NPC)
+	       "Let's move!")
+    destroy_speech_bubble
     applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_WalkDown)
     waitmovement(0)
     turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_SOUTH)

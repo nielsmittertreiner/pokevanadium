@@ -3,7 +3,7 @@ Route401_MapScripts::
 	.byte 0
 
 Route401_MapScripts_MAP_SCRIPT_ON_TRANSITION:
-	compare VAR_SUNSET_TOWN_STATE, 5
+	compare VAR_SUNSET_TOWN_STATE, 3
 	goto_if_eq Route401_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	return
 

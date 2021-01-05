@@ -97,7 +97,7 @@
       "y": 8,
       "elevation": 0,
       "var": "VAR_SUNSET_TOWN_STATE",
-      "var_value": "3",
+      "var_value": "1",
       "script": "SunsetTown_EventScript_BlockPlayer"
     },
     {
@@ -106,7 +106,7 @@
       "y": 9,
       "elevation": 0,
       "var": "VAR_SUNSET_TOWN_STATE",
-      "var_value": "3",
+      "var_value": "1",
       "script": "SunsetTown_EventScript_BlockPlayer"
     },
     {
@@ -115,7 +115,7 @@
       "y": 10,
       "elevation": 0,
       "var": "VAR_SUNSET_TOWN_STATE",
-      "var_value": "3",
+      "var_value": "1",
       "script": "SunsetTown_EventScript_BlockPlayer"
     },
     {
@@ -124,7 +124,7 @@
       "y": 11,
       "elevation": 0,
       "var": "VAR_SUNSET_TOWN_STATE",
-      "var_value": "3",
+      "var_value": "1",
       "script": "SunsetTown_EventScript_BlockPlayer"
     }
   ],

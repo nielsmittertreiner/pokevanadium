@@ -44,11 +44,6 @@ FirwealdCity_EventScript_TournamentHallSign::
 	end
 
 
-FirwealdCity_EventScript_Phyllos::
-	release
-	end
-
-
 FirwealdCity_EventScript_PhyllosEncounter::
 	lock
 	setmetatile 37, 16, METATILE_Petalburg_Door_BattleTent, 1
@@ -93,8 +88,9 @@ FirwealdCity_EventScript_BlockPath::
 	waitmovement 0
 	applymovement 6, FirwealdCity_Movement_WalkInFrontOfPlayer
 	waitmovement 0
-	setvar VAR_LAST_TALKED, 6
-	msgbox FirwealdCity_EventScript_BlockPath_Text_0, MSGBOX_NPC
+	load_speech_bubble 6
+	msgbox FirwealdCity_EventScript_BlockPath_Text_0
+	destroy_speech_bubble
 	applymovement 6 FirwealdCity_Movement_PushBackPlayer
 	applymovement OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack
 	waitmovement 0
