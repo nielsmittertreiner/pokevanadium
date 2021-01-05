@@ -435,8 +435,7 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_34                  0x1123
 #define OBJ_EVENT_PAL_TAG_JULIA               0x1124
 #define OBJ_EVENT_PAL_TAG_TEAM_AIRLOCK_GRUNT  0x1125
-#define OBJ_EVENT_PAL_TAG_EMOTIONS            0x1126
-#define OBJ_EVENT_PAL_TAG_PHYLLOS             0x1127
+#define OBJ_EVENT_PAL_TAG_PHYLLOS             0x1126
 
 #define OBJ_EVENT_PAL_TAG_NONE          0x11FF
 
@@ -486,7 +485,6 @@ const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPalette34, OBJ_EVENT_PAL_TAG_34},
     {gObjectEventPalette_Julia, OBJ_EVENT_PAL_TAG_JULIA},
     {gObjectEventPalette_TeamAirlockGrunt, OBJ_EVENT_PAL_TAG_TEAM_AIRLOCK_GRUNT},
-    {gObjectEventPalette_Emotions, OBJ_EVENT_PAL_TAG_EMOTIONS},
     {gObjectEventPalette_Phyllos, OBJ_EVENT_PAL_TAG_PHYLLOS},
     {NULL,                  0x0000},
 };

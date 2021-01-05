@@ -30,6 +30,8 @@ void sub_81556E8(struct ObjectEvent *, struct Sprite *);
 static void CreateBobbingEffect(struct ObjectEvent *, struct Sprite *, struct Sprite *);
 static void sub_8155850(struct Sprite *);
 static u32 ShowDisguiseFieldEffect(u8, u8);
+static void LoadFieldEffectPalette_(u8 fieldEffect, bool8 updateGammaType);
+
 void LoadSpecialReflectionPalette(struct Sprite *sprite);
 
 extern u16 gReflectionPaletteBuffer[];
@@ -150,7 +152,7 @@ u8 CreateWarpArrowSprite(void)
     u8 spriteId;
     struct Sprite *sprite;
 
-    LoadFieldEffectPalette(FLDEFFOBJ_ARROW);
+    LoadFieldEffectPalette_(FLDEFFOBJ_ARROW, FALSE);
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_ARROW], 0, 0, 0x52);
     if (spriteId != MAX_SPRITES)
     {
@@ -209,7 +211,7 @@ u32 FldEff_Shadow(void)
 
     objectEventId = GetObjectEventIdByLocalIdAndMap(gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     graphicsInfo = GetObjectEventGraphicsInfo(gObjectEvents[objectEventId].graphicsId);
-    LoadFieldEffectPalette(sShadowEffectTemplateIds[graphicsInfo->shadowSize]);
+    LoadFieldEffectPalette_(sShadowEffectTemplateIds[graphicsInfo->shadowSize], FALSE);
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[sShadowEffectTemplateIds[graphicsInfo->shadowSize]], 0, 0, 0x94);
     if (spriteId != MAX_SPRITES)
     {
@@ -1584,7 +1586,7 @@ static void sub_81561FC(struct Sprite *sprite, u8 z, u8 offset)
     }
 }
 
-void LoadFieldEffectPalette(u8 fieldEffect)
+static void LoadFieldEffectPalette_(u8 fieldEffect, bool8 updateGammaType)
 {
     const struct SpriteTemplate *spriteTemplate;
 
@@ -1592,6 +1594,12 @@ void LoadFieldEffectPalette(u8 fieldEffect)
     if (spriteTemplate->paletteTag != 0xffff)
     {
         LoadObjectEventPalette(spriteTemplate->paletteTag);
-        UpdatePaletteGammaType(IndexOfSpritePaletteTag(spriteTemplate->paletteTag), GAMMA_NORMAL);
+        if (updateGammaType)
+            UpdatePaletteGammaType(IndexOfSpritePaletteTag(spriteTemplate->paletteTag), GAMMA_NORMAL);
     }
+}
+
+void LoadFieldEffectPalette(u8 fieldEffect)
+{
+    LoadFieldEffectPalette_(fieldEffect, TRUE);
 }

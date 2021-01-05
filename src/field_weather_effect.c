@@ -31,8 +31,8 @@ const u8 gWeatherRainTiles[] = INCBIN_U8("graphics/weather/rain.4bpp");
 const u8 gWeatherSandstormTiles[] = INCBIN_U8("graphics/weather/sandstorm.4bpp");
 
 const struct SpritePalette sSpritePalette_Weather0 = {gUnknown_083970E8, 0x1201};
-const struct SpritePalette sCloudsSpritePalette = {gCloudsWeatherPalette, 0x1201};
-const struct SpritePalette sSandstormSpritePalette = {gSandstormWeatherPalette, 0x1201};
+const struct SpritePalette sCloudsSpritePalette = {gCloudsWeatherPalette, 0x1207};
+const struct SpritePalette sSandstormSpritePalette = {gSandstormWeatherPalette, 0x1204};
 
 //------------------------------------------------------------------------------
 // WEATHER_SUNNY_CLOUDS
@@ -89,7 +89,7 @@ static const union AnimCmd *const sCloudSpriteAnimCmds[] =
 static const struct SpriteTemplate sCloudSpriteTemplate =
 {
     .tileTag = 0x1200,
-    .paletteTag = 0x1201,
+    .paletteTag = 0x1207,
     .oam = &sCloudSpriteOamData,
     .anims = sCloudSpriteAnimCmds,
     .images = NULL,
@@ -218,7 +218,7 @@ static void DestroyCloudSprites(void)
             DestroySprite(gWeatherPtr->sprites.s1.cloudSprites[i]);
     }
 
-    FreeSpriteTilesByTag(0x1200);
+    FreeSpriteTilesByTag(0x1207);
     gWeatherPtr->cloudSpritesCreated = FALSE;
 }
 
@@ -2049,7 +2049,7 @@ static const union AnimCmd *const sSandstormSpriteAnimCmds[] =
 static const struct SpriteTemplate sSandstormSpriteTemplate =
 {
     .tileTag = 0x1204,
-    .paletteTag = 0x1201,
+    .paletteTag = 0x1204,
     .oam = &sSandstormSpriteOamData,
     .anims = sSandstormSpriteAnimCmds,
     .images = NULL,

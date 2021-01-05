@@ -341,5 +341,4 @@ const u16 gObjectEventPalette32[] = INCBIN_U16("graphics/object_events/palettes/
 const u16 gObjectEventPalette31[] = INCBIN_U16("graphics/object_events/palettes/31.gbapal");
 const u16 gObjectEventPalette_Julia[] = INCBIN_U16("graphics/object_events/pics/people/julia.gbapal");
 const u16 gObjectEventPalette_TeamAirlockGrunt[] = INCBIN_U16("graphics/object_events/pics/people/team_airlock/airlock_member_grunt.gbapal");
-const u16 gObjectEventPalette_Emotions[] = INCBIN_U16("graphics/misc/emotions.gbapal");
 const u16 gObjectEventPalette_Phyllos[] = INCBIN_U16("graphics/object_events/pics/people/tournament_masters/phyllos.gbapal");
