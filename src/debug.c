@@ -43,7 +43,6 @@ static void DebugAction_Cancel(u8);
 // Utility Menu Functions
 static void DebugAction_HealParty(u8);
 static void DebugAction_ResetMapFlags(u8);
-static void DebugAction_Fly(u8);
 
 // Toggles Menu Funtions
 static void DebugAction_ToggleTrainers(u8);
@@ -61,7 +60,6 @@ enum {
 enum {
     DEBUG_MENU_ITEM_HEAL_PARTY,
     DEBUG_MENU_ITEM_RESET_MAP_FLAGS,
-    DEBUG_MENU_ITEM_FLY,
 };
 
 enum {
@@ -78,7 +76,6 @@ static const u8 gDebugText_Cancel[] = _("CANCEL");
 
 static const u8 gDebugText_HealParty[] = _("HEAL PARTY");
 static const u8 gDebugText_ResetAllMapFlags[] = _("RESET MAP FLAGS");
-static const u8 gDebugText_Fly[] = _("FLY");
 
 static const u8 gDebugText_Toggles_Trainers[] = _("TRAINERS");
 static const u8 gDebugText_Toggles_Encounters[] = _("ENCOUNTERS");
@@ -100,7 +97,6 @@ static const struct ListMenuItem sDebugMenuItems_Utility[] =
 {
     [DEBUG_MENU_ITEM_HEAL_PARTY] = {gDebugText_HealParty, DEBUG_MENU_ITEM_HEAL_PARTY},
     [DEBUG_MENU_ITEM_RESET_MAP_FLAGS] = {gDebugText_ResetAllMapFlags, DEBUG_MENU_ITEM_RESET_MAP_FLAGS},
-    [DEBUG_MENU_ITEM_FLY] = {gDebugText_Fly, DEBUG_MENU_ITEM_FLY},
 };
 
 static const struct ListMenuItem sDebugMenuItems_Toggles[] = 
@@ -123,7 +119,6 @@ static void (*const sDebugMenuActions_Utility[])(u8) =
 {
     [DEBUG_MENU_ITEM_HEAL_PARTY] = DebugAction_HealParty,
     [DEBUG_MENU_ITEM_RESET_MAP_FLAGS] = DebugAction_ResetMapFlags,
-    [DEBUG_MENU_ITEM_FLY] = DebugAction_Fly,
 };
 
 static void (*const sDebugMenuActions_Toggles[])(u8) =
@@ -414,30 +409,6 @@ static void DebugAction_ResetMapFlags(u8 taskId)
 {
     ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
     PlaySE(SE_USE_ITEM);
-}
-
-static void DebugAction_Fly(u8 taskId)
-{
-    FlagSet(FLAG_VISITED_SUNSET_TOWN);
-    FlagSet(FLAG_VISITED_CEDARRED_TOWN);
-    FlagSet(FLAG_VISITED_FIRWEALD_CITY);
-    FlagSet(FLAG_VISITED_LAVARIDGE_TOWN);
-    FlagSet(FLAG_VISITED_FALLARBOR_TOWN);
-    FlagSet(FLAG_VISITED_VERDANTURF_TOWN);
-    FlagSet(FLAG_VISITED_PACIFIDLOG_TOWN);
-    FlagSet(FLAG_VISITED_PETALBURG_CITY);
-    FlagSet(FLAG_VISITED_SLATEPORT_CITY);
-    FlagSet(FLAG_VISITED_MAUVILLE_CITY);
-    FlagSet(FLAG_VISITED_RUSTBORO_CITY);
-    FlagSet(FLAG_VISITED_FORTREE_CITY);
-    FlagSet(FLAG_VISITED_LILYCOVE_CITY);
-    FlagSet(FLAG_VISITED_MOSSDEEP_CITY);
-    FlagSet(FLAG_VISITED_SOOTOPOLIS_CITY);
-    FlagSet(FLAG_VISITED_EVER_GRANDE_CITY);
-    FlagSet(FLAG_LANDMARK_POKEMON_LEAGUE);
-    FlagSet(FLAG_LANDMARK_BATTLE_FRONTIER);
-    Debug_DestroyMenu(taskId);
-    SetMainCallback2(CB2_OpenFlyMap);
 }
 
 // Toggles
