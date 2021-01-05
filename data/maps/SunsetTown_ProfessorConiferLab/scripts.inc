@@ -48,7 +48,7 @@ SunsetTown_ProfessorConiferLab_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 SunsetTown_ProfessorConiferLab_EventScript_Conifer::
 	compare VAR_ACREN_FOREST_STATE, 1
 	goto_if_eq SunsetTown_ProfessorConiferLab_EventScript_Conifer_2
-	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_3, MSGBOX_NPC
+	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_5, MSGBOX_NPC
 	end
 
 SunsetTown_ProfessorConiferLab_EventScript_Conifer_2:
@@ -57,7 +57,10 @@ SunsetTown_ProfessorConiferLab_EventScript_Conifer_2:
 	playse SE_PIN
 	applymovement 3, Common_Movement_ExclamationMark
 	waitmovement 0
-	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_0, MSGBOX_NPC
+	load_speech_bubble 3
+	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_0
+	destroy_speech_bubble
+	closemessage
 	playfanfare MUS_OBTAIN_ITEM
 	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_1
 	waitfanfare
@@ -68,7 +71,19 @@ SunsetTown_ProfessorConiferLab_EventScript_Conifer_2:
 	special EnableNationalPokedex
 	setvar VAR_CABLE_CLUB_TUTORIAL_STATE, 1
 	setvar VAR_ACREN_FOREST_STATE, 2
-	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_2, MSGBOX_NPC
+	load_speech_bubble 3
+	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_2
+	destroy_speech_bubble
+	closemessage
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_3
+	waitfanfare
+	closemessage
+	setflag FLAG_SYS_B_DASH
+	load_speech_bubble 3
+	msgbox SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_4
+	destroy_speech_bubble
+	closemessage
 	release
 	end
 
@@ -146,10 +161,20 @@ SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_2:
 	.string "Now that you have a POKéDEX, I can\n"
 	.string "register you as an official\l"
 	.string "POKéMON TRAINER.\p"
+	.string "Hold on a minute…\n"
+	.string "Do you still have those old shoes?\l"
+	.string "Well, I wanted to give you new ones\l"
+	.string "anyway…$"
+
+SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_3:
+	.string "{PLAYER} received the RUNNING SHOES from\n"
+	.string "PROFESSOR CONIFER!$"
+
+SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_4:
 	.string "I think you have some business\n"
 	.string "to to now…$"
 
-SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_3:
+SunsetTown_ProfessorConiferLab_EventScript_Conifer_Text_5:
 	.string "Hey there, {PLAYER}.\n"
 	.string "I see you're finally going on an\l"
 	.string "adventure now.\p"

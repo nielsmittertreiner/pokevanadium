@@ -51,13 +51,16 @@ script SunsetTown_ProfessorConiferLab_EventScript_Conifer {
         playse(SE_PIN)
         applymovement(LOCALID_CONIFER, Common_Movement_ExclamationMark)
         waitmovement(0)
+        load_speech_bubble(LOCALID_CONIFER)
         msgbox("Hey there, {PLAYER}.\p"
                "… … … … … … … … …\n"
                "… … … … … … … … …\p"
                "Oh, I see!\n"
                "You don't have a POKéDEX yet.\p"
                "Luckily, I have one right here for you.\p"
-               "Go ahead and take it, it's yours.$", MSGBOX_NPC)
+               "Go ahead and take it, it's yours.$")
+        destroy_speech_bubble
+        closemessage
         playfanfare(MUS_OBTAIN_ITEM)
         msgbox("{PLAYER} received the POKéDEX from\n"
                "PROFESSOR CONIFER!")
@@ -69,11 +72,27 @@ script SunsetTown_ProfessorConiferLab_EventScript_Conifer {
         special(EnableNationalPokedex)
         setvar(VAR_CABLE_CLUB_TUTORIAL_STATE, 1)
         setvar(VAR_ACREN_FOREST_STATE, 2)
+        load_speech_bubble(LOCALID_CONIFER)
         msgbox("Now that you have a POKéDEX, I can\n"
                "register you as an official\l"
                "POKéMON TRAINER.\p"
-               "I think you have some business\n"
-               "to to now…", MSGBOX_NPC)
+               "Hold on a minute…\n"
+               "Do you still have those old shoes?\l"
+               "Well, I wanted to give you new ones\l"
+               "anyway…")
+        destroy_speech_bubble
+        closemessage
+        playfanfare(MUS_OBTAIN_ITEM)
+        msgbox("{PLAYER} received the RUNNING SHOES from\n"
+               "PROFESSOR CONIFER!")
+        waitfanfare
+        closemessage
+        setflag(FLAG_SYS_B_DASH)
+        load_speech_bubble(LOCALID_CONIFER)
+        msgbox("I think you have some business\n"
+               "to to now…")
+        destroy_speech_bubble
+        closemessage
         release
         end
     }
