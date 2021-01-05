@@ -1,10 +1,6 @@
 #ifndef GUARD_CONSTANTS_MAP_GROUPS_H
 #define GUARD_CONSTANTS_MAP_GROUPS_H
 
-//
-// DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json
-//
-
 // Map Group 0
 #define MAP_PETALBURG_CITY      (0 | (0 << 8))
 #define MAP_SLATEPORT_CITY      (1 | (0 << 8))
@@ -63,6 +59,13 @@
 #define MAP_UNDERWATER_ROUTE129 (54 | (0 << 8))
 #define MAP_UNDERWATER_ROUTE105 (55 | (0 << 8))
 #define MAP_UNDERWATER_ROUTE125 (56 | (0 << 8))
+#define MAP_SUNSET_TOWN         (57 | (0 << 8))
+#define MAP_CEDARRED_TOWN       (58 | (0 << 8))
+#define MAP_FIRWEALD_CITY       (59 | (0 << 8))
+#define MAP_ROUTE401            (60 | (0 << 8))
+#define MAP_ROUTE402            (61 | (0 << 8))
+#define MAP_ACREN_FOREST        (62 | (0 << 8))
+#define MAP_FOREST_TUNNEL       (63 | (0 << 8))
 
 // Map Group 1
 #define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (1 << 8))
@@ -70,21 +73,42 @@
 #define MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F        (2 | (1 << 8))
 #define MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F        (3 | (1 << 8))
 #define MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB (4 | (1 << 8))
+#define MAP_SUNSET_TOWN_PLAYER_HOUSE_1F          (5 | (1 << 8))
+#define MAP_SUNSET_TOWN_PLAYER_HOUSE_2F          (6 | (1 << 8))
+#define MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB    (7 | (1 << 8))
+#define MAP_SUNSET_TOWN_HOUSE1                   (8 | (1 << 8))
+#define MAP_SUNSET_TOWN_ALEXS_HOUSE_1F           (9 | (1 << 8))
+#define MAP_SUNSET_TOWN_ALEXS_HOUSE_2F           (10 | (1 << 8))
 
 // Map Group 2
-#define MAP_OLDALE_TOWN_HOUSE1            (0 | (2 << 8))
-#define MAP_OLDALE_TOWN_HOUSE2            (1 | (2 << 8))
-#define MAP_OLDALE_TOWN_POKEMON_CENTER_1F (2 | (2 << 8))
-#define MAP_OLDALE_TOWN_POKEMON_CENTER_2F (3 | (2 << 8))
-#define MAP_OLDALE_TOWN_MART              (4 | (2 << 8))
+#define MAP_OLDALE_TOWN_HOUSE1              (0 | (2 << 8))
+#define MAP_OLDALE_TOWN_HOUSE2              (1 | (2 << 8))
+#define MAP_OLDALE_TOWN_POKEMON_CENTER_1F   (2 | (2 << 8))
+#define MAP_OLDALE_TOWN_POKEMON_CENTER_2F   (3 | (2 << 8))
+#define MAP_OLDALE_TOWN_MART                (4 | (2 << 8))
+#define MAP_CEDARRED_TOWN_HOUSE1            (5 | (2 << 8))
+#define MAP_CEDARRED_TOWN_HOUSE2            (6 | (2 << 8))
+#define MAP_CEDARRED_TOWN_MART              (7 | (2 << 8))
+#define MAP_CEDARRED_TOWN_LOGGERS_CABIN     (8 | (2 << 8))
+#define MAP_CEDARRED_TOWN_POKEMON_CENTER_1F (9 | (2 << 8))
+#define MAP_CEDARRED_TOWN_POKEMON_CENTER_2F (10 | (2 << 8))
+#define MAP_ACREN_FOREST_PLANT_SHOP         (11 | (2 << 8))
+#define MAP_ACREN_FOREST_ILLEGAL_CABIN      (12 | (2 << 8))
 
 // Map Group 3
-#define MAP_DEWFORD_TOWN_HOUSE1            (0 | (3 << 8))
-#define MAP_DEWFORD_TOWN_POKEMON_CENTER_1F (1 | (3 << 8))
-#define MAP_DEWFORD_TOWN_POKEMON_CENTER_2F (2 | (3 << 8))
-#define MAP_DEWFORD_TOWN_GYM               (3 | (3 << 8))
-#define MAP_DEWFORD_TOWN_HALL              (4 | (3 << 8))
-#define MAP_DEWFORD_TOWN_HOUSE2            (5 | (3 << 8))
+#define MAP_DEWFORD_TOWN_HOUSE1                       (0 | (3 << 8))
+#define MAP_DEWFORD_TOWN_POKEMON_CENTER_1F            (1 | (3 << 8))
+#define MAP_DEWFORD_TOWN_POKEMON_CENTER_2F            (2 | (3 << 8))
+#define MAP_DEWFORD_TOWN_GYM                          (3 | (3 << 8))
+#define MAP_DEWFORD_TOWN_HALL                         (4 | (3 << 8))
+#define MAP_DEWFORD_TOWN_HOUSE2                       (5 | (3 << 8))
+#define MAP_FIRWEALD_CITY_HOUSE1                      (6 | (3 << 8))
+#define MAP_FIRWEALD_CITY_DUPLEX                      (7 | (3 << 8))
+#define MAP_FIRWEALD_CITY_POKEMON_CENTER_1F           (8 | (3 << 8))
+#define MAP_FIRWEALD_CITY_POKEMON_CENTER_2F           (9 | (3 << 8))
+#define MAP_FIRWEALD_CITY_MART                        (10 | (3 << 8))
+#define MAP_FIRWEALD_CITY_TOURNAMENT_HALL_LOBBY       (11 | (3 << 8))
+#define MAP_FIRWEALD_CITY_TOURNAMENT_HALL_BATTLE_ROOM (12 | (3 << 8))
 
 // Map Group 4
 #define MAP_LAVARIDGE_TOWN_HERB_SHOP         (0 | (4 << 8))

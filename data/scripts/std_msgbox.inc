@@ -1,9 +1,11 @@
 Std_MsgboxNPC: @ 8271315
 	lock
 	faceplayer
+	load_speech_bubble VAR_LAST_TALKED
 	message 0x0
 	waitmessage
 	waitbuttonpress
+	destroy_speech_bubble
 	release
 	return
 

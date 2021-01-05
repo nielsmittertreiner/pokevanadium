@@ -368,19 +368,19 @@ static void InitContestMonPixels(u16 species, u8 whichSprite)
     {
         HandleLoadSpecialPokePic_DontHandleDeoxys(
             &gMonFrontPicTable[species],
-            gMonSpritesGfxPtr->sprites.ptr[1],
+            gMonSpritesGfxPtr->sprites[1],
             species,
             gContestPaintingWinner->personality);
-        _InitContestMonPixels(gMonSpritesGfxPtr->sprites.ptr[1], gContestPaintingMonPalette, (void *)gContestMonPixels);
+        _InitContestMonPixels(gMonSpritesGfxPtr->sprites[1], gContestPaintingMonPalette, (void *)gContestMonPixels);
     }
     else
     {
         HandleLoadSpecialPokePic_DontHandleDeoxys(
             &gMonBackPicTable[species],
-            gMonSpritesGfxPtr->sprites.ptr[0],
+            gMonSpritesGfxPtr->sprites[0],
             species,
             gContestPaintingWinner->personality);
-        _InitContestMonPixels(gMonSpritesGfxPtr->sprites.ptr[0], gContestPaintingMonPalette, (void *)gContestMonPixels);
+        _InitContestMonPixels(gMonSpritesGfxPtr->sprites[0], gContestPaintingMonPalette, (void *)gContestMonPixels);
     }
 }
 

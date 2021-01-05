@@ -1,0 +1,170 @@
+const LOCALID_SHOPOWNER = 1
+const LOCALID_LADY = 2
+const LOCALID_JULIA = 4
+
+mapscripts AcrenForest_PlantShop_MapScripts {}
+
+script AcrenForest_PlantShop_EventScript_ShopOwner {
+    while (var(VAR_JULIA_STATE) == 0) {
+        lock
+        faceplayer
+        playse(SE_EXIT)
+        setobjectmovementtype(LOCALID_JULIA, MOVEMENT_TYPE_FACE_UP)
+        addobject(LOCALID_JULIA)
+        setobjectxy(LOCALID_JULIA, 2, 7)
+        delay(45)
+        applymovement(LOCALID_JULIA, AcrenForest_PlantShop_Movement_JuliaWalkToPlayer)
+        waitmovement(0)
+        turnobject(OBJ_EVENT_ID_PLAYER, DIR_SOUTH)
+        load_speech_bubble(LOCALID_JULIA)
+        msgbox("Oh hi there, my name is Julia.\n"
+               "I haven't seen you around here before…\p"
+               "Uhm, I suppose you're here for\n"
+               "some flowers, just like me.\p"
+               "If you'll excuse me…")
+        destroy_speech_bubble
+        closemessage
+        applymovement(OBJ_EVENT_ID_PLAYER, AcrenForest_PlantShop_Movement_PlayerWalkUpBackwards)
+        applymovement(LOCALID_JULIA, Common_Movement_WalkUp)
+        waitmovement(0)
+        turnobject(LOCALID_JULIA, DIR_WEST)
+        applymovement(LOCALID_JULIA, Common_Movement_WalkInPlaceLeft)
+        waitmovement(0)
+        delay(15)
+        turnobject(LOCALID_SHOPOWNER, DIR_SOUTH)
+        playse(SE_DOOR)
+        setmetatile(0, 4, METATILE_PrettyPetalFlowerShop_Counter_OpenTop, 0)
+        setmetatile(0, 5, METATILE_PrettyPetalFlowerShop_Counter_OpenBottom, 0)
+        setmetatile(0, 6, METATILE_PrettyPetalFlowerShop_Shadow_Wall, 0)
+        setmetatile(1, 6, METATILE_PrettyPetalFlowerShop_Shadow_Angle, 0)
+        special(DrawWholeMapView)
+        applymovement(LOCALID_SHOPOWNER, AcrenForest_PlantShop_Movement_ShopOwnerWalkToJulia)
+        waitmovement(0)
+        turnobject(LOCALID_JULIA, DIR_SOUTH)
+        delay(15)
+        load_speech_bubble(LOCALID_JULIA)
+        msgbox("Thanks a lot, Sir!\p"
+               "The flowers look beautiful.")
+        destroy_speech_bubble
+        closemessage
+        applymovement(LOCALID_SHOPOWNER, AcrenForest_PlantShop_Movement_ShopOwnerWalkBehindCounter)
+        waitmovement(0)
+        turnobject(LOCALID_SHOPOWNER, DIR_SOUTH)
+        playse(SE_DOOR)
+	    setmetatile(0, 4, METATILE_PrettyPetalFlowerShop_Counter_ClosedTop, 0)
+	    setmetatile(0, 5, METATILE_PrettyPetalFlowerShop_Counter_ClosedBottom, 1)
+	    setmetatile(0, 6, METATILE_PrettyPetalFlowerShop_Shadow_Counter, 0)
+	    setmetatile(1, 6, METATILE_PrettyPetalFlowerShop_Shadow_Top, 0)
+    	special(DrawWholeMapView)
+        turnobject(LOCALID_SHOPOWNER, DIR_EAST)
+        delay(15)
+        turnobject(LOCALID_JULIA, DIR_NORTH)
+        load_speech_bubble(LOCALID_JULIA)
+        msgbox("Anyway, I'll be going again.\p"
+               "I guess I'll see you later.")
+        destroy_speech_bubble
+        closemessage
+        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
+        applymovement(LOCALID_JULIA, Common_Movement_WalkDown)
+        waitmovement(0)
+        turnobject(LOCALID_JULIA, DIR_NORTH)
+        playse(SE_PIN)
+        applymovement(LOCALID_JULIA, Common_Movement_ExclamationMark)
+        waitmovement(0)
+        load_speech_bubble(LOCALID_JULIA)
+        msgbox("Oh and…\n"
+               "What's your name?\p"
+               "… … … … … …\n"
+               "… … … … … …\p"
+               "{PLAYER}…\p"
+               "I'll see you later then, {PLAYER}!")
+        destroy_speech_bubble
+        closemessage
+        applymovement(LOCALID_JULIA, AcrenForest_PlantShop_Movement_JuliaWalkToExit)
+        waitmovement(0)
+        playse(SE_EXIT)
+        removeobject(LOCALID_JULIA)
+        turnobject(OBJ_EVENT_ID_PLAYER, DIR_WEST)
+        setvar(VAR_JULIA_STATE, 1)
+        release
+        end
+    }
+    load_speech_bubble(LOCALID_SHOPOWNER)
+    message("Welcome to my PLANT SHOP!\n"
+	       "How can I help you?")
+    waitmessage
+    pokemartdecoration(AcrenForest_PlantShop_PokemartDecor_Plants)
+    destroy_speech_bubble
+    msgbox("Please visit my BERRY SHOP again!", MSGBOX_NPC)
+    release
+    end
+}
+
+raw `
+AcrenForest_PlantShop_PokemartDecor_Plants:
+    .2byte DECOR_PRETTY_FLOWERS
+	.2byte DECOR_TROPICAL_PLANT
+    .2byte DECOR_RED_PLANT
+	.2byte DECOR_COLORFUL_PLANT
+	.2byte DECOR_BIG_PLANT
+	.2byte DECOR_GORGEOUS_PLANT
+	.2byte DECOR_NONE
+	release
+	end
+`
+
+script AcrenForest_PlantShop_EventScript_Kecleon {
+    lock
+    faceplayer
+    playmoncry(SPECIES_KECLEON, 0)
+    waitmoncry
+    msgbox("KECLEON seems to be having fun\n"
+           "in the SHOP.")
+    release
+    end
+}
+
+script AcrenForest_PlantShop_EventScript_Lady {
+    playse(SE_PIN)
+    applymovement(LOCALID_LADY, Common_Movement_Heart)
+    waitmovement(0)
+    msgbox("These flowers smell amazing!\n"
+           "I think I'll buy these.", MSGBOX_NPC)
+    turnobject(LOCALID_LADY, DIR_SOUTH)
+    end
+}
+
+script AcrenForest_PlantShop_EventScript_Logger {
+    end
+}
+
+script AcrenForest_PlantShop_EventScript_BerryExplanationStand {
+    end
+}
+
+movement AcrenForest_PlantShop_Movement_JuliaWalkToPlayer {
+    walk_up * 2
+}
+
+movement AcrenForest_PlantShop_Movement_PlayerWalkUpBackwards {
+    lock_facing_direction
+    walk_up
+}
+
+movement AcrenForest_PlantShop_Movement_ShopOwnerWalkToJulia {
+    walk_down * 2
+    walk_right * 2
+    walk_up
+    delay_16
+    walk_in_place_fastest_up
+}
+
+movement AcrenForest_PlantShop_Movement_ShopOwnerWalkBehindCounter {
+    walk_down
+    walk_left * 2
+    walk_up * 2
+}
+
+movement AcrenForest_PlantShop_Movement_JuliaWalkToExit {
+    walk_down * 2
+}

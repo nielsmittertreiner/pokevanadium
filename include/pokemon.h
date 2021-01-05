@@ -205,6 +205,10 @@ struct BaseStats
             u8 noFlip : 1;
 };
 
+#define MOVE_SPLIT_PHYSICAL	0
+#define MOVE_SPLIT_SPECIAL	1
+#define MOVE_SPLIT_STATUS		2
+
 struct BattleMove
 {
     u8 effect;
@@ -216,6 +220,7 @@ struct BattleMove
     u8 target;
     s8 priority;
     u8 flags;
+    u8 split;
 };
 
 struct SpindaSpot
@@ -275,7 +280,7 @@ void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src);
 void CreateBattleTowerMon2(struct Pokemon *mon, struct BattleTowerPokemon *src, bool8 lvl50);
 void CreateApprenticeMon(struct Pokemon *mon, const struct Apprentice *src, u8 monId);
 void CreateMonWithEVSpreadNatureOTID(struct Pokemon *mon, u16 species, u8 level, u8 nature, u8 fixedIV, u8 evSpread, u32 otId);
-void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
+void sub_80686FC(struct Pokemon *mon, struct BattleTowerPokemon *dest);
 void CreateObedientMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
 bool8 sub_80688F8(u8 caseId, u8 battlerId);
 void SetDeoxysStats(void);
@@ -381,7 +386,7 @@ void ClearBattleMonForms(void);
 u16 GetBattleBGM(void);
 void PlayBattleBGM(void);
 void PlayMapChosenOrBattleBGM(u16 songId);
-void CreateTask_PlayMapChosenOrBattleBGM(u16 songId);
+void sub_806E694(u16 songId);
 const u32 *GetMonFrontSpritePal(struct Pokemon *mon);
 const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality);
 const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);

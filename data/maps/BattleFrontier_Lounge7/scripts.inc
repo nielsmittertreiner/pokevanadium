@@ -119,9 +119,9 @@ BattleFrontier_Lounge7_EventScript_RightMoveTutor:: @ 8265445
 	lock
 	faceplayer
 	setvar VAR_TEMP_C, SCROLL_MULTI_BF_MOVE_TUTOR_2
-	goto_if_set FLAG_MET_FRONTIER_SWIMMER_MOVE_TUTOR, BattleFrontier_Lounge7_EventScript_AlreadyMetRightTutor
+	goto_if_set FLAG_JOINED_LOGGERS_GUILD, BattleFrontier_Lounge7_EventScript_AlreadyMetRightTutor
 	msgbox BattleFrontier_Lounge7_Text_RightTutorIntro, MSGBOX_DEFAULT
-	setflag FLAG_MET_FRONTIER_SWIMMER_MOVE_TUTOR
+	setflag FLAG_JOINED_LOGGERS_GUILD
 	goto BattleFrontier_Lounge7_EventScript_ChooseRightTutorMove
 	end
 

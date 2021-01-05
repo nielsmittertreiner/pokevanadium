@@ -730,7 +730,7 @@ static const u8 sMachoBraceDesc[] = _(
 
 static const u8 sExpShareDesc[] = _(
     "A hold item that\n"
-    "gets EXP. points\n"
+    "spreads experience\n"
     "from battles.");
 
 static const u8 sQuickClawDesc[] = _(
@@ -1549,3 +1549,9 @@ static const u8 sOldSeaMapDesc[] = _(
     "A faded sea chart\n"
     "that shows the way\n"
     "to a certain island.");
+
+// Vanadium
+static const u8 sTerminalPassDesc[] = _(
+    "A pass used to\n"
+    "operate the\n"
+    "HEALING TERMINAL.");

@@ -237,7 +237,7 @@ LilycoveCity_ContestLobby_EventScript_AlreadyInterviewed:: @ 828CB21
 	end
 
 LilycoveCity_ContestLobby_EventScript_TryShowContestReporter:: @ 828CB2B
-	compare VAR_CONTEST_HALL_STATE, 2
+	compare VAR_ROUTE402_STATE, 2
 	goto_if_ne LilycoveCity_ContestLobby_EventScript_DontShowContestReporter
 	setvar VAR_0x8005, TVSHOW_BRAVO_TRAINER_POKEMON_PROFILE
 	special InterviewBefore

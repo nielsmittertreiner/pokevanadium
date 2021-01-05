@@ -8,7 +8,7 @@ LilycoveCity_MapScripts:: @ 81E2B3C
 
 LilycoveCity_OnTransition: @ 81E2B47
 	setflag FLAG_VISITED_LILYCOVE_CITY
-	setvar VAR_CONTEST_HALL_STATE, 0
+	setvar VAR_ROUTE402_STATE, 0
 	setflag FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER
 	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
 	call Common_EventScript_SetupRivalGfxId

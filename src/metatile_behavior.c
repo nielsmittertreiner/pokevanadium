@@ -39,7 +39,7 @@ static const u8 sTileBitAttributes[] =
     [MB_UNUSED_SOOTOPOLIS_DEEP_WATER_2] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_STAIRS_OUTSIDE_ABANDONED_SHIP] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
     [MB_SHOAL_CAVE_ENTRANCE] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
-    [MB_UNUSED_1D] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_FIRWEALD_CLOSED_DOOR] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_UNUSED_1E] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_UNUSED_1F] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_ICE] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
@@ -83,13 +83,13 @@ static const u8 sTileBitAttributes[] =
     [MB_SLIDE_NORTH] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
     [MB_SLIDE_SOUTH] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
     [MB_TRICK_HOUSE_PUZZLE_8_FLOOR] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
-    [MB_UNUSED_49] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
-    [MB_UNUSED_4A] = TILE_ATTRIBUTES(TRUE, FALSE, FALSE),
-    [MB_UNUSED_4B] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
-    [MB_UNUSED_4C] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
-    [MB_UNUSED_4D] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
-    [MB_UNUSED_4E] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
-    [MB_UNUSED_4F] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_SIDEWAYS_STAIRS_RIGHT_SIDE] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_SIDEWAYS_STAIRS_LEFT_SIDE] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_SIDEWAYS_STAIRS_RIGHT_SIDE_TOP] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_SIDEWAYS_STAIRS_LEFT_SIDE_TOP] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_ROCK_STAIRS] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_EASTWARD_CURRENT] = TILE_ATTRIBUTES(TRUE, TRUE, FALSE),
     [MB_WESTWARD_CURRENT] = TILE_ATTRIBUTES(TRUE, TRUE, FALSE),
     [MB_NORTHWARD_CURRENT] = TILE_ATTRIBUTES(TRUE, TRUE, FALSE),
@@ -970,13 +970,10 @@ bool8 MetatileBehavior_IsUnableToEmerge(u8 metatileBehavior)
 {
     // BUG: The player is unintentionally able to emerge on water doors.
     // Also the narrower underwater door in the underwater tileset has the wrong metatile behavior. This causes the dive glitch.
-    // To fix change the metatile behavior of the narrower water door with porymap's tileset editor.
+    // To fix that add || metatileBehavior == MB_WATER_DOOR to the if statement below and 
+    // change the metatile behavior of the narrower water door with porymaps tileset editor.
     if (metatileBehavior == MB_NO_SURFACING
-     || metatileBehavior == MB_SEAWEED_NO_SURFACING
-     #ifdef BUGFIX
-     || metatileBehavior == MB_WATER_DOOR
-     #endif
-     )
+     || metatileBehavior == MB_SEAWEED_NO_SURFACING)
         return TRUE;
     else
         return FALSE;
@@ -1491,6 +1488,90 @@ bool8 MetatileBehavior_IsLongGrassSouthEdge(u8 metatileBehavior)
 bool8 MetatileBehavior_IsTrainerHillTimer(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_TRAINER_HILL_TIMER)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsRightSide(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE || metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsLeftSide(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE || metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsRightSideTop(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_TOP)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsLeftSideTop(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE_TOP)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsRightSideBottom(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsLeftSideBottom(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsRightSideAny(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE
+     || metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM
+     || metatileBehavior == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_TOP)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE 
+     || metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM
+     || metatileBehavior == MB_SIDEWAYS_STAIRS_LEFT_SIDE_TOP)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsRockStairs(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_ROCK_STAIRS)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsFirwealdClosedDoor(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_FIRWEALD_CLOSED_DOOR)
         return TRUE;
     else
         return FALSE;

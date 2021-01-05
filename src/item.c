@@ -12,6 +12,10 @@
 #include "item_use.h"
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
+#include "item_icon.h"
+#include "pokemon_summary_screen.h"
+#include "menu.h"
+#include "party_menu.h"
 #include "constants/items.h"
 #include "constants/hold_effects.h"
 #include "constants/tv.h"
@@ -24,9 +28,13 @@ extern u16 gUnknown_0203CF30[];
 #endif
 static bool8 CheckPyramidBagHasItem(u16 itemId, u16 count);
 static bool8 CheckPyramidBagHasSpace(u16 itemId, u16 count);
+static void ShowItemIconSprite(u16 item, bool8 firstTime);
+static void DestroyItemIconSprite(void);
 
 // EWRAM variables
 EWRAM_DATA struct BagPocket gBagPockets[POCKETS_COUNT] = {0};
+EWRAM_DATA static u8 sHeaderBoxWindowId = 0;
+EWRAM_DATA u8 sItemIconSpriteId = 0;
 
 // rodata
 #include "data/text/item_descriptions.h"
@@ -84,6 +92,15 @@ void SetBagItemsPointers(void)
 
     gBagPockets[BERRIES_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_Berries;
     gBagPockets[BERRIES_POCKET].capacity = BAG_BERRIES_COUNT;
+
+    gBagPockets[MEDICINE_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_Medicine;
+    gBagPockets[MEDICINE_POCKET].capacity = BAG_MEDICINE_COUNT;
+
+    gBagPockets[BATTLEITEMS_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_BattleItems;
+    gBagPockets[BATTLEITEMS_POCKET].capacity = BAG_BATTLEITEMS_COUNT;
+
+    gBagPockets[POWERUP_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_PowerUp;
+    gBagPockets[POWERUP_POCKET].capacity = BAG_POWERUP_COUNT;
 }
 
 void CopyItemName(u16 itemId, u8 *dst)
@@ -956,4 +973,158 @@ ItemUseFunc ItemId_GetBattleFunc(u16 itemId)
 u8 ItemId_GetSecondaryId(u16 itemId)
 {
     return gItems[SanitizeItemId(itemId)].secondaryId;
+}
+
+// Item Description Header
+static bool8 GetSetItemObtained(u16 item, u8 caseId)
+{
+    u8 index;
+    u8 bit;
+    u8 mask;
+
+    index = item / 8;
+    bit = item % 8;
+    mask = 1 << bit;
+    switch (caseId)
+    {
+    case FLAG_GET_OBTAINED:
+        return gSaveBlock2Ptr->itemFlags[index] & mask;
+    case FLAG_SET_OBTAINED:
+        gSaveBlock2Ptr->itemFlags[index] |= mask;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+static u8 ReformatItemDescription(u16 item, u8 *dest)
+{
+    u8 count = 0;
+    u8 numLines = 1;
+    u8 maxChars = 32;
+    
+    u8 *desc = (u8 *)gItems[item].description;
+
+    while (*desc != EOS)
+    {        
+        if (count >= maxChars)
+        {
+            while (*desc != CHAR_SPACE && *desc != CHAR_NEWLINE)
+            {
+                *dest = *desc;  //finish word
+                dest++;
+                desc++;
+            }
+
+            *dest = CHAR_NEWLINE;
+            count = 0;
+            numLines++;
+            dest++;
+            desc++;
+            continue;
+        }
+
+        *dest = *desc;
+        if (*desc == CHAR_NEWLINE)
+        {
+            *dest = CHAR_SPACE;
+        }
+
+        dest++;
+        desc++;
+        count++;
+    }
+
+    // finish string
+    *dest = EOS;
+    return numLines;
+}
+
+#define ITEM_ICON_X 26
+#define ITEM_ICON_Y 24
+void DrawHeaderBox(void)
+{
+    struct WindowTemplate template;
+    u16 item = gSpecialVar_0x8006;
+    u8 headerType = gSpecialVar_0x8009;
+    u8 textY;
+    u8 *dst;
+    
+    if (headerType == 1)
+        dst = gStringVar3;
+    else
+        dst = gStringVar1;
+    
+    if (GetSetItemObtained(item, FLAG_GET_OBTAINED))
+    {
+        ShowItemIconSprite(item, FALSE);
+        return; //no box if item obtained previously
+    }
+
+    SetWindowTemplateFields(&template, 0, 1, 1, 28, 3, 15, 8);
+    sHeaderBoxWindowId = AddWindow(&template);
+    FillWindowPixelBuffer(sHeaderBoxWindowId, PIXEL_FILL(0));
+    PutWindowTilemap(sHeaderBoxWindowId);
+    CopyWindowToVram(sHeaderBoxWindowId, 3);
+    DrawStdFrameWithCustomTileAndPalette(sHeaderBoxWindowId, FALSE, 0x214, 14);
+    
+    if (ReformatItemDescription(item, dst) == 1)
+        textY = 4;
+    else
+        textY = 0;
+
+    ShowItemIconSprite(item, TRUE);
+    AddTextPrinterParameterized(sHeaderBoxWindowId, 0, dst, ITEM_ICON_X + 2, textY, 0, NULL);
+}
+
+void HideHeaderBox(void)
+{
+    DestroyItemIconSprite();
+
+    if (!GetSetItemObtained(gSpecialVar_0x8006, FLAG_GET_OBTAINED))
+    {
+        //header box only exists if haven't seen item before
+        GetSetItemObtained(gSpecialVar_0x8006, FLAG_SET_OBTAINED);
+        ClearStdWindowAndFrameToTransparent(sHeaderBoxWindowId, FALSE);
+        CopyWindowToVram(sHeaderBoxWindowId, 3);
+        RemoveWindow(sHeaderBoxWindowId);
+    }
+}
+
+#define ITEM_TAG 0x2722 //same as money label
+static void ShowItemIconSprite(u16 item, bool8 firstTime)
+{
+	s16 x, y;
+	u8 iconSpriteId;
+
+    iconSpriteId = AddItemIconSprite(ITEM_TAG, ITEM_TAG, item);
+	if (iconSpriteId != MAX_SPRITES)
+	{        
+        if (!firstTime)
+        {
+            //show in message box
+			x = 213;
+			y = 140;
+        }
+        else
+        {
+            // show in header box
+			x = ITEM_ICON_X;
+			y = ITEM_ICON_Y;
+        }
+
+		gSprites[iconSpriteId].pos2.x = x;
+		gSprites[iconSpriteId].pos2.y = y;
+		gSprites[iconSpriteId].oam.priority = 0;
+	}
+
+	sItemIconSpriteId = iconSpriteId;
+}
+
+static void DestroyItemIconSprite(void)
+{    
+	FreeSpriteTilesByTag(ITEM_TAG);
+	FreeSpritePaletteByTag(ITEM_TAG);
+	FreeSpriteOamMatrix(&gSprites[sItemIconSpriteId]);
+	DestroySprite(&gSprites[sItemIconSpriteId]);
 }

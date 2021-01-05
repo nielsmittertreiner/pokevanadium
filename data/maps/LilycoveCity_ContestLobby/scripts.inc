@@ -841,7 +841,7 @@ LilycoveCity_ContestLobby_EventScript_StartLinkContest:: @ 821AB17
 	waitmessage
 	subvar VAR_0x8004, 1
 	call LilycoveCity_ContestLobby_EventScript_LeadToLinkContestHall
-	setvar VAR_CONTEST_HALL_STATE, 1
+	setvar VAR_ROUTE402_STATE, 1
 	special SetLinkContestPlayerGfx
 	setvar VAR_CONTEST_TYPE, CONTEST_TYPE_LINK
 	setvar VAR_CONTEST_RANK, CONTEST_RANK_MASTER

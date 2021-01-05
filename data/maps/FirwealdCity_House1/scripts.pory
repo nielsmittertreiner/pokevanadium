@@ -1,0 +1,38 @@
+const LOCALID_ZIGZAGOON = 2
+
+mapscripts FirwealdCity_House1_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        if (flag(FLAG_HIDE_FIRWEALD_CITY_HOUSE1_LITTLE_GIRL) == TRUE) {
+            setobjectmovementtype(LOCALID_ZIGZAGOON, MOVEMENT_TYPE_LOOK_AROUND)
+            setobjectxyperm(LOCALID_ZIGZAGOON, 10, 6)
+        }
+    }
+}
+
+script FirwealdCity_House1_EventScript_Gentleman {
+    msgbox("I've always been a hard-working man, so\n"
+           "I bought this new house with my pension.", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_House1_EventScript_Lass {
+    msgbox("Thanks for helping me out!\p"
+           "I don't think I would have found her\n"
+           "myself…", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_House1_EventScript_LittleGirl {
+    msgbox("Weeee\n"
+           "Grandpa's ZIGZAGOON is so adorable!", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_House1_EventScript_Zigzagoon {
+    lock
+    faceplayer
+    playmoncry(SPECIES_ZIGZAGOON, 0)
+    waitmoncry
+    release
+    end
+}

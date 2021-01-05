@@ -60,31 +60,31 @@ $(CASTFORMGFXDIR)/shiny.gbapal: $(CASTFORMGFXDIR)/shiny_normal_form.gbapal \
 ### Tilesets ###
 
 $(TILESETGFXDIR)/secondary/petalburg/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 159
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/rustboro/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 498
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/dewford/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 503
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/slateport/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 504
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/mauville/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 503
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/lavaridge/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 450
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/fortree/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 493
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/pacifidlog/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 504
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/sootopolis/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 328
+	$(GFX) $< $@
 
 SOOTOPOLISANIMDIR := $(TILESETGFXDIR)/secondary/sootopolis/anim
 
@@ -121,169 +121,169 @@ $(SOOTOPOLISANIMDIR)/stormy_water/7.4bpp: $(SOOTOPOLISANIMDIR)/stormy_water/7_ky
 	@cat $^ >$@
 
 $(TILESETGFXDIR)/secondary/battle_frontier_outside_west/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 508
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/battle_frontier_outside_east/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 508
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/primary/building/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 502
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/shop/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 502
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/pokemon_center/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 478
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/cave/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 425
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/pokemon_school/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 278
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/pokemon_fan_club/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 319
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/unused_1/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 17
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/meteor_falls/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 460
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/oceanic_museum/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 319
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/cable_club/unknown_tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 120
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/seashore_house/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 312
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/pretty_petal_flower_shop/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 345
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/pokemon_day_care/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 355
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/brown_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/brown_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/tree/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/tree/tiles.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/shrub/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/shrub/tiles.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/blue_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/blue_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/yellow_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/yellow_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/red_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/red_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/brown_cave/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 83
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/tree/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 83
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/shrub/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 83
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/blue_cave/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 83
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/yellow_cave/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 83
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/secret_base/red_cave/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 83
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/inside_of_truck/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 62
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/contest/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 430
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/lilycove_museum/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 431
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/lab/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 500
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/underwater/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 500
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/generic_building/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 509
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/mauville_game_corner/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 469
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/unused_2/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 150
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/rustboro_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 60
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/dewford_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 61
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/lavaridge_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 54
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/petalburg_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 148
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/fortree_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 61
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/mossdeep_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 82
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/sootopolis_gym/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 484
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/trick_house_puzzle/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 294
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/inside_ship/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 342
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/elite_four/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 505
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/battle_frontier/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 310
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/battle_factory/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 424
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/battle_pike/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 382
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/mirage_tower/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 420
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/mossdeep_game_corner/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 95
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/island_harbor/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 503
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/trainer_hill/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 374
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/navel_rock/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 420
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/battle_frontier_ranking_hall/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 136
+	$(GFX) $< $@
 
 $(TILESETGFXDIR)/secondary/mystery_events_house/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 509
+	$(GFX) $< $@
 
 
 
@@ -350,7 +350,7 @@ graphics/link_games/pkmnjump_bg.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 63
 
 graphics/pokenav/region_map.8bpp: %.8bpp: %.png
-	$(GFX) $< $@ -num_tiles 233
+	$(GFX) $< $@ 
 
 $(MISCGFXDIR)/japanese_hof.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 29
@@ -716,7 +716,7 @@ $(PKNAVGFXDIR)/ui_matchcall.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 13
 
 $(INTERFACEGFXDIR)/region_map.8bpp: %.8bpp: %.png
-	$(GFX) $< $@ -num_tiles 232
+	$(GFX) $< $@ 
 
 $(INTERFACEGFXDIR)/region_map_affine.8bpp: %.8bpp: %.png
 	$(GFX) $< $@ -num_tiles 233

@@ -646,11 +646,11 @@ Route110_TrickHousePuzzle3_EventScript_Door:: @ 826A2DB
 	end
 
 Route110_TrickHousePuzzle4_EventScript_Door:: @ 826A304
-	compare VAR_TRICK_HOUSE_PUZZLE_4_STATE, 0
+	compare VAR_ACREN_FOREST_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle_EventScript_DoorLocked
 	msgbox Route110_TrickHousePuzzle4_Text_WroteSecretCodeLockOpened, MSGBOX_DEFAULT
 	playse SE_PIN
-	setvar VAR_TRICK_HOUSE_PUZZLE_4_STATE, 2
+	setvar VAR_ACREN_FOREST_STATE, 2
 	setmetatile 13, 1, METATILE_TrickHousePuzzle_Stairs_Down, 0
 	special DrawWholeMapView
 	releaseall
@@ -668,33 +668,33 @@ Route110_TrickHousePuzzle5_EventScript_Door:: @ 826A32D
 	end
 
 Route110_TrickHousePuzzle6_EventScript_Door:: @ 826A356
-	compare VAR_TRICK_HOUSE_PUZZLE_6_STATE, 0
+	compare VAR_ACREN_FOREST_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle_EventScript_DoorLocked
 	msgbox Route110_TrickHousePuzzle6_Text_WroteSecretCodeLockOpened, MSGBOX_DEFAULT
 	playse SE_PIN
-	setvar VAR_TRICK_HOUSE_PUZZLE_6_STATE, 2
+	setvar VAR_ACREN_FOREST_STATE, 2
 	setmetatile 13, 1, METATILE_TrickHousePuzzle_Stairs_Down, 0
 	special DrawWholeMapView
 	releaseall
 	end
 
 Route110_TrickHousePuzzle7_EventScript_Door:: @ 826A37F
-	compare VAR_TRICK_HOUSE_PUZZLE_7_STATE, 0
+	compare VAR_SUNSET_TOWN_FOLLOWER_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle_EventScript_DoorLocked
 	msgbox Route110_TrickHousePuzzle7_EventScript_WroteSecretCodeLockOpened, MSGBOX_DEFAULT
 	playse SE_PIN
-	setvar VAR_TRICK_HOUSE_PUZZLE_7_STATE, 2
+	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE, 2
 	setmetatile 13, 1, METATILE_TrickHousePuzzle_Stairs_Down, 0
 	special DrawWholeMapView
 	releaseall
 	end
 
 Route110_TrickHousePuzzle8_EventScript_Door:: @ 826A3A8
-	compare VAR_TRICK_HOUSE_PUZZLE_8_STATE, 0
+	compare VAR_JULIA_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle_EventScript_DoorLocked
 	msgbox Route110_TrickHousePuzzle8_EventScript_WroteSecretCodeLockOpened, MSGBOX_DEFAULT
 	playse SE_PIN
-	setvar VAR_TRICK_HOUSE_PUZZLE_8_STATE, 2
+	setvar VAR_JULIA_STATE, 2
 	setmetatile 13, 1, METATILE_TrickHousePuzzle_Stairs_Down, 0
 	special DrawWholeMapView
 	releaseall

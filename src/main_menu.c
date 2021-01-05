@@ -28,6 +28,7 @@
 #include "scanline_effect.h"
 #include "sound.h"
 #include "sprite.h"
+#include "string.h"
 #include "strings.h"
 #include "string_util.h"
 #include "task.h"
@@ -1482,7 +1483,9 @@ static void Task_NewGameBirchSpeech_WaitForPlayerFadeIn(u8 taskId)
     if (gTasks[taskId].tIsDoneFadingSprites)
     {
         gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
-        gTasks[taskId].func = Task_NewGameBirchSpeech_BoyOrGirl;
+        //gTasks[taskId].func = Task_NewGameBirchSpeech_BoyOrGirl;
+        gSaveBlock2Ptr->playerGender = MALE;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_StartNamingScreen;
     }
 }
 

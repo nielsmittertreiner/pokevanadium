@@ -227,7 +227,7 @@ static const match_call_text_data_t sMomTextScripts[] = {
 static const struct MatchCallStructNPC sMomMatchCallHeader =
 {
     .type = MC_TYPE_NPC,
-    .mapSec = MAPSEC_LITTLEROOT_TOWN,
+    .mapSec = MAPSEC_SUNSET_TOWN,
     .flag = FLAG_ENABLE_MOM_MATCH_CALL,
     .desc = gText_MomMatchCallDesc,
     .name = gText_MomMatchCallName,
@@ -394,7 +394,7 @@ static const match_call_text_data_t sBrawlyTextScripts[] = {
 static const struct MatchCallStructTrainer sBrawlyMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
-    .mapSec = MAPSEC_DEWFORD_TOWN,
+    .mapSec = MAPSEC_FIRWEALD_CITY,
     .flag = FLAG_ENABLE_BRAWLY_MATCH_CALL,
     .rematchTableIdx = REMATCH_BRAWLY,
     .desc = gText_BrawlyMatchCallDesc,
@@ -842,14 +842,22 @@ static bool32 MatchCall_IsRematchable_NPC(match_call_t matchCall)
 
 static bool32 MatchCall_IsRematchable_Trainer(match_call_t matchCall)
 {
+    #ifndef FREE_MATCH_CALL
     if (matchCall.trainer->rematchTableIdx >= REMATCH_ELITE_FOUR_ENTRIES)
         return FALSE;
     return gSaveBlock1Ptr->trainerRematches[matchCall.trainer->rematchTableIdx] ? TRUE : FALSE;
+    #else
+    return FALSE;
+    #endif
 }
 
 static bool32 MatchCall_IsRematchable_Wally(match_call_t matchCall)
 {
+    #ifndef FREE_MATCH_CALL
     return gSaveBlock1Ptr->trainerRematches[matchCall.wally->rematchTableIdx] ? TRUE : FALSE;
+    #else
+    return FALSE;
+    #endif
 }
 
 static bool32 MatchCall_IsRematchable_Rival(match_call_t matchCall)
@@ -1004,6 +1012,7 @@ static void MatchCall_BufferCallMessageText(const match_call_text_data_t *textDa
 
 static void MatchCall_BufferCallMessageTextByRematchTeam(const match_call_text_data_t *textData, u16 idx, u8 *dest)
 {
+    #ifndef FREE_MATCH_CALL
     u32 i;
     for (i = 0; textData[i].text != NULL; i++)
     {
@@ -1037,6 +1046,7 @@ static void MatchCall_BufferCallMessageTextByRematchTeam(const match_call_text_d
 
         StringExpandPlaceholders(dest, textData[i].text);
     }
+    #endif
 }
 
 void MatchCall_GetNameAndDesc(u32 idx, const u8 **desc, const u8 **name)
@@ -1100,9 +1110,16 @@ const u8 *MatchCall_GetOverrideFlavorText(u32 idx, u32 offset)
     {
         if (sCheckPageOverrides[i].idx == idx)
         {
-            for (; i + 1 < ARRAY_COUNT(sCheckPageOverrides) &&
-                sCheckPageOverrides[i + 1].idx == idx &&
-                FlagGet(sCheckPageOverrides[i + 1].flag); i++);
+            while (1)
+            {
+                if (i + 1 >= ARRAY_COUNT(sCheckPageOverrides))
+                    break;
+                if (sCheckPageOverrides[i + 1].idx != idx)
+                    break;
+                if (!FlagGet(sCheckPageOverrides[i + 1].flag))
+                    break;
+                i++;
+            }
             return sCheckPageOverrides[i].flavorTexts[offset];
         }
     }

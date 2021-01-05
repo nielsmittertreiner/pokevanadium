@@ -523,7 +523,7 @@ MtChimney_EventScript_Grunt1:: @ 822F1F1
 	end
 
 MtChimney_EventScript_Sawyer:: @ 822F208
-	trainerbattle_single TRAINER_SAWYER_1, MtChimney_Text_SawyerIntro, MtChimney_Text_SawyerDefeat, MtChimney_EventScript_SawyerDefeated
+	trainerbattle_single TRAINER_ACREN_FOREST_FREDERICK, MtChimney_Text_SawyerIntro, MtChimney_Text_SawyerDefeat, MtChimney_EventScript_SawyerDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	compare VAR_RESULT, TRUE
 	goto_if_eq MtChimney_EventScript_SawyerRematch
@@ -535,12 +535,12 @@ MtChimney_EventScript_SawyerDefeated:: @ 822F234
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
 	msgbox MtChimney_Text_SawyerRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_SAWYER_1
+	register_matchcall TRAINER_ACREN_FOREST_FREDERICK
 	release
 	end
 
 MtChimney_EventScript_SawyerRematch:: @ 822F253
-	trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
+	trainerbattle_rematch TRAINER_ACREN_FOREST_FREDERICK, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
 	msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
 	end
 

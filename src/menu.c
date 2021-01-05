@@ -64,8 +64,8 @@ const u16 gUnknown_0860F074[] = INCBIN_U16("graphics/interface/860F074.gbapal");
 
 static const u8 sTextSpeedFrameDelays[] = 
 { 
-    [OPTIONS_TEXT_SPEED_SLOW] = 8, 
-    [OPTIONS_TEXT_SPEED_MID]  = 4, 
+    [OPTIONS_TEXT_SPEED_SLOW] = 4, 
+    [OPTIONS_TEXT_SPEED_MID]  = 2, 
     [OPTIONS_TEXT_SPEED_FAST] = 1 
 };
 
@@ -86,7 +86,7 @@ static const struct WindowTemplate sStandardTextBox_WindowTemplates[] =
 static const struct WindowTemplate sYesNo_WindowTemplates =
 {
     .bg = 0,
-    .tilemapLeft = 21,
+    .tilemapLeft = 23,
     .tilemapTop = 9,
     .width = 5,
     .height = 4,
@@ -2016,7 +2016,7 @@ void sub_819A080(const struct Bitmap *src, struct Bitmap *dst, u16 srcX, u16 src
 {
     int loopSrcY, loopDstY, loopSrcX, loopDstX, xEnd, yEnd, multiplierSrcY, multiplierDstY;
     const u8 *pixelsSrc;
-    u8 *pixelsDst;
+    u16 *pixelsDst;
     u16 toOrr;
 
     if (dst->width - dstX < width)
@@ -2037,52 +2037,53 @@ void sub_819A080(const struct Bitmap *src, struct Bitmap *dst, u16 srcX, u16 src
         for (loopSrcX = srcX, loopDstX = dstX; loopSrcX < xEnd; loopSrcX++, loopDstX++)
         {
             pixelsSrc = src->pixels + ((loopSrcX >> 1) & 3) + ((loopSrcX >> 3) << 5) + (((loopSrcY >> 3) * multiplierSrcY) << 5) + ((u32)(loopSrcY << 0x1d) >> 0x1B);
-            pixelsDst = (void*) dst->pixels + ((loopDstX >> 1) & 3) + ((loopDstX >> 3) << 5) + ((( loopDstY >> 3) * multiplierDstY) << 5) + ((u32)(loopDstY << 0x1d) >> 0x1B);
+            pixelsDst = (void*) dst->pixels + ((loopDstX >> 1) & 3) + ((loopDstX >> 3) << 5) + ((( loopDstY >> 3) * multiplierDstY) << 5) + ((u32)( loopDstY << 0x1d) >> 0x1B);
 
-            if ((uintptr_t)pixelsDst & 0x1)
+            if ((uintptr_t )pixelsDst & 0x1)
             {
-                pixelsDst--;
+                pixelsDst = (void*)(pixelsDst) - 1;
                 if (loopDstX & 0x1)
                 {
-                    toOrr = *(vu16*)pixelsDst;
-                    toOrr &= 0x0fff;
+                    toOrr = *pixelsDst & 0x0fff;
                     if (loopSrcX & 0x1)
-                        toOrr |= ((*pixelsSrc & 0xf0) << 8);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0xf0) << 8);
                     else
-                        toOrr |= ((*pixelsSrc & 0x0f) << 12);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0x0f) << 12);
                 }
                 else
                 {
-                    toOrr = *(vu16*)pixelsDst;
-                    toOrr &= 0xf0ff;
+                    toOrr = *pixelsDst & 0xf0ff;
                     if (loopSrcX & 0x1)
-                        toOrr |= ((*pixelsSrc & 0xf0) << 4);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0xf0) << 4);
                     else
-                        toOrr |= ((*pixelsSrc & 0x0f) << 8);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0x0f) << 8);
                 }
             }
             else
             {
                 if (loopDstX & 1)
                 {
-                    toOrr = *(vu16*)pixelsDst;
-                    toOrr &= 0xff0f;
+                    toOrr = *pixelsDst & 0xff0f;
                     if (loopSrcX & 1)
-                        toOrr |= ((*pixelsSrc & 0xf0) << 0);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0xf0) << 0);
                     else
-                        toOrr |= ((*pixelsSrc & 0x0f) << 4);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0x0f) << 4);
                 }
                 else
                 {
-                    toOrr = *(vu16*)pixelsDst;
-                    toOrr &= 0xfff0;
+                    toOrr = *pixelsDst & 0xfff0;
                     if (loopSrcX & 1)
-                        toOrr |= ((*pixelsSrc & 0xf0) >> 4);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0xf0) >> 4);
                     else
-                        toOrr |= ((*pixelsSrc & 0x0f) >> 0);
+                        *pixelsDst = toOrr | ((*pixelsSrc & 0x0f) >> 0);
                 }
             }
-            *(vu16*)pixelsDst = toOrr;
+
+            // Needed to match, urgh.
+            #ifndef NONMATCHING
+            asm("":::"r4");
+            pixelsDst++;pixelsDst--;
+            #endif // NONMATCHING
         }
     }
 }

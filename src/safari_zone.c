@@ -107,7 +107,7 @@ void CB2_EndSafariBattle(void)
     {
         ScriptContext2_RunNewScript(SafariZone_EventScript_OutOfBallsMidBattle);
         WarpIntoMap();
-        gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
+        gFieldCallback = sub_80AF6F0;
         SetMainCallback2(CB2_LoadMap);
     }
     else if (gBattleOutcome == B_OUTCOME_CAUGHT)

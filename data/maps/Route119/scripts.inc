@@ -21,7 +21,7 @@ Route119_EventScript_TryRemoveKecleon:: @ 81F4439
 Route119_OnTransition: @ 81F444D
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupRivalOnBikeGfxId
-	compare VAR_WEATHER_INSTITUTE_STATE, 1
+	compare VAR_TOURNAMENT_HALL_STATE, 1
 	call_if_eq Route119_EventScript_MoveInstituteWorkersDownstairs
 	special SetRoute119Weather
 	end
@@ -29,7 +29,7 @@ Route119_OnTransition: @ 81F444D
 Route119_EventScript_MoveInstituteWorkersDownstairs:: @ 81F4466
 	setflag FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
 	clearflag FLAG_HIDE_WEATHER_INSTITUTE_1F_WORKERS
-	setvar VAR_WEATHER_INSTITUTE_STATE, 2
+	setvar VAR_TOURNAMENT_HALL_STATE, 2
 	return
 
 Route119_EventScript_RivalTrigger1:: @ 81F4472

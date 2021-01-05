@@ -333,6 +333,9 @@ SECTIONS {
         src/gym_leader_rematch.o(.text);
         src/battle_transition_frontier.o(.text);
         src/international_string_util.o(.text);
+        src/follow_me.o(.text);
+        src/speech_bubble.o(.text);
+        src/debug.o(.text);
     } =0
 
     script_data :
@@ -686,12 +689,15 @@ SECTIONS {
         src/walda_phrase.o(.rodata);
         src/gym_leader_rematch.o(.rodata);
         src/battle_transition_frontier.o(.rodata);
+        src/speech_bubble.o(.rodata);
         src/text_input_strings.o(.rodata);
         data/fonts.o(.rodata);
         src/mystery_event_msg.o(.rodata);
         data/mystery_event.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data.o(.rodata);
+        src/follow_me.o(.rodata);
+        src/debug.o(.rodata);
     } =0
 
     song_data :

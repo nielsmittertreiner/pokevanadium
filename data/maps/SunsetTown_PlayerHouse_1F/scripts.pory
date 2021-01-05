@@ -1,0 +1,97 @@
+const LOCALID_BAG = 1
+const LOCALID_MOM = 2
+
+mapscripts SunsetTown_PlayerHouse_1F_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_SUNSET_TOWN_STATE, 1 {
+            lock
+            playse(SE_PIN)
+            applymovement(LOCALID_MOM, Common_Movement_ExclamationMark)
+            applymovement(LOCALID_MOM Common_Movement_FaceUp)
+            waitmovement(0)
+            delay(32)
+            msgbox("Come here, quickly!")
+            closemessage
+            applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_PlayerHouse_1F_Movement_PlayerWalksToMom)
+            waitmovement(0)
+            turnobject(LOCALID_MOM, DIR_NORTH)
+            load_speech_bubble(LOCALID_MOM)
+            msgbox("Do you like the new RUNNING SHOES?\p"
+	               "You said you wanted these and they look\n"
+	               "very good on you!")
+            destroy_speech_bubble
+            setvar(VAR_SUNSET_TOWN_STATE, 2)
+            release
+            end
+        }
+    ]
+}
+
+script SunsetTown_PlayerHouse_1F_EventScript_OpenGift {
+    lock
+    removeobject(LOCALID_BAG, MAP_SUNSET_TOWN_PLAYER_HOUSE_1F)
+    playfanfare(MUS_OBTAIN_ITEM)
+    msgbox("{PLAYER} zipped on the RUNNING SHOES!")
+    waitfanfare
+    msgbox("Press the B-BUTTON to put a zip in your\n"
+	       "step and race in the great outdoors.")
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+    applymovement(LOCALID_MOM, SunsetTown_PlayerHouse_1F_Movement_MomWalksToPlayer)
+    waitmovement(0)
+    setvar(VAR_LAST_TALKED, LOCALID_MOM)
+    msgbox("Do you like the new RUNNING SHOES?\p"
+	       "You said you wanted these and they look\n"
+	       "very good on you!", MSGBOX_NPC)
+    applymovement(LOCALID_MOM, SunsetTown_PlayerHouse_1F_Movement_MomWalksToTable)
+    waitmovement(0)
+    delay(32)
+    playse(SE_PIN)
+    applymovement(LOCALID_MOM, Common_Movement_ExclamationMark)
+    turnobject(LOCALID_MOM, DIR_NORTH)
+    waitmovement(0)
+    msgbox("Oh, and I've heard that DAD\n"
+	       "had a letter for you too.\p"
+	       "You know you can always find him in\n"
+	       "his POKéMON LAB.", MSGBOX_NPC)
+    turnobject(LOCALID_MOM, DIR_WEST)
+    setflag(FLAG_SYS_B_DASH)
+    setvar(VAR_SUNSET_TOWN_STATE, 3)
+    release
+    end
+}
+
+script SunsetTown_PlayerHouse_1F_EventScript_PreventWanderOff {
+    lock
+    playse(SE_PIN)
+    applymovement(LOCALID_MOM, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    setvar(VAR_LAST_TALKED, LOCALID_MOM)
+    msgbox("Aren't you gonna open your gift?", MSGBOX_NPC)
+    switch (var(VAR_FACING))
+    {
+        case DIR_NORTH:
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
+            waitmovement(0)
+        case DIR_EAST:
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+            waitmovement(0)
+    }
+}
+
+movement SunsetTown_PlayerHouse_1F_Movement_PlayerWalksToMom {
+    walk_down * 2
+    walk_left * 4
+    face_down
+}
+
+movement SunsetTown_PlayerHouse_1F_Movement_MomWalksToPlayer {
+    walk_up
+	walk_left
+}
+
+movement SunsetTown_PlayerHouse_1F_Movement_MomWalksToTable {
+    walk_right
+    walk_down
+    face_left
+}

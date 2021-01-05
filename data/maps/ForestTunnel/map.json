@@ -1,0 +1,76 @@
+{
+  "id": "MAP_FOREST_TUNNEL",
+  "name": "ForestTunnel",
+  "layout": "LAYOUT_FOREST_TUNNEL",
+  "music": "MUS_PETALBURG_WOODS",
+  "region_map_section": "MAPSEC_FIRWEALD_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_FOG_HORIZONTAL",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 4,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_FIRWEALD_CITY",
+      "dest_warp_id": 6
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "elevation": 0,
+      "dest_map": "MAP_FOREST_TUNNEL",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "elevation": 0,
+      "dest_map": "MAP_FOREST_TUNNEL",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 4,
+      "y": 22,
+      "elevation": 0,
+      "dest_map": "MAP_FOREST_TUNNEL",
+      "dest_warp_id": 2
+    },
+    {
+      "x": 10,
+      "y": 45,
+      "elevation": 0,
+      "dest_map": "MAP_FOREST_TUNNEL",
+      "dest_warp_id": 5
+    },
+    {
+      "x": 6,
+      "y": 57,
+      "elevation": 0,
+      "dest_map": "MAP_FOREST_TUNNEL",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 11,
+      "y": 66,
+      "elevation": 0,
+      "dest_map": "MAP_ACREN_FOREST",
+      "dest_warp_id": 7
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

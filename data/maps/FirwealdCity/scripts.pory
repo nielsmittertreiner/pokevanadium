@@ -1,0 +1,348 @@
+const LOCALID_LITTLEGIRL = 2
+const LOCALID_LASS = 3
+const LOCALID_FISHERMAN = 4
+const LOCALID_MANIAC = 6
+const LOCALID_PHYLLOS = 9
+
+mapscripts FirwealdCity_MapScripts {
+    MAP_SCRIPT_ON_LOAD {
+        if (flag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY) == TRUE)
+        {
+            setmetatile(37, 16, METATILE_Petalburg_ClosedTournamentHallDoor, 1)
+        }
+    }
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_FIRWEALD_CITY)
+        setflag(FLAG_VISITED_FIRWEALD_CITY)
+        if (var(VAR_FIRWEALD_CITY_STATE) == 0)
+        {
+            setobjectxyperm(LOCALID_MANIAC, 47, 18)
+            setobjectmovementtype(LOCALID_MANIAC, MOVEMENT_TYPE_FACE_UP)
+        }
+    }
+}
+
+script FirwealdCity_EventScript_ParkSign {
+    msgbox("FIRWEALD PARK", MSGBOX_SIGN)
+    end
+}
+
+script FirwealdCity_EventScript_CitySign {
+    msgbox("FIRWEALD CITY\n"
+	       "“Water and earth in harmony.”", MSGBOX_SIGN)
+    end
+}
+
+script FirwealdCity_EventScript_CaveSign {
+    msgbox("FOREST TUNNEL", MSGBOX_SIGN)
+    end
+}
+
+script FirwealdCity_EventScript_TournamentHallSign {
+    msgbox("FIRWEALD CITY TOURNAMENT HALL.\p"
+	       "Challenge PHYLLOS, the protector\n"
+           "of ACREN FOREST.$", MSGBOX_SIGN)
+    end
+}
+
+script FirwealdCity_EventScript_Phyllos {
+    // msgbox or something idk
+    release
+    end
+}
+
+script FirwealdCity_EventScript_PhyllosEncounter {
+    lock
+    setmetatile(37, 16, METATILE_Petalburg_Door_BattleTent, 1)
+    opendoor(37, 16)
+    waitdooranim
+    addobject(LOCALID_PHYLLOS)
+    applymovement(LOCALID_PHYLLOS, Common_Movement_WalkDown)
+    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_PlayerWalkDownBackwards)
+    waitmovement(0)
+    closedoor(37, 16)
+    waitdooranim
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("I've been expecting you {PLAYER}…\p"
+           "… … … … … … … … …\p"
+           "You ask how?\n"
+           "Let's just say the trees…\l"
+           "They carry my eyes,\l"
+           "ears and voice.\p"
+           "Me?\n"
+           "My name is PHYLLOS, SHRINE KEEPER\l"
+           "and FIRWEALD CITY's\l"
+           " TOURNAMENT MASTER.\p"
+           "They need help in the forest, yes?\p"
+           "Well then let's not waste a moment\n"
+           "and get going.\p"
+           "Meet me in the forest, kid.")
+    destroy_speech_bubble
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_PlayerWalkDownBackwards)
+    applymovement(LOCALID_PHYLLOS, FirwealdCity_Movement_PhyllosWalkToForest)
+    waitmovement(0)
+    removeobject(LOCALID_PHYLLOS)
+    setflag(FLAG_HIDE_ACREN_FOREST_GRUNTS_BLOCKING)
+    setvar(VAR_ACREN_FOREST_STATE, 4)
+    release
+    end
+}
+
+script FirwealdCity_EventScript_Maniac {
+    if (var(VAR_FIRWEALD_CITY_STATE) == 0) {
+        msgbox("Don't bother me please.\n"
+	           "Something is happening in this tree,\l"
+	           "and I want to know what.", MSGBOX_NPC)
+    } else {
+        msgbox("As it turned out…\p"
+	           "Nothing ever happened in that tree…\p"
+	           "I'm sorry for blocking your path…", MSGBOX_NPC)
+    }
+}
+
+script FirwealdCity_EventScript_BlockPath {
+    lock
+    playse(SE_PIN)
+    applymovement(LOCALID_MANIAC, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    applymovement(LOCALID_MANIAC, FirwealdCity_Movement_WalkInFrontOfPlayer)
+    waitmovement(0)
+    setvar(VAR_LAST_TALKED, LOCALID_MANIAC)
+    msgbox("Hmmmm…\n"
+	       "That glint in your eyes…\p"
+	       "I'm sure you have some business\n"
+	       "to do here in FIRWEALD CITY.\p"
+	       "Fufufu… Fufufu…\p"
+	       "Go do your thing while I inspect this\n"
+	       "tree right here.", MSGBOX_NPC)
+    applymovement(LOCALID_MANIAC FirwealdCity_Movement_PushBackPlayer)
+    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack)
+    waitmovement(0)
+    applymovement(LOCALID_MANIAC, Common_Movement_WalkUp)
+    waitmovement(0)
+    release
+    end
+}
+
+script FirwealdCity_EventScript_Fisherman {
+    lock
+    faceplayer
+    if (flag(FLAG_FIRWEALD_CITY_FISHERMAN_MART_EVENT) == TRUE) {
+        msgbox("Oh man…\n"
+               "The GOLDEEN still aren't biting…", MSGBOX_NPC)
+        end
+    } else {
+        msgbox("Hiya there!\n"
+	           "I've heard there are rare GOLDEEN\l"
+	           "in this small lake.", MSGBOX_NPC)
+        playse(SE_PIN)
+        applymovement(LOCALID_FISHERMAN, Common_Movement_ExclamationMark)
+        delay(32)
+        msgbox("Oh no!\n"
+	           "I forgot to buy fishing bait!\p"
+	           "What a foolish mistake…\p"
+	           "I'll be off to the POKéMART to\n"
+	           "buy some then.", MSGBOX_NPC)
+        if (var(VAR_FACING) == DIR_SOUTH) {
+            applymovement(LOCALID_FISHERMAN, FirwealdCity_Movement_WalkAroundPlayerToPokeMart)
+	        waitmovement(0)
+        } else {
+            applymovement(LOCALID_FISHERMAN, FirwealdCity_Movement_WalkToPokeMart)
+	        waitmovement(0)
+        }
+        removeobject(LOCALID_FISHERMAN, MAP_FIRWEALD_CITY)
+        clearflag(FLAG_HIDE_FIRWEALD_CITY_MART_FISHERMAN)
+        setflag(FLAG_FIRWEALD_CITY_FISHERMAN_MART_EVENT)
+        release
+        end
+    }
+}
+
+script FirwealdCity_EventScript_Triathlete {
+    msgbox("Huff puff puff\n"
+           "I don't have time for talking.\p"
+           "I must keep running!", MSGBOX_NPC)
+}
+
+script FirwealdCity_EventScript_Boy {
+    msgbox("My big sister always plays hide and\n"
+           "seek with my other sister…", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_EventScript_Lass {
+    while (flag(FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT) == TRUE) {
+        msgbox("Where could she be?\p"
+               "She's very good at hiding!", MSGBOX_NPC)
+        end
+    }
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_LASS)
+    msgbox("My little sister and I are\n"
+           "playing hide and seek, but\l"
+           "I really can't find her…\p"
+           "Do you want to help me out?", MSGBOX_YESNO)
+    destroy_speech_bubble
+    switch (var(VAR_RESULT)) {
+        case NO:
+            msgbox("Aww, that's too bad", MSGBOX_NPC)
+            end
+        case YES:
+            msgbox("Great!\p"
+                   "She should be somewehere here\n"
+                   "in FIRWEALD PARK.", MSGBOX_NPC)
+            setflag(FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT)
+            end
+    }
+}
+
+script FirwealdCity_EventScript_LittleGirl {
+    while (flag(FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT) == TRUE) {
+        lock
+        faceplayer
+        playse(SE_PIN)
+        applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_NoticeLittleGirlHidingSpot)
+        waitmovement(0)
+        load_speech_bubble(LOCALID_LITTLEGIRL)
+        msgbox("Are you helping my big sister?!\p"
+               "You're such a meanie!")
+        destroy_speech_bubble
+        closemessage
+        if (var(VAR_FACING) == DIR_SOUTH) {
+            applymovement(LOCALID_LASS, FirwealdCity_Movement_LassWalkToLittleGirlFacingSouth)
+            waitmovement(0)
+        } else {
+            applymovement(LOCALID_LASS, FirwealdCity_Movement_LassWalkToLittleGirlFacingEastAndWest)
+            waitmovement(0)
+        }
+        load_speech_bubble(LOCALID_LASS)
+        msgbox("Hey, he found you!\p"
+               "Let's go home now, grandpa is\n"
+               "waiting for us.")
+        destroy_speech_bubble
+        closemessage
+        if (var(VAR_FACING) == DIR_SOUTH) {
+            applymovement(LOCALID_LASS, FirwealdCity_Movement_LassWalkHomeFacingSouth)
+            applymovement(LOCALID_LITTLEGIRL, FirwealdCity_Movement_LittleGirlWalkHomeFacingSouth)
+            waitmovement(0)
+        } else {
+            applymovement(LOCALID_LASS, FirwealdCity_Movement_LassWalkHomeFacingEastAndWest)
+            applymovement(LOCALID_LITTLEGIRL, FirwealdCity_Movement_LittleGirlWalkHomeFacingEastAndWest)
+            waitmovement(0)
+        }
+        removeobject(LOCALID_LASS, MAP_FIRWEALD_CITY)
+        removeobject(LOCALID_LITTLEGIRL, MAP_FIRWEALD_CITY)
+        clearflag(FLAG_HIDE_FIRWEALD_CITY_HOUSE1_LITTLE_GIRL)
+        clearflag(FLAG_HIDE_FIRWEALD_CITY_HOUSE1_LASS)
+        clearflag(FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT)
+        release
+        end
+    }
+    msgbox("Shhh, I'm hiding from my big\n"
+           "sister.\p"
+           "Don't tell her I'm here!", MSGBOX_NPC)
+    end
+}
+
+script EventScript_ClosedFirwealdDoor {
+    msgbox(FirwealdCity_Text_DoorIsClosed, MSGBOX_SIGN)
+    end
+}
+
+movement FirwealdCity_Movement_WalkInFrontOfPlayer {
+    walk_right
+	walk_down
+	face_left
+}
+
+movement FirwealdCity_Movement_PushBackPlayer {
+    walk_left
+	delay_16
+	walk_up
+}
+
+movement FirwealdCity_Movement_WalkBack {
+    lock_facing_direction
+	jump_left
+}
+
+movement FirwealdCity_Movement_WalkAroundPlayerToPokeMart {
+    walk_right
+	walk_up * 2
+	walk_left * 6
+	walk_up
+	walk_left * 3
+}
+
+movement FirwealdCity_Movement_WalkToPokeMart {
+    walk_up * 2
+	walk_left * 5
+	walk_up
+	walk_left * 3
+}
+
+movement FirwealdCity_Movement_NoticeLittleGirlHidingSpot {
+    emote_exclamation_mark
+    delay_16 * 2
+    lock_facing_direction
+    jump_in_place_down * 2
+}
+
+movement FirwealdCity_Movement_LassWalkToLittleGirlFacingSouth {
+    walk_up * 3
+    walk_left
+    walk_up * 2
+    walk_left
+}
+
+movement FirwealdCity_Movement_LassWalkToLittleGirlFacingEastAndWest {
+    walk_up * 3
+    walk_left
+    walk_up * 3
+    walk_left * 2
+    face_down
+}
+
+movement FirwealdCity_Movement_LassWalkHomeFacingEastAndWest {
+    walk_right * 3
+    walk_down * 3
+    walk_right * 6
+}
+
+movement FirwealdCity_Movement_LittleGirlWalkHomeFacingEastAndWest {
+    walk_up
+    walk_right * 3
+    walk_down * 3
+    walk_right * 6
+}
+
+movement FirwealdCity_Movement_LassWalkHomeFacingSouth {
+    walk_right * 2
+    walk_down * 2
+    walk_right * 6
+}
+
+movement FirwealdCity_Movement_LittleGirlWalkHomeFacingSouth {
+    walk_right * 3
+    walk_down * 2
+    walk_right * 6
+}
+
+movement FirwealdCity_Movement_PlayerWalkDownBackwards {
+    lock_facing_direction
+    walk_down
+}
+
+movement FirwealdCity_Movement_PhyllosWalkToForest {
+    walk_down
+    walk_left
+    walk_down * 7
+}
+
+text FirwealdCity_Text_DoorIsClosed {
+    "The door of the TOURNAMENT HALL\n"
+	"seems to be closed."
+}

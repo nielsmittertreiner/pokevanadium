@@ -3,13 +3,13 @@ Route110_TrickHousePuzzle4_MapScripts:: @ 826C860
 
 Route110_TrickHousePuzzle4_EventScript_Scroll:: @ 826C861
 	lockall
-	compare VAR_TRICK_HOUSE_PUZZLE_4_STATE, 0
+	compare VAR_ACREN_FOREST_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle4_EventScript_FoundScroll
 	goto Route110_TrickHousePuzzle_EventScript_ReadScrollAgain
 	end
 
 Route110_TrickHousePuzzle4_EventScript_FoundScroll:: @ 826C873
-	setvar VAR_TRICK_HOUSE_PUZZLE_4_STATE, 1
+	setvar VAR_ACREN_FOREST_STATE, 1
 	goto Route110_TrickHousePuzzle_EventScript_FoundScroll
 	end
 

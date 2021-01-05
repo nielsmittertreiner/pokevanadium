@@ -1,0 +1,74 @@
+const LOCALID_CLERK = 1
+const LOCALID_FISHERMAN = 2
+
+mapscripts FirwealdCity_Mart_MapScripts {}
+
+script FirwealdCity_Mart_EventScript_Clerk {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_CLERK)
+    message(gText_HowMayIServeYou)
+    waitmessage
+    pokemart(0)
+    destroy_speech_bubble
+    msgbox(gText_PleaseComeAgain, MSGBOX_NPC)
+    release 
+    end
+}
+
+script FirwealdCity_Mart_EventScript_Fisherman {
+    lock
+    playse(SE_PIN)
+    applymovement(LOCALID_FISHERMAN, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    faceplayer
+    load_speech_bubble(LOCALID_FISHERMAN)
+    msgbox("Ah, there it is!\p"
+           "Some high quality fishing bait.\p"
+           "Now I hope I can catch that GOLDEEN!", MSGBOX_DEFAULT)
+    destroy_speech_bubble
+    closemessage
+    if (var(VAR_FACING) == DIR_NORTH) {
+        applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Mart_Movement_PlayerWalkDownBackwards)
+        waitmovement(0)
+    }
+    applymovement(LOCALID_FISHERMAN, FirwealdCity_Mart_Movement_FishermanWalkToEmployee)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_FISHERMAN)
+    msgbox("Thanks a lot!\n"
+           "Have a nice day!", MSGBOX_DEFAULT)
+    destroy_speech_bubble
+    closemessage
+    turnobject(LOCALID_CLERK, DIR_SOUTH)
+    applymovement(LOCALID_FISHERMAN, FirwealdCity_Mart_Movement_FishermanWalkToExit)
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_FISHERMAN, MAP_FIRWEALD_CITY_MART)
+    clearflag(FLAG_HIDE_FIRWEALD_CITY_FISHERMAN)
+    release
+    end
+}
+
+script FirwealdCity_Mart_EventScript_Triathlete {
+    msgbox("I love the new POKENERGY drink\n"
+           "that's being sold now!\p"
+           "It tastes so good!", MSGBOX_NPC)
+    end
+}
+
+movement FirwealdCity_Mart_Movement_FishermanWalkToEmployee {
+    walk_down
+    walk_left * 3
+    walk_up
+    walk_left * 2
+    face_up
+}
+
+movement FirwealdCity_Mart_Movement_PlayerWalkDownBackwards {
+    lock_facing_direction
+    walk_down
+}
+
+movement FirwealdCity_Mart_Movement_FishermanWalkToExit {
+    walk_down * 3
+}

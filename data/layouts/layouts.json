@@ -4410,6 +4410,286 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN",
+      "name": "SunsetTown_Layout",
+      "width": 20,
+      "height": 22,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/SunsetTown/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE401",
+      "name": "Route401_Layout",
+      "width": 30,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/Route401/border.bin",
+      "blockdata_filepath": "data/layouts/Route401/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN_PLAYER_HOUSE_1F",
+      "name": "SunsetTown_PlayerHouse_1F_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/SunsetTown_PlayerHouse_1F/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown_PlayerHouse_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN_PLAYER_HOUSE_2F",
+      "name": "SunsetTown_PlayerHouse_2F_Layout",
+      "width": 9,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/SunsetTown_PlayerHouse_2F/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown_PlayerHouse_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN_PROFESSOR_CONIFER_LAB",
+      "name": "SunsetTown_ProfessorConiferLab_Layout",
+      "width": 16,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Lab",
+      "border_filepath": "data/layouts/SunsetTown_ProfessorConiferLab/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown_ProfessorConiferLab/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN_HOUSE1",
+      "name": "SunsetTown_House1_Layout",
+      "width": 9,
+      "height": 7,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/SunsetTown_House1/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN_ALEXS_HOUSE_1F",
+      "name": "SunsetTown_AlexsHouse_1F_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/SunsetTown_AlexsHouse_1F/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown_AlexsHouse_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SUNSET_TOWN_ALEXS_HOUSE_2F",
+      "name": "SunsetTown_AlexsHouse_2F_Layout",
+      "width": 9,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/SunsetTown_AlexsHouse_2F/border.bin",
+      "blockdata_filepath": "data/layouts/SunsetTown_AlexsHouse_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN",
+      "name": "CedarredTown_Layout",
+      "width": 24,
+      "height": 24,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/CedarredTown/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_ACREN_FOREST",
+      "name": "AcrenForest_Layout",
+      "width": 100,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/AcrenForest/border.bin",
+      "blockdata_filepath": "data/layouts/AcrenForest/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN_HOUSE1",
+      "name": "CedarredTown_House1_Layout",
+      "width": 10,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/CedarredTown_House1/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN_HOUSE2",
+      "name": "CedarredTown_House2_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/CedarredTown_House2/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN_MART",
+      "name": "CedarredTown_Mart_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/CedarredTown_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN_LOGGERS_CABIN",
+      "name": "CedarredTown_LoggersCabin_Layout",
+      "width": 12,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/CedarredTown_LoggersCabin/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown_LoggersCabin/map.bin"
+    },
+    {
+      "id": "LAYOUT_ACREN_FOREST_PLANT_SHOP",
+      "name": "AcrenForest_PlantShop_Layout",
+      "width": 15,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PrettyPetalFlowerShop",
+      "border_filepath": "data/layouts/AcrenForest_PlantShop/border.bin",
+      "blockdata_filepath": "data/layouts/AcrenForest_PlantShop/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN_POKEMON_CENTER_1F",
+      "name": "CedarredTown_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/CedarredTown_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_CEDARRED_TOWN_POKEMON_CENTER_2F",
+      "name": "CedarredTown_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/CedarredTown_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/CedarredTown_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE402",
+      "name": "Route402_Layout",
+      "width": 40,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Route402/border.bin",
+      "blockdata_filepath": "data/layouts/Route402/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY",
+      "name": "FirwealdCity_Layout",
+      "width": 50,
+      "height": 36,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/FirwealdCity/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_HOUSE1",
+      "name": "FirwealdCity_House1_Layout",
+      "width": 13,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/FirwealdCity_House1/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_DUPLEX",
+      "name": "FirwealdCity_Duplex_Layout",
+      "width": 16,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/FirwealdCity_Duplex/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_Duplex/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_POKEMON_CENTER_1F",
+      "name": "FirwealdCity_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/FirwealdCity_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_POKEMON_CENTER_2F",
+      "name": "FirwealdCity_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/FirwealdCity_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_MART",
+      "name": "FirwealdCity_Mart_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/FirwealdCity_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_FOREST_TUNNEL",
+      "name": "ForestTunnel_Layout",
+      "width": 17,
+      "height": 71,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_RusturfTunnel",
+      "border_filepath": "data/layouts/ForestTunnel/border.bin",
+      "blockdata_filepath": "data/layouts/ForestTunnel/map.bin"
+    },
+    {
+      "id": "LAYOUT_ACREN_FOREST_ILLEGAL_CABIN",
+      "name": "AcrenForest_IllegalCabin_Layout",
+      "width": 17,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/AcrenForest_IllegalCabin/border.bin",
+      "blockdata_filepath": "data/layouts/AcrenForest_IllegalCabin/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_TOURNAMENT_HALL_LOBBY",
+      "name": "FirwealdCity_TournamentHallLobby_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BattleTent",
+      "border_filepath": "data/layouts/FirwealdCity_TournamentHallLobby/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_TournamentHallLobby/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_TOURNAMENT_HALL_BATTLE_ROOM",
+      "name": "FirwealdCity_TournamentHallBattleRoom_Layout",
+      "width": 15,
+      "height": 9,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_BattleTent",
+      "border_filepath": "data/layouts/FirwealdCity_TournamentHallBattleRoom/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_TournamentHallBattleRoom/map.bin"
     }
   ]
 }

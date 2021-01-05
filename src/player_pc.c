@@ -119,7 +119,7 @@ static void sub_816C060(u16 itemId);
 static void sub_816BEF0(s32 id);
 static void sub_816B4DC(u8 taskId);
 static void ItemStorage_MoveCursor(s32 id, bool8 b, struct ListMenu * thisMenu);
-static void fish4_goto_x5_or_x6(u8 windowId, s32 id, u8 yOffset);
+static void fish4_goto_x5_or_x6(u8 windowId, s32 id, u8 yOffset, u8 listPos);
 
 // EWRAM
 static EWRAM_DATA const u8 *gPcItemMenuOptionOrder = NULL;
@@ -169,7 +169,7 @@ static const struct MenuAction gPCText_ItemPCOptionsText[] =
 
 static const struct ItemSlot gNewGamePCItems[] =
 {
-    { ITEM_POTION, 1 },
+    { ITEM_SITRUS_BERRY, 1 },
     { ITEM_NONE, 0 }
 };
 
@@ -951,7 +951,7 @@ static void ItemStorage_MoveCursor(s32 id, bool8 b, struct ListMenu *thisMenu)
     }
 }
 
-static void fish4_goto_x5_or_x6(u8 windowId, s32 id, u8 yOffset)
+static void fish4_goto_x5_or_x6(u8 windowId, s32 id, u8 yOffset, u8 listPos)
 {
     if (id != -2)
     {

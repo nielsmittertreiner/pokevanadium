@@ -39,11 +39,14 @@
 #define TV_SHOWS_COUNT 25
 #define POKE_NEWS_COUNT 16
 #define PC_ITEMS_COUNT 50
-#define BAG_ITEMS_COUNT 30
+#define BAG_ITEMS_COUNT 40
 #define BAG_KEYITEMS_COUNT 30
 #define BAG_POKEBALLS_COUNT 16
 #define BAG_TMHM_COUNT 64
 #define BAG_BERRIES_COUNT 46
+#define BAG_MEDICINE_COUNT 34
+#define BAG_BATTLEITEMS_COUNT 47
+#define BAG_POWERUP_COUNT 18
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 #define DECOR_MAX_SECRET_BASE 16
 #define DECOR_MAX_PLAYERS_HOUSE 12
@@ -116,5 +119,11 @@
 #define DIR_SOUTHEAST   6
 #define DIR_NORTHWEST   7
 #define DIR_NORTHEAST   8
+
+#define SIDEWAYS_STAIRS_IMPLEMENTED         TRUE
+#define FOLLOW_ME_IMPLEMENTED               TRUE    //for stairs movement. see ObjectMovingOnRockStairs in src/field_player_avatar.c
+#define SLOW_MOVEMENT_ON_STAIRS             FALSE
+#define POST_BATTLE_FOLLOWER_FIX            FALSE   //if you experience the follower de-syncing with the player after battle, set to TRUE
+
 
 #endif // GUARD_CONSTANTS_GLOBAL_H

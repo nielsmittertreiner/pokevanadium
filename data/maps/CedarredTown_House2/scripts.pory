@@ -1,0 +1,17 @@
+mapscripts CedarredTown_House2_MapScripts {}
+
+script CedarredTown_House2_EventScript_Man {
+    msgbox("When POKéMON battle, they eventually\n"
+	       "level up and become stronger.", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_House2_EventScript_Woman {
+    msgbox("One of the men in the LOGGERS CABIN\n"
+	       "is my husband.\p"
+	       "He says he loves nature, but he chops\n"
+	       "down trees as his job…\p"
+	       "Don't you think that's a bit\n"
+	       "hypocritical?", MSGBOX_NPC)
+    end
+}

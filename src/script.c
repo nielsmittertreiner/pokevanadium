@@ -336,16 +336,23 @@ void TryRunOnWarpIntoMapScript(void)
 
 u32 CalculateRamScriptChecksum(void)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     return CalcCRC16WithTable((u8*)(&gSaveBlock1Ptr->ramScript.data), sizeof(gSaveBlock1Ptr->ramScript.data));
+    #else
+    return 0;
+    #endif
 }
 
 void ClearRamScript(void)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     CpuFill32(0, &gSaveBlock1Ptr->ramScript, sizeof(struct RamScript));
+    #endif
 }
 
 bool8 InitRamScript(const u8 *script, u16 scriptSize, u8 mapGroup, u8 mapNum, u8 objectId)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
 
     ClearRamScript();
@@ -360,10 +367,14 @@ bool8 InitRamScript(const u8 *script, u16 scriptSize, u8 mapGroup, u8 mapNum, u8
     memcpy(scriptData->script, script, scriptSize);
     gSaveBlock1Ptr->ramScript.checksum = CalculateRamScriptChecksum();
     return TRUE;
+    #else
+    return FALSE;
+    #endif
 }
 
 const u8 *GetRamScript(u8 objectId, const u8 *script)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
     gUnknown_020375C0 = NULL;
     if (scriptData->magic != RAM_SCRIPT_MAGIC)
@@ -384,10 +395,14 @@ const u8 *GetRamScript(u8 objectId, const u8 *script)
         gUnknown_020375C0 = script;
         return scriptData->script;
     }
+    #else
+    return script;
+    #endif
 }
 
 bool32 ValidateSavedRamScript(void)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
     if (scriptData->magic != RAM_SCRIPT_MAGIC)
         return FALSE;
@@ -400,10 +415,14 @@ bool32 ValidateSavedRamScript(void)
     if (CalculateRamScriptChecksum() != gSaveBlock1Ptr->ramScript.checksum)
         return FALSE;
     return TRUE;
+    #else
+    return FALSE;
+    #endif
 }
 
 u8 *GetSavedRamScriptIfValid(void)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
     if (!ValidateReceivedWonderCard())
         return NULL;
@@ -424,11 +443,24 @@ u8 *GetSavedRamScriptIfValid(void)
     {
         return scriptData->script;
     }
+    #else
+    return NULL;
+    #endif
 }
 
 void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize)
 {
+    #ifndef FREE_MYSTERY_EVENT_BUFFERS
     if (scriptSize > sizeof(gSaveBlock1Ptr->ramScript.data.script))
         scriptSize = sizeof(gSaveBlock1Ptr->ramScript.data.script);
     InitRamScript(script, scriptSize, 0xFF, 0xFF, 0xFF);
+    #endif
 }
+
+u8* ReadWord(u8 index)
+{
+    struct ScriptContext *ctx = &sScriptContext1;
+    
+    return (T1_READ_PTR(&ctx->data[index]));
+}
+

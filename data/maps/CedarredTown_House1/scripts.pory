@@ -1,0 +1,8 @@
+mapscripts CedarredTown_House1_MapScripts {}
+
+script CedarredTown_House1_EventScript_Woman {
+    msgbox("I like CEDARRED TOWN a lot.\n"
+	       "Everyday I do a morning stroll through\l"
+	       "the ACREN FOREST north of town.", MSGBOX_NPC)
+    end
+}

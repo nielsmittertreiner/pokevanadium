@@ -10,9 +10,9 @@ Route119_WeatherInstitute_2F_MapScripts:: @ 826FF1E
 	.byte 0
 
 Route119_WeatherInstitute_2F_OnTransition: @ 826FF24
-	compare VAR_WEATHER_INSTITUTE_STATE, 0
+	compare VAR_TOURNAMENT_HALL_STATE, 0
 	call_if_eq Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
-	compare VAR_WEATHER_INSTITUTE_STATE, 1
+	compare VAR_TOURNAMENT_HALL_STATE, 1
 	call_if_eq Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
 	call_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear
 	end
@@ -68,7 +68,7 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated:: @ 826FFC8
 	waitmovement 0
 	msgbox Route119_WeatherInstitute_2F_Text_WeHaveToHurryToMtPyre, MSGBOX_DEFAULT
 	closemessage
-	setvar VAR_WEATHER_INSTITUTE_STATE, 1
+	setvar VAR_TOURNAMENT_HALL_STATE, 1
 	clearflag FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
 	fadedefaultbgm
 	fadescreen FADE_TO_BLACK

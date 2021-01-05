@@ -1516,8 +1516,10 @@ void ResetPokedex(void)
     {
         gSaveBlock2Ptr->pokedex.owned[i] = 0;
         gSaveBlock2Ptr->pokedex.seen[i] = 0;
+        #ifndef FREE_EXTRA_SEEN_FLAGS
         gSaveBlock1Ptr->seen1[i] = 0;
         gSaveBlock1Ptr->seen2[i] = 0;
+        #endif
     }
 }
 
@@ -3037,15 +3039,7 @@ static void SpriteCB_PokedexListMonSprite(struct Sprite *sprite)
         u32 var;
 
         sprite->pos2.y = gSineTable[(u8)sprite->data[5]] * 76 / 256;
-        // UB: possible division by zero
-#ifdef UBFIX
-        if (gSineTable[sprite->data[5] + 64] != 0)
-            var = 0x10000 / gSineTable[sprite->data[5] + 64];
-        else
-            var = 0xFFFF;
-#else
         var = 0x10000 / gSineTable[sprite->data[5] + 64];
-#endif //UBFIX
         if (var > 0xFFFF)
             var = 0xFFFF;
         SetOamMatrix(sprite->data[1] + 1, 0x100, 0, 0, var);
@@ -4265,6 +4259,7 @@ s8 GetSetPokedexFlag(u16 nationalDexNo, u8 caseID)
     case FLAG_GET_SEEN:
         if (gSaveBlock2Ptr->pokedex.seen[index] & mask)
         {
+            #ifndef FREE_EXTRA_SEEN_FLAGS
             if ((gSaveBlock2Ptr->pokedex.seen[index] & mask) == (gSaveBlock1Ptr->seen1[index] & mask)
              && (gSaveBlock2Ptr->pokedex.seen[index] & mask) == (gSaveBlock1Ptr->seen2[index] & mask))
                 retVal = 1;
@@ -4275,11 +4270,15 @@ s8 GetSetPokedexFlag(u16 nationalDexNo, u8 caseID)
                 gSaveBlock1Ptr->seen2[index] &= ~mask;
                 retVal = 0;
             }
+            #else
+                retVal = 1;
+            #endif
         }
         break;
     case FLAG_GET_CAUGHT:
         if (gSaveBlock2Ptr->pokedex.owned[index] & mask)
         {
+            #ifndef FREE_EXTRA_SEEN_FLAGS
             if ((gSaveBlock2Ptr->pokedex.owned[index] & mask) == (gSaveBlock2Ptr->pokedex.seen[index] & mask)
              && (gSaveBlock2Ptr->pokedex.owned[index] & mask) == (gSaveBlock1Ptr->seen1[index] & mask)
              && (gSaveBlock2Ptr->pokedex.owned[index] & mask) == (gSaveBlock1Ptr->seen2[index] & mask))
@@ -4292,12 +4291,17 @@ s8 GetSetPokedexFlag(u16 nationalDexNo, u8 caseID)
                 gSaveBlock1Ptr->seen2[index] &= ~mask;
                 retVal = 0;
             }
+            #else
+                retVal = 1;
+            #endif
         }
         break;
     case FLAG_SET_SEEN:
         gSaveBlock2Ptr->pokedex.seen[index] |= mask;
+        #ifndef FREE_EXTRA_SEEN_FLAGS
         gSaveBlock1Ptr->seen1[index] |= mask;
         gSaveBlock1Ptr->seen2[index] |= mask;
+        #endif
         break;
     case FLAG_SET_CAUGHT:
         gSaveBlock2Ptr->pokedex.owned[index] |= mask;

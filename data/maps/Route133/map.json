@@ -3,7 +3,7 @@
   "name": "Route133",
   "layout": "LAYOUT_ROUTE133",
   "music": "MUS_ROUTE119",
-  "region_map_section": "MAPSEC_ROUTE_133",
+  "region_map_section": "MAPSEC_ROUTE_433",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
   "map_type": "MAP_TYPE_OCEAN_ROUTE",
@@ -156,7 +156,13 @@
       "flag": "FLAG_ITEM_ROUTE_133_MAX_REVIVE"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

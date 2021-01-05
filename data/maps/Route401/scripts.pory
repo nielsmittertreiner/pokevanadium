@@ -1,0 +1,28 @@
+mapscripts Route401_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        if (var(VAR_SUNSET_TOWN_STATE) == 5)
+        {
+            setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 2)
+        }
+    }
+}
+
+script Route401_EventScript_RouteSign {
+    msgbox("{LEFT_ARROW} SUNSET TOWN\n"
+	       "{RIGHT_ARROW} CEDARRED TOWN$", MSGBOX_SIGN)
+    end
+}
+
+script Route401_EventScript_Boy {
+    msgbox("You should always be prepared to\n"
+	       "encounter wild POKéMON in the\l"
+	       "tall grass of ROUTE 401!$", MSGBOX_NPC)
+    end
+}
+
+script Route401_EventScript_Youngster {
+    msgbox("You can skip some tall grass by jumping\n"
+	       "over these ledges right here!\p"
+	       "Try it out yourself!$", MSGBOX_NPC)
+    end
+}

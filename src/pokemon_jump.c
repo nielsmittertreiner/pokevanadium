@@ -3834,11 +3834,14 @@ static bool32 sub_802E2D0(struct PokemonJump1_82E4 *arg0, int multiplayerId)
 
 static struct PokemonJumpResults *sub_802E32C(void)
 {
+    #ifndef FREE_POKEMON_JUMP
     return &gSaveBlock2Ptr->pokeJump;
+    #endif
 }
 
 void ResetPokeJumpResults(void)
 {
+    #ifndef FREE_POKEMON_JUMP
     struct PokemonJumpResults *pokeJump = sub_802E32C();
     pokeJump->jumpsInRow = 0;
     pokeJump->bestJumpScore = 0;
@@ -3846,10 +3849,12 @@ void ResetPokeJumpResults(void)
     pokeJump->field6 = 0;
     pokeJump->field8 = 0;
     pokeJump->field2 = 0;
+    #endif
 }
 
 static bool32 sub_802E354(u32 jumpScore, u16 jumpsInRow, u16 excellentsInRow)
 {
+    #ifndef FREE_POKEMON_JUMP
     struct PokemonJumpResults *pokeJump = sub_802E32C();
     bool32 ret = FALSE;
 
@@ -3859,15 +3864,20 @@ static bool32 sub_802E354(u32 jumpScore, u16 jumpsInRow, u16 excellentsInRow)
         pokeJump->jumpsInRow = jumpsInRow, ret = TRUE;
     if (pokeJump->excellentsInRow < excellentsInRow && excellentsInRow <= 9999)
         pokeJump->excellentsInRow = excellentsInRow, ret = TRUE;
-
+    
     return ret;
+    #else
+    return FALSE;
+    #endif
 }
 
 static void sub_802E3A8(void)
 {
+    #ifndef FREE_POKEMON_JUMP
     struct PokemonJumpResults *pokeJump = sub_802E32C();
     if (pokeJump->field6 < 9999)
         pokeJump->field6++;
+    #endif
 }
 
 void ShowPokemonJumpRecords(void)
@@ -3941,6 +3951,7 @@ static void Task_ShowPokemonJumpRecords(u8 taskId)
 
 static void sub_802E500(u16 windowId, int width)
 {
+    #ifndef FREE_POKEMON_JUMP
     int i, x;
     int results[3];
     struct PokemonJumpResults *pokeJump = sub_802E32C();
@@ -3961,6 +3972,7 @@ static void sub_802E500(u16 windowId, int width)
         AddTextPrinterParameterized(windowId, 1, gStringVar1, x, 25 + (i * 16), TEXT_SPEED_FF, NULL);
     }
     PutWindowTilemap(windowId);
+    #endif
 }
 
 static void TruncateToFirstWordOnly(u8 *str)

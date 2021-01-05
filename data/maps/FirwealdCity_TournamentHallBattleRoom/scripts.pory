@@ -1,0 +1,5 @@
+const LOCALID_ATTENDANT = 1
+const LOCALID_NURSE = 2
+const LOCALID_OPPONENT = 3
+
+mapscripts FirwealdCity_TournamentHallBattleRoom_MapScripts {}

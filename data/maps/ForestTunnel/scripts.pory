@@ -1,0 +1,12 @@
+mapscripts ForestTunnel_MapScripts {
+    MAP_SCRIPT_ON_LOAD {
+        if (flag(FLAG_EVENT_CELEBI_ACTIVE) == FALSE) {
+            setmetatile(4, 1, METATILE_RusturfTunnel_EntranceCover, 1)
+            setmetatile(5, 1, METATILE_RusturfTunnel_EntranceCover, 1)
+            setmetatile(6, 1, METATILE_RusturfTunnel_EntranceCover, 1)
+            setmetatile(4, 2, METATILE_RusturfTunnel_EntranceCover, 1)
+            setmetatile(5, 2, METATILE_RusturfTunnel_EntranceCover, 1)
+            setmetatile(6, 2, METATILE_RusturfTunnel_EntranceCover, 1)
+        }
+    }
+}

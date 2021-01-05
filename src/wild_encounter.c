@@ -456,6 +456,10 @@ static bool8 DoMassOutbreakEncounterTest(void)
 
 static bool8 DoWildEncounterRateDiceRoll(u16 encounterRate)
 {
+    if (FlagGet(FLAG_DISABLE_ENCOUNTERS) == 1){
+        return FALSE;
+    }
+
     if (Random() % 2880 < encounterRate)
         return TRUE;
     else
@@ -507,7 +511,7 @@ static bool8 AreLegendariesInSootopolisPreventingEncounters(void)
         return FALSE;
     }
 
-    return FlagGet(FLAG_LEGENDARIES_IN_SOOTOPOLIS);
+    return FlagGet(FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT);
 }
 
 bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavior)

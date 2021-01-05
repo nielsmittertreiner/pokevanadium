@@ -1,0 +1,520 @@
+const LOCALID_LOGGERMAN_1 = 1
+const LOCALID_LOGGERMAN_2 = 2
+const LOCALID_LOGGERMAN_3 = 6
+const LOCALID_LOGGERMAN_4 = 9
+
+const LOCALID_LOGGERWOMAN_1 = 3
+const LOCALID_LOGGERWOMAN_2 = 5
+const LOCALID_LOGGERWOMAN_3 = 7
+const LOCALID_LOGGERWOMAN_4 = 8
+
+const LOCALID_LOGGERQUESTMASTER = 4
+
+mapscripts CedarredTown_LoggersCabin_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_CEDARRED_TOWN_STATE, 2 {
+            lock
+            applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_LoggersCabin_Movement_PlayerWalkIn)
+            applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_LoggersCabin_Movement_ConiferWalkIn)
+            waitmovement(0)
+            playse(SE_PIN)
+            applymovement(LOCALID_LOGGERMAN_1, CedarredTown_LoggersCabin_Movement_LoggerManOneReaction)
+            applymovement(LOCALID_LOGGERMAN_2, Common_Movement_WalkInPlaceFastestDown)
+            applymovement(LOCALID_LOGGERMAN_3, Common_Movement_WalkInPlaceFastestDown)
+            playse(SE_PIN)
+            applymovement(LOCALID_LOGGERMAN_4, CedarredTown_LoggersCabin_Movement_LoggerManFourReaction)
+            playse(SE_PIN)
+            applymovement(LOCALID_LOGGERWOMAN_1, CedarredTown_LoggersCabin_Movement_LoggerWomanOneReaction)
+            playse(SE_PIN)
+            applymovement(LOCALID_LOGGERWOMAN_2, CedarredTown_LoggersCabin_Movement_LoggerWomanTwoReaction)
+            applymovement(LOCALID_LOGGERWOMAN_3, Common_Movement_WalkInPlaceFastestDown)
+            applymovement(LOCALID_LOGGERWOMAN_4, Common_Movement_WalkInPlaceFastestDown)
+            waitmovement(0)
+            delay(48)
+            playse(SE_PIN)
+            applymovement(LOCALID_LOGGERQUESTMASTER, CedarredTown_LoggersCabin_Movement_LoggerQuestMasterNoticePlayer)
+            waitmovement(0)
+            load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+            msgbox("Ah, PROFESSOR CONIFER!\n"
+	               "We've been waiting for you.\p"
+	               "Hmmm, who's that you brought with you?\p"
+	               "Any extra help is always nice to have.\n"
+	               "Defenitely with what we have going on\l"
+	               "in ACREN FOREST.")
+            destroy_speech_bubble
+            closemessage
+            playse(SE_PIN)
+            applymovement(LOCALID_LOGGERMAN_2, Common_Movement_ExclamationMark)
+            waitmovement(0)
+            delay(8)
+            turnobject(LOCALID_LOGGERMAN_2, DIR_EAST)
+            load_speech_bubble(LOCALID_LOGGERMAN_2)
+            msgbox("Sir!\p"
+	               "I have an idea on how the kid could\n"
+	               "help us, Sir!\p"
+	               "We could lend him one of our POKéMON.\n"
+	               "Sir!")
+            destroy_speech_bubble
+            closemessage
+            turnobject(LOCALID_LOGGERQUESTMASTER, DIR_WEST)
+            load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+            msgbox("Hmmm…\n"
+	               "One of our POKéMON you say…\p"
+	               "I think that's a great idea!\p"
+	               "Recruit, could you fetch me our\n"
+	               "POKéBALLS the kid can use?")
+            destroy_speech_bubble
+            closemessage
+            load_speech_bubble(LOCALID_LOGGERMAN_2)
+            msgbox("Yes, Sir!\p"
+	               "I'll get them right away!")
+            destroy_speech_bubble
+            closemessage
+            playse(SE_BIKE_HOP)
+            applymovement(LOCALID_LOGGERMAN_2, CedarredTown_LoggersCabin_Movement_LoggerManTwoWalkToCupboard)
+            waitmovement(0)
+            delay(48)
+            applymovement(LOCALID_LOGGERMAN_2, CedarredTown_LoggersCabin_Movement_LoggerManTwoGetBallsFromCupboard)
+            waitmovement(0)
+            delay(16)
+            playse(SE_BIKE_HOP)
+            applymovement(LOCALID_LOGGERMAN_2, CedarredTown_LoggersCabin_Movement_LoggerManTwoWalkToSeat)
+            waitmovement(0)
+            playse(SE_BIKE_HOP)
+            applymovement(LOCALID_LOGGERMAN_2, CedarredTown_LoggersCabin_Movement_LoggerManTwoWalkToLeader)
+            waitmovement(0)
+            load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+            msgbox("Aha… I see, you chose these\n"
+	               "POKéMON for the kid.\p"
+	               "These POKéMON should do well.")
+            destroy_speech_bubble
+            closemessage
+            turnobject(LOCALID_LOGGERQUESTMASTER, DIR_SOUTH)
+            random(3)
+            load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+            msgbox("Now…\n"
+                   "Close your eyes…")
+            destroy_speech_bubble
+            closemessage
+            delay(30)
+            fadescreen(FADE_TO_BLACK)
+            msgbox("Follow your heart now…")
+            closemessage
+            switch (var(VAR_RESULT)) {
+                case 0:
+                    do {
+                        msgbox("Which POKéMON will you choose?")
+                        multichoice(10, 4, MULTI_CEDARRED_CHOOSE_STARTER_SET_ONE, 1)
+                        switch (var(VAR_RESULT)) {
+                            case 0:
+                                closemessage
+                                showmonpic(SPECIES_BULBASAUR, 10, 3)
+                                bufferspeciesname(0, SPECIES_BULBASAUR)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The SEED POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_BULBASAUR, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                            case 1:
+                                closemessage
+                                showmonpic(SPECIES_CHARMANDER, 10, 3)
+                                bufferspeciesname(0, SPECIES_CHARMANDER)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The LIZARD POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_CHARMANDER, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                            case 2:
+                                closemessage
+                                showmonpic(SPECIES_SQUIRTLE, 10, 3)
+                                bufferspeciesname(0, SPECIES_SQUIRTLE)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The TINY TURTLE POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_SQUIRTLE, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                        }
+                        setvar(VAR_TEMP_0, 0)
+                    } while (flag(FLAG_SYS_POKEMON_GET) == FALSE)
+                case 1:
+                    do {
+                        msgbox("Which POKéMON will you choose?")
+                        multichoice(10, 4, MULTI_CEDARRED_CHOOSE_STARTER_SET_TWO, 1)
+                        switch (var(VAR_RESULT)) {
+                            case 0:
+                                closemessage
+                                showmonpic(SPECIES_CHIKORITA, 10, 3)
+                                bufferspeciesname(0, SPECIES_CHIKORITA)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The LEAF POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_CHIKORITA, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                            case 1:
+                                closemessage
+                                showmonpic(SPECIES_CYNDAQUIL, 10, 3)
+                                bufferspeciesname(0, SPECIES_CYNDAQUIL)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The FIRE MOUSE POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_CYNDAQUIL, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                            case 2:
+                                closemessage
+                                showmonpic(SPECIES_TOTODILE, 10, 3)
+                                bufferspeciesname(0, SPECIES_TOTODILE)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The BIG JAW POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_TOTODILE, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                        }
+                        setvar(VAR_TEMP_0, 1)
+                    } while (flag(FLAG_SYS_POKEMON_GET) == FALSE)
+                case 2:
+                    do {
+                        msgbox("Which POKéMON will you choose?")
+                        multichoice(10, 4, MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE, 1)
+                        switch (var(VAR_RESULT)) {
+                            case 0:
+                                closemessage
+                                showmonpic(SPECIES_TREECKO, 10, 3)
+                                bufferspeciesname(0, SPECIES_TREECKO)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The WOOD GECKO POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_TREECKO, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                            case 1:
+                                closemessage
+                                showmonpic(SPECIES_TORCHIC, 10, 3)
+                                bufferspeciesname(0, SPECIES_TORCHIC)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The CHICK POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_TORCHIC, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                            case 2:
+                                closemessage
+                                showmonpic(SPECIES_MUDKIP, 10, 3)
+                                bufferspeciesname(0, SPECIES_MUDKIP)
+                                msgbox("Will you choose {STR_VAR_1},\n"
+                                       "The MUD FISH POKéMON?", MSGBOX_YESNO)
+                                switch (var(VAR_RESULT)) {
+                                    case YES:
+                                        givemon(SPECIES_MUDKIP, 5, ITEM_NONE)
+                                        setflag(FLAG_SYS_POKEMON_GET)
+                                        break
+                                    case NO:
+                                        hidemonpic
+                                        destroy_speech_bubble
+                                        closemessage
+                                        break
+                                }
+                        }
+                        setvar(VAR_TEMP_0, 2)
+                    } while (flag(FLAG_SYS_POKEMON_GET) == FALSE)
+            }
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("{PLAYER} recieved a {STR_VAR_1}!")
+            waitfanfare
+            closemessage
+            hidemonpic
+            fadescreen(FADE_FROM_BLACK)
+            load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+            msgbox("While you're at it, why not give a\n"
+	               "nickname to that {STR_VAR_1}?", MSGBOX_YESNO)
+            switch (var(VAR_RESULT)) {
+                case YES:
+                    destroy_speech_bubble
+                    setvar(VAR_0x8004, 0)
+                    call(Common_EventScript_NameReceivedPartyMon)
+                    bufferpartymonnick(1, 0)
+                    load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+                    msgbox("{STR_VAR_2}…\p"
+	                       "That's a nice nickname for a {STR_VAR_1}!")
+                    destroy_speech_bubble
+                    break
+                case NO:
+                    destroy_speech_bubble
+                    load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+                    msgbox("No nickname?\p"
+	                       "That's okay, not everybody likes them.")
+                    destroy_speech_bubble
+                    break
+            }
+            playse(SE_PIN)
+            applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
+            waitmovement(0)
+            load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
+            msgbox("On that note…\n"
+	               "I'll be going back to the LAB.\p"
+	               "I'm sure {PLAYER} will be able\n"
+	               "to help  you like no other.")
+            destroy_speech_bubble
+            closemessage
+            turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_WEST)
+            turnobject(OBJ_EVENT_ID_PLAYER, DIR_EAST)
+            load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
+            msgbox("And {PLAYER}…\p"
+	               "See me in my LAB after you're done.")
+            destroy_speech_bubble
+            closemessage
+            applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_LoggersCabin_Movement_ConiferWalkOut)
+            waitmovement(0)
+            playse(SE_EXIT)
+            removeobject(OBJ_EVENT_ID_FOLLOWER, MAP_CEDARRED_TOWN_LOGGERS_CABIN)
+            destroyfollower
+            delay(16)
+            applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_LoggersCabin_Movement_PlayerWalkInFrontOfLeader)
+            waitmovement(0)
+            load_speech_bubble(LOCALID_LOGGERQUESTMASTER)
+            msgbox("Now that you have a POKéMON, you should\n"
+	               "head to ACREN FOREST and see what is\l"
+	               "going on there…\p"
+	               "Now off you go…")
+            destroy_speech_bubble
+            closemessage
+            clearflag(FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER)
+            clearflag(FLAG_DISABLE_ENCOUNTERS)
+            setvar(VAR_CEDARRED_TOWN_STATE, 3)
+            release
+            end
+        }
+    ]
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerQuestMaster {
+    while (var(VAR_ACREN_FOREST_STATE) < 3)
+    {
+        msgbox("Now that you have a POKéMON, you should\n"
+	           "head to ACREN FOREST and see what is\l"
+	           "going on there…\p"
+	           "Now off you go…", MSGBOX_NPC)
+        end
+    }
+    if (flag(FLAG_BADGE03_GET) && flag(FLAG_JOINED_LOGGERS_GUILD) == TRUE)
+    {
+        //questmaster stuff here
+    }
+    elif (flag(FLAG_BADGE03_GET) == TRUE)
+    {
+        //invite to guild
+    }
+
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerManOne {
+    msgbox("I hope you like the starters I\n"
+	       "got you…\p"
+	       "There were more POKéMON, but I thought\n"
+	       "these would fit you best.", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerManTwo {
+    msgbox("Every single one of us here works\n"
+	       "very hard to get the best quality\l"
+	       "lumber for all sorts of REGIONS!", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerManThree {
+    msgbox("I think we're the best TRAINER GUILD!\p"
+	       "No arguments, we're the best.", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerManFour {
+    msgbox("We have a TV here…\p"
+	       "But we're not even allowed to use it!", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerWomanOne {
+    msgbox("Did you know that we're a TRAINER\n"
+	       "GUILD too?\p"
+	       "Perhaps if you've won some TOURNAMENTS\n"
+	       "you could join our GUILD!", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerWomanTwo {
+    msgbox("Yum, the coffee we make here is so\n"
+	       "delicious!\p"
+	       "Sometimes we even have visitors just\n"
+	       "because of how great our coffee is.", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerWomanThree {
+    msgbox("I'm not very strong…\n"
+	       "That's why I help with administration.", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_LoggersCabin_EventScript_LoggerWomanFour {
+    msgbox("Oh my oh my…\p"
+	       "I work so much I basically live here…", MSGBOX_NPC)
+    end
+}
+
+movement CedarredTown_LoggersCabin_Movement_PlayerWalkIn {
+    walk_up * 2
+	walk_left
+	face_up
+}
+
+movement CedarredTown_LoggersCabin_Movement_ConiferWalkIn {
+    delay_16
+	set_visible
+	walk_up * 2
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerManOneReaction {
+    emote_exclamation_mark
+	delay_4 * 2
+	walk_in_place_fastest_left
+	delay_4 * 3
+	walk_in_place_fastest_right
+	delay_4 * 2
+	walk_in_place_fastest_down
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerManFourReaction {
+    emote_exclamation_mark
+	delay_4 * 2
+	walk_in_place_fastest_down
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerWomanOneReaction {
+    emote_exclamation_mark
+	delay_4 * 4
+	walk_in_place_fastest_down
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerWomanTwoReaction {
+    emote_exclamation_mark
+	delay_4
+	walk_in_place_fastest_up
+	delay_4
+	walk_in_place_fastest_down
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerQuestMasterNoticePlayer {
+    emote_exclamation_mark
+	delay_4 * 2
+	jump_in_place_down
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerManTwoWalkToCupboard {
+    jump_in_place_down
+	walk_fast_down * 2
+	walk_fast_right * 4
+	walk_fast_up
+	walk_fast_right
+	walk_fast_up * 4
+	walk_fast_right * 2
+	face_up
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerManTwoGetBallsFromCupboard {
+    walk_in_place_fast_up
+	delay_4 * 4
+	walk_in_place_fast_up
+	delay_4 * 4
+	walk_in_place_fast_up
+	delay_4 * 4
+	face_down
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerManTwoWalkToSeat {
+    jump_in_place_down
+	walk_fast_left * 2
+	walk_fast_down * 4
+	walk_fast_left
+	walk_fast_down
+	walk_fast_left * 4
+	walk_fast_up * 2
+	face_right
+}
+
+movement CedarredTown_LoggersCabin_Movement_LoggerManTwoWalkToLeader {
+    jump_in_place_right
+	walk_fast_right * 2
+	delay_16
+	walk_in_place_fast_right * 3
+}
+
+movement CedarredTown_LoggersCabin_Movement_ConiferWalkOut {
+    walk_down * 2
+}
+
+movement CedarredTown_LoggersCabin_Movement_PlayerWalkInFrontOfLeader {
+    walk_right
+    face_up
+}

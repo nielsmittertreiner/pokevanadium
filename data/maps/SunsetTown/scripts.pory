@@ -1,0 +1,205 @@
+const LOCALID_CONIFER = 3
+
+mapscripts SunsetTown_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_SUNSET_TOWN)
+        setflag(FLAG_VISITED_SUNSET_TOWN)
+        if (var(VAR_SUNSET_TOWN_STATE) == 5)
+        {
+            setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 1)
+        }
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_SUNSET_TOWN_STATE, 4 {
+            lock
+            setobjectmovementtype(LOCALID_CONIFER, MOVEMENT_TYPE_FACE_DOWN)
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp)
+            applymovement(LOCALID_CONIFER, Common_Movement_WalkInPlaceFastestDown)
+            waitmovement(0)
+            setvar(VAR_LAST_TALKED, LOCALID_CONIFER)
+            msgbox("I'll let you take the lead.\n"
+	               "You're well of age to be responsible!\p"
+	               "To CEDARRED TOWN we go!", MSGBOX_NPC)
+            loadword(0, SunsetTown_EventScript_FollowerScript)
+            setfollower(LOCALID_CONIFER, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT)
+            setflag(FLAG_DISABLE_ENCOUNTERS)
+	        setflag(FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER)
+	        setvar(VAR_SUNSET_TOWN_STATE, 5)
+	        setvar(VAR_CEDARRED_TOWN_STATE, 0)
+	        setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 1)
+            end
+        }
+    ]
+}
+
+script SunsetTown_EventScript_FollowerScript {
+    lock
+    facefollower
+    load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
+    switch (var(VAR_SUNSET_TOWN_FOLLOWER_STATE))
+    {
+        case 1:
+            msgbox("We need to get to CEDARRED TOWN\n"
+	               "as soon as possible!\p"
+	               "What if things got out of\n"
+	               "hand already?" MSGBOX_DEFAULT)
+        case 2:
+            msgbox("We can't be hanging at ROUTE 401\n"
+	               "for too long now…\p"
+	               "Let's keep going!")
+        case 3:
+            msgbox("Alright, this is CEDARRED TOWN…\n"
+	               "Let's find the LOGGERS CABIN.\p"
+	               "It should be at the far EAST of town." MSGBOX_DEFAULT)
+    }
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}
+
+script SunsetTown_EventScript_TownSign {
+    msgbox("SUNSET TOWN\n"
+	       "“A town that can be shaded any hue.”", MSGBOX_SIGN)
+}
+
+script SunsetTown_EventScript_PlayerHouseSign {
+    msgbox("{PLAYER}'s HOUSE", MSGBOX_SIGN)
+}
+
+script SunsetTown_EventScript_AlexHouseSign {
+    msgbox("ALEX's HOUSE", MSGBOX_SIGN)
+}
+
+script SunsetTown_EventScript_LabSign {
+    msgbox("PROFESSOR CONIFER'S\n"
+	       "POKéMON LAB", MSGBOX_SIGN)
+}
+
+script SunsetTown_EventScript_FatMan {
+    msgbox("I bet you're playing this ROM-HACK\n"
+	       "on an EMULATOR!\p"
+	       "The power of emulation truly\n"
+	       "is staggering!", MSGBOX_NPC)
+}
+
+script SunsetTown_EventScript_Lass {
+    msgbox("The flowers of SUNSET TOWN are so\n"
+	       "beautiful!\p"
+	       "I love them!", MSGBOX_NPC)
+}
+
+script SunsetTown_EventScript_ProfessorConifer {
+    lock
+    fadenewbgm(MUS_BIRCH_LAB)
+    setflag(FLAG_BLOCK_SUNSET_TOWN_NURSERY)
+    msgbox("Oh hey there {PLAYER}.\n"
+	       "You're finally here!\p"
+	       "Come in quickly, something\n"
+	       "happened not too far away\l"
+	       "from here and I need your help.", MSGBOX_NPC)
+    opendoor(15, 6)
+    applymovement(LOCALID_CONIFER, Common_Movement_FaceUp)
+    waitdooranim
+    switch (var(VAR_FACING))
+    {
+        case DIR_NORTH:
+            applymovement(LOCALID_CONIFER, ConiferWalkIntoDoor)
+            applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingNorth)
+            waitmovement(0)
+            break
+        case DIR_WEST:
+            applymovement(LOCALID_CONIFER, ConiferWalkIntoDoor)
+            applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingWest)
+            waitmovement(0)
+            break
+        case DIR_EAST:
+            applymovement(LOCALID_CONIFER, ConiferWalkIntoDoor)
+            applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingEast)
+            waitmovement(0)
+            break 
+    }
+    closedoor(15, 6)
+    waitdooranim
+    warp(MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 1, 12, 9)
+    waitstate
+    end
+}
+
+script SunsetTown_EventScript_BlockPlayer {
+    lock
+    playse(SE_PIN)
+    fadenewbgm(MUS_BIRCH_LAB)
+    applymovement(LOCALID_CONIFER, Common_Movement_FaceDown)
+    applymovement(LOCALID_CONIFER, Common_Movement_ExclamationMark)
+    setvar(VAR_LAST_TALKED, LOCALID_CONIFER)
+    msgbox("Oh hey there {PLAYER}.", MSGBOX_NPC)
+    waitmovement(0)
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    switch (var(VAR_TEMP_1))
+    {
+        case 8:
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_WalkToPlayerYOne)
+            waitmovement(0)
+        case 9:
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_WalkToPlayerYTwo)
+            waitmovement(0)
+        case 10:
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_WalkToPlayerYThree)
+            waitmovement(0)
+        case 11:
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_WalkToPlayerYFour)
+            waitmovement(0)
+    }
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_WEST)
+    applymovement(LOCALID_CONIFER, SunsetTown_Movement_WalkToPlayerX)
+    waitmovement(0)
+    setvar(VAR_LAST_TALKED, LOCALID_CONIFER)
+    msgbox("Come in quickly, something\n"
+	       "happened not too far away\l"
+	       "from here and I need your help.", MSGBOX_NPC)
+    warp(MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 1, 12, 9)
+    waitstate
+}
+
+movement ConiferWalkIntoDoor {
+    walk_up
+    set_invisible
+}
+
+movement SunsetTown_Movement_FollowProfessorFacingNorth {
+    walk_up * 2
+    set_invisible
+}
+
+movement SunsetTown_Movement_FollowProfessorFacingWest {
+    walk_left
+	walk_up
+    set_invisible
+}
+
+movement SunsetTown_Movement_FollowProfessorFacingEast {
+    walk_right
+	walk_up
+    set_invisible
+}
+
+movement SunsetTown_Movement_WalkToPlayerYOne {
+    walk_down
+}
+
+movement SunsetTown_Movement_WalkToPlayerYTwo {
+    walk_down * 2
+}
+
+movement SunsetTown_Movement_WalkToPlayerYThree {
+    walk_down * 3
+}
+
+movement SunsetTown_Movement_WalkToPlayerYFour {
+    walk_down * 4
+}
+
+movement SunsetTown_Movement_WalkToPlayerX {
+    walk_right * 2
+}

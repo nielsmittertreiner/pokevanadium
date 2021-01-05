@@ -153,7 +153,7 @@
 #define VAR_WEATHER_INSTITUTE_STATE       0x40B3
 #define VAR_PORTHOLE_STATE                0x40B4
 #define VAR_TRICK_HOUSE_STATE             0x40B5 // TODO: needs some further investigation
-#define VAR_TRICK_HOUSE_PUZZLE_7_STATE_2  0x40B6
+#define VAR_SUNSET_TOWN_FOLLOWER_STATE_2  0x40B6
 #define VAR_SLATEPORT_FAN_CLUB_STATE      0x40B7
 
 #define VAR_MT_PYRE_STATE                 0x40B9

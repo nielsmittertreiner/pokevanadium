@@ -846,7 +846,7 @@ bool8 sub_8186450(void)
     return (sUnknown_0203CCD0 == 0);
 }
 
-void GetRecordedBattleRecordMixFriendName(u8 *dst)
+void sub_8186468(u8 *dst)
 {
     s32 i;
 

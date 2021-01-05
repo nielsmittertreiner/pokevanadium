@@ -1,0 +1,34 @@
+const LOCALID_ATTENDANT = 1
+
+mapscripts FirwealdCity_TournamentHallLobby_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TOURNAMENT_HALL_STATE, 0 {
+            // tournament hall explanation
+
+            setvar(VAR_TOURNAMENT_HALL_STATE, 1)
+            release
+            end
+        }
+    ]
+}
+
+script FirwealdCity_TournamentHallLobby_EventScript_Attendant {
+    lock
+    faceplayer
+    // attendant stuff
+
+    release
+    end
+}
+
+script FirwealdCity_TournamentHallLobby_EventScript_Maniac {
+    msgbox("Competetive POKéMON battles\n"
+           "are so cool!", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_TournamentHallLobby_EventScript_Beauty {
+    msgbox("I've heard PHYLLOS is a very strong\n"
+           "TOURNAMENT MASTER.", MSGBOX_NPC)
+    end
+}

@@ -103,9 +103,12 @@ Movement_RevealTrainer: @ 827143A
 	step_end
 
 EventScript_ShowTrainerIntroMsg:: @ 827143C
+	load_speech_bubble VAR_LAST_TALKED
 	special ShowTrainerIntroSpeech
 	waitmessage
 	waitbuttonpress
+	closemessage
+	destroy_speech_bubble
 	special TryPrepareSecondApproachingTrainer
 	compare VAR_RESULT, TRUE
 	goto_if_eq EventScript_ShowSecondTrainerIntro

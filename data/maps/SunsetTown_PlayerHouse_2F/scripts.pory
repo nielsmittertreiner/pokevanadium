@@ -1,0 +1,83 @@
+const LOCALID_MOM = 1
+
+mapscripts SunsetTown_PlayerHouse_2F_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_SUNSET_TOWN_STATE, 0 {
+            lock
+            setvar(VAR_LAST_TALKED, LOCALID_MOM)
+            load_speech_bubble(217, 34)
+            msgbox("{PLAYER}!\n"
+	               "Are you awake yet?")
+            destroy_speech_bubble
+            closemessage
+            playse(SE_EXIT)
+            addobject(LOCALID_MOM)
+            playse(SE_PIN)
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark)
+            waitmovement(0)
+            delay(32)
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
+            waitmovement(0)
+            applymovement(LOCALID_MOM, SunsetTown_PlayerHouse_2F_Movement_MomWalksIntoRoom)
+            waitmovement(0)
+            load_speech_bubble(137, 82)
+            msgbox("{PLAYER}, I want you to come\n"
+	               "downstairs in a minute\p"
+	               "I have something to show you!")
+            destroy_speech_bubble
+            closemessage
+            applymovement(LOCALID_MOM, SunsetTown_PlayerHouse_2F_Movement_MomWalksToStairs)
+            waitmovement(0)
+            load_speech_bubble(201, 50)
+            msgbox("Oh, and don't forget to check\n"
+	               "the items in your PC…")
+            destroy_speech_bubble
+            closemessage
+            applymovement(LOCALID_MOM, SunsetTown_PlayerHouse_2F_Movement_MomWalksOutOfRoom)
+            waitmovement(0)
+            playse(SE_EXIT)
+            removeobject(LOCALID_MOM, MAP_SUNSET_TOWN_PLAYER_HOUSE_2F)
+            setvar(VAR_SUNSET_TOWN_STATE, 1)
+            release
+            end
+        }
+    ]
+}
+
+script SunsetTown_PlayerHouse_2F_EventScript_CheckPlayersPC {
+    setvar(VAR_0x8004, 1)
+    special(DoPCTurnOnEffect)
+    playse(SE_PC_ON)
+    msgbox(gText_PlayerHouseBootPC)
+    special(BedroomPC)
+    waitstate
+    release
+    end
+}
+
+script SunsetTown_PlayerHouse_2F_EventScript_TurnOffPlayerPC {
+    setvar(VAR_0x8004, 1)
+	playse(SE_PC_OFF)
+	special(DoPCTurnOffEffect)
+	releaseall
+	end
+}
+
+movement SunsetTown_PlayerHouse_2F_Movement_MomWalksIntoRoom {
+    walk_down
+	walk_in_place_down
+	delay_16
+	walk_down * 2
+	walk_left * 4
+}
+
+movement SunsetTown_PlayerHouse_2F_Movement_MomWalksToStairs {
+    walk_right * 4
+    walk_up * 2
+    face_down
+}
+
+movement SunsetTown_PlayerHouse_2F_Movement_MomWalksOutOfRoom {
+    walk_up
+	walk_in_place_up
+}

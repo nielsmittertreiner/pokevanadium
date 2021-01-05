@@ -1,0 +1,422 @@
+const LOCALID_TEAMAIRLOCKGRUNT_1 = 9
+const LOCALID_TEAMAIRLOCKGRUNT_2 = 10
+const LOCALID_TEAMAIRLOCKGRUNT_GUARD = 29
+
+const LOCALID_LOGGER_1 = 17
+const LOCALID_LOGGER_2 = 18
+const LOCALID_LOGGER_3 = 19
+const LOCALID_LOGGER_4 = 20
+
+const LOCALID_PHYLLOS = 30
+
+mapscripts AcrenForest_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        switch (var(VAR_ACREN_FOREST_STATE)) {
+            case 2:
+                setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+	            setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+	            setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
+	            setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
+	            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+	            setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+	            setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+                break
+            case 3:
+                setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+	            setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+	            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+	            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+                break
+            case 4:
+                setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	            setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+                setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+                setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+                break
+            case 5:
+                setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	            setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+                setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+                setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+                break
+            case 6:
+                setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	            setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+                setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+                setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+                break
+        }
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_ACREN_FOREST_STATE, 0 {
+            lock
+            getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+            if (var(VAR_TEMP_0) == 29) {
+                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+                waitmovement(0)
+            } elif (var(VAR_TEMP_0) > 29) {
+                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+                waitmovement(0)
+            }
+            load_speech_bubble(LOCALID_LOGGER_1)
+            msgbox("Hello there {PLAYER}!\p"
+	               "I heard from the boss we need to deal\n"
+	               "with those TEAM AIRLOCK GRUNTS\l"
+	               "back there…")
+            destroy_speech_bubble
+            closemessage
+            special(SpawnCameraObject)
+            applymovement(OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToGrunts)
+            waitmovement(0)
+            msgbox("Look, those are the GRUNTS we're\n"
+	               "talking about…")
+            closemessage
+            applymovement(OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToPlayer)
+            waitmovement(0)
+            special(RemoveCameraObject)
+            load_speech_bubble(LOCALID_LOGGER_1)
+            msgbox("I just need to check if you're\n"
+	               "official POKéMON TRAINER.\p"
+	               "May I see your POKéDEX please?")
+            destroy_speech_bubble
+            closemessage
+            msgbox("… … … … … … … … …\n"
+	               "… … … … … … … … …")
+            closemessage
+            load_speech_bubble(LOCALID_LOGGER_1)
+            msgbox("Hmmm…\n"
+	               "You don't seem to have a POKéDEX\l"
+	               "at all…\p"
+	               "You need to have a POKéDEX if you're\n"
+	               "an official POKéMON TRAINER.\p"
+	               "Go speak to the PROFESSOR about this.\p"
+	               "We'll handle it from here.")
+            destroy_speech_bubble
+            closemessage
+            setvar(VAR_ACREN_FOREST_STATE, 1)
+            release
+            end
+        }
+    ]
+}
+
+script AcrenForest_EventScript_Logger1 {
+    if (var(VAR_ACREN_FOREST_STATE) == 2) {
+        msgbox("Hey kid, we need some help from\n"
+               "a professional here.\p"
+               "Ask the LOGGERS at the exit of\n"
+               "the forest for help…", MSGBOX_NPC)
+        turnobject(LOCALID_LOGGER_1, DIR_WEST)
+        turnobject(LOCALID_LOGGER_2, DIR_WEST)
+        end
+    } elif (var(VAR_ACREN_FOREST_STATE) == 5) {
+        msgbox("You defenitely look like a strong\n"
+               "TRAINER, kid.", MSGBOX_NPC)
+        end
+    }
+    msgbox("Go speak to the PROFESSOR about this.\n"
+           "We'll handle it from here.", MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_Logger2 {
+    if (var(VAR_ACREN_FOREST_STATE) == 2) {
+        msgbox("Hey kid, we need some help from\n"
+               "a professional here.\p"
+               "Ask the LOGGERS at the exit of\n"
+               "the forest for help…", MSGBOX_NPC)
+        turnobject(LOCALID_LOGGER_1, DIR_WEST)
+        turnobject(LOCALID_LOGGER_2, DIR_WEST)
+        end
+    } elif (var(VAR_ACREN_FOREST_STATE) == 5) {
+        msgbox("Show those thugs, kiddo.", MSGBOX_NPC)
+        end
+    }
+    msgbox("We'll handle it from here kid.", MSGBOX_NPC)
+    turnobject(LOCALID_LOGGER_1, DIR_WEST)
+    turnobject(LOCALID_LOGGER_2, DIR_WEST)
+    end
+}
+
+script AcrenForest_EventScript_Logger3And4 {
+    if (var(VAR_ACREN_FOREST_STATE) == 2) {
+        lock
+        msgbox("You need to get help from FIRWEALD CITY\n"
+               "Try to find PHYLLOS.\l"
+               "He's the TOURNAMENT MASTER of the city.", MSGBOX_NPC)
+        applymovement(OBJ_EVENT_ID_PLAYER, AcrenForest_Movement_PlayerWalkBackwards)
+        applymovement(LOCALID_LOGGER_3, AcrenForest_Movement_Logger3WalkLeft)
+        applymovement(LOCALID_LOGGER_4, AcrenForest_Movement_Logger4WalkRight)
+        waitmovement(0)
+        setvar(VAR_ACREN_FOREST_STATE, 3)
+        release
+        end
+        }
+    if (var(VAR_ACREN_FOREST_STATE) == 3) {
+        msgbox("We'll be waiting right here.", MSGBOX_NPC)
+        end
+    } elif (var(VAR_ACREN_FOREST_STATE) == 4) {
+        msgbox("Good work kid, PHYLLOS arrived\n"
+               "a while back.\p"
+               "Head deeper into the forest to find him.", MSGBOX_NPC)
+        end
+    }
+    msgbox("We'll handle it from here kid.", MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_TeamAirlockGrunt {
+    random(6)
+    copyvar(VAR_TEMP_F, VAR_RESULT)
+    switch (var(VAR_TEMP_F)) {
+        case 0:
+            msgbox("Get out of our way kid!", MSGBOX_NPC)
+            break
+        case 1:
+            msgbox("Hey, you shouldn't be wandering\n"
+                   "around here!\p"
+                   "This isn't your business!", MSGBOX_NPC)
+            break
+        case 2:
+            msgbox("What's a kid like you doing here?!", MSGBOX_NPC)
+            break
+        case 3:
+            msgbox("You'll never get a hold of the\n"
+                   "mightly TEAM AIRLOCK!", MSGBOX_NPC)
+            break
+        case 4:
+            msgbox("Hehehe…\n"
+                   "We're just doing business here kiddo.", MSGBOX_NPC)
+            break
+        case 5:
+            msgbox("You don't know us kid!\n"
+                   "Get out!", MSGBOX_NPC)
+            break
+    }
+    end
+}
+
+script AcrenForest_EventScript_DescribeIllegalCamp {
+    lock
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    playse(SE_PIN)
+    applymovement(LOCALID_PHYLLOS, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    if (var(VAR_TEMP_0) == 5) {
+        applymovement(LOCALID_PHYLLOS, Common_Movement_WalkLeft)
+        waitmovement(0)
+    }
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("Hi again {PLAYER}.\n"
+           "You've managed to find us.\l"
+           "Now let's get to business shall we.")
+    destroy_speech_bubble
+    closemessage
+    turnobject(LOCALID_PHYLLOS, DIR_SOUTH)
+    applymovement(LOCALID_PHYLLOS, AcrenForest_Movement_PhyllosLaughterJump)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("Har har har!\p"
+           "Well then…")
+    destroy_speech_bubble
+    closemessage
+    delay(10)
+    teleportcamera(6, 28)
+    delay(30)
+    msgbox("This is the cabin we're looking for.\n"
+           "It's guarded by some GRUNTS, but\l"
+           "we'll deal with those.\p"
+           "Har har har!")
+    closemessage
+    delay(10)
+    resetcamera
+    delay(30)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("What are you waiting for kiddo?\p"
+           "They should know you're coming.")
+    destroy_speech_bubble
+    closemessage
+    setvar(VAR_ACREN_FOREST_STATE, 5)
+    release
+    end
+}
+
+script AcrenForest_EventScript_WarnBoss {
+    lock
+    playbgm(MUS_ENCOUNTER_MAGMA, 0x00)
+    applymovement(LOCALID_TEAMAIRLOCKGRUNT_GUARD, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_TEAMAIRLOCKGRUNT_GUARD)
+    msgbox("Oh no!\n"
+           "How did you get here?!\p"
+           "You shouldn't be able to get here!\n"
+           "Didn't the GRUNTS keep you away?\p"
+           "Hrmph\n"
+           "Fine then, the BOSS will make sure to\l"
+           "get you out! Ha ha ha ha!")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_TEAMAIRLOCKGRUNT_GUARD, Common_Movement_WalkUp)
+    playse(SE_EXIT)
+    waitmovement(0)
+    removeobject(LOCALID_TEAMAIRLOCKGRUNT_GUARD)
+    setobjectxyperm(LOCALID_TEAMAIRLOCKGRUNT_GUARD, 2, 24)
+    fadedefaultbgm
+    setvar(VAR_ACREN_FOREST_STATE, 6)
+    release
+    end
+}
+
+script AcrenForest_EventScript_Phyllos {
+    msgbox("What are you waiting for kiddo?\p"
+           "They should know you're coming.", MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_TrainerTipsSurf {
+    msgbox("TRAINER TIPS\p"
+           "Using HM05 SURF, you can cross\n"
+           "any body of water!", MSGBOX_SIGN)
+    end
+}
+
+script AcrenForest_EventScript_TrainerTipsHeldItems {
+    msgbox("TRAINER TIPS\p"
+           "POKéMON with the PICKUP ability\n"
+           "can find items in battle!\p"
+           "When you catch a POKéMON with this\n"
+           "ability, it could be holding on to\l"
+           "an item.\p"
+           "Always check if the POKéMON you\n"
+           "caught has an item!", MSGBOX_SIGN)
+    end
+}
+
+script AcrenForest_EventScript_FlowerShopSign {
+    msgbox("ELDER BERRY's GREENERY SHOP", MSGBOX_SIGN)
+    end
+}
+
+script AcrenForest_EventScript_Frederick {
+    trainerbattle_single(TRAINER_ACREN_FOREST_FREDERICK, AcrenForest_Text_FrederickIntro, AcrenForest_Text_FrederickDefeat)
+    msgbox(AcrenForest_Text_FrederickPostBattle, MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_Roddy {
+    trainerbattle_single(TRAINER_ACREN_FOREST_RODDY, AcrenForest_Text_RoddyIntro, AcrenForest_Text_RoddyDefeat)
+    msgbox(AcrenForest_Text_RoddyPostBattle, MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_Armin {
+    trainerbattle_single(TRAINER_ACREN_FOREST_ARMIN, AcrenForest_Text_ArminIntro, AcrenForest_Text_ArminDefeat)
+    msgbox(AcrenForest_Text_ArminPostBattle, MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_Marisha {
+    trainerbattle_single(TRAINER_ACREN_FOREST_MARISHA, AcrenForest_Text_MarishaIntro, AcrenForest_Text_MarishaDefeat)
+    msgbox(AcrenForest_Text_MarishaPostBattle, MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_Lada {
+    trainerbattle_single(TRAINER_ACREN_FOREST_LADA, AcrenForest_Text_LadaIntro, AcrenForest_Text_LadaDefeat)
+    msgbox(AcrenForest_Text_LadaPostBattle, MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_Grunt {
+    trainerbattle_single(TRAINER_ACREN_FOREST_GRUNT, AcrenForest_Text_GruntIntro, AcrenForest_Text_GruntDefeat)
+    msgbox(AcrenForest_Text_GruntPostBattle, MSGBOX_NPC)
+    end
+}
+
+script AcrenForest_EventScript_SetShrineWeather {
+    setweather(WEATHER_SUNNY)
+    doweather
+    release
+    end
+}
+
+script AcrenForest_EventScript_SetDefaultWeather {
+    resetweather
+    doweather
+    release
+    end
+}
+
+script AcrenForest_EventScript_CelebiShrine {
+    msgbox("You feel a strange presence\n"
+           "around you…", MSGBOX_SIGN)
+    end
+}
+
+movement AcrenForest_Movement_CameraToGrunts {
+    walk_diag_northwest * 13
+    walk_fast_up * 6
+}
+
+movement AcrenForest_Movement_CameraToPlayer {
+    walk_fast_down * 6
+    walk_diag_southeast * 13
+}
+
+movement AcrenForest_Movement_Logger3WalkToSide {
+    walk_left
+    face_down
+}
+
+movement AcrenForest_Movement_Logger4WalkToSide {
+    walk_right
+    face_down
+}
+
+movement AcrenForest_Movement_Logger4WalkToSideFromWest {
+    walk_down
+	walk_right
+	face_down
+}
+
+movement AcrenForest_Movement_PlayerWalkBackwards {
+    lock_facing_direction
+    walk_down
+}
+
+movement AcrenForest_Movement_Logger3WalkLeft {
+    walk_down
+    walk_left
+    face_down
+}
+
+movement AcrenForest_Movement_Logger4WalkRight {
+    walk_down
+    walk_right
+    face_down
+}
+
+movement AcrenForest_Movement_PhyllosLaughterJump {
+    jump_in_place_down
+}

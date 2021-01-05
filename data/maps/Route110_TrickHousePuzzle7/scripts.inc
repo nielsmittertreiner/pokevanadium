@@ -72,7 +72,7 @@ Route110_TrickHousePuzzle7_EventScript_SetSwitch5MetatilesOff:: @ 826E185
 	return
 
 Route110_TrickHousePuzzle7_OnTransition: @ 826E198
-	compare VAR_TRICK_HOUSE_PUZZLE_7_STATE_2, 1
+	compare VAR_SUNSET_TOWN_FOLLOWER_STATE_2, 1
 	goto_if_eq Route110_TrickHousePuzzle7_EventScript_TeleportedTransition
 	clearflag FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_1
 	clearflag FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_2
@@ -85,34 +85,34 @@ Route110_TrickHousePuzzle7_EventScript_TeleportedTransition:: @ 826E1B3
 	end
 
 Route110_TrickHousePuzzle7_OnLoad: @ 826E1B4
-	compare VAR_TRICK_HOUSE_PUZZLE_7_STATE_2, 1
+	compare VAR_SUNSET_TOWN_FOLLOWER_STATE_2, 1
 	call_if_eq Route110_TrickHousePuzzle7_EventScript_UpdateSwitchMetatiles
 	end
 
 Route110_TrickHousePuzzle7_OnFrame: @ 826E1C0
-	map_script_2 VAR_TRICK_HOUSE_PUZZLE_7_STATE_2, 1, Route110_TrickHousePuzzle7_EventScript_ClearState2
+	map_script_2 VAR_SUNSET_TOWN_FOLLOWER_STATE_2, 1, Route110_TrickHousePuzzle7_EventScript_ClearState2
 	.2byte 0
 
 Route110_TrickHousePuzzle7_EventScript_ClearState2:: @ 826E1CA
-	setvar VAR_TRICK_HOUSE_PUZZLE_7_STATE_2, 0
+	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE_2, 0
 	end
 
 Route110_TrickHousePuzzle7_EventScript_Scroll:: @ 826E1D0
 	lockall
-	compare VAR_TRICK_HOUSE_PUZZLE_7_STATE, 0
+	compare VAR_SUNSET_TOWN_FOLLOWER_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle7_EventScript_FoundScroll
 	goto Route110_TrickHousePuzzle_EventScript_ReadScrollAgain
 	end
 
 Route110_TrickHousePuzzle7_EventScript_FoundScroll:: @ 826E1E2
-	setvar VAR_TRICK_HOUSE_PUZZLE_7_STATE, 1
+	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE, 1
 	goto Route110_TrickHousePuzzle_EventScript_FoundScroll
 	end
 
 @ Unused, leftover from R/S
 Route110_TrickHousePuzzle7_EventScript_TeleportPad:: @ 826E1ED
 	lockall
-	setvar VAR_TRICK_HOUSE_PUZZLE_7_STATE_2, 1
+	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE_2, 1
 	warpteleport MAP_ROUTE110_TRICK_HOUSE_PUZZLE7, 255, 3, 19
 	waitstate
 	releaseall

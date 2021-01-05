@@ -1,0 +1,23 @@
+mapscripts FirwealdCity_Duplex_MapScripts {}
+
+script FirwealdCity_Duplex_EventScript_Man {
+    msgbox("Hrmph…\p"
+           "I can hear that WINGULL of the\n"
+           "girl nextdoor all day long.", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_Duplex_EventScript_Lass {
+    msgbox("Oh I love reading!\p"
+           "I even have a book about WINGULL.", MSGBOX_NPC)
+    end
+}
+
+script FirwealdCity_Duplex_EventScript_Wingull {
+    lock
+    faceplayer
+    playmoncry(SPECIES_WINGULL, 0)
+    waitmoncry
+    release
+    end
+}

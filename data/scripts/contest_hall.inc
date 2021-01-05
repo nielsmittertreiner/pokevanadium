@@ -202,7 +202,7 @@ LilycoveCity_ContestLobby_EventScript_EnterMon:: @ 8279F87
 	msgbox LilycoveCity_ContestLobby_Text_YourMonIsEntryNum4, MSGBOX_DEFAULT
 	closemessage
 	releaseall
-	setvar VAR_CONTEST_HALL_STATE, 1
+	setvar VAR_ROUTE402_STATE, 1
 	return
 
 ContestHall_EventScript_DoContest:: @ 8279F97
@@ -225,7 +225,7 @@ ContestHall_EventScript_DoContest:: @ 8279F97
 	call ContestHall_EventScript_CongratulateWinner
 	call ContestHall_EventScript_AudienceLookAround
 	call ContestHall_EventScript_GiveWinnerPrize
-	setvar VAR_CONTEST_HALL_STATE, 2
+	setvar VAR_ROUTE402_STATE, 2
 	return
 
 ContestHall_EventScript_GetContestRankStringId:: @ 8279FF2

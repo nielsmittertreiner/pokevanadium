@@ -8,15 +8,15 @@ OldaleTown_MapScripts:: @ 81E8EA2
 
 OldaleTown_OnTransition: @ 81E8EA8
 	call Common_EventScript_SetupRivalGfxId
-	setflag FLAG_VISITED_OLDALE_TOWN
+	setflag FLAG_VISITED_CEDARRED_TOWN
 	call_if_unset FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_BlockWestEntrance
 	call_if_unset FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_MoveMartEmployee
 	call_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_SetOldaleState
 	end
 
-@ This script seems pointless because nothing uses VAR_OLDALE_TOWN_STATE
+@ This script seems pointless because nothing uses VAR_CEDARRED_TOWN_STATE
 OldaleTown_EventScript_SetOldaleState:: @ 81E8ECC
-	setvar VAR_OLDALE_TOWN_STATE, 1
+	setvar VAR_CEDARRED_TOWN_STATE, 1
 	return
 
 OldaleTown_EventScript_BlockWestEntrance:: @ 81E8ED2

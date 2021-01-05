@@ -3,7 +3,7 @@
   "name": "Route132",
   "layout": "LAYOUT_ROUTE132",
   "music": "MUS_ROUTE119",
-  "region_map_section": "MAPSEC_ROUTE_132",
+  "region_map_section": "MAPSEC_ROUTE_432",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
   "map_type": "MAP_TYPE_OCEAN_ROUTE",
@@ -156,7 +156,13 @@
       "flag": "FLAG_ITEM_ROUTE_132_PROTEIN"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

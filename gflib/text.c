@@ -212,6 +212,7 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *printerTemplate, u8 speed, voi
 void RunTextPrinters(void)
 {
     int i;
+    int j;
 
     if (gUnknown_03002F84 == 0)
     {
@@ -219,18 +220,23 @@ void RunTextPrinters(void)
         {
             if (gTextPrinters[i].active)
             {
-                u16 temp = RenderFont(&gTextPrinters[i]);
-                switch (temp)
+                for (j = 0; j < 2; j++)
                 {
-                case 0:
-                    CopyWindowToVram(gTextPrinters[i].printerTemplate.windowId, 2);
-                case 3:
-                    if (gTextPrinters[i].callback != 0)
-                        gTextPrinters[i].callback(&gTextPrinters[i].printerTemplate, temp);
-                    break;
-                case 1:
-                    gTextPrinters[i].active = 0;
-                    break;
+                u16 temp = RenderFont(&gTextPrinters[i]);
+                    switch (temp)
+                    {
+                    case 0:
+                        CopyWindowToVram(gTextPrinters[i].printerTemplate.windowId, 2);
+                    case 3:
+                        if (gTextPrinters[i].callback != 0)
+                            gTextPrinters[i].callback(&gTextPrinters[i].printerTemplate, temp);
+                        break;
+                    case 1:
+                        gTextPrinters[i].active = 0;
+                        break;
+                    }
+                    if (temp != 0)
+                        break;
                 }
             }
         }
@@ -693,7 +699,7 @@ void TextPrinterDrawDownArrow(struct TextPrinter *textPrinter)
             FillWindowPixelRect(
                 textPrinter->printerTemplate.windowId,
                 textPrinter->printerTemplate.bgColor << 4 | textPrinter->printerTemplate.bgColor,
-                textPrinter->printerTemplate.currentX,
+                textPrinter->printerTemplate.currentX + 2,
                 textPrinter->printerTemplate.currentY,
                 8,
                 16);
@@ -716,7 +722,7 @@ void TextPrinterDrawDownArrow(struct TextPrinter *textPrinter)
                 gDownArrowYCoords[subStruct->downArrowYPosIdx],
                 8,
                 16,
-                textPrinter->printerTemplate.currentX,
+                textPrinter->printerTemplate.currentX + 2,
                 textPrinter->printerTemplate.currentY,
                 8,
                 16);
@@ -733,7 +739,7 @@ void TextPrinterClearDownArrow(struct TextPrinter *textPrinter)
     FillWindowPixelRect(
         textPrinter->printerTemplate.windowId,
         textPrinter->printerTemplate.bgColor << 4 | textPrinter->printerTemplate.bgColor,
-        textPrinter->printerTemplate.currentX,
+        textPrinter->printerTemplate.currentX + 2,
         textPrinter->printerTemplate.currentY,
         8,
         16);

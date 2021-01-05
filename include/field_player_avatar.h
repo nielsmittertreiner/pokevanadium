@@ -3,8 +3,8 @@
 
 void PlayerStep(u8 direction, u16 newKeys, u16 heldKeys);
 void ClearPlayerAvatarInfo(void);
-void SetPlayerAvatarExtraStateTransition(u8, u8);
-u8 GetPlayerAvatarGenderByGraphicsId(u8);
+void SetPlayerAvatarExtraStateTransition(u16, u8);
+u8 GetPlayerAvatarGenderByGraphicsId(u16);
 bool8 TestPlayerAvatarFlags(u8);
 u8 GetPlayerAvatarObjectId(void);
 void PlayerGetDestCoords(s16 *, s16 *);
@@ -36,13 +36,13 @@ void sub_808BCE8(void);
 void InitPlayerAvatar(s16 a, s16 b, u8 c, u8 d);
 void sub_808B864(void);
 void sub_808BCF4(void);
-void SetSpinStartFacingDir(u8);
+void sub_808D074(u8);
 void GetXYCoordsOneStepInFrontOfPlayer(s16 *xPtr, s16 *yPtr);
-u8 GetRivalAvatarGraphicsIdByStateIdAndGender(u8, u8);
+u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8, u8);
 void SetPlayerAvatarFieldMove(void);
-u8 GetPlayerAvatarGraphicsIdByCurrentState(void);
+u16 GetPlayerAvatarGraphicsIdByCurrentState(void);
 void SetPlayerAvatarStateMask(u8 a);
-u8 GetPlayerAvatarGraphicsIdByStateId(u8 a);
+u16 GetPlayerAvatarGraphicsIdByStateId(u8 a);
 u8 GetJumpSpecialMovementAction(u32);
 bool8 PartyHasMonWithSurf(void);
 bool8 IsPlayerFacingSurfableFishableWater(void);
@@ -50,19 +50,23 @@ bool8 IsPlayerSurfingNorth(void);
 void SetPlayerAvatarWatering(u8 direction);
 u8 GetPlayerAvatarFlags(void);
 void UpdatePlayerAvatarTransitionState(void);
-u8 GetFRLGAvatarGraphicsIdByGender(u8);
-u8 GetRSAvatarGraphicsIdByGender(u8);
+u16 GetFRLGAvatarGraphicsIdByGender(u8);
+u16 GetRSAvatarGraphicsIdByGender(u8);
 void PlayerWheelieInPlace(u8 direction);
 void PlayerWheelieMove(u8 direction);
 void PlayerPopWheelieWhileMoving(u8 direction);
 void PlayerUseAcroBikeOnBumpySlope(u8 direction);
 void PlayerEndWheelieWhileMoving(u8 direction);
-void DoPlayerSpinEntrance(void);
-void DoPlayerSpinExit(void);
-bool32 IsPlayerSpinEntranceActive(void);
-bool32 IsPlayerSpinExitActive(void);
+void sub_808D194(void);
+void sub_808D1C8(void);
+bool32 sub_808D1B4(void);
+bool32 sub_808D1E8(void);
 void SetPlayerInvisibility(bool8 invisible);
 u8 player_get_pos_including_state_based_drift(s16 *x, s16 *y);
 void StartFishing(u8 rod);
+bool8 ObjectMovingOnRockStairs(struct ObjectEvent *objectEvent, u8 direction);
+//sideways stairs
+u8 GetRightSideStairsDirection(u8 direction);
+u8 GetLeftSideStairsDirection(u8 direction);
 
 #endif // GUARD_FIELD_PLAYER_AVATAR_H

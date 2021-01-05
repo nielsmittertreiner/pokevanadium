@@ -53,6 +53,9 @@ extern const u8 gText_Key_Items[];
 extern const u8 gText_Poke_Balls[];
 extern const u8 gText_TMs_Hms[];
 extern const u8 gText_Berries2[];
+extern const u8 gText_Medicine[];
+extern const u8 gText_BattleItems[];
+extern const u8 gText_PowerUp[];
 
 extern const u8 gText_Single2[];
 extern const u8 gText_Double2[];
@@ -517,6 +520,7 @@ extern const u8 gText_SpDef[];
 extern const u8 gText_Speed[];
 extern const u8 gText_Dash[];
 extern const u8 gText_Plus[];
+extern const u8 gText_Nickname[];
 
 //pokedex text
 extern const u8 gText_CryOf[];
@@ -998,6 +1002,7 @@ extern const u8 gText_CanIHelpWithAnythingElse[];
 extern const u8 gText_AnythingElseICanHelp[];
 extern const u8 gText_QuitShopping[];
 extern const u8 gText_PokedollarVar1[];
+extern const u8 gText_SoldOut[];
 extern const u8 gText_YouDontHaveMoney[];
 extern const u8 gText_Var1CertainlyHowMany2[];
 extern const u8 gText_Var1CertainlyHowMany[];
@@ -1007,6 +1012,7 @@ extern const u8 gText_InBagVar1[];
 extern const u8 gText_Var1AndYouWantedVar2[];
 extern const u8 gText_HereYouGoThankYou[];
 extern const u8 gText_NoMoreRoomForThis[];
+extern const u8 gText_SorryWereOutOfThis[];
 extern const u8 gText_ThankYouIllSendItHome[];
 extern const u8 gText_ThanksIllSendItHome[];
 extern const u8 gText_SpaceForVar1Full[];
@@ -2847,6 +2853,8 @@ extern const u8 gText_Lower[];
 extern const u8 gText_Symbols[];
 extern const u8 gText_Register2[];
 extern const u8 gText_Exit2[];
+extern const u8 gOtherText_ExpShareOn[];
+extern const u8 gOtherText_ExpShareOff[];
 
 // Dodrio Berry Picking
 extern const u8 gText_BerryPickingRecords[];
@@ -2983,36 +2991,18 @@ extern const u8 gText_Smartness[];
 extern const u8 gText_Cuteness[];
 extern const u8 gText_Beauty3[];
 
+extern const u8 gText_Bulbasaur[];
+extern const u8 gText_Charmander[];
+extern const u8 gText_Squirtle[];
+extern const u8 gText_Chikorita[];
+extern const u8 gText_Cyndaquil[];
+extern const u8 gText_Totodile[];
+extern const u8 gText_Treecko[];
+extern const u8 gText_Torchic[];
+extern const u8 gText_Mudkip[];
 // Berry Blender
 extern const u8 gText_SavingDontTurnOff2[];
 extern const u8 gText_BlenderMaxSpeedRecord[];
 extern const u8 gText_234Players[];
-
-// Battle Factory Screen
-extern const u8 gText_RentalPkmn2[];
-extern const u8 gText_SelectFirstPkmn[];
-extern const u8 gText_SelectSecondPkmn[];
-extern const u8 gText_SelectThirdPkmn[];
-extern const u8 gText_TheseThreePkmnOkay[];
-extern const u8 gText_CantSelectSamePkmn[];
-extern const u8 gText_Summary[];
-extern const u8 gText_Rechoose[];
-extern const u8 gText_Deselect[];
-extern const u8 gText_Rent[];
-extern const u8 gText_Others2[];
-extern const u8 gText_Yes2[];
-extern const u8 gText_Yes3[];
-extern const u8 gText_No2[];
-extern const u8 gText_No3[];
-extern const u8 gText_QuitSwapping[];
-extern const u8 gText_AcceptThisPkmn[];
-extern const u8 gText_SelectPkmnToAccept[];
-extern const u8 gText_SelectPkmnToSwap[];
-extern const u8 gText_PkmnSwap[];
-extern const u8 gText_Swap[];
-extern const u8 gText_Summary2[];
-extern const u8 gText_PkmnForSwap[];
-extern const u8 gText_SamePkmnInPartyAlready[];
-extern const u8 gText_Cancel3[];
 
 #endif // GUARD_STRINGS_H

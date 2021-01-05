@@ -1026,10 +1026,11 @@
 	.4byte \offset
 	.endm
 
-	@ Opens the Pokemart system, offering the specified products for sale.
-	.macro pokemart products:req
+	@ Opens the Pokemart system, offering the specified products for sale. If tmshopid is 0, it won't be treated as a TM shop.
+	.macro pokemart products:req, tmshopid = 0
 	.byte 0x86
 	.4byte \products
+	.2byte \tmshopid
 	.endm
 
 	@ Opens the Pokemart system and treats the list of items as decorations.
@@ -1613,10 +1614,65 @@
 	.2byte \item
 	.2byte \quantity
 	.endm
+    
+    @ sets an NPC up to follow the player
+    .macro setfollower localId:req, flags:req
+    .byte 0xe3
+    .byte \localId
+    .2byte \flags
+    .endm
+    
+    @ remove the following NPC (assumes there will only ever be one)
+    .macro destroyfollower
+    .byte 0xe4
+    .endm
+    
+    @ makes the player and follower face one another
+    .macro facefollower
+    .byte 0xe5
+    .endm
+    
+    @ checks if you have a follower. returns the result to VAR_RESULT
+    .macro checkfollower
+    .byte 0xe6
+    .endm
+	
+    .macro showdescription
+    .byte 0xe7
+    .endm
+    
+    .macro showitemdesc
+    setvar VAR_0x8009, 0
+    showdescription
+    .endm
+    
+    .macro showberrydesc
+    setvar VAR_0x8009, 1
+    showdescription
+    .endm
+    
+    .macro hideitemdesc
+    .byte 0xe8
+    .endm
 
 
 @ Supplementary
 
+	.macro load_speech_bubble x:req, y=0xFF
+		.if \y == 0xFF
+			setvar VAR_0x8004, \x
+			callnative LoadTailAuto
+		.else
+			setvar VAR_0x8005, \x
+			setvar VAR_0x8006, \y
+			callnative LoadTail
+		.endif
+	.endm
+
+	.macro destroy_speech_bubble
+	callnative DestroyTail
+	.endm
+	
 	.macro goto_if_unset flag:req, dest:req
 	checkflag \flag
 	goto_if FALSE, \dest
@@ -1777,4 +1833,14 @@
 	setfieldeffectargument 1, \y
 	setfieldeffectargument 2, \priority
 	dofieldeffect FLDEFF_SPARKLE
+	.endm
+
+	.macro teleportcamera x:req, y:req
+	.byte 0xe9
+	.2byte \x
+	.2byte \y
+	.endm
+
+	.macro resetcamera
+	callnative ResetCamera
 	.endm

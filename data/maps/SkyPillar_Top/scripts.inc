@@ -34,7 +34,7 @@ SkyPillar_Top_EventScript_TryShowRayquaza:: @ 8239705
 	return
 
 SkyPillar_Top_EventScript_ShowRayquaza:: @ 823970F
-	clearflag FLAG_HIDE_RAYQUAZA_SKY_TOWER_SUMMIT
+	clearflag FLAG_EVENT_CELEBI_ACTIVE
 	return
 
 SkyPillar_Top_OnWarp: @ 8239713

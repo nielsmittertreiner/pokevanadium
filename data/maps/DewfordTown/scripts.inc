@@ -15,7 +15,7 @@ DewfordTown_MapScripts:: @ 81E9507
 	.byte 0
 
 DewfordTown_OnTransition: @ 81E950D
-	setflag FLAG_VISITED_DEWFORD_TOWN
+	setflag FLAG_VISITED_FIRWEALD_CITY
 	end
 
 DewfordTown_EventScript_Briney:: @ 81E9511

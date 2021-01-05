@@ -121,7 +121,7 @@ const u8 gText_ListByFirstLetter[] = _("List by the first letter in the name.\nS
 const u8 gText_ListByBodyColor[] = _("List by body color.\nSpotted POKéMON only.");
 const u8 gText_ListByType[] = _("List by type.\nOwned POKéMON only.");
 const u8 gText_ExecuteSearchSwitch[] = _("Execute search/switch.");
-const u8 gText_DexHoennTitle[] = _("HOENN DEX");
+const u8 gText_DexHoennTitle[] = _("EURUS DEX");
 const u8 gText_DexNatTitle[] = _("NATIONAL DEX");
 const u8 gText_DexSortNumericalTitle[] = _("NUMERICAL MODE");
 const u8 gText_DexSortAtoZTitle[] = _("A TO Z MODE");
@@ -148,7 +148,7 @@ const u8 gText_DexSearchColorPurple[] = _("PURPLE");
 const u8 gText_DexSearchColorGray[] = _("GRAY");
 const u8 gText_DexSearchColorWhite[] = _("WHITE");
 const u8 gText_DexSearchColorPink[] = _("PINK");
-const u8 gText_DexHoennDescription[] = _("HOENN region's POKéDEX");
+const u8 gText_DexHoennDescription[] = _("EURUS region's POKéDEX");
 const u8 gText_DexNatDescription[] = _("National edition POKéDEX");
 const u8 gText_DexSortNumericalDescription[] = _("POKéMON are listed according to their\nnumber.");
 const u8 gText_DexSortAtoZDescription[] = _("Spotted and owned POKéMON are listed\nalphabetically.");
@@ -282,13 +282,19 @@ const u8 gText_PokeBallsPocket[] = _("POKé BALLS");
 const u8 gText_TMHMPocket[] = _("TMs & HMs");
 const u8 gText_BerriesPocket[] = _("BERRIES");
 const u8 gText_KeyItemsPocket[] = _("KEY ITEMS");
+const u8 gText_MedicinePocket[] = _("MEDICINE");
+const u8 gText_BattleItemsPocket[] = _("BATTLE ITEM");
+const u8 gText_PowerUpPocket[] = _("POWER-UP");
 
 const u8 *const gPocketNamesStringsTable[] =
 {
     gText_ItemsPocket,
+    gText_MedicinePocket,
     gText_PokeBallsPocket,
-    gText_TMHMPocket,
+    gText_BattleItemsPocket,
     gText_BerriesPocket,
+    gText_PowerUpPocket,
+    gText_TMHMPocket,
     gText_KeyItemsPocket
 };
 
@@ -350,6 +356,7 @@ const u8 gText_ThankYouIllSendItHome[] = _("Thank you!\nI'll send it to your hom
 const u8 gText_ThanksIllSendItHome[] = _("Thanks!\nI'll send it to your PC at home.");
 const u8 gText_YouDontHaveMoney[] = _("You don't have enough money.{PAUSE_UNTIL_PRESS}");
 const u8 gText_NoMoreRoomForThis[] = _("You have no more room for this\nitem.{PAUSE_UNTIL_PRESS}");
+const u8 gText_SorryWereOutOfThis[] = _("I'm very sorry, we're out of\nthis item.{PAUSE_UNTIL_PRESS}");
 const u8 gText_SpaceForVar1Full[] = _("The space for {STR_VAR_1} is full.{PAUSE_UNTIL_PRESS}");
 const u8 gText_AnythingElseICanHelp[] = _("Is there anything else I can help\nyou with?");
 const u8 gText_CanIHelpWithAnythingElse[] = _("Can I help you with anything else?");
@@ -359,6 +366,7 @@ const u8 gText_HowManyToSell[] = _("{STR_VAR_2}?\nHow many would you like to sel
 const u8 gText_ICanPayVar1[] = _("I can pay ¥{STR_VAR_1}.\nWould that be okay?");
 const u8 gText_TurnedOverVar1ForVar2[] = _("Turned over the {STR_VAR_2}\nand received ¥{STR_VAR_1}.");
 const u8 gText_PokedollarVar1[] = _("¥{STR_VAR_1}");
+const u8 gText_SoldOut[] = _("Sold Out");
 const u8 gText_Shift[] = _("SHIFT");
 const u8 gText_SendOut[] = _("SEND OUT");
 const u8 gText_Switch2[] = _("SWITCH");
@@ -701,6 +709,9 @@ const u8 gText_Key_Items[] = _("KEY ITEMS");
 const u8 gText_Poke_Balls[] = _("POKé BALLS");
 const u8 gText_TMs_Hms[] = _("TMs & HMs");
 const u8 gText_Berries2[] = _("BERRIES");
+const u8 gText_Medicine[] = _("MEDICINE");
+const u8 gText_BattleItems[] = _("BATTLE ITEM");
+const u8 gText_PowerUp[] = _("POWER-UP");
 const u8 gText_SomeonesPC[] = _("SOMEONE'S PC");
 const u8 gText_LanettesPC[] = _("LANETTE'S PC");
 const u8 gText_PlayersPC[] = _("{PLAYER}'s PC");
@@ -939,7 +950,7 @@ const u8 gText_SeeYaDescription[] = _("Return to the previous menu.");
 const u8 gText_JustOnePkmn[] = _("There is just one POKéMON with you.");
 const u8 gText_PartyFull[] = _("Your party is full!");
 const u8 gText_Box[] = _("BOX");
-const u8 gText_CheckMapOfHoenn[] = _("Check the map of the HOENN region.");
+const u8 gText_CheckMapOfHoenn[] = _("Check the map of the EURUS region.");
 const u8 gText_CheckPokemonInDetail[] = _("Check POKéMON in detail.");
 const u8 gText_CallRegisteredTrainer[] = _("Call a registered TRAINER.");
 const u8 gText_CheckObtainedRibbons[] = _("Check obtained RIBBONS.");
@@ -1184,7 +1195,7 @@ const u8 gText_PsychUp48BP[] = _("PSYCH UP{CLEAR_TO 0x4E}48BP");
 const u8 gText_IcePunch48BP[] = _("ICE PUNCH{CLEAR_TO 0x4E}48BP");
 const u8 gText_ThunderPunch48BP[] = _("THUNDERPUNCH{CLEAR_TO 0x4E}48BP");
 const u8 gText_FirePunch48BP[] = _("FIRE PUNCH{CLEAR_TO 0x4E}48BP");
-const u8 gText_PkmnFainted3[] = _("{STR_VAR_1} fainted…\p\n");
+const u8 gText_PkmnFainted3[] = _("{STR_VAR_1} survived the poisoning.\nThe poison faded away!\p");
 const u8 gText_Marco[] = _("MARCO");
 const u8 gText_TrainerCardName[] = _("NAME: ");
 const u8 gText_TrainerCardIDNo[] = _("IDNo.");
@@ -1251,6 +1262,8 @@ const u8 gText_Others[] = _("OTHERS");
 const u8 gText_Symbols[] = _("SYMBOLS");
 const u8 gText_Register2[] = _("REGISTER");
 const u8 gText_Exit2[] = _("EXIT");
+const u8 gOtherText_ExpShareOn[] = _("Turned on the Exp. Share.\pParty will now gain a portion\nof the Experience Points.{PAUSE_UNTIL_PRESS}");
+const u8 gOtherText_ExpShareOff[] = _("Turned off the Exp. Share.\pParty will no longer gain a portion\nof any Experience Points.{PAUSE_UNTIL_PRESS}");
 const u8 gText_QuitChatting[] = _("Quit chatting?");
 const u8 gText_RegisterTextWhere[] = _("Register text where?");
 const u8 gText_RegisterTextHere[] = _("Register text here?");
@@ -1533,12 +1546,12 @@ const u8 gText_EventSafelyLoaded[] = _("The event was safely loaded.");
 const u8 gText_LoadErrorEndingSession[] = _("Loading error.\nEnding session.");
 const u8 gJPText_Player[] = _("プレイヤー"); // Unused
 const u8 gJPText_Sama[] = _("さま"); // Unused
-const u8 gText_DexHoenn[] = _("HOENN");
+const u8 gText_DexHoenn[] = _("EURUS");
 const u8 gText_DexNational[] = _("NATIONAL");
 const u8 gText_PokedexDiploma[] = _("PLAYER: {CLEAR 0x10}{COLOR RED}{SHADOW LIGHT_RED}{PLAYER}{COLOR DARK_GREY}{SHADOW LIGHT_GREY}\n\nThis document certifies\nthat you have successfully\ncompleted your\n{STR_VAR_1} POKéDEX.\n\n{CLEAR_TO 0x42}{COLOR RED}{SHADOW LIGHT_RED}GAME FREAK");
 const u8 gJPText_GameFreak[] = _("{COLOR RED}{SHADOW LIGHT_RED}ゲ-ムフリ-ク"); // Unused
 const u8 gText_DiplomaEmpty[] = _("{COLOR RED}{SHADOW LIGHT_RED}"); // Unused
-const u8 gText_Hoenn[] = _("HOENN");
+const u8 gText_Hoenn[] = _("EURUS");
 const u8 gText_OhABite[] = _("Oh! A bite!");
 const u8 gText_PokemonOnHook[] = _("A POKéMON's on the hook!{PAUSE_UNTIL_PRESS}");
 const u8 gText_NotEvenANibble[] = _("Not even a nibble…{PAUSE_UNTIL_PRESS}");
@@ -1817,3 +1830,14 @@ const u8 gText_Answer[] = _("ANSWER");
 const u8 gText_PokeBalls[] = _("POKé BALLS");
 const u8 gText_Berry[] = _("BERRY");
 const u8 gText_Berries[] = _("BERRIES");
+const u8 gText_Nickname[] = _("NICKNAME");
+
+const u8 gText_Bulbasaur[] = _("BULBASAUR");
+const u8 gText_Charmander[] = _("CHARMANDER");
+const u8 gText_Squirtle[] = _("SQUIRTLE");
+const u8 gText_Chikorita[] = _("CHIKORITA");
+const u8 gText_Cyndaquil[] = _("CYNDAQUIL");
+const u8 gText_Totodile[] = _("TOTODILE");
+const u8 gText_Treecko[] = _("TREECKO");
+const u8 gText_Torchic[] = _("TORCHIC");
+const u8 gText_Mudkip[] = _("MUDKIP");

@@ -448,8 +448,9 @@ struct BattleStruct
         typeArg = gBattleMoves[move].type;                  \
 }
 
-#define IS_TYPE_PHYSICAL(moveType)(moveType < TYPE_MYSTERY)
-#define IS_TYPE_SPECIAL(moveType)(moveType > TYPE_MYSTERY)
+#define IS_TYPE_PHYSICAL(move)(GetBattleMoveSplit(move) == MOVE_SPLIT_PHYSICAL)
+#define IS_TYPE_SPECIAL(move)(GetBattleMoveSplit(move) == MOVE_SPLIT_SPECIAL)
+#define IS_TYPE_STATUS(move)(GetBattleMoveSplit(move) == MOVE_SPLIT_STATUS)
 
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 
@@ -585,11 +586,7 @@ struct BattleSpriteData
 struct MonSpritesGfx
 {
     void* firstDecompressed; // ptr to the decompressed sprite of the first pokemon
-    union
-    {
-	void* ptr[4];
-	u8* byte[4];
-    } sprites;
+    void* sprites[4];
     struct SpriteTemplate templates[4];
     struct SpriteFrameImage field_74[4][4];
     u8 field_F4[0x80];

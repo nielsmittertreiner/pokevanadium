@@ -1107,7 +1107,7 @@ const u16 gWeatherStartsStringIds[] =
     [WEATHER_SUNNY_CLOUDS]       = STRINGID_ITISRAINING,
     [WEATHER_SUNNY]              = STRINGID_ITISRAINING,
     [WEATHER_RAIN]               = STRINGID_ITISRAINING,
-    [WEATHER_SNOW]               = STRINGID_ITISRAINING,
+    [WEATHER_SNOW]               = STRINGID_STARTEDHAIL,
     [WEATHER_RAIN_THUNDERSTORM]  = STRINGID_ITISRAINING,
     [WEATHER_FOG_HORIZONTAL]     = STRINGID_ITISRAINING,
     [WEATHER_VOLCANIC_ASH]       = STRINGID_ITISRAINING,
@@ -1409,9 +1409,9 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] =
         .letterSpacing = 0,
         .lineSpacing = 0,
         .speed = 1,
-        .fgColor = 1,
+        .fgColor = 2,
         .bgColor = 15,
-        .shadowColor = 6,
+        .shadowColor = 7,
     },
     { // 1 "What will (pokemon) do?"
         .fillValue = PIXEL_FILL(0xF),
@@ -1421,9 +1421,9 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] =
         .letterSpacing = 0,
         .lineSpacing = 0,
         .speed = 0,
-        .fgColor = 1,
+        .fgColor = 2,
         .bgColor = 15,
-        .shadowColor = 6,
+        .shadowColor = 7,
     },
     { // 2 "Fight/Pokemon/Bag/Run"
         .fillValue = PIXEL_FILL(0xE),
@@ -2288,7 +2288,8 @@ static const u8* TryGetStatusString(u8 *src)
     statusPtr = status;
     for (i = 0; i < 8; i++)
     {
-        if (*src == EOS) break; // one line required to match -g
+        if (*src == EOS)
+            break;
         *statusPtr = *src;
         src++;
         statusPtr++;

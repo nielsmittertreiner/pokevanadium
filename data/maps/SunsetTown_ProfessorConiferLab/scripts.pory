@@ -1,0 +1,123 @@
+const LOCALID_SCIENTIST_1 = 1
+const LOCALID_SCIENTIST_2 = 2
+const LOCALID_CONIFER = 3
+
+mapscripts SunsetTown_ProfessorConiferLab_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_SUNSET_TOWN_STATE, 3 {
+            if (var(VAR_SUNSET_TOWN_STATE) == 3) {
+                setobjectxy(LOCALID_CONIFER, 12, 8)
+            }
+        }
+    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        if (flag(FLAG_BLOCK_SUNSET_TOWN_NURSERY)) {
+            setobjectxyperm(LOCALID_SCIENTIST_1, 2, 2)
+            setobjectxyperm(LOCALID_SCIENTIST_2, 3, 2)
+            setobjectmovementtype(LOCALID_SCIENTIST_1, MOVEMENT_TYPE_FACE_DOWN)
+            setobjectmovementtype(LOCALID_SCIENTIST_2, MOVEMENT_TYPE_FACE_DOWN)
+        }
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_SUNSET_TOWN_STATE, 3 {
+            lock
+            applymovement(LOCALID_CONIFER, SunsetTown_ProfessorConiferLab_Movement_ConiferWalkToMachine)
+            applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_ProfessorConiferLab_Movement_PlayerWalkToMachine)
+            waitmovement(0)
+            turnobject(LOCALID_CONIFER, DIR_EAST)
+            delay(16)
+            load_speech_bubble(LOCALID_CONIFER)
+            msgbox("I just got word of one of my aides.\n"
+	               "It's about a raid in the forest\l"
+	               "nearby CEDARRED TOWN.\p"
+	               "Supposedly the POKéMON who got\n"
+	               "rescued are being held safe in the\l"
+	               "LOGGERS CABIN in CEDARRED TOWN.\p"
+	               "We should take a look and see if all\n"
+	               "is okay there…")
+            destroy_speech_bubble
+            closemessage
+            addobject(LOCALID_CONIFER, MAP_SUNSET_TOWN)
+            setvar(VAR_SUNSET_TOWN_STATE, 4)
+            warp(MAP_SUNSET_TOWN, 0xFF, 15, 8)
+            waitstate
+            end
+        }
+    ]
+}
+
+script SunsetTown_ProfessorConiferLab_EventScript_Conifer {
+    if (var(VAR_ACREN_FOREST_STATE) == 1) {
+        lock
+        faceplayer
+        playse(SE_PIN)
+        applymovement(LOCALID_CONIFER, Common_Movement_ExclamationMark)
+        waitmovement(0)
+        msgbox("Hey there, {PLAYER}.\p"
+               "… … … … … … … … …\n"
+               "… … … … … … … … …\p"
+               "Oh, I see!\n"
+               "You don't have a POKéDEX yet.\p"
+               "Luckily, I have one right here for you.\p"
+               "Go ahead and take it, it's yours.$", MSGBOX_NPC)
+        playfanfare(MUS_OBTAIN_ITEM)
+        msgbox("{PLAYER} received the POKéDEX from\n"
+               "PROFESSOR CONIFER!")
+        waitfanfare
+        closemessage
+        setflag(FLAG_SYS_POKEDEX_GET)
+        setflag(FLAG_SYS_NATIONAL_DEX)
+        special(SetUnlockedPokedexFlags)
+        special(EnableNationalPokedex)
+        setvar(VAR_CABLE_CLUB_TUTORIAL_STATE, 1)
+        setvar(VAR_ACREN_FOREST_STATE, 2)
+        msgbox("Now that you have a POKéDEX, I can\n"
+               "register you as an official\l"
+               "POKéMON TRAINER.\p"
+               "I think you have some business\n"
+               "to to now…", MSGBOX_NPC)
+        release
+        end
+    }
+    msgbox("Hey there, {PLAYER}.\n"
+           "I see you're finally going on an\l"
+           "adventure now.\p"
+           "I won't stop you!\p"
+           "Have fun and take care of your POKéMON.", MSGBOX_NPC)
+    end
+}
+
+script SunsetTown_ProfessorConiferLab_EventScript_Scientist1 {
+    while (flag(FLAG_BLOCK_SUNSET_TOWN_NURSERY) == TRUE) {
+        msgbox("Sorry, but we can't let you in the\n"
+               "POKéMON NURSERY right now…", MSGBOX_NPC)
+        end
+    }
+    msgbox("Usually, I operate this big machine\n"
+           "used for researching POKéMON.\p"
+           "It's very interesting work to do!", MSGBOX_NPC)
+    end
+}
+
+script SunsetTown_ProfessorConiferLab_EventScript_Scientist2 {
+    while (flag(FLAG_BLOCK_SUNSET_TOWN_NURSERY) == TRUE) {
+        msgbox("Sorry, but we can't let you in the\n"
+               "POKéMON NURSERY right now…", MSGBOX_NPC)
+        end
+    }
+    msgbox("Working at PROFESSOR CONIFER's\n"
+           "NURSERY is very exciting work.\p"
+           "Learning about POKéMON is so fun.", MSGBOX_NPC)
+    end
+}
+
+movement SunsetTown_ProfessorConiferLab_Movement_ConiferWalkToMachine {
+    face_up
+    walk_left * 9
+}
+
+movement SunsetTown_ProfessorConiferLab_Movement_PlayerWalkToMachine {
+    face_up
+    walk_up
+    walk_left * 8
+}

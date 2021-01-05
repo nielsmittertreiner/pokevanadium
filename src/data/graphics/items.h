@@ -736,3 +736,8 @@ const u32 gItemIconPalette_MagmaEmblem[] = INCBIN_U32("graphics/items/icon_palet
 
 const u32 gItemIcon_OldSeaMap[] = INCBIN_U32("graphics/items/icons/old_sea_map.4bpp.lz");
 const u32 gItemIconPalette_OldSeaMap[] = INCBIN_U32("graphics/items/icon_palettes/old_sea_map.gbapal.lz");
+
+// Vanadium
+
+const u32 gItemIcon_TerminalPass[] = INCBIN_U32("graphics/items/icons/terminal_pass.4bpp.lz");
+const u32 gItemIconPalette_TerminalPass[] = INCBIN_U32("graphics/items/icon_palettes/terminal_pass.gbapal.lz");

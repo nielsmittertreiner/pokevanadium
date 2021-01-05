@@ -1,0 +1,283 @@
+const LOCALID_LOREMAN = 2
+
+mapscripts CedarredTown_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_CEDARRED_TOWN)
+        setflag(FLAG_VISITED_CEDARRED_TOWN)
+        if (var(VAR_SUNSET_TOWN_STATE) == 5)
+        {
+            setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 3)
+        }
+    }   
+}
+
+script CedarredTown_EventScript_TownSign {
+    msgbox("CEDARRED TOWN\n"
+	       "“World renowned for its logs!”", MSGBOX_SIGN)
+    end
+}
+
+script CedarredTown_EventScript_LoggersCabinSign {
+    msgbox("CEDARRED's LOGGERS CABIN\n"
+	       "“Where CEDARRED's best LOGGERS reside.”", MSGBOX_SIGN)
+    end
+}
+
+script CedarredTown_EventScript_AcrenForestSign {
+    msgbox("{UP_ARROW} ACREN FOREST", MSGBOX_SIGN)
+    end
+}
+
+script CedarredTown_EventScript_LoreMan {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_LOREMAN)
+    msgbox("Did you know this part of the EURUS\n"
+	       "region is famous for two things?", MSGBOX_YESNO)
+    destroy_speech_bubble
+    if (var(VAR_RESULT) == 1)
+    {
+        msgbox("Fantastic!\p"
+	           "It seems that you have followed your\n"
+	           "history lessons well, young man.", MSGBOX_NPC)
+        end
+    }
+    else
+    {
+        msgbox("Well then, here goes..\p"
+	           "This part of the EURUS region is well\n"
+	           "known for its logging industry and\l"
+	           "its vast forests you'll find.\p"
+	           "In ancient times, the people from here\n"
+	           "have learned to live alongside the\l"
+	           "POKéMON of the ACREN FOREST, and even\l"
+	           "worship its fabled keeper, CELEBI.\p"
+	           "Nowadays the people live, work and\n"
+	           "battle together as these towns\l"
+	           "produce some of the greatest GRASS\l"
+	           "TRAINERS the world has ever seen!\p"
+	           "Even the famous TRAINER, PHYLLOS, is\n"
+	           "from here…", MSGBOX_NPC)
+        end
+    }
+}
+
+script CedarredTown_EventScript_MartEmployee {
+    msgbox("Check out all of our products\n"
+	       "in the POKéMON MART of CEDARRED TOWN!", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_EventScript_Boy {
+    msgbox("When I grow up, I want to be\n"
+	       "stronger than the strongest LOGGERS\l"
+	       "from CEDARRED TOWN!", MSGBOX_NPC)
+    end
+}
+
+script CedarredTown_EventScript_ShowLoggersCabin {
+    lock
+    playse(SE_PIN)
+    applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    facefollower
+    setvar(VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER)
+    msgbox("Ah, we're here!\n"
+	       "This is CEDARRED TOWN\p"
+	       "The LOGGERS CABIN should be at the\n"
+	       "far EAST of town.", MSGBOX_NPC)
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    special(SpawnCameraObject)
+    switch (var(VAR_TEMP_1))
+    {
+        case 15:
+            applymovement(OBJ_EVENT_ID_CAMERA, CedarredTown_Movement_CameraToCabinOne)
+            waitmovement(0)
+        case 16:
+            applymovement(OBJ_EVENT_ID_CAMERA, CedarredTown_Movement_CameraToCabinTwo)
+            waitmovement(0)
+        case 17:
+            applymovement(OBJ_EVENT_ID_CAMERA, CedarredTown_Movement_CameraToCabinThree)
+            waitmovement(0)
+    }
+    msgbox("Look, there it is!\n"
+	       "CEDARRED TOWN's LOGGERS CABIN.")
+    closemessage
+    switch (var(VAR_TEMP_1))
+    {
+        case 15:
+            applymovement(OBJ_EVENT_ID_CAMERA, CedarredTown_Movement_CameraToPlayerOne)
+            waitmovement(0)
+        case 16:
+            applymovement(OBJ_EVENT_ID_CAMERA, CedarredTown_Movement_CameraToPlayerTwo)
+            waitmovement(0)
+        case 17:
+            applymovement(OBJ_EVENT_ID_CAMERA, CedarredTown_Movement_CameraToPlayerThree)
+            waitmovement(0)
+    }
+    special(RemoveCameraObject)
+    msgbox("Let's go there right now, {PLAYER}!", MSGBOX_NPC)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceRight)
+    waitmovement(0)
+    setvar(VAR_CEDARRED_TOWN_STATE, 1)
+    release
+    end
+}
+
+script CedarredTown_EventScript_EnterLoggersCabin {
+    lock
+    playse(SE_PIN)
+    applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    facefollower
+    setvar(VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER)
+    msgbox("Remember {PLAYER}, we're here to help\n"
+	       "the LOGGERS with a problem in\l"
+	       "the ACREN FOREST.\p"
+	       "Let's head in and see what happened.", MSGBOX_NPC)
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    switch (var(VAR_TEMP_0))
+    {
+        case 14:
+            applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_PlayerWalkToCabinOne)
+            applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_Movement_ConiferWalkToCabinOne)
+        case 15:
+            applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_PlayerWalkToCabinTwo)
+            applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_Movement_ConiferWalkToCabinTwo)
+        case 16:
+            applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_PlayerWalkToCabinThree)
+            applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_Movement_ConiferWalkToCabinThree)
+        case 17:
+            applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_PlayerWalkToCabinFour)
+            applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_Movement_ConiferWalkToCabinFour)
+    }
+    waitmovement(0)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    opendoor(20, 18)
+    waitdooranim
+    applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_PlayerWalkToDoor)
+    applymovement(OBJ_EVENT_ID_FOLLOWER, CedarredTown_Movement_ConiferWalkToDoor)
+    waitmovement(0)
+    closedoor(20, 18)
+    waitdooranim
+    setvar(VAR_CEDARRED_TOWN_STATE, 2)
+    warp(MAP_CEDARRED_TOWN_LOGGERS_CABIN, 1, 5, 8)
+    waitstate
+    end
+}
+
+script CedarredTown_EventScript_PreventWander {
+    lock
+    playse(SE_PIN)
+    applymovement(OBJ_EVENT_ID_FOLLOWER, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    facefollower
+    setvar(VAR_LAST_TALKED, OBJ_EVENT_ID_FOLLOWER)
+    msgbox("We should be going to the LOGGERS\n"
+	       "CABIN, {PLAYER}.\p"
+	       "Let's move!", MSGBOX_NPC)
+    applymovement(OBJ_EVENT_ID_PLAYER, CedarredTown_Movement_WalkDown)
+    waitmovement(0)
+    turnobject(OBJ_EVENT_ID_FOLLOWER, DIR_SOUTH)
+    release
+    end
+}
+
+movement CedarredTown_Movement_CameraToCabinOne {
+    walk_fast_right * 18
+    walk_fast_down * 3
+}
+
+movement CedarredTown_Movement_CameraToCabinTwo {
+    walk_fast_right * 18
+    walk_fast_down * 2
+}
+
+movement CedarredTown_Movement_CameraToCabinThree {
+    walk_fast_right * 18
+    walk_fast_down
+}
+
+movement CedarredTown_Movement_CameraToPlayerOne {
+    walk_fast_up * 3
+    walk_fast_left * 18
+}
+
+movement CedarredTown_Movement_CameraToPlayerTwo {
+    walk_fast_up * 2
+    walk_fast_left * 18
+}
+
+movement CedarredTown_Movement_CameraToPlayerThree {
+    walk_fast_up
+    walk_fast_left * 18
+}
+
+movement CedarredTown_Movement_WalkDown {
+    walk_down * 2
+}
+
+movement CedarredTown_Movement_PlayerWalkToCabinOne {
+    walk_down
+    walk_right * 3
+    walk_diag_northeast
+    walk_right * 2
+}
+
+movement CedarredTown_Movement_PlayerWalkToCabinTwo {
+    walk_down
+    walk_right * 2
+    walk_diag_northeast
+    walk_right * 2
+}
+
+movement CedarredTown_Movement_PlayerWalkToCabinThree {
+    walk_down
+    walk_right
+    walk_diag_northeast
+    walk_right * 2
+}
+
+movement CedarredTown_Movement_PlayerWalkToCabinFour {
+    walk_down
+    walk_diag_northeast
+    walk_right * 2
+}
+
+movement CedarredTown_Movement_ConiferWalkToCabinOne {
+    walk_down * 2
+    walk_right * 3
+    walk_diag_northeast
+    walk_right
+}
+
+movement CedarredTown_Movement_ConiferWalkToCabinTwo {
+    walk_down * 2
+    walk_right * 2
+    walk_diag_northeast
+    walk_right
+}
+
+movement CedarredTown_Movement_ConiferWalkToCabinThree {
+    walk_down * 2
+    walk_right
+    walk_diag_northeast
+    walk_right
+}
+
+movement CedarredTown_Movement_ConiferWalkToCabinFour {
+    walk_down * 2
+    walk_diag_northeast
+    walk_right
+}
+
+movement CedarredTown_Movement_PlayerWalkToDoor {
+    walk_up
+    set_invisible
+}
+
+movement CedarredTown_Movement_ConiferWalkToDoor {
+    walk_right
+    walk_up
+    set_invisible
+}

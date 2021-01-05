@@ -3,13 +3,13 @@ Route110_TrickHousePuzzle8_MapScripts:: @ 826E801
 
 Route110_TrickHousePuzzle8_EventScript_Scroll:: @ 826E802
 	lockall
-	compare VAR_TRICK_HOUSE_PUZZLE_8_STATE, 0
+	compare VAR_JULIA_STATE, 0
 	goto_if_eq Route110_TrickHousePuzzle8_EventScript_FoundScroll
 	goto Route110_TrickHousePuzzle_EventScript_ReadScrollAgain
 	end
 
 Route110_TrickHousePuzzle8_EventScript_FoundScroll:: @ 826E814
-	setvar VAR_TRICK_HOUSE_PUZZLE_8_STATE, 1
+	setvar VAR_JULIA_STATE, 1
 	goto Route110_TrickHousePuzzle_EventScript_FoundScroll
 	end
 

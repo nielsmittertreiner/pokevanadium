@@ -1,0 +1,60 @@
+const LOCALID_FISHERMAN_2 = 6
+
+mapscripts Route402_MapScripts {}
+
+script Route402_EventScript_RouteSign {
+    msgbox("{UP_ARROW} FIRWEALD CITY\n"
+           "{DOWN_ARROW} ACREN FOREST", MSGBOX_SIGN)
+    end
+}
+
+script Route402_EventScript_Boy {
+    msgbox("Sniff sniff...\n"
+           "Why did my parents move to this area?\p"
+           "I have allergies...\p"
+           "Achoo!", MSGBOX_NPC)
+    end
+}
+
+script Route402_EventScript_Triathlete {
+    msgbox("Every day I run along this small lake.\n"
+           "The fresh air helps me run for longer!", MSGBOX_NPC)
+    end
+}
+
+script Route402_EventScript_Fisherman1 {
+    msgbox("I don't get a bite often with my OLD ROD…", MSGBOX_NPC)
+    end
+}
+
+script Route402_EventScript_Fisherman2 {
+    while (flag(FLAG_TEMP_1) == FALSE) {
+        playse(SE_PIN)
+        applymovement(LOCALID_FISHERMAN_2, Common_Movement_ExclamationMark)
+        waitmovement(0)
+        msgbox("Did I just catch a glimpse of a GYARADOS!", MSGBOX_NPC)
+        setflag(FLAG_TEMP_1)
+        end
+    }
+    msgbox("Did you just see that too?!", MSGBOX_NPC)
+    setflag(FLAG_TEMP_1)
+    end
+}
+
+script Route402_EventScript_Timmy {
+    trainerbattle_single(TRAINER_ROUTE_402_TIMMY, Route402_Text_TimmyIntro, Route402_Text_TimmyDefeat)
+    msgbox(Route402_Text_TimmyPostBattle, MSGBOX_NPC)
+    end
+}
+
+script Route402_EventScript_Mimi {
+    trainerbattle_double(TRAINER_ROUTE_402_TWINS_MIMI_AND_MOMO, Route402_Text_MimiIntro, Route402_Text_MimiDefeat, Route402_Text_MimiNotEnoughMons)
+    msgbox(Route402_Text_MimiPostBattle, MSGBOX_NPC)
+    end
+}
+
+script Route402_EventScript_Momo {
+    trainerbattle_double(TRAINER_ROUTE_402_TWINS_MIMI_AND_MOMO, Route402_Text_MomoIntro, Route402_Text_MomoDefeat, Route402_Text_MomoNotEnoughMons)
+    msgbox(Route402_Text_MomoPostBattle, MSGBOX_NPC)
+    end
+}

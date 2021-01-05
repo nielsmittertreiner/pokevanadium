@@ -17,20 +17,14 @@
 #define MULTI_BASE_PC_WITH_REGISTRY        6
 #define MULTI_REGISTER_MENU                7
 #define MULTI_SSTIDAL_LILYCOVE             8 // Exit only, populated by CreateLilycoveSSTidalMultichoice
-#define MULTI_UNUSED_9                     9
-#define MULTI_UNUSED_10                    10
 #define MULTI_FRONTIER_PASS_INFO           11
 #define MULTI_BIKE                         12
 #define MULTI_STATUS_INFO                  13
 #define MULTI_BRINEY_OFF_DEWFORD           14
-#define MULTI_UNUSED_15                    15
 #define MULTI_VIEWED_PAINTINGS             16
 #define MULTI_YESNOINFO                    17
 #define MULTI_BATTLE_MODE                  18
-#define MULTI_UNUSED_19                    19
 #define MULTI_YESNOINFO_2                  20
-#define MULTI_UNUSED_21                    21
-#define MULTI_UNUSED_22                    22
 #define MULTI_CHALLENGEINFO                23
 #define MULTI_LEVEL_MODE                   24
 #define MULTI_MECHADOLL1_Q1                25
@@ -48,8 +42,6 @@
 #define MULTI_MECHADOLL5_Q1                37
 #define MULTI_MECHADOLL5_Q2                38
 #define MULTI_MECHADOLL5_Q3                39
-#define MULTI_UNUSED_40                    40
-#define MULTI_UNUSED_41                    41
 #define MULTI_VENDING_MACHINE              42
 #define MULTI_MACH_BIKE_INFO               43
 #define MULTI_ACRO_BIKE_INFO               44
@@ -59,7 +51,6 @@
 #define MULTI_GAME_CORNER_DOLLS            48
 #define MULTI_GAME_CORNER_COINS            49
 #define MULTI_HOWS_FISHING                 50
-#define MULTI_UNUSED_51                    51
 #define MULTI_SSTIDAL_SLATEPORT_WITH_BF    52
 #define MULTI_SSTIDAL_BATTLE_FRONTIER      53
 #define MULTI_RIGHTLEFT                    54
@@ -123,6 +114,16 @@
 #define MULTI_FALLARBOR_TENT_RULES         112
 #define MULTI_TAG_MATCH_TYPE               113
 
+#define MULTI_CEDARRED_CHOOSE_STARTER_SET_ONE       9
+#define MULTI_CEDARRED_CHOOSE_STARTER_SET_TWO       10
+#define MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE     15
+#define MULTI_UNUSED_19                    19
+#define MULTI_UNUSED_21                    21
+#define MULTI_UNUSED_22                    22
+#define MULTI_UNUSED_40                    40
+#define MULTI_UNUSED_41                    41
+#define MULTI_UNUSED_51                    51
+
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0
 #define SSTIDAL_SELECTION_BATTLE_FRONTIER  1
@@ -164,5 +165,9 @@
 #define STDSTRING_BATTLE_ARENA     27
 #define STDSTRING_BATTLE_PIKE      28
 #define STDSTRING_BATTLE_PYRAMID   29
+
+#define STDSTRING_MEDICINE         30
+#define STDSTRING_BATTLEITEMS      31
+#define STDSTRING_POWERUP          32
 
 #endif //GUARD_SCRIPT_MENU_CONSTANTS_H

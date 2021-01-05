@@ -673,7 +673,7 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
         .differentRouteMatchCallTextId = TEXT_ID(2, 3),
     },
     {
-        .trainerId = TRAINER_SAWYER_1,
+        .trainerId = TRAINER_ACREN_FOREST_FREDERICK,
         .unused = 0,
         .battleTopicTextIds = { TEXT_ID(1, 15), TEXT_ID(2, 3), TEXT_ID(3, 3) },
         .generalTextId = TEXT_ID(1, 1),
@@ -1371,7 +1371,9 @@ static void sub_8196694(u8 taskId)
 
 static bool32 TrainerIsEligibleForRematch(int matchCallId)
 {
+    #ifndef FREE_MATCH_CALL
     return gSaveBlock1Ptr->trainerRematches[matchCallId] > 0;
+    #endif
 }
 
 static u16 GetRematchTrainerLocation(int matchCallId)
@@ -1817,13 +1819,10 @@ static u16 GetFrontierStreakInfo(u16 facilityId, u32 *topicTextId)
         }
         *topicTextId = 3;
         break;
-    #ifdef BUGFIX
-    case FRONTIER_FACILITY_PIKE:
-    #else
     case FRONTIER_FACILITY_FACTORY:
-    #endif
         for (i = 0; i < 2; i++)
         {
+            // BUG: should be looking at battle factory records.
             if (streak < gSaveBlock2Ptr->frontier.pikeRecordStreaks[i])
                 streak = gSaveBlock2Ptr->frontier.pikeRecordStreaks[i];
         }
@@ -1851,15 +1850,12 @@ static u16 GetFrontierStreakInfo(u16 facilityId, u32 *topicTextId)
         }
         *topicTextId = 2;
         break;
-    #ifdef BUGFIX
-    case FRONTIER_FACILITY_FACTORY:
-    #else
     case FRONTIER_FACILITY_PIKE:
-    #endif
         for (i = 0; i < 2; i++)
         {
             for (j = 0; j < 2; j++)
             {
+                // BUG: should be looking at battle pike records.
                 if (streak < gSaveBlock2Ptr->frontier.factoryRecordWinStreaks[i][j])
                     streak = gSaveBlock2Ptr->frontier.factoryRecordWinStreaks[i][j];
             }

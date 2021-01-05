@@ -205,7 +205,7 @@
 #define OBJ_EVENT_GFX_REGICE                     201
 #define OBJ_EVENT_GFX_REGISTEEL                  202
 #define OBJ_EVENT_GFX_SKITTY                     203
-#define OBJ_EVENT_GFX_KECLEON                    204
+#define OBJ_EVENT_GFX_KECLEON_1                  204
 #define OBJ_EVENT_GFX_KYOGRE_2                   205
 #define OBJ_EVENT_GFX_GROUDON_2                  206
 #define OBJ_EVENT_GFX_RAYQUAZA_2                 207
@@ -213,7 +213,7 @@
 #define OBJ_EVENT_GFX_PIKACHU                    209
 #define OBJ_EVENT_GFX_AZUMARILL                  210
 #define OBJ_EVENT_GFX_WINGULL                    211
-#define OBJ_EVENT_GFX_KECLEON_BRIDGE_SHADOW      212
+#define OBJ_EVENT_GFX_KECLEON_2                  212
 #define OBJ_EVENT_GFX_TUBER_M_SWIMMING           213
 #define OBJ_EVENT_GFX_AZURILL                    214
 #define OBJ_EVENT_GFX_MOM                        215
@@ -240,15 +240,19 @@
 #define OBJ_EVENT_GFX_LINK_RS_MAY                236
 #define OBJ_EVENT_GFX_LUGIA                      237
 #define OBJ_EVENT_GFX_HOOH                       238
+#define OBJ_EVENT_GFX_JULIA                      239
+#define OBJ_EVENT_GFX_AIRLOCK_MEMBER_M           240
+#define OBJ_EVENT_GFX_AIRLOCK_MEMBER_F           241
+#define OBJ_EVENT_GFX_PHYLLOS                    242
 
-#define NUM_OBJ_EVENT_GFX                        239
+#define NUM_OBJ_EVENT_GFX                        243
 
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.
 // More info about them in include/constants/vars.h
 #define OBJ_EVENT_GFX_VARS   (NUM_OBJ_EVENT_GFX + 1)
-#define OBJ_EVENT_GFX_VAR_0  (OBJ_EVENT_GFX_VARS + 0x0) // 240
+#define OBJ_EVENT_GFX_VAR_0  (OBJ_EVENT_GFX_VARS + 0x0)
 #define OBJ_EVENT_GFX_VAR_1  (OBJ_EVENT_GFX_VARS + 0x1)
 #define OBJ_EVENT_GFX_VAR_2  (OBJ_EVENT_GFX_VARS + 0x2)
 #define OBJ_EVENT_GFX_VAR_3  (OBJ_EVENT_GFX_VARS + 0x3)
@@ -263,7 +267,7 @@
 #define OBJ_EVENT_GFX_VAR_C  (OBJ_EVENT_GFX_VARS + 0xC)
 #define OBJ_EVENT_GFX_VAR_D  (OBJ_EVENT_GFX_VARS + 0xD)
 #define OBJ_EVENT_GFX_VAR_E  (OBJ_EVENT_GFX_VARS + 0xE)
-#define OBJ_EVENT_GFX_VAR_F  (OBJ_EVENT_GFX_VARS + 0xF) // 255
+#define OBJ_EVENT_GFX_VAR_F  (OBJ_EVENT_GFX_VARS + 0xF)
 
 #define SHADOW_SIZE_S   0
 #define SHADOW_SIZE_M   1
@@ -280,6 +284,7 @@
 #define FIRST_DECORATION_SPRITE_GFX OBJ_EVENT_GFX_PICHU_DOLL
 
 #define OBJ_EVENT_ID_PLAYER 0xFF
+#define OBJ_EVENT_ID_FOLLOWER 0xFE
 #define OBJ_EVENT_ID_CAMERA 0x7F
 
 #endif  // GUARD_CONSTANTS_EVENT_OBJECTS_H

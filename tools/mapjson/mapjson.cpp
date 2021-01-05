@@ -77,10 +77,6 @@ string generate_map_header_text(Json map_data, Json layouts_data, string version
 
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/" 
-         << map_data["name"].string_value() 
-         << "/map.json\n@\n\n";
-
     text << map_data["name"].string_value() << ":\n"
          << "\t.4byte " << layout["name"].string_value() << "\n";
 
@@ -128,10 +124,6 @@ string generate_map_connections_text(Json map_data) {
 
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/" 
-         << map_data["name"].string_value() 
-         << "/map.json\n@\n\n";
-
     text << map_data["name"].string_value() << "_MapConnectionsList:\n";
 
     for (auto &connection : map_data["connections"].array_items()) {
@@ -154,10 +146,6 @@ string generate_map_events_text(Json map_data) {
 
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/" 
-         << map_data["name"].string_value() 
-         << "/map.json\n@\n\n";
-
     string objects_label, warps_label, coords_label, bgs_label;
 
     if (map_data["object_events"].array_items().size() > 0) {
@@ -166,7 +154,7 @@ string generate_map_events_text(Json map_data) {
         for (unsigned int i = 0; i < map_data["object_events"].array_items().size(); i++) {
             auto obj_event = map_data["object_events"].array_items()[i];
             text << "\tobject_event " << i + 1 << ", "
-                 << obj_event["graphics_id"].string_value() << ", 0, "
+                 << obj_event["graphics_id"].string_value() << ", "
                  << obj_event["x"].int_value() << ", "
                  << obj_event["y"].int_value() << ", "
                  << obj_event["elevation"].int_value() << ", "
@@ -298,8 +286,6 @@ void process_map(string map_filepath, string layouts_filepath, string version) {
 string generate_groups_text(Json groups_data) {
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json\n@\n\n";
-
     for (auto &key : groups_data["group_order"].array_items()) {
         string group = key.string_value();
         text << group << "::\n";
@@ -339,8 +325,6 @@ string generate_connections_text(Json groups_data) {
 
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json\n@\n\n";
-
     for (Json map_name : map_names)
         text << "\t.include \"data/maps/" << map_name.string_value() << "/connections.inc\"\n";
 
@@ -355,8 +339,6 @@ string generate_headers_text(Json groups_data) {
         map_names.push_back(map_name.string_value());
 
     ostringstream text;
-
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json\n@\n\n";
 
     for (string map_name : map_names)
         text << "\t.include \"data/maps/" << map_name << "/header.inc\"\n";
@@ -373,8 +355,6 @@ string generate_events_text(Json groups_data) {
 
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json\n@\n\n";
-
     for (string map_name : map_names)
         text << "\t.include \"data/maps/" << map_name << "/events.inc\"\n";
 
@@ -389,8 +369,6 @@ string generate_map_constants_text(string groups_filepath, Json groups_data) {
 
     text << "#ifndef GUARD_CONSTANTS_MAP_GROUPS_H\n"
          << "#define GUARD_CONSTANTS_MAP_GROUPS_H\n\n";
-
-    text << "//\n// DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json\n//\n\n";
 
     int group_num = 0;
 
@@ -450,8 +428,6 @@ void process_groups(string groups_filepath) {
 string generate_layout_headers_text(Json layouts_data) {
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/layouts/layouts.json\n@\n\n";
-
     for (auto &layout : layouts_data["layouts"].array_items()) {
         string border_label = layout["name"].string_value() + "_Border";
         string blockdata_label = layout["name"].string_value() + "_Blockdata";
@@ -475,8 +451,6 @@ string generate_layout_headers_text(Json layouts_data) {
 string generate_layouts_table_text(Json layouts_data) {
     ostringstream text;
 
-    text << "@\n@ DO NOT MODIFY THIS FILE! It is auto-generated from data/layouts/layouts.json\n@\n\n";
-
     text << "\t.align 2\n"
          << layouts_data["layouts_table_label"].string_value() << "::\n";
 
@@ -491,8 +465,6 @@ string generate_layouts_constants_text(Json layouts_data) {
 
     text << "#ifndef GUARD_CONSTANTS_LAYOUTS_H\n"
          << "#define GUARD_CONSTANTS_LAYOUTS_H\n\n";
-
-    text << "//\n// DO NOT MODIFY THIS FILE! It is auto-generated from data/layouts/layouts.json\n//\n\n";
 
     int i = 0;
     for (auto &layout : layouts_data["layouts"].array_items())

@@ -4,6 +4,7 @@
 #include "event_object_movement.h"
 #include "field_effect.h"
 #include "field_player_avatar.h"
+#include "field_weather.h"
 #include "pokemon.h"
 #include "script.h"
 #include "script_movement.h"
@@ -18,6 +19,9 @@
 #include "constants/event_object_movement.h"
 #include "constants/field_effects.h"
 #include "constants/trainer_types.h"
+
+extern const struct SpritePalette sObjectEventSpritePalettes[];
+extern const struct SpritePalette gObjectEventPalette0;
 
 // this file's functions
 static u8 CheckTrainer(u8 objectEventId);
@@ -153,7 +157,7 @@ static const union AnimCmd *const sSpriteAnimTable_Icons[] =
 static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
 {
     .tileTag = 0xffff,
-    .paletteTag = 0xffff,
+    .paletteTag = 0x1126,   ////LoadObjectEventPalette(OBJ_EVENT_PAL_TAG_8)
     .oam = &sOamData_Icons,
     .anims = sSpriteAnimTable_Icons,
     .images = sSpriteImageTable_ExclamationQuestionMark,
@@ -164,7 +168,7 @@ static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
 static const struct SpriteTemplate sSpriteTemplate_HeartIcon =
 {
     .tileTag = 0xffff,
-    .paletteTag = 0x1004,
+    .paletteTag = 0x1126,
     .oam = &sOamData_Icons,
     .anims = sSpriteAnimTable_Icons,
     .images = sSpriteImageTable_HeartIcon,
@@ -176,6 +180,9 @@ static const struct SpriteTemplate sSpriteTemplate_HeartIcon =
 bool8 CheckForTrainersWantingBattle(void)
 {
     u8 i;
+
+    if (FlagGet(FLAG_DISABLE_TRAINERS))
+        return FALSE;
 
     gNoOfApproachingTrainers = 0;
     gApproachingTrainerId = 0;
@@ -377,15 +384,15 @@ static u8 CheckPathBetweenTrainerAndPlayer(struct ObjectEvent *trainerObj, u8 ap
     }
 
     // preserve mapobj_unk_19 before clearing.
-    unk19_temp = trainerObj->rangeX;
-    unk19b_temp = trainerObj->rangeY;
-    trainerObj->rangeX = 0;
-    trainerObj->rangeY = 0;
+    unk19_temp = trainerObj->range.as_nybbles.x;
+    unk19b_temp = trainerObj->range.as_nybbles.y;
+    trainerObj->range.as_nybbles.x = 0;
+    trainerObj->range.as_nybbles.y = 0;
 
     collision = GetCollisionAtCoords(trainerObj, x, y, direction);
 
-    trainerObj->rangeX = unk19_temp;
-    trainerObj->rangeY = unk19b_temp;
+    trainerObj->range.as_nybbles.x = unk19_temp;
+    trainerObj->range.as_nybbles.y = unk19b_temp;
     if (collision == 4)
         return approachDistance;
 
@@ -670,7 +677,12 @@ void TryPrepareSecondApproachingTrainer(void)
 
 u8 FldEff_ExclamationMarkIcon(void)
 {
-    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);
+    u8 spriteId, paletteNum;
+
+    LoadObjectEventPalette(0x1126);
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1126), GAMMA_ALT);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1126));
+    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);
 
     if (spriteId != MAX_SPRITES)
         SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 0);
@@ -680,7 +692,13 @@ u8 FldEff_ExclamationMarkIcon(void)
 
 u8 FldEff_QuestionMarkIcon(void)
 {
-    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);
+    u8 spriteId;
+    
+    LoadObjectEventPalette(0x1126);
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1126), GAMMA_ALT);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1126));
+
+    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);
 
     if (spriteId != MAX_SPRITES)
         SetIconSpriteData(&gSprites[spriteId], FLDEFF_QUESTION_MARK_ICON, 1);
@@ -690,15 +708,15 @@ u8 FldEff_QuestionMarkIcon(void)
 
 u8 FldEff_HeartIcon(void)
 {
-    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);
+    u8 spriteId;
+
+    LoadObjectEventPalette(0x1126);
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1126), GAMMA_ALT);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1126));
+    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);
 
     if (spriteId != MAX_SPRITES)
-    {
-        struct Sprite *sprite = &gSprites[spriteId];
-
-        SetIconSpriteData(sprite, FLDEFF_HEART_ICON, 0);
-        sprite->oam.paletteNum = 2;
-    }
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_HEART_ICON, 0);
 
     return 0;
 }

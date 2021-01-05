@@ -253,10 +253,10 @@ static bool32 UR_PrintFieldMessage(const u8 *);
 static s32 GetChatLeaderActionRequestMessage(u8 *, u32, u16 *, struct WirelessLink_URoom *);
 static void Task_InitUnionRoom(u8 taskId);
 static bool8 AreGnameUnameDifferent(struct WirelessGnameUnamePair*, const struct WirelessGnameUnamePair*);
-static void ItemPrintFunc_PossibleGroupMembers(u8, s32, u8);
-static void ListMenuItemPrintFunc_UnionRoomGroups(u8, s32, u8);
-static void TradeBoardListMenuItemPrintFunc(u8, s32, u8);
-static void nullsub_14(u8, s32, u8);
+static void ItemPrintFunc_PossibleGroupMembers(u8, s32, u8, u8);
+static void ListMenuItemPrintFunc_UnionRoomGroups(u8, s32, u8, u8);
+static void TradeBoardListMenuItemPrintFunc(u8, s32, u8, u8);
+static void nullsub_14(u8, s32, u8, u8);
 
 #include "data/union_room.h"
 
@@ -478,11 +478,7 @@ static void Task_TryBecomeLinkLeader(u8 taskId)
         // BUG: sPlayerActivityGroupSize was meant below, not gPlayerCurrActivity
         //      This will be false for all but ACTIVITY_BATTLE_DOUBLE and ACTIVITY_DECLINE
         //      All this changes is which of two texts gets printed
-        #ifdef BUGFIX
-        id = (GROUP_MAX(sPlayerActivityGroupSize) == 2) ? 0 : 1;
-        #else
         id = (GROUP_MAX(gPlayerCurrActivity) == 2) ? 1 : 0;
-        #endif
         if (PrintOnTextbox(&data->textState, sPlayerUnavailableTexts[id]))
         {
             data->playerCount = sub_8013398(data->field_0);
@@ -830,7 +826,7 @@ static bool8 Leader_SetStateIfMemberListChanged(struct WirelessLink_Leader *data
     return FALSE;
 }
 
-static void ItemPrintFunc_PossibleGroupMembers(u8 windowId, s32 id, u8 y)
+static void ItemPrintFunc_PossibleGroupMembers(u8 windowId, s32 id, u8 y, u8 itemPos)
 {
     struct WirelessLink_Leader *data = sWirelessLinkMain.leader;
     u8 colorIdx = UR_COLOR_DKE_WHT_LTE;
@@ -1324,11 +1320,7 @@ static bool32 IsPartnerActivityAcceptable(u32 activity, u32 linkGroup)
     if (linkGroup == 0xFF)
         return TRUE;
 
-    #ifdef UBFIX
-    if (linkGroup < ARRAY_COUNT(sAcceptedActivityIds))
-    #else
-    if (linkGroup <= ARRAY_COUNT(sAcceptedActivityIds))
-    #endif
+    if (linkGroup <= ARRAY_COUNT(sAcceptedActivityIds)) // UB: <= may access data outside the array
     {
         const u8 *bytes = sAcceptedActivityIds[linkGroup];
 
@@ -1358,7 +1350,7 @@ static u8 URoomGroupListGetTextColor(struct WirelessLink_Group *data, u32 id)
     return UR_COLOR_DKE_WHT_LTE;
 }
 
-static void ListMenuItemPrintFunc_UnionRoomGroups(u8 windowId, s32 id, u8 y)
+static void ListMenuItemPrintFunc_UnionRoomGroups(u8 windowId, s32 id, u8 y, u8 itemPos)
 {
     struct WirelessLink_Group *data = sWirelessLinkMain.group;
     u8 colorId = URoomGroupListGetTextColor(data, id);
@@ -4069,7 +4061,7 @@ static s32 UnionRoomGetPlayerInteractionResponse(struct UnkStruct_Main0 *main0, 
     }
 }
 
-void nullsub_14(u8 windowId, s32 itemId, u8 y)
+void nullsub_14(u8 windowId, s32 itemId, u8 y, u8 itemPos)
 {
 
 }
@@ -4095,7 +4087,7 @@ static void TradeBoardPrintItemInfo(u8 windowId, u8 y, struct GFtgtGname * gname
     }
 }
 
-static void TradeBoardListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y)
+static void TradeBoardListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y, u8 itemPos)
 {
     struct WirelessLink_Leader *data = sWirelessLinkMain.leader;
     struct GFtgtGname *rfu;

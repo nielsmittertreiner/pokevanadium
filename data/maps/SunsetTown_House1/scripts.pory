@@ -1,0 +1,10 @@
+const LOCALID_WOMAN = 1
+
+mapscripts SunsetTown_House1_MapScripts {}
+
+script SunsetTown_House1_EventScript_Woman {
+    msgbox("I love cooking!\n"
+	       "I'm in my kitchen all day.", MSGBOX_NPC)
+    turnobject(LOCALID_WOMAN, DIR_NORTH)
+    end
+}
