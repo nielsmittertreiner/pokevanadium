@@ -1319,13 +1319,18 @@ void ApplyAffineAnimFrameRelativeAndUpdateMatrix(u8 matrixNum, struct AffineAnim
 
 s16 ConvertScaleParam(s16 scale)
 {
+    s16 ret;
     s32 val = 0x10000;
     // UB: possible division by zero
 #ifdef UBFIX
-    if (scale == 0)
-        return 0;
+    if (scale != 0)
+        ret = val / scale;
+    else
+        ret = 0;
+#else
+    ret = val / scale;
 #endif //UBFIX
-    return val / scale;
+    return ret;
 }
 
 void GetAffineAnimFrame(u8 matrixNum, struct Sprite *sprite, struct AffineAnimFrameCmd *frameCmd)
