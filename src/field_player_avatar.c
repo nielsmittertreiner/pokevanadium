@@ -616,15 +616,7 @@ static void PlayerNotOnBikeTurningInPlace(u8 direction, u16 heldKeys)
 
 static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
 {
-    u8 collision = CheckForPlayerAvatarCollision(direction);
-
-    #if DEBUG
-        if(FlagGet(FLAG_TOGGLE_FREECAM))
-        {
-            PlayerGoSpeed4(direction);
-            return;
-        }
-    #endif   
+    u8 collision = CheckForPlayerAvatarCollision(direction); 
     
     if (collision)
     {
@@ -703,12 +695,7 @@ static u8 sub_808B028(u8 direction)
 u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u8 direction, u8 metatileBehavior)
 {
     u8 collision = GetCollisionAtCoords(objectEvent, x, y, direction);
-    u8 currentBehavior = MapGridGetMetatileBehaviorAt(objectEvent->currentCoords.x, objectEvent->currentCoords.y);
-    
-    #if DEBUG
-        if(FlagGet(FLAG_TOGGLE_FREECAM))
-            return COLLISION_NONE;
-    #endif   
+    u8 currentBehavior = MapGridGetMetatileBehaviorAt(objectEvent->currentCoords.x, objectEvent->currentCoords.y);  
 
     if (collision == COLLISION_ELEVATION_MISMATCH && CanStopSurfing(x, y, direction))
         return COLLISION_STOP_SURFING;

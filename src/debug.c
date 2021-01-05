@@ -50,7 +50,6 @@ static void DebugAction_ToggleTrainers(u8);
 static void DebugAction_ToggleEncounters(u8);
 static void DebugAction_TogglePokedex(u8);
 static void DebugAction_ToggleBadges(u8);
-static void DebugAction_ToggleFreecam(u8);
 
 // Enums
 enum {
@@ -70,7 +69,6 @@ enum {
     DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER,
     DEBUG_MENU_ITEM_TOGGLE_POKEDEX,
     DEBUG_MENU_ITEM_TOGGLE_BADGES,
-    DEBUG_MENU_ITEM_TOGGLE_FREECAM,
 };
 
 // Text
@@ -86,7 +84,6 @@ static const u8 gDebugText_Toggles_Trainers[] = _("TRAINERS");
 static const u8 gDebugText_Toggles_Encounters[] = _("ENCOUNTERS");
 static const u8 gDebugText_Toggles_Pokedex[] = _("POKEDEX");
 static const u8 gDebugText_Toggles_Badges[] = _("BADGES");
-static const u8 gDebugText_Toggles_Freecam[] = _("FREECAM");
 
 // Scripts
 extern const u8 EventScript_ResetAllMapFlags[];
@@ -112,7 +109,6 @@ static const struct ListMenuItem sDebugMenuItems_Toggles[] =
     [DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER] = {gDebugText_Toggles_Encounters, DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER},
     [DEBUG_MENU_ITEM_TOGGLE_POKEDEX] = {gDebugText_Toggles_Pokedex, DEBUG_MENU_ITEM_TOGGLE_POKEDEX},
     [DEBUG_MENU_ITEM_TOGGLE_BADGES] = {gDebugText_Toggles_Badges, DEBUG_MENU_ITEM_TOGGLE_BADGES},
-    [DEBUG_MENU_ITEM_TOGGLE_FREECAM] = {gDebugText_Toggles_Freecam, DEBUG_MENU_ITEM_TOGGLE_FREECAM},
 };
 
 // List Menu Actions
@@ -136,7 +132,6 @@ static void (*const sDebugMenuActions_Toggles[])(u8) =
     [DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER] = DebugAction_ToggleEncounters,
     [DEBUG_MENU_ITEM_TOGGLE_POKEDEX] = DebugAction_TogglePokedex,
     [DEBUG_MENU_ITEM_TOGGLE_BADGES] = DebugAction_ToggleBadges,
-    [DEBUG_MENU_ITEM_TOGGLE_FREECAM] = DebugAction_ToggleFreecam,
 };
 
 // Windows
@@ -494,33 +489,6 @@ static void DebugAction_ToggleBadges(u8 taskId)
     FlagToggle(FLAG_BADGE06_GET);
     FlagToggle(FLAG_BADGE07_GET);
     FlagToggle(FLAG_BADGE08_GET);
-}
-
-static void DebugAction_ToggleFreecam(u8 taskId)
-{
-    u8 player = GetPlayerAvatarObjectId();
-    u16 playerX = gSaveBlock1Ptr->pos.x;
-    u16 playerY = gSaveBlock1Ptr->pos.y;
-
-    if(FlagGet(FLAG_TOGGLE_FREECAM))
-    {
-        RemoveObjectEventByLocalIdAndMap(OBJ_EVENT_ID_CAMERA, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
-        TryMoveObjectEventToMapCoords(OBJ_EVENT_ID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, playerX, playerY);
-        gObjectEvents[player].invisible = FALSE;
-        PlaySE(SE_PC_OFF);
-    }
-    else
-    {
-        SpawnSpecialObjectEventParameterized(OBJ_EVENT_GFX_BRENDAN_NORMAL, MOVEMENT_TYPE_FACE_DOWN, OBJ_EVENT_ID_CAMERA, gSaveBlock1Ptr->pos.x + 7, gSaveBlock1Ptr->pos.y + 7, 3);
-        gObjectEvents[player].invisible = TRUE;
-        PlaySE(SE_PC_LOGIN);
-    }
-    FlagToggle(FLAG_TOGGLE_FREECAM);
-    FlagToggle(FLAG_DISABLE_ENCOUNTERS);
-    FlagToggle(FLAG_DISABLE_TRAINERS);
-
-    Debug_DestroyMenu(taskId);
-    EnableBothScriptContexts();
 }
 
 #endif

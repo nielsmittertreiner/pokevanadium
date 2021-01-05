@@ -8192,9 +8192,6 @@ static void DoFlaggedGroundEffects(struct ObjectEvent *objEvent, struct Sprite *
 
     if (objEvent->localId == OBJ_EVENT_ID_CAMERA)
         return;
-    
-    if (objEvent->localId == OBJ_EVENT_ID_PLAYER && FlagGet(FLAG_TOGGLE_FREECAM))
-        return;
 
     for (i = 0; i < ARRAY_COUNT(sGroundEffectFuncs); i++, flags >>= 1)
         if (flags & 1)
