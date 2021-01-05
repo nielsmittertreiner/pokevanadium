@@ -1658,17 +1658,25 @@
 
 @ Supplementary
 
+	@ Loads a speech bubble tail on the screen. 
+	@ Usage:
+	@ 	To point towards an object event (use VAR_LAST_TALKED for current object event): 
+	@ 	load_speech_bubble LOCAL_ID
+	@	
+	@ 	To point towards an absolute coordinate:
+	@ 	load_speech_bubble x, y
 	.macro load_speech_bubble x:req, y=0xFF
 		.if \y == 0xFF
 			setvar VAR_0x8004, \x
-			callnative LoadTailAuto
+			callnative LoadTailAutoFromScript
 		.else
 			setvar VAR_0x8005, \x
 			setvar VAR_0x8006, \y
-			callnative LoadTail
+			callnative LoadTailFromScript
 		.endif
 	.endm
 
+	@ Destroys the currently active speech bubble tail.
 	.macro destroy_speech_bubble
 	callnative DestroyTail
 	.endm

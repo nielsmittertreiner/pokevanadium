@@ -1,24 +1,10 @@
 #include "global.h"
+#include "speech_bubble.h"
 #include "event_data.h"
 #include "decompress.h"
 #include "sprite.h"
 #include "constants/event_objects.h"
 #include "event_object_movement.h"
-
-#define TAG_SPEECH_BUBBLE_TAIL 0x3333
-
-#define IMAGE_HEIGHT 64
-#define TEXTBOX_LEFT_X 70
-#define TEXTBOX_RIGHT_X 170 
-#define TEXTBOX_Y 116
-
-struct Tail
-{
-    const u32 *gfx;
-    const u16 *pal;
-    u8 shape;
-    u8 size;
-};
 
 static const u32 sTailGfx[] = INCBIN_U32("graphics/speech_bubble/speech_bubble_tail.4bpp.lz");
 static const u16 sTailPal[] = INCBIN_U16("graphics/speech_bubble/speech_bubble_tail.gbapal");
@@ -30,15 +16,16 @@ static const struct Tail sTail =
 
 static EWRAM_DATA u8 sID = 0;
 
-void LoadTail(void) {
+void LoadTailFromScript(void);
+void LoadTailAutoFromScript(void);
+
+void LoadTail(s16 x, s16 y) {
     struct CompressedSpriteSheet sheet;
     struct SpritePalette palSheet;
     struct SpriteTemplate spriteTemp1;
     struct OamData oam = {0};
     
-    s16 x2 = (s16)(VarGet(gSpecialVar_0x8005));
-    s16 y2 = (s16)(VarGet(gSpecialVar_0x8006));
-    s16 x1 = (x2 < 120) ? TEXTBOX_LEFT_X : TEXTBOX_RIGHT_X;
+    s16 textboxX = (x < 120) ? TEXTBOX_LEFT_X : TEXTBOX_RIGHT_X;
 
     if (GetSpriteTileStartByTag(TAG_SPEECH_BUBBLE_TAIL) == 0xFFFF)
     {
@@ -70,31 +57,30 @@ void LoadTail(void) {
     spriteTemp1.paletteTag = spriteTemp1.tileTag = TAG_SPEECH_BUBBLE_TAIL;
 
     // place sprite at the midpoint between the textbox point and input point
-    sID = CreateSprite(&spriteTemp1, (x1 + x2) / 2, (TEXTBOX_Y + y2) / 2, 0); 
+    sID = CreateSprite(&spriteTemp1, (textboxX + x) / 2, (TEXTBOX_Y + y) / 2, 0); 
 
     InitSpriteAffineAnim(&gSprites[sID]);
     SetOamMatrix(gSprites[sID].oam.matrixNum, 
                  Q_8_8(1), 
-                 Q_8_8(1.0 / ((float)(y2 - TEXTBOX_Y) / -(x2 - x1))), // calculate x shear factor
+                 Q_8_8(1.0 / ((float)(y - TEXTBOX_Y) / -(x - textboxX))), // calculate x shear factor
                  Q_8_8(0), 
-                 Q_8_8(IMAGE_HEIGHT / (double)(TEXTBOX_Y - y2))); // calculate y scale factor
+                 Q_8_8(IMAGE_HEIGHT / (double)(TEXTBOX_Y - y))); // calculate y scale factor
 }
 
-// gSpecialVar_0x8004 is the object event id
-void LoadTailAuto(void) 
-{
+void LoadTailFromObjectEventId(u32 id) {
     struct ObjectEvent *objectEvent;
     struct Sprite *sprite;
+    s16 x, y;
 
-    objectEvent = &gObjectEvents[GetObjectEventIdByLocalIdAndMap(VarGet(VarGet(gSpecialVar_0x8004)), gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup)];
+    objectEvent = &gObjectEvents[GetObjectEventIdByLocalIdAndMap(id, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup)];
     sprite = &gSprites[objectEvent->spriteId];
 
-    gSpecialVar_0x8005 = sprite->oam.x - (sprite->pos2.x + sprite->centerToCornerVecX);
-    gSpecialVar_0x8006 = sprite->oam.y - (sprite->pos2.y + sprite->centerToCornerVecY);
+    x = sprite->oam.x - (sprite->pos2.x + sprite->centerToCornerVecX);
+    y = sprite->oam.y - (sprite->pos2.y + sprite->centerToCornerVecY);
 
-    gSpecialVar_0x8005 += (gSpecialVar_0x8005 < 121) ? -1 : 1;
-    gSpecialVar_0x8006 += 8;
-    LoadTail();
+    x += (gSpecialVar_0x8005 < 120) ? -5 : 5;
+    y += 5;
+    LoadTail(x, y);
 }
 
 void DestroyTail(void)
@@ -102,4 +88,16 @@ void DestroyTail(void)
     DestroySprite(&gSprites[sID]);
     FreeSpritePaletteByTag(TAG_SPEECH_BUBBLE_TAIL);
     FreeSpriteTilesByTag(TAG_SPEECH_BUBBLE_TAIL);
+}
+
+void LoadTailFromScript(void) {
+    s16 x = (s16)(VarGet(gSpecialVar_0x8005));
+    s16 y = (s16)(VarGet(gSpecialVar_0x8006));
+    LoadTail(x, y);
+}
+
+// gSpecialVar_0x8004 is the object event id
+void LoadTailAutoFromScript(void)
+{
+    LoadTailFromObjectEventId(VarGet(gSpecialVar_0x8004));
 }

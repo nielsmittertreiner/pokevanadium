@@ -689,13 +689,13 @@ SECTIONS {
         src/walda_phrase.o(.rodata);
         src/gym_leader_rematch.o(.rodata);
         src/battle_transition_frontier.o(.rodata);
-        src/speech_bubble.o(.rodata);
         src/text_input_strings.o(.rodata);
         data/fonts.o(.rodata);
         src/mystery_event_msg.o(.rodata);
         data/mystery_event.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data.o(.rodata);
+        src/speech_bubble.o(.rodata);
         src/follow_me.o(.rodata);
         src/debug.o(.rodata);
     } =0
