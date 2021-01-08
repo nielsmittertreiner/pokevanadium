@@ -792,6 +792,13 @@ static const struct MenuAction MultichoiceList_CedarredTown_StarterSet_Three[] =
     {gText_Mudkip},
 };
 
+static const struct MenuAction MultichoiceList_TournamentHall[] = 
+{
+    {gText_Join},
+    {gText_TournamentHallInfo},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_Exit[] =
 {
     {gText_Exit},
@@ -913,7 +920,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_CEDARRED_CHOOSE_STARTER_SET_ONE] = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_One),
     [MULTI_CEDARRED_CHOOSE_STARTER_SET_TWO] = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Two),
     [MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE]  = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Three),
-    [MULTI_UNUSED_19]                  = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_TOURNAMENT_HALL]            = MULTICHOICE(MultichoiceList_TournamentHall),
     [MULTI_UNUSED_21]                  = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_UNUSED_22]                  = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_UNUSED_40]                  = MULTICHOICE(MultichoiceList_Exit),

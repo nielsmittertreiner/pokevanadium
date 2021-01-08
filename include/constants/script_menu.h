@@ -117,7 +117,7 @@
 #define MULTI_CEDARRED_CHOOSE_STARTER_SET_ONE       9
 #define MULTI_CEDARRED_CHOOSE_STARTER_SET_TWO       10
 #define MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE     15
-#define MULTI_UNUSED_19                    19
+#define MULTI_TOURNAMENT_HALL              19
 #define MULTI_UNUSED_21                    21
 #define MULTI_UNUSED_22                    22
 #define MULTI_UNUSED_40                    40

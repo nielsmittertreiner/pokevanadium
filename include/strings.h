@@ -3000,9 +3000,13 @@ extern const u8 gText_Totodile[];
 extern const u8 gText_Treecko[];
 extern const u8 gText_Torchic[];
 extern const u8 gText_Mudkip[];
+
 // Berry Blender
 extern const u8 gText_SavingDontTurnOff2[];
 extern const u8 gText_BlenderMaxSpeedRecord[];
 extern const u8 gText_234Players[];
+
+extern const u8 gText_Join[];
+extern const u8 gText_TournamentHallInfo[];
 
 #endif // GUARD_STRINGS_H

@@ -1841,3 +1841,6 @@ const u8 gText_Totodile[] = _("TOTODILE");
 const u8 gText_Treecko[] = _("TREECKO");
 const u8 gText_Torchic[] = _("TORCHIC");
 const u8 gText_Mudkip[] = _("MUDKIP");
+
+const u8 gText_Join[] = _("JOIN");
+const u8 gText_TournamentHallInfo[] = _("INFO");
