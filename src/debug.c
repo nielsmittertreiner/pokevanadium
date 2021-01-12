@@ -19,38 +19,28 @@
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
 
-// Constants
 #define DEBUG_MAIN_MENU_WIDTH 7
 #define DEBUG_UTILITY_MENU_WIDTH 12
 #define DEBUG_TOGGLES_MENU_WIDTH 9
 
-// Funtions
 void Debug_OpenDebugMenu(void);
 static void Debug_ShowMainMenu(void (*HandleInput)(u8), struct ListMenuTemplate ListMenuTemplate);
 static void Debug_ShowTogglesSubMenu(void (*HandleInput)(u8), struct ListMenuTemplate ListMenuTemplate);
 static void Debug_ShowUtilitySubMenu(void (*HandleInput)(u8), struct ListMenuTemplate ListMenuTemplate);
 static void Debug_DestroyMenu(u8);
-
 static void DebugTask_HandleMenuInput_Main(u8);
 static void DebugTask_HandleMenuInput_Utility(u8);
 static void DebugTask_HandleMenuInput_Toggles(u8);
-
-// Main Menu Functions
 static void DebugAction_OpenMenu_Utility(u8);
 static void DebugAction_OpenMenu_Toggles(u8);
 static void DebugAction_Cancel(u8);
-
-// Utility Menu Functions
 static void DebugAction_HealParty(u8);
 static void DebugAction_ResetMapFlags(u8);
-
-// Toggles Menu Funtions
 static void DebugAction_ToggleTrainers(u8);
 static void DebugAction_ToggleEncounters(u8);
 static void DebugAction_TogglePokedex(u8);
 static void DebugAction_ToggleBadges(u8);
 
-// Enums
 enum {
     DEBUG_MENU_ITEM_UTILITY,
     DEBUG_MENU_ITEM_TOGGLES,
@@ -69,7 +59,6 @@ enum {
     DEBUG_MENU_ITEM_TOGGLE_BADGES,
 };
 
-// Text
 static const u8 gDebugText_Utility[] = _("UTILITY");
 static const u8 gDebugText_Toggles[] = _("TOGGLES");
 static const u8 gDebugText_Cancel[] = _("CANCEL");
@@ -82,10 +71,8 @@ static const u8 gDebugText_Toggles_Encounters[] = _("ENCOUNTERS");
 static const u8 gDebugText_Toggles_Pokedex[] = _("POKEDEX");
 static const u8 gDebugText_Toggles_Badges[] = _("BADGES");
 
-// Scripts
 extern const u8 EventScript_ResetAllMapFlags[];
 
-// List Menu Items
 static const struct ListMenuItem sDebugMenuItems_Main[] =
 {
     [DEBUG_MENU_ITEM_UTILITY] = {gDebugText_Utility, DEBUG_MENU_ITEM_UTILITY},
@@ -107,7 +94,6 @@ static const struct ListMenuItem sDebugMenuItems_Toggles[] =
     [DEBUG_MENU_ITEM_TOGGLE_BADGES] = {gDebugText_Toggles_Badges, DEBUG_MENU_ITEM_TOGGLE_BADGES},
 };
 
-// List Menu Actions
 static void (*const sDebugMenuActions_Main[])(u8) =
 {
     [DEBUG_MENU_ITEM_UTILITY] = DebugAction_OpenMenu_Utility,
@@ -129,7 +115,6 @@ static void (*const sDebugMenuActions_Toggles[])(u8) =
     [DEBUG_MENU_ITEM_TOGGLE_BADGES] = DebugAction_ToggleBadges,
 };
 
-// Windows
 static const struct WindowTemplate sDebugMainMenuWindowTemplate =
 {
     .bg = 0,
@@ -163,7 +148,6 @@ static const struct WindowTemplate sDebugSubMenuTogglesWindowTemplate =
     .baseBlock = 1,
 };
 
-// List Menu Templates
 static const struct ListMenuTemplate sDebugMenu_ListTemplate_Main =
 {
     .items = sDebugMenuItems_Main,
@@ -186,7 +170,6 @@ static const struct ListMenuTemplate sDebugMenu_ListTemplate_Toggles =
     .totalItems = ARRAY_COUNT(sDebugMenuItems_Toggles),
 };
 
-// Funtions Universal
 void Debug_OpenDebugMenu()
 {
     Debug_ShowMainMenu(DebugTask_HandleMenuInput_Main, sDebugMenu_ListTemplate_Main);
@@ -199,13 +182,11 @@ static void Debug_ShowMainMenu(void (*HandleInput)(u8), struct ListMenuTemplate 
     u8 menuTaskId;
     u8 inputTaskId;
 
-    // create window
     HideMapNamePopUpWindow();
     LoadMessageBoxAndBorderGfx();
     windowId = AddWindow(&sDebugMainMenuWindowTemplate);
     DrawStdWindowFrame(windowId, FALSE);
 
-    // create list menu
     menuTemplate = ListMenuTemplate;
     menuTemplate.maxShowed = ARRAY_COUNT(sDebugMenuItems_Main);
     menuTemplate.windowId = windowId;
@@ -223,10 +204,8 @@ static void Debug_ShowMainMenu(void (*HandleInput)(u8), struct ListMenuTemplate 
     menuTemplate.cursorKind = 0;
     menuTaskId = ListMenuInit(&menuTemplate, 0, 0);
 
-    // draw everything
     CopyWindowToVram(windowId, 3);
 
-    // create input handler task
     inputTaskId = CreateTask(HandleInput, 3);
     gTasks[inputTaskId].data[0] = menuTaskId;
     gTasks[inputTaskId].data[1] = windowId;
@@ -239,13 +218,11 @@ static void Debug_ShowUtilitySubMenu(void (*HandleInput)(u8), struct ListMenuTem
     u8 menuTaskId;
     u8 inputTaskId;
 
-    // create window
     HideMapNamePopUpWindow();
     LoadMessageBoxAndBorderGfx();
     windowId = AddWindow(&sDebugSubMenuUtilityWindowTemplate);
     DrawStdWindowFrame(windowId, FALSE);
 
-    // create list menu
     menuTemplate = ListMenuTemplate;
     menuTemplate.maxShowed = ARRAY_COUNT(sDebugMenuItems_Utility);
     menuTemplate.windowId = windowId;
@@ -263,10 +240,8 @@ static void Debug_ShowUtilitySubMenu(void (*HandleInput)(u8), struct ListMenuTem
     menuTemplate.cursorKind = 0;
     menuTaskId = ListMenuInit(&menuTemplate, 0, 0);
 
-    // draw everything
     CopyWindowToVram(windowId, 3);
 
-    // create input handler task
     inputTaskId = CreateTask(HandleInput, 3);
     gTasks[inputTaskId].data[0] = menuTaskId;
     gTasks[inputTaskId].data[1] = windowId;
@@ -279,13 +254,11 @@ static void Debug_ShowTogglesSubMenu(void (*HandleInput)(u8), struct ListMenuTem
     u8 menuTaskId;
     u8 inputTaskId;
 
-    // create window
     HideMapNamePopUpWindow();
     LoadMessageBoxAndBorderGfx();
     windowId = AddWindow(&sDebugSubMenuTogglesWindowTemplate);
     DrawStdWindowFrame(windowId, FALSE);
 
-    // create list menu
     menuTemplate = ListMenuTemplate;
     menuTemplate.maxShowed = ARRAY_COUNT(sDebugMenuItems_Toggles);
     menuTemplate.windowId = windowId;
@@ -303,10 +276,8 @@ static void Debug_ShowTogglesSubMenu(void (*HandleInput)(u8), struct ListMenuTem
     menuTemplate.cursorKind = 0;
     menuTaskId = ListMenuInit(&menuTemplate, 0, 0);
 
-    // draw everything
     CopyWindowToVram(windowId, 3);
 
-    // create input handler task
     inputTaskId = CreateTask(HandleInput, 3);
     gTasks[inputTaskId].data[0] = menuTaskId;
     gTasks[inputTaskId].data[1] = windowId;
@@ -320,7 +291,6 @@ static void Debug_DestroyMenu(u8 taskId)
     DestroyTask(taskId);
 }
 
-// Funtions Handle Input
 static void DebugTask_HandleMenuInput_Main(u8 taskId)
 {
     void (*func)(u8);
@@ -378,7 +348,6 @@ static void DebugTask_HandleMenuInput_Toggles(u8 taskId)
     }
 }
 
-// Funtions Menus
 static void DebugAction_OpenMenu_Utility(u8 taskId)
 {
     Debug_DestroyMenu(taskId);
@@ -397,8 +366,6 @@ static void DebugAction_Cancel(u8 taskId)
     EnableBothScriptContexts();
 }
 
-// Behaviour Funtions
-// Utility
 static void DebugAction_HealParty(u8 taskId)
 {
     HealPlayerParty();
@@ -411,7 +378,6 @@ static void DebugAction_ResetMapFlags(u8 taskId)
     PlaySE(SE_USE_ITEM);
 }
 
-// Toggles
 static void DebugAction_ToggleTrainers(u8 taskId)
 {
     if (FlagGet(FLAG_DISABLE_TRAINERS))
