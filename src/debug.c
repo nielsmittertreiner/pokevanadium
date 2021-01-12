@@ -4,6 +4,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "field_player_avatar.h"
+#include "item.h"
 #include "list_menu.h"
 #include "main.h"
 #include "map_name_popup.h"
@@ -35,6 +36,7 @@ static void DebugAction_OpenMenu_Utility(u8);
 static void DebugAction_OpenMenu_Toggles(u8);
 static void DebugAction_Cancel(u8);
 static void DebugAction_HealParty(u8);
+static void DebugAction_GiveRareCandy(u8);
 static void DebugAction_ResetMapFlags(u8);
 static void DebugAction_ToggleTrainers(u8);
 static void DebugAction_ToggleEncounters(u8);
@@ -49,6 +51,7 @@ enum {
 
 enum {
     DEBUG_MENU_ITEM_HEAL_PARTY,
+    DEBUG_MENU_ITEM_GIVE_RARE_CANDY,
     DEBUG_MENU_ITEM_RESET_MAP_FLAGS,
 };
 
@@ -64,6 +67,7 @@ static const u8 gDebugText_Toggles[] = _("TOGGLES");
 static const u8 gDebugText_Cancel[] = _("CANCEL");
 
 static const u8 gDebugText_HealParty[] = _("HEAL PARTY");
+static const u8 gDebugText_GiveRareCandy[] = _("GIVE RARE CANDY");
 static const u8 gDebugText_ResetAllMapFlags[] = _("RESET MAP FLAGS");
 
 static const u8 gDebugText_Toggles_Trainers[] = _("TRAINERS");
@@ -83,6 +87,7 @@ static const struct ListMenuItem sDebugMenuItems_Main[] =
 static const struct ListMenuItem sDebugMenuItems_Utility[] =
 {
     [DEBUG_MENU_ITEM_HEAL_PARTY] = {gDebugText_HealParty, DEBUG_MENU_ITEM_HEAL_PARTY},
+    [DEBUG_MENU_ITEM_GIVE_RARE_CANDY] = {gDebugText_GiveRareCandy, DEBUG_MENU_ITEM_GIVE_RARE_CANDY},
     [DEBUG_MENU_ITEM_RESET_MAP_FLAGS] = {gDebugText_ResetAllMapFlags, DEBUG_MENU_ITEM_RESET_MAP_FLAGS},
 };
 
@@ -104,6 +109,7 @@ static void (*const sDebugMenuActions_Main[])(u8) =
 static void (*const sDebugMenuActions_Utility[])(u8) =
 {
     [DEBUG_MENU_ITEM_HEAL_PARTY] = DebugAction_HealParty,
+    [DEBUG_MENU_ITEM_GIVE_RARE_CANDY] = DebugAction_GiveRareCandy,
     [DEBUG_MENU_ITEM_RESET_MAP_FLAGS] = DebugAction_ResetMapFlags,
 };
 
@@ -369,6 +375,12 @@ static void DebugAction_Cancel(u8 taskId)
 static void DebugAction_HealParty(u8 taskId)
 {
     HealPlayerParty();
+    PlaySE(SE_USE_ITEM);
+}
+
+static void DebugAction_GiveRareCandy(u8 taskId)
+{
+    AddBagItem(ITEM_RARE_CANDY, 10);
     PlaySE(SE_USE_ITEM);
 }
 
