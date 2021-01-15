@@ -103,107 +103,102 @@ static const struct TrainerMonNoItemDefaultMoves sParty_AcrenForest_Grunt[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_Gabrielle1[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent1[] = {
     {
     .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_SKITTY,
+    .lvl = 10,
+    .species = SPECIES_BELLSPROUT,
+    .moves = {MOVE_ABSORB, MOVE_POISON_POWDER, MOVE_WRAP, MOVE_NONE}
     },
     {
     .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_POOCHYENA,
-    },
-    {
-    .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_ZIGZAGOON,
-    },
-    {
-    .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_LOTAD,
-    },
-    {
-    .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_SEEDOT,
-    },
-    {
-    .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_TAILLOW,
+    .lvl = 10,
+    .species = SPECIES_ODDISH,
+    .moves = {MOVE_ABSORB, MOVE_POISON_POWDER, MOVE_POUND, MOVE_NONE}
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntPetalburgWoods[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent2[] = {
+    {
+    .iv = 0,
+    .lvl = 15,
+    .species = SPECIES_ROSELIA,
+    .moves = {MOVE_LEECH_SEED, MOVE_GRASS_WHISTLE, MOVE_MEGA_DRAIN, MOVE_INGRAIN}
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent3[] = {
+    {
+    .iv = 0,
+    .lvl = 13,
+    .species = SPECIES_PARAS,
+    },
+    {
+    .iv = 0,
+    .lvl = 13,
+    .species = SPECIES_PARAS,
+    }
+};
+
+static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent4[] = {
+    {
+    .iv = 0,
+    .lvl = 15,
+    .heldItem = ITEM_QUICK_CLAW,
+    .species = SPECIES_TREECKO,
+    .moves = {MOVE_LEECH_SEED, MOVE_MEGA_DRAIN, MOVE_FURY_CUTTER, MOVE_QUICK_ATTACK}
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent5[] = {
     {
     .iv = 0,
     .lvl = 9,
-    .species = SPECIES_POOCHYENA,
-    }
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_Marcel[] = {
-    {
-    .iv = 100,
-    .lvl = 29,
-    .species = SPECIES_MANECTRIC,
-    },
-    {
-    .iv = 100,
-    .lvl = 29,
-    .species = SPECIES_SHIFTRY,
-    }
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_Alberto[] = {
-    {
-    .iv = 0,
-    .lvl = 30,
-    .species = SPECIES_PELIPPER,
+    .species = SPECIES_BELLSPROUT,
     },
     {
     .iv = 0,
-    .lvl = 30,
-    .species = SPECIES_XATU,
-    }
-};
-
-static const struct TrainerMonNoItemDefaultMoves sParty_Ed[] = {
-    {
-    .iv = 0,
-    .lvl = 30,
-    .species = SPECIES_ZANGOOSE,
+    .lvl = 9,
+    .species = SPECIES_BELLSPROUT,
     },
     {
     .iv = 0,
-    .lvl = 30,
-    .species = SPECIES_SEVIPER,
+    .lvl = 9,
+    .species = SPECIES_BELLSPROUT,
+    },
+    {
+    .iv = 0,
+    .lvl = 9,
+    .species = SPECIES_BELLSPROUT,
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntSeafloorCavern4[] = {
+static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent6[] = {
     {
     .iv = 0,
-    .lvl = 36,
-    .species = SPECIES_CARVANHA,
+    .lvl = 15,
+    .heldItem = ITEM_MIRACLE_SEED,
+    .species = SPECIES_CHIKORITA,
+    .moves = {MOVE_TACKLE, MOVE_RAZOR_LEAF, MOVE_POISON_POWDER, MOVE_REFLECT}
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_Declan[] = {
+static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent7[] = {
     {
     .iv = 0,
-    .lvl = 34,
-    .species = SPECIES_GYARADOS,
+    .lvl = 15,
+    .heldItem = ITEM_MIRACLE_SEED,
+    .species = SPECIES_BULBASAUR,
+    .moves = {MOVE_TACKLE, MOVE_LEECH_SEED, MOVE_VINE_WHIP, MOVE_ABSORB}
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntRusturfTunnel[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent8[] = {
     {
     .iv = 0,
-    .lvl = 11,
-    .species = SPECIES_POOCHYENA,
+    .lvl = 13,
+    .species = SPECIES_EXEGGCUTE,
+    .moves = {MOVE_BARRAGE, MOVE_HYPNOSIS, MOVE_UPROAR, MOVE_LEECH_SEED}
     }
 };
 

@@ -1,3 +1,88 @@
 FirwealdCity_TournamentHallBattleRoom_MapScripts::
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, FirwealdCity_TournamentHallBattleRoom_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, FirwealdCity_TournamentHallBattleRoom_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
+FirwealdCity_TournamentHallBattleRoom_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
+	map_script_2 VAR_TEMP_0, 0, FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects
+	.2byte 0
+
+FirwealdCity_TournamentHallBattleRoom_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_TEMP_1, 0, FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom
+	.2byte 0
+
+
+FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects::
+	setvar VAR_TEMP_0, 1
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_FIRWEALD_CITY_TOURNAMENT_HALL_BATTLE_ROOM
+	removeobject 1
+	checkplayergender
+	compare VAR_RESULT, MALE
+	goto_if_eq FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_1
+	compare VAR_RESULT, FEMALE
+	goto_if_eq FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_2
+	return
+
+FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_1:
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+	return
+
+FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_2:
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	return
+
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom::
+	setvar VAR_TEMP_1, 1
+	applymovement 2, FirwealdCity_TournamentHallBattleRoom_Movement_PlayerEnterBattleRoom
+	waitmovement 0
+	load_speech_bubble 3
+	switch VAR_TOURNAMENT_HALL_ROUND
+	case 1, FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_3
+	case 2, FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_4
+	case 3, FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_5
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_1:
+	closemessage
+	playse SE_M_ENCORE2
+	msgbox FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_3
+	waitse
+	destroy_speech_bubble
+	closemessage
+	return
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_3:
+	msgbox FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_0
+	goto FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_1
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_4:
+	msgbox FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_1
+	goto FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_1
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_5:
+	msgbox FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_2
+	goto FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_1
+
+
+FirwealdCity_TournamentHallBattleRoom_Movement_PlayerEnterBattleRoom:
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	step_end
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_0:
+	.string "Get ready for the first round\n"
+	.string "of the FIRWEALD TOURNAMENT!$"
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_1:
+	.string "Get ready for the second round\n"
+	.string "of the FIRWEALD TOURNAMENT!$"
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_2:
+	.string "Get ready for the GRAND FINALE\n"
+	.string "of the FIRWEALD TOURNAMENT!$"
+
+FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom_Text_3:
+	.string "{PLAYER} has entered the\n"
+	.string "FIRWEALD BATTLE ROOM!$"

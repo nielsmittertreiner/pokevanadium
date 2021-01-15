@@ -66,6 +66,7 @@ FirwealdCity_EventScript_PhyllosEncounter::
 	removeobject 9
 	setflag FLAG_HIDE_ACREN_FOREST_GRUNTS_BLOCKING
 	setvar VAR_ACREN_FOREST_STATE, 4
+	setvar VAR_TOURNAMENT_HALL_STATE, 0
 	release
 	end
 
@@ -91,6 +92,7 @@ FirwealdCity_EventScript_BlockPath::
 	load_speech_bubble 6
 	msgbox FirwealdCity_EventScript_BlockPath_Text_0
 	destroy_speech_bubble
+	closemessage
 	applymovement 6 FirwealdCity_Movement_PushBackPlayer
 	applymovement OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack
 	waitmovement 0
@@ -137,6 +139,9 @@ FirwealdCity_EventScript_Triathlete::
 
 FirwealdCity_EventScript_Boy::
 	msgbox FirwealdCity_EventScript_Boy_Text_0, MSGBOX_NPC
+	clearflag FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY
+	setmetatile 37, 16, METATILE_Petalburg_Door_BattleTent, 1
+	setvar VAR_TOURNAMENT_HALL_STATE, 0
 	end
 
 

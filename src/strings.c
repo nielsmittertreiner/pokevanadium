@@ -1844,3 +1844,4 @@ const u8 gText_Mudkip[] = _("MUDKIP");
 
 const u8 gText_Join[] = _("JOIN");
 const u8 gText_TournamentHallInfo[] = _("INFO");
+const u8 gText_TournamentHallRetire[] = _("RETIRE");

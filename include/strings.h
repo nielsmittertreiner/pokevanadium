@@ -3008,5 +3008,6 @@ extern const u8 gText_234Players[];
 
 extern const u8 gText_Join[];
 extern const u8 gText_TournamentHallInfo[];
+extern const u8 gText_TournamentHallRetire[];
 
 #endif // GUARD_STRINGS_H

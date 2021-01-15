@@ -1,0 +1,213 @@
+const LOCALID_ATTENDANT = 1
+const LOCALID_MARTEMPLOYEE = 2
+const LOCALID_NURSE = 3
+
+mapscripts FirwealdCity_TournamentHallPreBattleRoom_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_TEMP_0, 0: FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TOURNAMENT_HALL_ROUND, 0: FirwealdCity_TournamentHallPreBattleRoom_EventScripts_EnterRoom
+        VAR_TEMP_1, 0: FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer
+    ]
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects {
+    if (var(VAR_TOURNAMENT_HALL_ROUND) == 0) {
+        setobjectxy(LOCALID_ATTENDANT, 3, 7)
+        setobjectmovementtype(LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_UP)
+    } else {
+        setobjectxy(LOCALID_ATTENDANT, 3, 2)
+        setobjectmovementtype(LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN)
+    }
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_EnterRoom {
+    applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallPreBattleRoom_Movement_AttendantWalkToDoor)
+    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallPreBattleRoom_Movement_PlayerWalkToDoor)
+    waitmovement(0)
+    setvar(VAR_TOURNAMENT_HALL_ROUND, 1)
+    setvar(VAR_TEMP_1, 1)
+    goto(FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer)
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer {
+    if (var(VAR_TOURNAMENT_HALL_ROUND) == 1) {
+        load_speech_bubble(LOCALID_ATTENDANT)
+        msgbox(format("In this room, you are able to prepare yourself for your upcoming battles. \pIf you wish to continue to the next round, or to retreat from the challenge, just talk to me."))
+        destroy_speech_bubble
+        closemessage
+    }
+    call(FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound)
+    load_speech_bubble(LOCALID_ATTENDANT)
+    msgbox("I'll be waiting right here.")
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound {
+    load_speech_bubble(LOCALID_ATTENDANT)
+    switch (var(VAR_TOURNAMENT_HALL_ROUND)) {
+        case 1:
+            msgbox("Your first round of the TOURNAMENT\n"
+                   "is about to begin.")
+            break
+        case 2:
+            msgbox("Your second round of the TOURNAMENT\n"
+                   "is about to begin.")
+            break
+        case 3:
+            msgbox("Your third round of the TOURNAMENT\n"
+                   "is about to begin.")
+            break
+    }
+    destroy_speech_bubble
+    closemessage
+    return
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant {
+    call(FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound)
+    load_speech_bubble(LOCALID_ATTENDANT)
+    message(FirwealdCity_TournamentHallLobby_Text_WhatWouldYouLikeToDo)
+    waitmessage
+    multichoice(21, 6, MULTI_TOURNAMENT_HALL_PRE_BATTLE, 1)
+    switch (var(VAR_RESULT)) {
+        case 0: // ENTER
+            switch (var(VAR_TOURNAMENT_HALL_ROUND)) {
+                case 1:
+                    msgbox("Are you ready for your\n"
+                           "first battle?", MSGBOX_YESNO)
+                    break
+                case 2:
+                    msgbox("Are you ready for your\n"
+                           "second battle?", MSGBOX_YESNO)
+                    break
+                case 3:
+                    playse(SE_PIN)
+                    applymovement(LOCALID_ATTENDANT, Common_Movement_ExclamationMark)
+                    waitmovement(0)
+                    msgbox("It seems you've made it to\n"
+                           "the FINALE!\p"
+                           "Are you ready for your\n"
+                           "last battle?", MSGBOX_YESNO)
+                    break
+            }
+            switch (var(VAR_RESULT)) {
+                case YES:
+                    msgbox("I wish you good luck\n"
+                           "on your battle!")
+                    destroy_speech_bubble
+                    closemessage
+                    applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallPreBattleRoom_Movement_AttendantWalkAwayFromDoor)
+                    waitmovement(0)
+                    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+                    waitmovement(0)
+                    opendoor(3, 1)
+                    playse(SE_SLIDING_DOOR)
+                    waitdooranim
+                    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallPreBattleRoom_Movement_PlayerWalkIntoDoor)
+                    waitmovement(0)
+                    closedoor(3, 1)
+                    waitdooranim
+                    warpsilent(MAP_FIRWEALD_CITY_TOURNAMENT_HALL_BATTLE_ROOM, 0xFF, 7, 5)
+                    waitstate
+                case NO:
+                    msgbox("I'll be waiting right here.")
+                    destroy_speech_bubble
+                    closemessage
+                    break
+            }
+        case 1: // RETIRE
+            msgbox("Do you wish to retire from\n"
+                   "the TOURNAMENT CHALLENGE?", MSGBOX_YESNO)
+            switch (var(VAR_RESULT)) {
+                case YES:
+                    msgbox("Please follow me back to\n"
+                           "the LOBBY.")
+                    destroy_speech_bubble
+                    warp(MAP_FIRWEALD_CITY_TOURNAMENT_HALL_LOBBY, 0xFF, 6, 6)
+                    waitstate
+                case NO:
+                    destroy_speech_bubble
+                    goto(FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant)
+            }
+        case 2: // EXIT
+            msgbox("I'll be waiting right here.")
+            destroy_speech_bubble
+            closemessage
+            break
+    }
+    release
+    end
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_NURSE)
+    msgbox("Do you want me to heal\n"
+           "your POKéMON?", MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        destroy_speech_bubble
+        closemessage
+        call(Common_EventScript_OutOfCenterPartyHeal)
+    }
+    destroy_speech_bubble
+    closemessage
+    msgbox("Good luck on your\n"
+           "TOURNAMENT CHALLENGE!", MSGBOX_NPC)
+    release
+    end
+}
+
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_MARTEMPLOYEE)
+    message("Welcome to the TOURNAMENT SHOP.\n"
+	        "How can I help you?")
+    waitmessage
+    pokemart(FirwealdCity_TournamentHallPreBattleRoom_Pokemart)
+    destroy_speech_bubble
+    msgbox("Good luck on your\n"
+           "TOURNAMENT CHALLENGE!", MSGBOX_NPC)
+    release
+    end
+}
+
+raw `
+FirwealdCity_TournamentHallPreBattleRoom_Pokemart:
+    .2byte ITEM_POTION
+    .2byte ITEM_ANTIDOTE
+    .2byte ITEM_PARALYZE_HEAL
+    .2byte ITEM_ETHER
+    .2byte ITEM_NONE
+    release
+	end
+`
+
+movement FirwealdCity_TournamentHallPreBattleRoom_Movement_AttendantWalkToDoor {
+    walk_up * 5
+    face_down
+}
+
+movement FirwealdCity_TournamentHallPreBattleRoom_Movement_PlayerWalkToDoor {
+    walk_up * 5
+}
+
+movement FirwealdCity_TournamentHallPreBattleRoom_Movement_AttendantWalkAwayFromDoor {
+    walk_right
+    face_left
+}
+
+movement FirwealdCity_TournamentHallPreBattleRoom_Movement_PlayerWalkIntoDoor {
+    walk_up
+    set_invisible
+}
+
+text FirwealdCity_TournamentHallLobby_Text_WhatWouldYouLikeToDo {
+    "What would you like to do?"
+}

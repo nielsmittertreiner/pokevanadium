@@ -4690,6 +4690,16 @@
       "secondary_tileset": "gTileset_BattleTent",
       "border_filepath": "data/layouts/FirwealdCity_TournamentHallBattleRoom/border.bin",
       "blockdata_filepath": "data/layouts/FirwealdCity_TournamentHallBattleRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIRWEALD_CITY_TOURNAMENT_HALL_PRE_BATTLE_ROOM",
+      "name": "FirwealdCity_TournamentHallPreBattleRoom_Layout",
+      "width": 7,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BattleTent",
+      "border_filepath": "data/layouts/FirwealdCity_TournamentHallPreBattleRoom/border.bin",
+      "blockdata_filepath": "data/layouts/FirwealdCity_TournamentHallPreBattleRoom/map.bin"
     }
   ]
 }

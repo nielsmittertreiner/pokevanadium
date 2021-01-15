@@ -80,6 +80,7 @@ script FirwealdCity_EventScript_PhyllosEncounter {
     removeobject(LOCALID_PHYLLOS)
     setflag(FLAG_HIDE_ACREN_FOREST_GRUNTS_BLOCKING)
     setvar(VAR_ACREN_FOREST_STATE, 4)
+    setvar(VAR_TOURNAMENT_HALL_STATE, 0)
     release
     end
 }
@@ -112,6 +113,7 @@ script FirwealdCity_EventScript_BlockPath {
 	       "Go do your thing while I inspect this\n"
 	       "tree right here.")
     destroy_speech_bubble
+    closemessage
     applymovement(LOCALID_MANIAC FirwealdCity_Movement_PushBackPlayer)
     applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack)
     waitmovement(0)
@@ -164,6 +166,9 @@ script FirwealdCity_EventScript_Triathlete {
 script FirwealdCity_EventScript_Boy {
     msgbox("My big sister always plays hide and\n"
            "seek with my other sister…", MSGBOX_NPC)
+    clearflag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY)
+    setmetatile(37, 16, METATILE_Petalburg_Door_BattleTent, 1)
+    setvar(VAR_TOURNAMENT_HALL_STATE, 0)
     end
 }
 

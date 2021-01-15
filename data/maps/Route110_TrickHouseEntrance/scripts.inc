@@ -17,7 +17,7 @@ Route110_TrickHouseEntrance_MapScripts:: @ 8269A50
 
 Route110_TrickHouseEntrance_OnTransition: @ 8269A60
 	setflag FLAG_LANDMARK_TRICK_HOUSE
-	compare VAR_TRICK_HOUSE_ENTER_FROM_CORRIDOR, 1
+	compare VAR_TOURNAMENT_HALL_OPPONENT, 1
 	goto_if_eq Route110_TrickHouseEntrance_EventScript_EnterFromCorridor
 	compare VAR_TRICK_HOUSE_PRIZE_PICKUP, 1
 	goto_if_eq Route110_TrickHouseEntrance_EventScript_SetReadyToGiveReward
@@ -48,7 +48,7 @@ Route110_TrickHouseEntrance_EventScript_ReadyToGiveTentReward:: @ 8269AED
 	end
 
 Route110_TrickHouseEntrance_EventScript_EnterFromCorridor:: @ 8269AF3
-	setvar VAR_TRICK_HOUSE_ENTER_FROM_CORRIDOR, 0
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, 0
 	setvar VAR_TRICK_HOUSE_ENTRANCE_STATE, 5
 	setvar VAR_TRICK_HOUSE_BEING_WATCHED_STATE, 1
 	end

@@ -1088,7 +1088,6 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/maps/FirwealdCity_Mart/scripts.inc"
 	.include "data/maps/ForestTunnel/scripts.inc"
 	.include "data/maps/AcrenForest_IllegalCabin/scripts.inc"
-
 	.include "data/maps/FirwealdCity_TournamentHallLobby/scripts.inc"
-
 	.include "data/maps/FirwealdCity_TournamentHallBattleRoom/scripts.inc"
+	.include "data/maps/FirwealdCity_TournamentHallPreBattleRoom/scripts.inc"

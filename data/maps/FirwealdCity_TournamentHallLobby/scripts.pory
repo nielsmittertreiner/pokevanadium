@@ -3,8 +3,45 @@ const LOCALID_ATTENDANT = 1
 mapscripts FirwealdCity_TournamentHallLobby_MapScripts {
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TOURNAMENT_HALL_STATE, 0 {
-            // tournament hall explanation
-
+            playse(SE_PIN)
+            applymovement(LOCALID_ATTENDANT, Common_Movement_ExclamationMark)
+            waitmovement(0)
+            applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallLobby_Movement_AttendantWalkDown)
+            waitmovement(0)
+            load_speech_bubble(LOCALID_ATTENDANT)
+            msgbox("Hi there TRAINER, it seems like this\n"
+                   "is your first time in a TOURNAMENT\l"
+                   "HALL.")
+            destroy_speech_bubble
+            closemessage
+            delay(16)
+            load_speech_bubble(LOCALID_ATTENDANT)
+            msgbox("Would you like me to explain the use\n"
+                   "of TOURNAMENT HALLS?", MSGBOX_YESNO)
+            if (var(VAR_RESULT) == YES) {
+                destroy_speech_bubble
+                load_speech_bubble(LOCALID_ATTENDANT)
+                msgbox("Across the EURUS REGION, multiple\n"
+                       "TOURNAMENT HALLS are spread around\p"
+                       "They are used for competetive battling\n"
+                       "and all have a TOURNAMENT MASTER.\p"
+                       "When you beat the TOURNAMENT MASTER\n"
+                       "you'll obtain a gift when you beat\l"
+                       "the tournament challenge.\p"
+                       "You can sign up to join a \n"
+                       "tournament at the counter.")
+                destroy_speech_bubble
+                closemessage
+            } else {
+                destroy_speech_bubble
+                load_speech_bubble(LOCALID_ATTENDANT)
+                msgbox("Well then, I'll be waiting at the\n"
+                       "counter up front.")
+                destroy_speech_bubble
+                closemessage
+            }
+            applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallLobby_Movement_AttendantWalkUp)
+            waitmovement(0)
             setvar(VAR_TOURNAMENT_HALL_STATE, 1)
             release
             end
@@ -15,10 +52,74 @@ mapscripts FirwealdCity_TournamentHallLobby_MapScripts {
 script FirwealdCity_TournamentHallLobby_EventScript_Attendant {
     lock
     faceplayer
-    // attendant stuff
+    load_speech_bubble(LOCALID_ATTENDANT)
+    message(FirwealdCity_TournamentHallLobby_Text_WelcomeToFirwealdCityTounamentHall)
+    waitmessage
+    multichoice(22, 6, MULTI_TOURNAMENT_HALL_JOIN, 1)
+    switch (var(VAR_RESULT)) {
+        case 0: // JOIN
+            destroy_speech_bubble
+            closemessage
+            goto(FirwealdCity_TournamentHallLobby_EventScript_JoinTournament)
+            break
+        case 1: // INFO
+            destroy_speech_bubble
+            closemessage
+            msgbox("This is the FIRWEALD CITY\n"
+                   "TOURNAMENT HALL. Here trainers come\l"
+                   "together to compete in advanced\l"
+                   "POKéMON battles.\p"
+                   "The goal is to beat all trainers and\n"
+                   "finally defeat the TOURNAMENT MASTER.\p"
+                   "After each battle, your party is healed\n"
+                   "and you will face your next opponent.\p"
+                   "Have fun battling and in all our\n"
+                   "TOURNAMENT HALLS.", MSGBOX_NPC)
+            goto(FirwealdCity_TournamentHallLobby_EventScript_Attendant)
+            break
+        case 2: // EXIT
+            destroy_speech_bubble
+            closemessage
+            goto(FirwealdCity_TournamentHallLobby_EventScript_CancelTournament)
+    }
+}
 
-    release
+script FirwealdCity_TournamentHallLobby_EventScript_CancelTournament {
+    msgbox("We hope to see you again!", MSGBOX_NPC)
     end
+}
+
+script FirwealdCity_TournamentHallLobby_EventScript_JoinTournament {
+    load_speech_bubble(LOCALID_ATTENDANT)
+    msgbox("Before you join the TOURNAMENT,\n"
+           "you must save your data. Is that okay?", MSGBOX_YESNO)
+    switch (var(VAR_RESULT)) {
+        case YES:
+            destroy_speech_bubble
+            closemessage
+            call(Common_EventScript_SaveGame)
+            closemessage
+            break
+        case NO:
+            destroy_speech_bubble
+            closemessage
+            goto(FirwealdCity_TournamentHallLobby_EventScript_CancelTournament)
+    }
+    delay(15)
+    applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallLobby_Movement_WalkToDoor)
+    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallLobby_Movement_WalkToDoor)
+    waitmovement(0)
+    opendoor(6, 1)
+    waitdooranim
+    applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallLobby_Movement_AttendantWalkInDoor)
+    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallLobby_Movement_PlayerWalkInDoor)
+    waitmovement(0)
+    closedoor(6, 1)
+    playse(SE_SLIDING_DOOR)
+    waitdooranim
+    setvar(VAR_TOURNAMENT_HALL_ROUND, 0)
+    warpsilent(MAP_FIRWEALD_CITY_TOURNAMENT_HALL_PRE_BATTLE_ROOM, 0xFF, 3, 8)
+    waitstate
 }
 
 script FirwealdCity_TournamentHallLobby_EventScript_Maniac {
@@ -31,4 +132,34 @@ script FirwealdCity_TournamentHallLobby_EventScript_Beauty {
     msgbox("I've heard PHYLLOS is a very strong\n"
            "TOURNAMENT MASTER.", MSGBOX_NPC)
     end
+}
+
+movement FirwealdCity_TournamentHallLobby_Movement_AttendantWalkDown {
+    walk_down * 3
+}
+
+movement FirwealdCity_TournamentHallLobby_Movement_AttendantWalkUp {
+    walk_up * 3
+    face_down
+}
+
+movement FirwealdCity_TournamentHallLobby_Movement_WalkToDoor {
+    walk_up * 3
+}
+
+movement FirwealdCity_TournamentHallLobby_Movement_AttendantWalkInDoor {
+    walk_up
+    set_invisible
+}
+
+movement FirwealdCity_TournamentHallLobby_Movement_PlayerWalkInDoor {
+    walk_up * 2
+    set_invisible
+}
+
+text FirwealdCity_TournamentHallLobby_Text_WelcomeToFirwealdCityTounamentHall {
+    "Welcome to FIRWEALD CITY's\n"
+    "TOURNAMENT HALL.\p"
+    "Would you like to sign up for\n"
+    "a tournament?"
 }

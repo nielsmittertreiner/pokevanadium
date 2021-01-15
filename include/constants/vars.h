@@ -141,8 +141,8 @@
 #define VAR_SUNSET_TOWN_FOLLOWER_STATE                   (SPECIAL_STATE_VARS_START + 0x1) // Conifer Follower
 #define VAR_JULIA_STATE                                  (SPECIAL_STATE_VARS_START + 0x2) // Julia Encounters
 #define VAR_TOURNAMENT_HALL_STATE                        (SPECIAL_STATE_VARS_START + 0x3) // Tournament Hall
-#define VAR_SS_TIDAL_STATE                               (SPECIAL_STATE_VARS_START + 0x4)
-#define VAR_TRICK_HOUSE_ENTER_FROM_CORRIDOR              (SPECIAL_STATE_VARS_START + 0x5)
+#define VAR_TOURNAMENT_HALL_OPPONENT                     (SPECIAL_STATE_VARS_START + 0x4)
+#define VAR_TOURNAMENT_HALL_ROUND                        (SPECIAL_STATE_VARS_START + 0x5)
 #define VAR_SUNSET_TOWN_FOLLOWER_STATE_2                 (SPECIAL_STATE_VARS_START + 0x6) // Leftover from RS, never set
 #define VAR_SLATEPORT_FAN_CLUB_STATE                     (SPECIAL_STATE_VARS_START + 0x7)
 #define VAR_UNUSED_0x40B8                                (SPECIAL_STATE_VARS_START + 0x8) // Unused Var

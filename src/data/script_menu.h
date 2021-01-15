@@ -792,10 +792,17 @@ static const struct MenuAction MultichoiceList_CedarredTown_StarterSet_Three[] =
     {gText_Mudkip},
 };
 
-static const struct MenuAction MultichoiceList_TournamentHall[] = 
+static const struct MenuAction MultichoiceList_TournamentHall_Join[] = 
 {
     {gText_Join},
     {gText_TournamentHallInfo},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_TournamentHall_PreBattle[] = 
+{
+    {gText_Enter},
+    {gText_TournamentHallRetire},
     {gText_Exit},
 };
 
@@ -917,11 +924,11 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
-    [MULTI_CEDARRED_CHOOSE_STARTER_SET_ONE] = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_One),
-    [MULTI_CEDARRED_CHOOSE_STARTER_SET_TWO] = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Two),
-    [MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE]  = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Three),
-    [MULTI_TOURNAMENT_HALL]            = MULTICHOICE(MultichoiceList_TournamentHall),
-    [MULTI_UNUSED_21]                  = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_CEDARRED_CHOOSE_STARTER_SET_ONE]       = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_One),
+    [MULTI_CEDARRED_CHOOSE_STARTER_SET_TWO]       = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Two),
+    [MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE]     = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Three),
+    [MULTI_TOURNAMENT_HALL_JOIN]                  = MULTICHOICE(MultichoiceList_TournamentHall_Join),
+    [MULTI_TOURNAMENT_HALL_PRE_BATTLE]            = MULTICHOICE(MultichoiceList_TournamentHall_PreBattle),
     [MULTI_UNUSED_22]                  = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_UNUSED_40]                  = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_UNUSED_41]                  = MULTICHOICE(MultichoiceList_Exit),

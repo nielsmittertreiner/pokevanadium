@@ -1,5 +1,60 @@
-const LOCALID_ATTENDANT = 1
-const LOCALID_NURSE = 2
-const LOCALID_OPPONENT = 3
+// LOCALID_OPPONENT gfx controlled by VAR_OBJ_GFX_ID_0
+// LOCALID_PLAYER gfx controlled by VAR_OBJ_GFX_ID_1
 
-mapscripts FirwealdCity_TournamentHallBattleRoom_MapScripts {}
+const LOCALID_OPPONENT = 1
+const LOCALID_PLAYER = 2
+const LOCALID_REFEREE = 3
+
+mapscripts FirwealdCity_TournamentHallBattleRoom_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_TEMP_0, 0: FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_1, 0: FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom
+    ]
+}
+
+script FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects {
+    setvar(VAR_TEMP_0, 1)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_FIRWEALD_CITY_TOURNAMENT_HALL_BATTLE_ROOM)
+    removeobject(LOCALID_OPPONENT)
+    checkplayergender
+    if (var(VAR_RESULT) == MALE) {
+        setvar(VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL)
+    } elif (var(VAR_RESULT) == FEMALE) {
+        setvar(VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL)
+    }
+}
+
+script FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom {
+    setvar(VAR_TEMP_1, 1)
+    applymovement(LOCALID_PLAYER, FirwealdCity_TournamentHallBattleRoom_Movement_PlayerEnterBattleRoom)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_REFEREE)
+    switch (var(VAR_TOURNAMENT_HALL_ROUND)) {
+        case 1:
+            msgbox("Get ready for the first round\n"
+                   "of the FIRWEALD TOURNAMENT!")
+            break
+        case 2:   
+            msgbox("Get ready for the second round\n"
+                   "of the FIRWEALD TOURNAMENT!")
+            break
+        case 3:
+            msgbox("Get ready for the GRAND FINALE\n"
+                   "of the FIRWEALD TOURNAMENT!")
+            break
+    }
+    closemessage
+    playse(SE_M_ENCORE2)
+    msgbox("{PLAYER} has entered the\n"
+           "FIRWEALD BATTLE ROOM!")
+    waitse
+    destroy_speech_bubble
+    closemessage
+}
+
+movement FirwealdCity_TournamentHallBattleRoom_Movement_PlayerEnterBattleRoom {
+    walk_up * 3
+    walk_right * 2
+}
