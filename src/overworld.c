@@ -2938,7 +2938,7 @@ static void SpawnLinkPlayerObjectEvent(u8 linkPlayerId, s16 x, s16 y, u8 gender)
     linkPlayerObjEvent->movementMode = MOVEMENT_MODE_FREE;
 
     objEvent->active = 1;
-    objEvent->singleMovementActive = a4;
+    objEvent->singleMovementActive = gender;
     objEvent->range.as_byte = 2;
     objEvent->spriteId = 64;
 
