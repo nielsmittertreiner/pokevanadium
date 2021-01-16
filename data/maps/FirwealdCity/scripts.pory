@@ -6,7 +6,7 @@ const LOCALID_PHYLLOS = 9
 
 mapscripts FirwealdCity_MapScripts {
     MAP_SCRIPT_ON_LOAD {
-        if (flag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY) == TRUE)
+        if (flag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY))
         {
             setmetatile(37, 16, METATILE_Petalburg_ClosedTournamentHallDoor, 1)
         }
