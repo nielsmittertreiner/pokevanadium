@@ -42,6 +42,22 @@ Common_Movement_WalkRight:
 	walk_right
 	step_end
 
+Common_Movement_WalkFastestDown:
+	walk_fastest_down
+	step_end
+
+Common_Movement_WalkFastestUp:
+	walk_fastest_up
+	step_end
+
+Common_Movement_WalkFastestLeft:
+	walk_fastest_left
+	step_end
+
+Common_Movement_WalkFastestRight:
+	walk_fastest_right
+	step_end
+
 Common_Movement_WalkInPlaceDown:
 	walk_in_place_down
 	step_end
@@ -68,6 +84,32 @@ Common_Movement_WalkInPlaceFastestRight:
 
 Common_Movement_WalkInPlaceFastestDown:
 	walk_in_place_fastest_down
+	step_end
+
+Common_Movement_WalkDown2::
+	walk_down
+	walk_down
+	step_end
+
+Common_Movement_WalkUp2::
+	walk_up
+	walk_up
+	step_end
+
+Common_Movement_WalkUp4:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+Common_Movement_WalkUp6:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
 	step_end
 
 @ Emotes
@@ -109,26 +151,4 @@ Common_Movement_Delay64:
 	delay_16
 	delay_16
 	delay_16
-	step_end
-
-Common_Movement_WalkUp6:
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	step_end
-
-Common_Movement_WalkUp4:
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	step_end
-
-@ Unused
-Common_Movement_WalkUp2::
-	walk_up
-	walk_up
 	step_end
