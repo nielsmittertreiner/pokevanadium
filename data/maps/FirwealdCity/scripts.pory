@@ -161,6 +161,7 @@ script FirwealdCity_EventScript_Triathlete {
     msgbox("Huff puff puff\n"
            "I don't have time for talking.\p"
            "I must keep running!", MSGBOX_NPC)
+    end
 }
 
 script FirwealdCity_EventScript_Boy {

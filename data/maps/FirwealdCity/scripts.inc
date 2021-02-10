@@ -65,7 +65,6 @@ FirwealdCity_EventScript_PhyllosEncounter::
 	waitmovement 0
 	removeobject 9
 	setflag FLAG_HIDE_ACREN_FOREST_GRUNTS_BLOCKING
-	clearflag FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY
 	setvar VAR_ACREN_FOREST_STATE, 4
 	setvar VAR_TOURNAMENT_HALL_STATE, 0
 	release
@@ -135,7 +134,7 @@ FirwealdCity_EventScript_Fisherman_5:
 
 FirwealdCity_EventScript_Triathlete::
 	msgbox FirwealdCity_EventScript_Triathlete_Text_0, MSGBOX_NPC
-	return
+	end
 
 
 FirwealdCity_EventScript_Boy::
