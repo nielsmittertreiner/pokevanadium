@@ -78,8 +78,8 @@ void LoadTailFromObjectEventId(u32 id) {
     x = sprite->oam.x - (sprite->pos2.x + sprite->centerToCornerVecX);
     y = sprite->oam.y - (sprite->pos2.y + sprite->centerToCornerVecY);
 
-    x += (gSpecialVar_0x8005 < 120) ? -5 : 5;
-    y += 5;
+    //x += (gSpecialVar_0x8005 < 120) ? -5 : 5;
+    y += 8;
     LoadTail(x, y);
 }
 
