@@ -651,9 +651,9 @@
 #define FLAG_HIDE_ACREN_FOREST_PHYLLOS                              0x273
 #define FLAG_HIDE_ACREN_FOREST_GRUNTS_BLOCKING                      0x274
 #define FLAG_HIDE_ACREN_FOREST_GRUNT_GUARD                          0x275
-#define FLAG_UNUSED_0x276                                           0x276
-#define FLAG_UNUSED_0x277                                           0x277
-#define FLAG_UNUSED_0x278                                           0x278
+#define FLAG_HIDE_ACREN_FOREST_CABIN_PHYLLOS                        0x276
+#define FLAG_HIDE_ACREN_FOREST_CABIN_POKE_BALL                      0x277
+#define FLAG_HIDE_ACREN_FOREST_CABIN_KECLEON                        0x278
 #define FLAG_UNUSED_0x279                                           0x279
 #define FLAG_UNUSED_0x27A                                           0x27A
 #define FLAG_UNUSED_0x27B                                           0x27B

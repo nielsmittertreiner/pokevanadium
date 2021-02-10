@@ -272,14 +272,14 @@ script AcrenForest_EventScript_WarnBoss {
            "How did you get here?!\p"
            "You shouldn't be able to get here!\n"
            "Didn't the GRUNTS keep you away?\p"
-           "Hrmph\n"
+           "Hrmph.\n"
            "Fine then, the BOSS will make sure to\l"
            "get you out! Ha ha ha ha!")
     destroy_speech_bubble
     closemessage
     applymovement(LOCALID_TEAMAIRLOCKGRUNT_GUARD, Common_Movement_WalkUp)
-    playse(SE_EXIT)
     waitmovement(0)
+    playse(SE_EXIT)
     removeobject(LOCALID_TEAMAIRLOCKGRUNT_GUARD)
     setobjectxyperm(LOCALID_TEAMAIRLOCKGRUNT_GUARD, 2, 24)
     fadedefaultbgm

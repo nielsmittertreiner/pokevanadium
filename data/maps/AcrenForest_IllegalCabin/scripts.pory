@@ -1,1 +1,263 @@
-mapscripts AcrenForest_IllegalCabin_MapScripts {}
+const LOCALID_GRUNT1 = 1
+const LOCALID_GRUNT2 = 2
+const LOCALID_GRUNT3 = 3
+const LOCALID_GRUNT4 = 4
+const LOCALID_PHYLLOS = 5
+const LOCALID_POKEBALL = 6
+const LOCALID_KECLEON = 7
+
+mapscripts AcrenForest_IllegalCabin_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_ACREN_FOREST_STATE, 6: AcrenForest_IllegalCabin_EventScript_GruntPhyllosCutscene
+    ]
+}
+
+script AcrenForest_IllegalCabin_EventScript_GruntPhyllosCutscene {
+    applymovement(OBJ_EVENT_ID_PLAYER, AcrenForest_IllegalCabin_Movement_PlayerWalkForward)
+    waitmovement(0)
+    playse(SE_PIN)
+    applymovement(LOCALID_GRUNT1, Common_Movement_ExclamationMark)
+    delay(12)
+    playse(SE_PIN)
+    applymovement(LOCALID_GRUNT2, Common_Movement_ExclamationMark)
+    delay(12)
+    playse(SE_PIN)
+    applymovement(LOCALID_GRUNT3, Common_Movement_ExclamationMark)
+    delay(12)
+    playse(SE_PIN)
+    applymovement(LOCALID_GRUNT4, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    applymovement(LOCALID_GRUNT1, AcrenForest_IllegalCabin_Movement_Grunt1RunToPlayer)
+    delay(4)
+    applymovement(LOCALID_GRUNT2, AcrenForest_IllegalCabin_Movement_Grunt2RunToPlayer)
+    delay(4)
+    applymovement(LOCALID_GRUNT3, AcrenForest_IllegalCabin_Movement_Grunt3RunToPlayer)
+    delay(4)
+    applymovement(LOCALID_GRUNT4, AcrenForest_IllegalCabin_Movement_Grunt4RunToPlayer)
+    delay(4)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_GRUNT1)
+    msgbox("How- how did you get in here!\n"
+           "Didn't the guards stop you?!\p"
+           "Hrmph… Fine then…\n"
+           "I guess the BOSS will have to\l"
+           "get you out then.")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_GRUNT1, Common_Movement_QuestionMark)
+    delay(60)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_GRUNT1)
+    msgbox("Huh? Where's the BOSS gone?")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_GRUNT1, AcrenForest_IllegalCabin_Movement_Grunt1LookAround)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_GRUNT1)
+    msgbox("Oh no!\n"
+           "He must have left early!\p"
+           "Well then-")
+    destroy_speech_bubble
+    closemessage
+    delay(16)
+    addobject(LOCALID_PHYLLOS)
+    setobjectxy(LOCALID_PHYLLOS, 14, 8)
+    playse(SE_EXIT)
+    delay(8)
+    applymovement(LOCALID_PHYLLOS, AcrenForest_IllegalCabin_Movement_PhyllosWalkForward)
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("It looks like you've made it…\n"
+           "I'm not intruding I hope.")
+    destroy_speech_bubble
+    closemessage
+    load_speech_bubble(LOCALID_GRUNT1)
+    msgbox("It's PHYLLOS! The city's\n"
+           "TOURNAMENT MASTER!")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS, Common_Movement_FaceLeft)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("I sure am, yes…")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS, Common_Movement_FaceUp)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("Now, let's round these boys up\n"
+           "shall we?…")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS, Common_Movement_WalkInPlaceFastestLeft)
+    waitmovement(0)
+    playse(SE_BALL_THROW)
+    delay(12)
+    addobject(LOCALID_POKEBALL)
+    setobjectxy(LOCALID_POKEBALL, 13, 6)
+    delay(12)
+    playse(SE_BALL_OPEN)
+    fadescreenspeed(FADE_TO_WHITE, -1)
+    delay(12)
+    removeobject(LOCALID_POKEBALL)
+    setobjectmovementtype(LOCALID_KECLEON, MOVEMENT_TYPE_FACE_LEFT)
+    addobject(LOCALID_KECLEON)
+    setobjectxy(LOCALID_KECLEON, 13, 6)
+    fadescreenspeed(FADE_FROM_WHITE, -1)
+    playmoncry(SPECIES_KECLEON, 0)
+    waitmoncry
+    applymovement(LOCALID_KECLEON, Common_Movement_WalkFastestLeft)
+    fadescreenspeed(FADE_TO_WHITE, -4)
+    waitmovement(0)
+    playse(SE_M_RAZOR_WIND)
+    delay(16)
+    playse(SE_M_RAZOR_WIND)
+    delay(16)
+    playse(SE_M_RAZOR_WIND)
+    delay(16)
+    msgbox("Aaaaahhhh!")
+    closemessage
+    fadescreenspeed(FADE_FROM_WHITE, 1)
+    applymovement(LOCALID_GRUNT1, AcrenForest_IllegalCabin_Movement_GruntsFallBack)
+    applymovement(LOCALID_GRUNT2, AcrenForest_IllegalCabin_Movement_GruntsFallBack)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_GRUNT1)
+    msgbox("Everyone! Get out of here!\n"
+           "Get back to base quickly!")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_GRUNT1, AcrenForest_IllegalCabin_Movement_Grunt1RunOut)
+    delay(8)
+    applymovement(LOCALID_GRUNT2, AcrenForest_IllegalCabin_Movement_Grunt2RunOut)
+    delay(4)
+    applymovement(LOCALID_GRUNT3, AcrenForest_IllegalCabin_Movement_Grunt3RunOut)
+    delay(16)
+    applymovement(LOCALID_GRUNT4, AcrenForest_IllegalCabin_Movement_Grunt4RunOut)
+    waitmovement(0)
+    removeobject(LOCALID_GRUNT1)
+    removeobject(LOCALID_GRUNT2)
+    removeobject(LOCALID_GRUNT3)
+    removeobject(LOCALID_GRUNT4)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("Return, KECLEON!")
+    destroy_speech_bubble
+    closemessage
+    addobject(LOCALID_POKEBALL)
+    setobjectxy(LOCALID_POKEBALL, 13, 6)
+    delay(16)
+    playse(SE_BALL_OPEN)
+    fadescreenspeed(FADE_TO_WHITE, -1)
+    delay(4)
+    removeobject(LOCALID_KECLEON)
+    fadescreenspeed(FADE_FROM_WHITE, -1)
+    applymovement(LOCALID_PHYLLOS, AcrenForest_IllegalCabin_Movement_PhyllosPickUpPokeball)
+    delay(12)
+    removeobject(LOCALID_POKEBALL)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS)
+    msgbox("Now that we have that done,\n"
+           "I suppose you could visit and\l"
+           "challenge me in FIRWEALD CITY.\p"
+           "I'll be waiting for you.")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS, Common_Movement_WalkDown2)
+    waitmovement(0)
+    playse(SE_EXIT)
+    removeobject(LOCALID_PHYLLOS)
+    setvar(VAR_ACREN_FOREST_STATE, 7)
+    setflag(FLAG_HIDE_ACREN_FOREST_GRUNTS)
+    setflag(FLAG_HIDE_ACREN_FOREST_LOGGERS)
+    setflag(FLAG_HIDE_ACREN_FOREST_PHYLLOS)
+    clearflag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY)
+    release
+    end
+}
+
+movement AcrenForest_IllegalCabin_Movement_PlayerWalkForward {
+    walk_up * 3
+    face_left
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt1RunToPlayer {
+    walk_fast_right
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt2RunToPlayer {
+    walk_fast_right
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt3RunToPlayer {
+    walk_fast_left * 2
+    walk_fast_down
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt4RunToPlayer {
+    walk_fast_right
+    walk_fast_down
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt1LookAround {
+    face_left
+    delay_16
+    face_right
+    delay_16
+    face_left
+    delay_16
+    face_right
+    delay_16
+}
+
+movement AcrenForest_IllegalCabin_Movement_PhyllosWalkForward {
+    walk_up * 2
+}
+
+movement AcrenForest_IllegalCabin_Movement_GruntsFallBack {
+    lock_facing_direction
+    walk_in_place_fastest_right * 2
+    walk_fastest_left
+    unlock_facing_direction
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt1RunOut {
+    walk_fastest_down
+    walk_fastest_right * 4
+    walk_fastest_down
+    set_invisible
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt2RunOut {
+    walk_fastest_down * 2
+    walk_fastest_right * 4
+    walk_fastest_down
+    set_invisible
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt3RunOut {
+    walk_fastest_down
+    walk_fastest_left
+    walk_fastest_down * 2
+    walk_fastest_right * 3
+    walk_fastest_down
+    set_invisible
+}
+
+movement AcrenForest_IllegalCabin_Movement_Grunt4RunOut {
+    walk_fastest_down
+    walk_fastest_left
+    walk_fastest_down * 2
+    walk_fastest_left
+    walk_fastest_down
+    set_invisible
+}
+
+movement AcrenForest_IllegalCabin_Movement_PhyllosPickUpPokeball {
+    lock_facing_direction
+    walk_left
+    delay_8
+    walk_right
+    unlock_facing_direction
+    face_up
+}

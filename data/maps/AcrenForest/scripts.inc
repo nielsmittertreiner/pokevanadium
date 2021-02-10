@@ -280,8 +280,8 @@ AcrenForest_EventScript_WarnBoss::
 	destroy_speech_bubble
 	closemessage
 	applymovement 29, Common_Movement_WalkUp
-	playse SE_EXIT
 	waitmovement 0
+	playse SE_EXIT
 	removeobject 29
 	setobjectxyperm 29, 2, 24
 	fadedefaultbgm
@@ -554,7 +554,7 @@ AcrenForest_EventScript_WarnBoss_Text_0:
 	.string "How did you get here?!\p"
 	.string "You shouldn't be able to get here!\n"
 	.string "Didn't the GRUNTS keep you away?\p"
-	.string "Hrmph\n"
+	.string "Hrmph.\n"
 	.string "Fine then, the BOSS will make sure to\l"
 	.string "get you out! Ha ha ha ha!$"
 
