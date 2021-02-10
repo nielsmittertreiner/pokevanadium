@@ -86,7 +86,7 @@ u16 BagGetQuantityByPocketPosition(u8, u16);
 void BagDestroyPocketSwitchArrowPair(void);
 void TaskCloseBagMenu_2(u8);
 u8 AddItemMessageWindow(u8);
-void BagMenu_RemoveBagItemMessageindow(u8);
+void BagMenu_RemoveBagItemMessageWindow(u8);
 void set_callback3_to_bag(u8);
 void PrintItemDepositAmount(u8, s16);
 static u8 BagMenu_AddWindow(u8);
@@ -627,7 +627,6 @@ void CB2_Bag(void)
 
 bool8 SetupBagMenu(void)
 {
-    u32 index;
     u8 taskId;
 
     switch (gMain.state)
@@ -742,7 +741,7 @@ void BagMenu_InitBGs(void)
     ResetVramOamAndBgCntRegs();
     memset(gBagMenu->tilemapBuffer, 0, 0x800);
     ResetBgsAndClearDma3BusyFlags(0);
-    InitBgsFromTemplates(0, sBgTemplates_ItemMenu, 3);
+    InitBgsFromTemplates(0, sBgTemplates_ItemMenu, ARRAY_COUNT(sBgTemplates_ItemMenu));
     SetBgTilemapBuffer(2, gBagMenu->tilemapBuffer);
     ResetAllBgsCoordinates();
     ScheduleBgCopyTilemapToVram(2);
@@ -865,7 +864,7 @@ void GetItemName(s8 *dest, u16 itemId)
             }
             break;
         case BERRIES_POCKET:
-            ConvertIntToDecimalStringN(gStringVar1, itemId - ITEM_CHERI_BERRY + 1, STR_CONV_MODE_LEADING_ZEROS, 2);
+            ConvertIntToDecimalStringN(gStringVar1, itemId - FIRST_BERRY_INDEX + 1, STR_CONV_MODE_LEADING_ZEROS, 2);
             CopyItemName(itemId, gStringVar2);
             StringExpandPlaceholders(dest, gText_NumberVar1Clear7Var2);
             break;
@@ -1116,7 +1115,7 @@ void BagMenu_InitListsMenu(u8 taskId)
     s16* data = gTasks[taskId].data;
     u16* scrollPos = &gBagPositionStruct.scrollPosition[gBagPositionStruct.pocket];
     u16* cursorPos = &gBagPositionStruct.cursorPosition[gBagPositionStruct.pocket];
-    BagMenu_RemoveBagItemMessageindow(4);
+    BagMenu_RemoveBagItemMessageWindow(4);
     DestroyListMenuTask(data[0], scrollPos, cursorPos);
     UpdatePocketItemList(gBagPositionStruct.pocket);
     SetInitialScrollAndCursorPositions(gBagPositionStruct.pocket);
@@ -1721,7 +1720,7 @@ void ItemMenu_UseOutOfBattle(u8 taskId)
     if (ItemId_GetFieldFunc(gSpecialVar_ItemId))
     {
         BagMenu_RemoveSomeWindow();
-        if (CalculatePlayerPartyCount() == 0 && ItemId_GetType(gSpecialVar_ItemId) == 1)
+        if (CalculatePlayerPartyCount() == 0 && ItemId_GetType(gSpecialVar_ItemId) == ITEM_USE_PARTY_MENU)
             BagMenu_PrintThereIsNoPokemon(taskId);
         else
         {
@@ -1972,7 +1971,7 @@ bool8 UseRegisteredKeyItemOnField(void)
         {
             ScriptContext2_Enable();
             FreezeObjectEvents();
-            sub_808B864();
+            PlayerFreeze();
             sub_808BCF4();
             gSpecialVar_ItemId = gSaveBlock1Ptr->registeredItem;
             taskId = CreateTask(ItemId_GetFieldFunc(gSaveBlock1Ptr->registeredItem), 8);
@@ -2036,7 +2035,7 @@ void BagMenu_CancelSell(u8 taskId)
     s16* data = gTasks[taskId].data;
 
     RemoveMoneyWindow();
-    BagMenu_RemoveBagItemMessageindow(4);
+    BagMenu_RemoveBagItemMessageWindow(4);
     BagMenu_PrintCursor_(data[0], 0);
     set_callback3_to_bag(taskId);
 }
@@ -2071,7 +2070,7 @@ static void Task_SellHowManyDialogueHandleInput(u8 taskId)
         BagMenu_PrintCursor_(data[0], 0);
         RemoveMoneyWindow();
         BagMenu_RemoveWindow(8);
-        BagMenu_RemoveBagItemMessageindow(4);
+        BagMenu_RemoveBagItemMessageWindow(4);
         set_callback3_to_bag(taskId);
     }
 }
@@ -2421,7 +2420,7 @@ u8 AddItemMessageWindow(u8 which)
     return *ptr;
 }
 
-void BagMenu_RemoveBagItemMessageindow(u8 which)
+void BagMenu_RemoveBagItemMessageWindow(u8 which)
 {
     u8 *ptr = &gBagMenu->windowPointers[which];
     if (*ptr != 0xFF)
