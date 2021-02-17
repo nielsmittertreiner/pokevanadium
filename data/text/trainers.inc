@@ -4890,7 +4890,7 @@ AcrenForest_Text_GruntPostBattle:
 
 FirwealdCity_TournamentHallBattleRoom_Text_Opponent1Defeat:
 	.string "You may have bested me, but\n"
-	.string "you'll never get past PHYLLOS!.$"
+	.string "you'll never get past PHYLLOS!$"
 
 FirwealdCity_TournamentHallBattleRoom_Text_Opponent2Defeat:
 	.string "No need to be so blue…\n"
@@ -4919,3 +4919,7 @@ FirwealdCity_TournamentHallBattleRoom_Text_Opponent7Defeat:
 FirwealdCity_TournamentHallBattleRoom_Text_Opponent8Defeat:
 	.string "Well that tasted\n"
 	.string "rather foul…$"
+
+FirwealdCity_TournamentHallBattleRoom_Text_PhyllosDefeat:
+	.string "I can hear them chanting!\n"
+	.string "{PLAYER}! {PLAYER}! {PLAYER}!$"
