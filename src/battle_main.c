@@ -518,6 +518,7 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     {TRAINER_CLASS_YOUNG_COUPLE, 8},
     {TRAINER_CLASS_WINSTRATE, 10},
     {TRAINER_CLASS_TEAM_AIRLOCK, 5},
+    {TRAINER_CLASS_TOURNAMENT_MASTER, 25},
     {0xFF, 5},
 };
 
@@ -579,6 +580,7 @@ const struct TrainerBall gTrainerBallTable[] = {
     {TRAINER_CLASS_WINSTRATE, ITEM_PREMIER_BALL},
     {TRAINER_CLASS_PKMN_TRAINER_2, ITEM_ULTRA_BALL},
     {TRAINER_CLASS_TEAM_AIRLOCK, ITEM_REPEAT_BALL},
+    {TRAINER_CLASS_TOURNAMENT_MASTER, ITEM_ULTRA_BALL},
     {0xFF, ITEM_POKE_BALL},
 };
 
@@ -5005,6 +5007,9 @@ static void HandleEndTurn_BattleWon(void)
             PlayBGM(MUS_VICTORY_AQUA_MAGMA);
             break;
         case TRAINER_CLASS_LEADER:
+            PlayBGM(MUS_VICTORY_GYM_LEADER);
+            break;
+        case TRAINER_CLASS_TOURNAMENT_MASTER:
             PlayBGM(MUS_VICTORY_GYM_LEADER);
             break;
         default:

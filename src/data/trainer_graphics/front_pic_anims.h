@@ -374,6 +374,10 @@ static const union AnimCmd *const sAnims_AirlockGruntF[] ={
     sAnim_GeneralFrame0,
 };
 
+static const union AnimCmd *const sAnims_TournamentMasterPhyllos[] ={
+    sAnim_GeneralFrame0,
+};
+
 const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[] =
 {
     [TRAINER_PIC_HIKER] = sAnims_Hiker,
@@ -470,4 +474,5 @@ const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[] =
     [TRAINER_PIC_RS_BRENDAN] = sAnims_RubySapphireBrendan,
     [TRAINER_PIC_RS_MAY] = sAnims_RubySapphireMay,
     [TRAINER_PIC_AIRLOCK_GRUNT_F] = sAnims_AirlockGruntF,
+    [TRAINER_PIC_TOURNAMENT_MASTER_PHYLLOS] = sAnims_TournamentMasterPhyllos,
 };
