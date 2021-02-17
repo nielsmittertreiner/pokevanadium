@@ -37,7 +37,9 @@ mapscripts SunsetTown_PlayerHouse_1F_MapScripts {
 }
 
 script SunsetTown_PlayerHouse_1F_EventScript_Mom {
-    
+    msgbox("Have fun on your adventure\n"
+           "dear! Stay safe.")
+    end
 }
 
 movement SunsetTown_PlayerHouse_1F_Movement_PlayerWalksToMom {

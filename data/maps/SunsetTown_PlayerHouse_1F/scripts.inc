@@ -42,7 +42,8 @@ SunsetTown_PlayerHouse_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 
 
 SunsetTown_PlayerHouse_1F_EventScript_Mom::
-	return
+	msgbox SunsetTown_PlayerHouse_1F_EventScript_Mom_Text_0
+	end
 
 
 SunsetTown_PlayerHouse_1F_Movement_PlayerWalksToMom:
@@ -72,3 +73,7 @@ SunsetTown_PlayerHouse_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_1:
 	.string "I've heard DAD has something for you\n"
 	.string "Perhaps you should go check on him.\p"
 	.string "I have no idea what it is, though…$"
+
+SunsetTown_PlayerHouse_1F_EventScript_Mom_Text_0:
+	.string "Have fun on your adventure\n"
+	.string "dear! Stay safe.$"
