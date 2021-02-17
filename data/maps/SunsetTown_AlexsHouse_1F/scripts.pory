@@ -4,7 +4,7 @@ script SunsetTown_AlexsHouse_1F_EventScript_Woman {
     msgbox("Hi there {PLAYER}, you and ALEX\n"
 	       "have become quite close friends\l"
 	       "since you both were young.\p"
-	       "It's good to see you again!$", MSGBOX_NPC)
+	       "It's good to see you again!", MSGBOX_NPC)
     end
 }
 
