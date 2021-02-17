@@ -106,14 +106,14 @@ static const struct TrainerMonNoItemDefaultMoves sParty_AcrenForest_Grunt[] = {
 
 static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent1[] = {
     {
-    .iv = 0,
-    .lvl = 10,
+    .iv = 100,
+    .lvl = 14,
     .species = SPECIES_BELLSPROUT,
     .moves = {MOVE_ABSORB, MOVE_POISON_POWDER, MOVE_WRAP, MOVE_NONE}
     },
     {
-    .iv = 0,
-    .lvl = 10,
+    .iv = 100,
+    .lvl = 14,
     .species = SPECIES_ODDISH,
     .moves = {MOVE_ABSORB, MOVE_POISON_POWDER, MOVE_POUND, MOVE_NONE}
     }
@@ -121,7 +121,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBa
 
 static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent2[] = {
     {
-    .iv = 0,
+    .iv = 255,
     .lvl = 15,
     .species = SPECIES_ROSELIA,
     .moves = {MOVE_LEECH_SEED, MOVE_GRASS_WHISTLE, MOVE_MEGA_DRAIN, MOVE_INGRAIN}
@@ -130,54 +130,54 @@ static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBa
 
 static const struct TrainerMonNoItemDefaultMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent3[] = {
     {
-    .iv = 0,
-    .lvl = 13,
+    .iv = 100,
+    .lvl = 14,
     .species = SPECIES_PARAS,
     },
     {
-    .iv = 0,
-    .lvl = 13,
+    .iv = 100,
+    .lvl = 14,
     .species = SPECIES_PARAS,
     }
 };
 
 static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent4[] = {
     {
-    .iv = 0,
-    .lvl = 15,
+    .iv = 255,
+    .lvl = 16,
     .heldItem = ITEM_QUICK_CLAW,
     .species = SPECIES_TREECKO,
-    .moves = {MOVE_LEECH_SEED, MOVE_MEGA_DRAIN, MOVE_FURY_CUTTER, MOVE_QUICK_ATTACK}
+    .moves = {MOVE_LEECH_SEED, MOVE_MEGA_DRAIN, MOVE_FURY_CUTTER, MOVE_SLASH}
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent5[] = {
     {
-    .iv = 0,
-    .lvl = 9,
+    .iv = 100,
+    .lvl = 12,
     .species = SPECIES_BELLSPROUT,
     },
     {
-    .iv = 0,
-    .lvl = 9,
+    .iv = 100,
+    .lvl = 13,
     .species = SPECIES_BELLSPROUT,
     },
     {
-    .iv = 0,
-    .lvl = 9,
+    .iv = 100,
+    .lvl = 14,
     .species = SPECIES_BELLSPROUT,
     },
     {
-    .iv = 0,
-    .lvl = 9,
+    .iv = 100,
+    .lvl = 15,
     .species = SPECIES_BELLSPROUT,
     }
 };
 
 static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent6[] = {
     {
-    .iv = 0,
-    .lvl = 15,
+    .iv = 255,
+    .lvl = 16,
     .heldItem = ITEM_MIRACLE_SEED,
     .species = SPECIES_CHIKORITA,
     .moves = {MOVE_TACKLE, MOVE_RAZOR_LEAF, MOVE_POISON_POWDER, MOVE_REFLECT}
@@ -186,8 +186,8 @@ static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBatt
 
 static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent7[] = {
     {
-    .iv = 0,
-    .lvl = 15,
+    .iv = 255,
+    .lvl = 17,
     .heldItem = ITEM_MIRACLE_SEED,
     .species = SPECIES_BULBASAUR,
     .moves = {MOVE_TACKLE, MOVE_LEECH_SEED, MOVE_VINE_WHIP, MOVE_ABSORB}
@@ -196,11 +196,17 @@ static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBatt
 
 static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Opponent8[] = {
     {
-    .iv = 0,
-    .lvl = 13,
+    .iv = 255,
+    .lvl = 17,
     .species = SPECIES_EXEGGCUTE,
     .moves = {MOVE_BARRAGE, MOVE_HYPNOSIS, MOVE_UPROAR, MOVE_LEECH_SEED}
-    }
+    },
+    {
+    .iv = 255,
+    .lvl = 14,
+    .species = SPECIES_MEOWTH,
+    .moves = {MOVE_PAY_DAY, MOVE_FAKE_OUT, MOVE_FAINT_ATTACK, MOVE_SCREECH}
+    },
 };
 
 static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Phyllos[] = {
