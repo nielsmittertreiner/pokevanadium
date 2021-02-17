@@ -7,15 +7,15 @@ SSTidalCorridor_MapScripts:: @ 823BFCF
 
 SSTidalCorridor_OnFrame: @ 823BFD5
 	map_script_2 VAR_SS_TIDAL_SCOTT_STATE, 0, SSTidalCorridor_EventScript_ScottScene
-	map_script_2 FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_SLATEPORT, SSTidalCorridor_EventScript_DepartSlateportForLilycove
-	map_script_2 FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_LILYCOVE, SSTidalCorridor_EventScript_DepartLilycoveForSlateport
-	map_script_2 FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_EXIT_CURRENTS_RIGHT, SSTidalCorridor_EventScript_HalfwayToLilycove
-	map_script_2 FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_EXIT_CURRENTS_LEFT, SSTidalCorridor_EventScript_ArrivedInSlateport
+	map_script_2 VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_SLATEPORT, SSTidalCorridor_EventScript_DepartSlateportForLilycove
+	map_script_2 VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_LILYCOVE, SSTidalCorridor_EventScript_DepartLilycoveForSlateport
+	map_script_2 VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_EXIT_CURRENTS_RIGHT, SSTidalCorridor_EventScript_HalfwayToLilycove
+	map_script_2 VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_EXIT_CURRENTS_LEFT, SSTidalCorridor_EventScript_ArrivedInSlateport
 	.2byte 0
 
 SSTidalCorridor_EventScript_DepartSlateportForLilycove:: @ 823BFFF
 	special SetSSTidalFlag
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_SLATEPORT
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_SLATEPORT
 	lockall
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_FastCurrentsHopeYouEnjoyVoyage, MSGBOX_DEFAULT
@@ -23,7 +23,7 @@ SSTidalCorridor_EventScript_DepartSlateportForLilycove:: @ 823BFFF
 	end
 
 SSTidalCorridor_EventScript_DepartLilycoveForSlateport:: @ 823C015
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_LILYCOVE
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_LILYCOVE
 	lockall
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_HopeYouEnjoyVoyage, MSGBOX_DEFAULT
@@ -32,28 +32,28 @@ SSTidalCorridor_EventScript_DepartLilycoveForSlateport:: @ 823C015
 
 SSTidalRooms_EventScript_HalfwayToSlateport:: @ 823C028
 	special SetSSTidalFlag
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_SLATEPORT
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_SLATEPORT
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_FastCurrentsHopeYouEnjoyVoyage, MSGBOX_DEFAULT
 	return
 
 SSTidalRooms_EventScript_ArrivedInLilycove:: @ 823C03C
 	special ResetSSTidalFlag
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_LILYCOVE
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_LILYCOVE
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_MadeLandInLilycove, MSGBOX_DEFAULT
 	return
 
 SSTidalCorridor_EventScript_ReachedStepCount:: @ 823C050
-	compare FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_SLATEPORT
+	compare VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_SLATEPORT
 	goto_if_eq SSTidalCorridor_EventScript_HalfwayToLilycove
-	compare FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_SLATEPORT
+	compare VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_SLATEPORT
 	goto_if_eq SSTidalCorridor_EventScript_ArrivedInSlateport
 	end
 
 SSTidalCorridor_EventScript_HalfwayToLilycove:: @ 823C067
 	special ResetSSTidalFlag
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_LILYCOVE
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_LILYCOVE
 	lockall
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_HopeYouEnjoyVoyage, MSGBOX_DEFAULT
@@ -62,7 +62,7 @@ SSTidalCorridor_EventScript_HalfwayToLilycove:: @ 823C067
 
 SSTidalCorridor_EventScript_ArrivedInSlateport:: @ 823C07D
 	special ResetSSTidalFlag
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_SLATEPORT
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_SLATEPORT
 	lockall
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_MadeLandInSlateport, MSGBOX_DEFAULT
@@ -71,13 +71,13 @@ SSTidalCorridor_EventScript_ArrivedInSlateport:: @ 823C07D
 
 SSTidalRooms_EventScript_ArrivedInSlateport:: @ 823C093
 	special ResetSSTidalFlag
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_SLATEPORT
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_SLATEPORT
 	playse SE_DING_DONG
 	msgbox SSTidal_Text_MadeLandInSlateport, MSGBOX_DEFAULT
 	return
 
 SSTidalRooms_EventScript_ProgessCruiseAfterBed:: @ 823C0A7
-	switch FLAG_HIDE_TOURNAMENT_HALL_OPPONENT
+	switch VAR_TOURNAMENT_HALL_OPPONENT
 	case SS_TIDAL_DEPART_SLATEPORT, SSTidalRooms_EventScript_ArrivedInLilycove
 	case SS_TIDAL_HALFWAY_LILYCOVE, SSTidalRooms_EventScript_ArrivedInLilycove
 	case SS_TIDAL_DEPART_LILYCOVE, SSTidalRooms_EventScript_HalfwayToSlateport
@@ -117,9 +117,9 @@ SSTidalCorridor_EventScript_Cabin4Sign:: @ 823C110
 SSTidalCorridor_EventScript_ExitSailor:: @ 823C119
 	lock
 	faceplayer
-	compare FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_LILYCOVE
+	compare VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_LILYCOVE
 	goto_if_eq SSTidalCorridor_EventScript_ExitLilycove
-	compare FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_SLATEPORT
+	compare VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_LAND_SLATEPORT
 	goto_if_eq SSTidalCorridor_EventScript_ExitSlateport
 	msgbox SSTidalCorridor_Text_CanRestInCabin2, MSGBOX_DEFAULT
 	release
@@ -149,9 +149,9 @@ SSTidalCorridor_EventScript_HideSnatchGiver:: @ 823C179
 
 SSTidalCorridor_EventScript_Porthole:: @ 823C17D
 	lockall
-	compare FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_SLATEPORT
+	compare VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_DEPART_SLATEPORT
 	goto_if_eq SSTidalCorridor_EventScript_LookThroughPorthole
-	compare FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_SLATEPORT
+	compare VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_HALFWAY_SLATEPORT
 	goto_if_eq SSTidalCorridor_EventScript_LookThroughPorthole
 	msgbox SSTidalCorridor_Text_HorizonSpreadsBeyondPorthole, MSGBOX_DEFAULT
 	releaseall

@@ -74,7 +74,9 @@ script FirwealdCity_TournamentHallLobby_EventScript_Attendant {
                    "After each battle, your party is healed\n"
                    "and you will face your next opponent.\p"
                    "Have fun battling and in all our\n"
-                   "TOURNAMENT HALLS.", MSGBOX_NPC)
+                   "TOURNAMENT HALLS.\p"
+                   "You can challenge a TOURNAMENTS in\n"
+                   "any order you'd like.", MSGBOX_NPC)
             goto(FirwealdCity_TournamentHallLobby_EventScript_Attendant)
             break
         case 2: // EXIT
@@ -110,12 +112,12 @@ script FirwealdCity_TournamentHallLobby_EventScript_JoinTournament {
     applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallLobby_Movement_WalkToDoor)
     waitmovement(0)
     opendoor(6, 1)
+    playse(SE_SLIDING_DOOR)
     waitdooranim
     applymovement(LOCALID_ATTENDANT, FirwealdCity_TournamentHallLobby_Movement_AttendantWalkInDoor)
     applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallLobby_Movement_PlayerWalkInDoor)
     waitmovement(0)
     closedoor(6, 1)
-    playse(SE_SLIDING_DOOR)
     waitdooranim
     setvar(VAR_TOURNAMENT_HALL_ROUND, 0)
     warpsilent(MAP_FIRWEALD_CITY_TOURNAMENT_HALL_PRE_BATTLE_ROOM, 0xFF, 3, 8)

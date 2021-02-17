@@ -1,6 +1,5 @@
 const LOCALID_ATTENDANT = 1
 const LOCALID_MARTEMPLOYEE = 2
-const LOCALID_NURSE = 3
 
 mapscripts FirwealdCity_TournamentHallPreBattleRoom_MapScripts {
     MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
@@ -20,6 +19,7 @@ script FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects {
         setobjectxy(LOCALID_ATTENDANT, 3, 2)
         setobjectmovementtype(LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN)
     }
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
 }
 
 script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_EnterRoom {
@@ -27,11 +27,11 @@ script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_EnterRoom {
     applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallPreBattleRoom_Movement_PlayerWalkToDoor)
     waitmovement(0)
     setvar(VAR_TOURNAMENT_HALL_ROUND, 1)
-    setvar(VAR_TEMP_1, 1)
     goto(FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer)
 }
 
 script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer {
+    setvar(VAR_TEMP_1, 1)
     if (var(VAR_TOURNAMENT_HALL_ROUND) == 1) {
         load_speech_bubble(LOCALID_ATTENDANT)
         msgbox(format("In this room, you are able to prepare yourself for your upcoming battles. \pIf you wish to continue to the next round, or to retreat from the challenge, just talk to me."))
@@ -59,8 +59,12 @@ script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound {
                    "is about to begin.")
             break
         case 3:
-            msgbox("Your third round of the TOURNAMENT\n"
-                   "is about to begin.")
+            msgbox("The semifinals of the TOURNAMENT\n"
+                   "are about to begin.")
+            break
+        case 4:
+            msgbox("The finals of the TOURNAMENT\n"
+                   "are about to begin.")
             break
     }
     destroy_speech_bubble
@@ -86,6 +90,10 @@ script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant {
                            "second battle?", MSGBOX_YESNO)
                     break
                 case 3:
+                    msgbox("Are you ready for the\n"
+                           "semifinale?", MSGBOX_YESNO)
+                    break
+                case 4:
                     playse(SE_PIN)
                     applymovement(LOCALID_ATTENDANT, Common_Movement_ExclamationMark)
                     waitmovement(0)
@@ -144,22 +152,17 @@ script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant {
     end
 }
 
-script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse {
-    lock
-    faceplayer
-    load_speech_bubble(LOCALID_NURSE)
-    msgbox("Do you want me to heal\n"
-           "your POKéMON?", MSGBOX_YESNO)
-    if (var(VAR_RESULT) == YES) {
-        destroy_speech_bubble
-        closemessage
-        call(Common_EventScript_OutOfCenterPartyHeal)
-    }
-    destroy_speech_bubble
-    closemessage
-    msgbox("Good luck on your\n"
-           "TOURNAMENT CHALLENGE!", MSGBOX_NPC)
-    release
+script FirwealdCity_TournamentHallPreBattleRoom_EventScripts_BulletinBoard {
+    msgbox("CONTESTANTS:\n"
+           "MITOCHON: Newcoming CAMPER.\l"
+           "DAISY: One with flowers.\l"
+           "SINEAD: Avid BUG CATCHER.\l"
+           "WALTER: Prodigy from HOENN!\l"
+           "JAXON: GRASS-type collector.\l"
+           "ARIANA: Lass from JOHTO!\l"
+           "OLIVE: Youngster from KANTO!\l"
+           "GORDON: Bought his way in.\l"
+           "{PLAYER}: Newcoming challenger!", MSGBOX_SIGN)
     end
 }
 

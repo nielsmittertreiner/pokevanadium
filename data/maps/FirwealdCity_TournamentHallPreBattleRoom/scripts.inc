@@ -15,15 +15,17 @@ FirwealdCity_TournamentHallPreBattleRoom_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects::
 	compare VAR_TOURNAMENT_HALL_ROUND, 0
-	goto_if_eq FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects_1
+	goto_if_eq FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects_2
 	setobjectxy 1, 3, 2
 	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_DOWN
+FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects_1:
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
 	return
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects_1:
+FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects_2:
 	setobjectxy 1, 3, 7
 	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_UP
-	return
+	goto FirwealdCity_TournamentHallPreBattleRoom_EventScript_SetUpObjects_1
 
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_EnterRoom::
@@ -31,12 +33,12 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_EnterRoom::
 	applymovement OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallPreBattleRoom_Movement_PlayerWalkToDoor
 	waitmovement 0
 	setvar VAR_TOURNAMENT_HALL_ROUND, 1
-	setvar VAR_TEMP_1, 1
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer
 	return
 
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer::
+	setvar VAR_TEMP_1, 1
 	compare VAR_TOURNAMENT_HALL_ROUND, 1
 	goto_if_eq FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer_2
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer_1:
@@ -62,6 +64,7 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound::
 	case 1, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_3
 	case 2, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_4
 	case 3, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_5
+	case 4, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_6
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_1:
 	destroy_speech_bubble
 	closemessage
@@ -77,6 +80,10 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_4:
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_5:
 	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_Text_2
+	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_1
+
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_6:
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_Text_3
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_1
 
 
@@ -99,17 +106,18 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_3:
 	case 1, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_8
 	case 2, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_9
 	case 3, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_10
+	case 4, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_11
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_6:
 	switch VAR_RESULT
-	case YES, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_15
-	case NO, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_16
+	case YES, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_16
+	case NO, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_17
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_1
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_4:
-	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_4, MSGBOX_YESNO
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_5, MSGBOX_YESNO
 	switch VAR_RESULT
-	case YES, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_12
-	case NO, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_13
+	case YES, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_13
+	case NO, FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_14
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_1
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_5:
@@ -127,26 +135,30 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_9:
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_6
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_10:
-	playse SE_PIN
-	applymovement 1, Common_Movement_ExclamationMark
-	waitmovement 0
 	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_2, MSGBOX_YESNO
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_6
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_12:
-	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_5
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_11:
+	playse SE_PIN
+	applymovement 1, Common_Movement_ExclamationMark
+	waitmovement 0
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_3, MSGBOX_YESNO
+	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_6
+
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_13:
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_6
 	destroy_speech_bubble
 	warp MAP_FIRWEALD_CITY_TOURNAMENT_HALL_LOBBY, 0xFF, 6, 6
 	waitstate
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_1
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_13:
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_14:
 	destroy_speech_bubble
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_1
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_15:
-	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_3
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_16:
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_4
 	destroy_speech_bubble
 	closemessage
 	applymovement 1, FirwealdCity_TournamentHallPreBattleRoom_Movement_AttendantWalkAwayFromDoor
@@ -164,32 +176,16 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_15:
 	waitstate
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_1
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_16:
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_17:
 	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_InformPlayer_Text_1
 	destroy_speech_bubble
 	closemessage
 	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_1
 
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse::
-	lock
-	faceplayer
-	load_speech_bubble 3
-	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_Text_0, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_2
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_1:
-	destroy_speech_bubble
-	closemessage
-	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_Text_1, MSGBOX_NPC
-	release
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_BulletinBoard::
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_BulletinBoard_Text_0, MSGBOX_SIGN
 	end
-
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_2:
-	destroy_speech_bubble
-	closemessage
-	call Common_EventScript_OutOfCenterPartyHeal
-	goto FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_1
 
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee::
@@ -200,7 +196,7 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee::
 	waitmessage
 	pokemart FirwealdCity_TournamentHallPreBattleRoom_Pokemart
 	destroy_speech_bubble
-	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_Text_1, MSGBOX_NPC
+	msgbox FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee_Text_1, MSGBOX_NPC
 	release
 	end
 
@@ -260,8 +256,12 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_Text_1:
 	.string "is about to begin.$"
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_Text_2:
-	.string "Your third round of the TOURNAMENT\n"
-	.string "is about to begin.$"
+	.string "The semifinals of the TOURNAMENT\n"
+	.string "are about to begin.$"
+
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_ComingRound_Text_3:
+	.string "The finals of the TOURNAMENT\n"
+	.string "are about to begin.$"
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_0:
 	.string "Are you ready for your\n"
@@ -272,34 +272,46 @@ FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_1:
 	.string "second battle?$"
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_2:
+	.string "Are you ready for the\n"
+	.string "semifinale?$"
+
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_3:
 	.string "It seems you've made it to\n"
 	.string "the FINALE!\p"
 	.string "Are you ready for your\n"
 	.string "last battle?$"
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_3:
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_4:
 	.string "I wish you good luck\n"
 	.string "on your battle!$"
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_4:
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_5:
 	.string "Do you wish to retire from\n"
 	.string "the TOURNAMENT CHALLENGE?$"
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_5:
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Attendant_Text_6:
 	.string "Please follow me back to\n"
 	.string "the LOBBY.$"
 
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_Text_0:
-	.string "Do you want me to heal\n"
-	.string "your POKéMON?$"
-
-FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse_Text_1:
-	.string "Good luck on your\n"
-	.string "TOURNAMENT CHALLENGE!$"
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_BulletinBoard_Text_0:
+	.string "CONTESTANTS:\n"
+	.string "MITOCHON: Newcoming CAMPER.\l"
+	.string "DAISY: One with flowers.\l"
+	.string "SINEAD: Avid BUG CATCHER.\l"
+	.string "WALTER: Prodigy from HOENN!\l"
+	.string "JAXON: GRASS-type collector.\l"
+	.string "ARIANA: Lass from JOHTO!\l"
+	.string "OLIVE: Youngster from KANTO!\l"
+	.string "GORDON: Bought his way in.\l"
+	.string "{PLAYER}: Newcoming challenger!$"
 
 FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee_Text_0:
 	.string "Welcome to the TOURNAMENT SHOP.\n"
 	.string "How can I help you?$"
+
+FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee_Text_1:
+	.string "Good luck on your\n"
+	.string "TOURNAMENT CHALLENGE!$"
 
 FirwealdCity_TournamentHallLobby_Text_WhatWouldYouLikeToDo::
 	.string "What would you like to do?$"

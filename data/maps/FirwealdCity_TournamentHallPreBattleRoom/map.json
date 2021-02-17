@@ -2,7 +2,7 @@
   "id": "MAP_FIRWEALD_CITY_TOURNAMENT_HALL_PRE_BATTLE_ROOM",
   "name": "FirwealdCity_TournamentHallPreBattleRoom",
   "layout": "LAYOUT_FIRWEALD_CITY_TOURNAMENT_HALL_PRE_BATTLE_ROOM",
-  "music": "MUS_ABANDONED_SHIP",
+  "music": "MUS_B_TOWER",
   "region_map_section": "MAPSEC_FIRWEALD_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -39,19 +39,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "FirwealdCity_TournamentHallPreBattleRoom_EventScripts_MartEmployee",
       "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_NURSE",
-      "x": 6,
-      "y": 3,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "FirwealdCity_TournamentHallPreBattleRoom_EventScripts_Nurse",
-      "flag": "0"
     }
   ],
   "warp_events": [
@@ -61,6 +48,21 @@
 
   ],
   "bg_events": [
-
+    {
+      "type": "sign",
+      "x": 5,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "FirwealdCity_TournamentHallPreBattleRoom_EventScripts_BulletinBoard"
+    },
+    {
+      "type": "sign",
+      "x": 6,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "FirwealdCity_TournamentHallPreBattleRoom_EventScripts_BulletinBoard"
+    }
   ]
 }

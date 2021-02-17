@@ -94,7 +94,7 @@ LilycoveCity_Harbor_EventScript_GoToSlateport:: @ 821E149
 	msgbox LilycoveCity_Harbor_Text_SlateportItIs, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_LILYCOVE
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_LILYCOVE
 	call LilycoveCity_Harbor_EventScript_BoardFerry
 	warp MAP_SS_TIDAL_CORRIDOR, 255, 1, 10
 	waitstate
@@ -397,7 +397,7 @@ LilycoveCity_Harbor_EventScript_GoToSlateportUnused:: @ 821E575
 	msgbox LilycoveCity_Harbor_Text_SlateportItIs, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar FLAG_HIDE_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_LILYCOVE
+	setvar VAR_TOURNAMENT_HALL_OPPONENT, SS_TIDAL_BOARD_LILYCOVE
 	call LilycoveCity_Harbor_EventScript_BoardFerry
 	warp MAP_SS_TIDAL_CORRIDOR, 255, 1, 10
 	waitstate

@@ -92,12 +92,12 @@ FirwealdCity_TournamentHallLobby_EventScript_JoinTournament_1:
 	applymovement OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallLobby_Movement_WalkToDoor
 	waitmovement 0
 	opendoor 6, 1
+	playse SE_SLIDING_DOOR
 	waitdooranim
 	applymovement 1, FirwealdCity_TournamentHallLobby_Movement_AttendantWalkInDoor
 	applymovement OBJ_EVENT_ID_PLAYER, FirwealdCity_TournamentHallLobby_Movement_PlayerWalkInDoor
 	waitmovement 0
 	closedoor 6, 1
-	playse SE_SLIDING_DOOR
 	waitdooranim
 	setvar VAR_TOURNAMENT_HALL_ROUND, 0
 	warpsilent MAP_FIRWEALD_CITY_TOURNAMENT_HALL_PRE_BATTLE_ROOM, 0xFF, 3, 8
@@ -192,7 +192,9 @@ FirwealdCity_TournamentHallLobby_EventScript_Attendant_Text_0:
 	.string "After each battle, your party is healed\n"
 	.string "and you will face your next opponent.\p"
 	.string "Have fun battling and in all our\n"
-	.string "TOURNAMENT HALLS.$"
+	.string "TOURNAMENT HALLS.\p"
+	.string "You can challenge a TOURNAMENTS in\n"
+	.string "any order you'd like.$"
 
 FirwealdCity_TournamentHallLobby_EventScript_CancelTournament_Text_0:
 	.string "We hope to see you again!$"
