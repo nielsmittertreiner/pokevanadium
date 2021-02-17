@@ -55,11 +55,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_AcrenForest_Marisha[] = 
     }
 };
 
-static const struct TrainerMonNoItemCustomMoves sParty_AcrenForest_Lada[] = {
+static const struct TrainerMonItemCustomMoves sParty_AcrenForest_Lada[] = {
     {
     .iv = 0,
     .lvl = 12,
     .species = SPECIES_SKITTY,
+    .heldItem = ITEM_SILK_SCARF,
     .moves = {MOVE_TACKLE, MOVE_COVET, MOVE_SING, MOVE_ATTRACT}
     }
 };
@@ -202,17 +203,28 @@ static const struct TrainerMonNoItemCustomMoves sParty_FirwealdCity_TournamentBa
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst1[] = {
+static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBattleRoom_Phyllos[] = {
     {
-    .iv = 0,
-    .lvl = 27,
-    .species = SPECIES_ZUBAT,
+    .iv = 255,
+    .lvl = 17,
+    .species = SPECIES_PARAS,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_SLASH, MOVE_AROMATHERAPY, MOVE_STUN_SPORE, MOVE_FURY_CUTTER}
     },
     {
-    .iv = 0,
-    .lvl = 27,
-    .species = SPECIES_POOCHYENA,
-    }
+    .iv = 255,
+    .lvl = 17,
+    .species = SPECIES_BELLSPROUT,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_ACID, MOVE_WRAP, MOVE_SPORE, MOVE_SUNNY_DAY}
+    },
+    {
+    .iv = 255,
+    .lvl = 19,
+    .species = SPECIES_LOMBRE,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_FAKE_OUT, MOVE_RAIN_DANCE, MOVE_GIGA_DRAIN, MOVE_BUBBLE_BEAM}
+    },
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst2[] = {

@@ -71,7 +71,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_ACREN_FOREST_LADA] =
     {
-        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
+        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM,
         .trainerClass = TRAINER_CLASS_LASS,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_LASS,
@@ -80,7 +80,7 @@ const struct Trainer gTrainers[] = {
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
         .partySize = ARRAY_COUNT(sParty_AcrenForest_Lada),
-        .party = {.NoItemCustomMoves = sParty_AcrenForest_Lada},
+        .party = {.ItemCustomMoves = sParty_AcrenForest_Lada},
     },
 
     [TRAINER_ROUTE_402_TWINS_MIMI_AND_MOMO] =
@@ -127,7 +127,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_OPPONENT_1] =
     {
-        .partyFlags = 0,
+        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = TRAINER_CLASS_CAMPER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_CAMPER,
@@ -141,7 +141,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_OPPONENT_2] =
     {
-        .partyFlags = 0,
+        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = TRAINER_CLASS_AROMA_LADY,
         .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_AROMA_LADY,
@@ -169,7 +169,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_OPPONENT_4] =
     {
-        .partyFlags = 0,
+        .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = TRAINER_CLASS_COOLTRAINER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_COOL,
         .trainerPic = TRAINER_PIC_COOLTRAINER_M,
@@ -197,7 +197,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_OPPONENT_6] =
     {
-        .partyFlags = 0,
+        .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = TRAINER_CLASS_PICNICKER,
         .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
         .trainerPic = TRAINER_PIC_PICNICKER,
@@ -211,7 +211,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_OPPONENT_7] =
     {
-        .partyFlags = 0,
+        .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = TRAINER_CLASS_COOLTRAINER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_COOL,
         .trainerPic = TRAINER_PIC_COOLTRAINER_M,
@@ -225,7 +225,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_OPPONENT_8] =
     {
-        .partyFlags = 0,
+        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
         .trainerClass = TRAINER_CLASS_RICH_BOY,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_RICH,
         .trainerPic = TRAINER_PIC_RICH_BOY,
@@ -239,16 +239,16 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_FIRWEALD_CITY_TOURNAMENT_PHYLLOS] =
     {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_CUSTOM_MOVESET,
+        .trainerClass = TRAINER_CLASS_TOURNAMENT_MASTER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
-        .trainerName = _("GRUNT"),
-        .items = {},
+        .trainerPic = TRAINER_PIC_TOURNAMENT_MASTER_PHYLLOS,
+        .trainerName = _("PHYLLOS"),
+        .items = {ITEM_POTION, ITEM_POTION, ITEM_NONE, ITEM_NONE},
         .doubleBattle = FALSE,
-        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .partySize = ARRAY_COUNT(sParty_GruntWeatherInst1),
-        .party = {.NoItemDefaultMoves = sParty_GruntWeatherInst1},
+        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
+        .partySize = ARRAY_COUNT(sParty_FirwealdCity_TournamentBattleRoom_Phyllos),
+        .party = {.ItemCustomMoves = sParty_FirwealdCity_TournamentBattleRoom_Phyllos},
     },
 
     [TRAINER_GRUNT_WEATHER_INST_2] =
