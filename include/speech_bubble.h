@@ -6,7 +6,7 @@
 #define IMAGE_HEIGHT 64
 #define TEXTBOX_LEFT_X 70
 #define TEXTBOX_RIGHT_X 170 
-#define TEXTBOX_Y 117
+#define TEXTBOX_Y 116
 
 struct Tail
 {
