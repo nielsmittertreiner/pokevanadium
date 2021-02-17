@@ -144,7 +144,7 @@
       "y": 7,
       "elevation": 0,
       "dest_map": "MAP_FIRWEALD_CITY_POKEMON_CENTER_1F",
-      "dest_warp_id": 1
+      "dest_warp_id": 0
     },
     {
       "x": 5,
@@ -158,21 +158,21 @@
       "y": 16,
       "elevation": 0,
       "dest_map": "MAP_FIRWEALD_CITY_HOUSE1",
-      "dest_warp_id": 1
+      "dest_warp_id": 0
     },
     {
       "x": 26,
       "y": 24,
       "elevation": 0,
       "dest_map": "MAP_FIRWEALD_CITY_DUPLEX",
-      "dest_warp_id": 1
+      "dest_warp_id": 0
     },
     {
       "x": 29,
       "y": 24,
       "elevation": 0,
       "dest_map": "MAP_FIRWEALD_CITY_DUPLEX",
-      "dest_warp_id": 3
+      "dest_warp_id": 1
     },
     {
       "x": 37,
@@ -195,7 +195,7 @@
       "x": 47,
       "y": 19,
       "elevation": 0,
-      "var": "VAR_FIRWEALD_CITY_STATE",
+      "var": "VAR_TEMP_0",
       "var_value": "0",
       "script": "FirwealdCity_EventScript_BlockPath"
     },

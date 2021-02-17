@@ -14,7 +14,7 @@ mapscripts FirwealdCity_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         setrespawn(HEAL_LOCATION_FIRWEALD_CITY)
         setflag(FLAG_VISITED_FIRWEALD_CITY)
-        if (var(VAR_FIRWEALD_CITY_STATE) == 0)
+        if (var(VAR_ACREN_FOREST_STATE) < 7)
         {
             setobjectxyperm(LOCALID_MANIAC, 47, 18)
             setobjectmovementtype(LOCALID_MANIAC, MOVEMENT_TYPE_FACE_UP)
@@ -86,7 +86,7 @@ script FirwealdCity_EventScript_PhyllosEncounter {
 }
 
 script FirwealdCity_EventScript_Maniac {
-    if (var(VAR_FIRWEALD_CITY_STATE) == 0) {
+    if (var(VAR_ACREN_FOREST_STATE) < 7) {
         msgbox("Don't bother me please.\n"
 	           "Something is happening in this tree,\l"
 	           "and I want to know what.", MSGBOX_NPC)
@@ -98,29 +98,34 @@ script FirwealdCity_EventScript_Maniac {
 }
 
 script FirwealdCity_EventScript_BlockPath {
-    lock
-    playse(SE_PIN)
-    applymovement(LOCALID_MANIAC, Common_Movement_ExclamationMark)
-    waitmovement(0)
-    applymovement(LOCALID_MANIAC, FirwealdCity_Movement_WalkInFrontOfPlayer)
-    waitmovement(0)
-    load_speech_bubble(LOCALID_MANIAC)
-    msgbox("Hmmmm…\n"
-	       "That glint in your eyes…\p"
-	       "I'm sure you have some business\n"
-	       "to do here in FIRWEALD CITY.\p"
-	       "Fufufu… Fufufu…\p"
-	       "Go do your thing while I inspect this\n"
-	       "tree right here.")
-    destroy_speech_bubble
-    closemessage
-    applymovement(LOCALID_MANIAC FirwealdCity_Movement_PushBackPlayer)
-    applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack)
-    waitmovement(0)
-    applymovement(LOCALID_MANIAC, Common_Movement_WalkUp)
-    waitmovement(0)
-    release
-    end
+    if (var(VAR_ACREN_FOREST_STATE) >= 7) {
+        release
+        end
+    } else {
+        lock
+        playse(SE_PIN)
+        applymovement(LOCALID_MANIAC, Common_Movement_ExclamationMark)
+        waitmovement(0)
+        applymovement(LOCALID_MANIAC, FirwealdCity_Movement_WalkInFrontOfPlayer)
+        waitmovement(0)
+        load_speech_bubble(LOCALID_MANIAC)
+        msgbox("Hmmmm…\n"
+	           "That glint in your eyes…\p"
+	           "I'm sure you have some business\n"
+	           "to do here in FIRWEALD CITY.\p"
+	           "Fufufu… Fufufu…\p"
+	           "Go do your thing while I inspect this\n"
+	           "tree right here.")
+        destroy_speech_bubble
+        closemessage
+        applymovement(LOCALID_MANIAC FirwealdCity_Movement_PushBackPlayer)
+        applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_WalkBack)
+        waitmovement(0)
+        applymovement(LOCALID_MANIAC, Common_Movement_WalkUp)
+        waitmovement(0)
+        release
+        end
+    }
 }
 
 script FirwealdCity_EventScript_Fisherman {

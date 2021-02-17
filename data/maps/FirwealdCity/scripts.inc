@@ -14,8 +14,8 @@ FirwealdCity_MapScripts_MAP_SCRIPT_ON_LOAD_1:
 FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	setrespawn HEAL_LOCATION_FIRWEALD_CITY
 	setflag FLAG_VISITED_FIRWEALD_CITY
-	compare VAR_FIRWEALD_CITY_STATE, 0
-	goto_if_eq FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	compare VAR_ACREN_FOREST_STATE, 7
+	goto_if_lt FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	return
 
 FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
@@ -72,8 +72,8 @@ FirwealdCity_EventScript_PhyllosEncounter::
 
 
 FirwealdCity_EventScript_Maniac::
-	compare VAR_FIRWEALD_CITY_STATE, 0
-	goto_if_eq FirwealdCity_EventScript_Maniac_1
+	compare VAR_ACREN_FOREST_STATE, 7
+	goto_if_lt FirwealdCity_EventScript_Maniac_1
 	msgbox FirwealdCity_EventScript_Maniac_Text_1, MSGBOX_NPC
 	return
 
@@ -83,6 +83,8 @@ FirwealdCity_EventScript_Maniac_1:
 
 
 FirwealdCity_EventScript_BlockPath::
+	compare VAR_ACREN_FOREST_STATE, 7
+	goto_if_ge FirwealdCity_EventScript_BlockPath_1
 	lock
 	playse SE_PIN
 	applymovement 6, Common_Movement_ExclamationMark
@@ -98,6 +100,10 @@ FirwealdCity_EventScript_BlockPath::
 	waitmovement 0
 	applymovement 6, Common_Movement_WalkUp
 	waitmovement 0
+	release
+	end
+
+FirwealdCity_EventScript_BlockPath_1:
 	release
 	end
 
