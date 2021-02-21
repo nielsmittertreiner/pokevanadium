@@ -42,7 +42,7 @@ SunsetTown_PlayerHouse_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 
 
 SunsetTown_PlayerHouse_1F_EventScript_Mom::
-	msgbox SunsetTown_PlayerHouse_1F_EventScript_Mom_Text_0
+	msgbox SunsetTown_PlayerHouse_1F_EventScript_Mom_Text_0, MSGBOX_NPC
 	end
 
 
