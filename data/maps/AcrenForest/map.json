@@ -2,7 +2,7 @@
   "id": "MAP_ACREN_FOREST",
   "name": "AcrenForest",
   "layout": "LAYOUT_ACREN_FOREST",
-  "music": "MUS_PETALBURG_WOODS",
+  "music": "MUS_ACREN_FOREST",
   "region_map_section": "MAPSEC_ACREN_FOREST",
   "requires_flash": false,
   "weather": "WEATHER_SHADE",
