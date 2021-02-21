@@ -9,49 +9,39 @@ mapscripts SunsetTown_MapScripts {
             setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 1)
         }
     }
-    MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_SUNSET_TOWN_STATE, 2 {
-            lock
-            setobjectmovementtype(LOCALID_CONIFER, MOVEMENT_TYPE_FACE_DOWN)
-            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp)
-            applymovement(LOCALID_CONIFER, Common_Movement_WalkInPlaceFastestDown)
-            waitmovement(0)
-            load_speech_bubble(LOCALID_CONIFER)
-            msgbox("I'll let you take the lead.\n"
-	               "You're well of age to be responsible!\p"
-	               "To CEDARRED TOWN we go!")
-            destroy_speech_bubble
-            loadword(0, SunsetTown_EventScript_FollowerScript)
-            setfollower(LOCALID_CONIFER, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT)
-            setflag(FLAG_DISABLE_ENCOUNTERS)
-	        setflag(FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER)
-	        setvar(VAR_SUNSET_TOWN_STATE, 3)
-	        setvar(VAR_CEDARRED_TOWN_STATE, 0)
-	        setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 1)
-            end
-        }
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_SUNSET_TOWN_STATE, 2: SunsetTown_EventScript_SetUpObjects
     ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_SUNSET_TOWN_STATE, 2: SunsetTown_EventScript_TakeTheLead
+    ]
+}
+
+script SunsetTown_EventScript_SetUpObjects {
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
 }
 
 script SunsetTown_EventScript_FollowerScript {
     lock
     facefollower
+    load_speech_bubble(OBJ_EVENT_ID_FOLLOWER)
     switch (var(VAR_SUNSET_TOWN_FOLLOWER_STATE))
     {
         case 1:
             msgbox("We need to get to CEDARRED TOWN\n"
 	               "as soon as possible!\p"
 	               "What if things got out of\n"
-	               "hand already?" MSGBOX_NPC)
+	               "hand already?")
         case 2:
             msgbox("We can't be hanging at ROUTE 401\n"
 	               "for too long now…\p"
-	               "Let's keep going!", MSGBOX_NPC)
+	               "Let's keep going!")
         case 3:
             msgbox("Alright, this is CEDARRED TOWN…\n"
 	               "Let's find the LOGGERS CABIN.\p"
-	               "It should be at the far EAST of town." MSGBOX_NPC)
+	               "It should be at the far EAST of town.")
     }
+    destroy_speech_bubble
     closemessage
     release
     end
@@ -102,17 +92,17 @@ script SunsetTown_EventScript_ProfessorConifer {
     switch (var(VAR_FACING))
     {
         case DIR_NORTH:
-            applymovement(LOCALID_CONIFER, ConiferWalkIntoDoor)
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_ConiferWalkIntoDoor)
             applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingNorth)
             waitmovement(0)
             break
         case DIR_WEST:
-            applymovement(LOCALID_CONIFER, ConiferWalkIntoDoor)
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_ConiferWalkIntoDoor)
             applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingWest)
             waitmovement(0)
             break
         case DIR_EAST:
-            applymovement(LOCALID_CONIFER, ConiferWalkIntoDoor)
+            applymovement(LOCALID_CONIFER, SunsetTown_Movement_ConiferWalkIntoDoor)
             applymovement(OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingEast)
             waitmovement(0)
             break 
@@ -131,7 +121,9 @@ script SunsetTown_EventScript_BlockPlayer {
     applymovement(LOCALID_CONIFER, Common_Movement_FaceDown)
     applymovement(LOCALID_CONIFER, Common_Movement_ExclamationMark)
     load_speech_bubble(LOCALID_CONIFER)
-    msgbox("Oh hey there {PLAYER}.", MSGBOX_NPC)
+    msgbox("Oh hey there {PLAYER}.")
+    destroy_speech_bubble
+    closemessage
     waitmovement(0)
     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
     switch (var(VAR_TEMP_1))
@@ -155,12 +147,36 @@ script SunsetTown_EventScript_BlockPlayer {
     load_speech_bubble(LOCALID_CONIFER)
     msgbox("Come in quickly, something\n"
 	       "happened not too far away\l"
-	       "from here and I need your help.", MSGBOX_NPC)
-    warp(MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 1, 12, 9)
+	       "from here and I need your help.")
+    destroy_speech_bubble
+    closemessage
+    warp(MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 0, 12, 9)
     waitstate
 }
 
-movement ConiferWalkIntoDoor {
+script SunsetTown_EventScript_TakeTheLead {
+    lock
+    setobjectmovementtype(LOCALID_CONIFER, MOVEMENT_TYPE_FACE_DOWN)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp)
+    applymovement(LOCALID_CONIFER, Common_Movement_WalkInPlaceFastestDown)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_CONIFER)
+    msgbox("I'll let you take the lead.\n"
+	       "You're well of age to be responsible!\p"
+	       "To CEDARRED TOWN we go!")
+    destroy_speech_bubble
+    closemessage
+    loadword(0, SunsetTown_EventScript_FollowerScript)
+    setfollower(LOCALID_CONIFER, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT)
+    setflag(FLAG_DISABLE_ENCOUNTERS)
+	setflag(FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER)
+	setvar(VAR_SUNSET_TOWN_STATE, 3)
+	setvar(VAR_CEDARRED_TOWN_STATE, 0)
+	setvar(VAR_SUNSET_TOWN_FOLLOWER_STATE, 1)
+    end
+}
+
+movement SunsetTown_Movement_ConiferWalkIntoDoor {
     walk_up
     set_invisible
 }

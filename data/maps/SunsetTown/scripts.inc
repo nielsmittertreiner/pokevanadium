@@ -1,5 +1,6 @@
 SunsetTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SunsetTown_MapScripts_MAP_SCRIPT_ON_TRANSITION
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, SunsetTown_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
@@ -14,37 +15,30 @@ SunsetTown_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE, 1
 	return
 
-SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_SUNSET_TOWN_STATE, 2, SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
+SunsetTown_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
+	map_script_2 VAR_SUNSET_TOWN_STATE, 2, SunsetTown_EventScript_SetUpObjects
 	.2byte 0
 
-SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
-	lock
-	setobjectmovementtype 3, MOVEMENT_TYPE_FACE_DOWN
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp
-	applymovement 3, Common_Movement_WalkInPlaceFastestDown
-	waitmovement 0
-	load_speech_bubble 3
-	msgbox SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_0
-	destroy_speech_bubble
-	loadword 0, SunsetTown_EventScript_FollowerScript
-	setfollower 3, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT
-	setflag FLAG_DISABLE_ENCOUNTERS
-	setflag FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER
-	setvar VAR_SUNSET_TOWN_STATE, 3
-	setvar VAR_CEDARRED_TOWN_STATE, 0
-	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE, 1
-	end
+SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_SUNSET_TOWN_STATE, 2, SunsetTown_EventScript_TakeTheLead
+	.2byte 0
+
+
+SunsetTown_EventScript_SetUpObjects::
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
+	return
 
 
 SunsetTown_EventScript_FollowerScript::
 	lock
 	facefollower
+	load_speech_bubble OBJ_EVENT_ID_FOLLOWER
 	switch VAR_SUNSET_TOWN_FOLLOWER_STATE
 	case 1, SunsetTown_EventScript_FollowerScript_3
 	case 2, SunsetTown_EventScript_FollowerScript_4
 	case 3, SunsetTown_EventScript_FollowerScript_5
 SunsetTown_EventScript_FollowerScript_1:
+	destroy_speech_bubble
 	closemessage
 	release
 	end
@@ -54,7 +48,7 @@ SunsetTown_EventScript_FollowerScript_3:
 	goto SunsetTown_EventScript_FollowerScript_1
 
 SunsetTown_EventScript_FollowerScript_4:
-	msgbox SunsetTown_EventScript_FollowerScript_Text_1, MSGBOX_NPC
+	msgbox SunsetTown_EventScript_FollowerScript_Text_1
 	goto SunsetTown_EventScript_FollowerScript_1
 
 SunsetTown_EventScript_FollowerScript_5:
@@ -111,19 +105,19 @@ SunsetTown_EventScript_ProfessorConifer_1:
 	end
 
 SunsetTown_EventScript_ProfessorConifer_3:
-	applymovement 3, ConiferWalkIntoDoor
+	applymovement 3, SunsetTown_Movement_ConiferWalkIntoDoor
 	applymovement OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingNorth
 	waitmovement 0
 	goto SunsetTown_EventScript_ProfessorConifer_1
 
 SunsetTown_EventScript_ProfessorConifer_4:
-	applymovement 3, ConiferWalkIntoDoor
+	applymovement 3, SunsetTown_Movement_ConiferWalkIntoDoor
 	applymovement OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingWest
 	waitmovement 0
 	goto SunsetTown_EventScript_ProfessorConifer_1
 
 SunsetTown_EventScript_ProfessorConifer_5:
-	applymovement 3, ConiferWalkIntoDoor
+	applymovement 3, SunsetTown_Movement_ConiferWalkIntoDoor
 	applymovement OBJ_EVENT_ID_PLAYER, SunsetTown_Movement_FollowProfessorFacingEast
 	waitmovement 0
 	goto SunsetTown_EventScript_ProfessorConifer_1
@@ -136,7 +130,9 @@ SunsetTown_EventScript_BlockPlayer::
 	applymovement 3, Common_Movement_FaceDown
 	applymovement 3, Common_Movement_ExclamationMark
 	load_speech_bubble 3
-	msgbox SunsetTown_EventScript_BlockPlayer_Text_0, MSGBOX_NPC
+	msgbox SunsetTown_EventScript_BlockPlayer_Text_0
+	destroy_speech_bubble
+	closemessage
 	waitmovement 0
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	switch VAR_TEMP_1
@@ -149,8 +145,10 @@ SunsetTown_EventScript_BlockPlayer_1:
 	applymovement 3, SunsetTown_Movement_WalkToPlayerX
 	waitmovement 0
 	load_speech_bubble 3
-	msgbox SunsetTown_EventScript_BlockPlayer_Text_1, MSGBOX_NPC
-	warp MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 1, 12, 9
+	msgbox SunsetTown_EventScript_BlockPlayer_Text_1
+	destroy_speech_bubble
+	closemessage
+	warp MAP_SUNSET_TOWN_PROFESSOR_CONIFER_LAB, 0, 12, 9
 	waitstate
 	return
 
@@ -175,7 +173,27 @@ SunsetTown_EventScript_BlockPlayer_6:
 	goto SunsetTown_EventScript_BlockPlayer_1
 
 
-ConiferWalkIntoDoor:
+SunsetTown_EventScript_TakeTheLead::
+	lock
+	setobjectmovementtype 3, MOVEMENT_TYPE_FACE_DOWN
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp
+	applymovement 3, Common_Movement_WalkInPlaceFastestDown
+	waitmovement 0
+	load_speech_bubble 3
+	msgbox SunsetTown_EventScript_TakeTheLead_Text_0
+	destroy_speech_bubble
+	closemessage
+	loadword 0, SunsetTown_EventScript_FollowerScript
+	setfollower 3, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT
+	setflag FLAG_DISABLE_ENCOUNTERS
+	setflag FLAG_HIDE_SUNSET_TOWN_LAB_PROF_CONIFER
+	setvar VAR_SUNSET_TOWN_STATE, 3
+	setvar VAR_CEDARRED_TOWN_STATE, 0
+	setvar VAR_SUNSET_TOWN_FOLLOWER_STATE, 1
+	end
+
+
+SunsetTown_Movement_ConiferWalkIntoDoor:
 	walk_up
 	set_invisible
 	step_end
@@ -224,11 +242,6 @@ SunsetTown_Movement_WalkToPlayerX:
 	walk_right
 	walk_right
 	step_end
-
-SunsetTown_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_0:
-	.string "I'll let you take the lead.\n"
-	.string "You're well of age to be responsible!\p"
-	.string "To CEDARRED TOWN we go!$"
 
 SunsetTown_EventScript_FollowerScript_Text_0:
 	.string "We need to get to CEDARRED TOWN\n"
@@ -285,3 +298,8 @@ SunsetTown_EventScript_BlockPlayer_Text_1:
 	.string "Come in quickly, something\n"
 	.string "happened not too far away\l"
 	.string "from here and I need your help.$"
+
+SunsetTown_EventScript_TakeTheLead_Text_0:
+	.string "I'll let you take the lead.\n"
+	.string "You're well of age to be responsible!\p"
+	.string "To CEDARRED TOWN we go!$"
