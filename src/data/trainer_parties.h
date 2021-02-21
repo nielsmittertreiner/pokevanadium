@@ -233,42 +233,39 @@ static const struct TrainerMonItemCustomMoves sParty_FirwealdCity_TournamentBatt
     },
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst2[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_Route403_Timmy[] = {
     {
     .iv = 0,
-    .lvl = 27,
-    .species = SPECIES_POOCHYENA,
-    },
-    {
-    .iv = 0,
-    .lvl = 27,
-    .species = SPECIES_CARVANHA,
+    .lvl = 17,
+    .species = SPECIES_CLEFAIRY,
+    .moves = {MOVE_MINIMIZE, MOVE_SING, MOVE_ENCORE, MOVE_METRONOME}
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst3[] = {
+static const struct TrainerMonItemCustomMoves sParty_Route403_Anna[] = {
     {
     .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_POOCHYENA,
-    },
-    {
-    .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_ZUBAT,
-    },
-    {
-    .iv = 0,
-    .lvl = 26,
-    .species = SPECIES_CARVANHA,
+    .lvl = 17,
+    .heldItem = ITEM_SILK_SCARF,
+    .species = SPECIES_JIGGLYPUFF,
+    .moves = {MOVE_SING, MOVE_ROLLOUT, MOVE_DISABLE, MOVE_UPROAR}
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntMuseum1[] = {
+static const struct TrainerMonItemCustomMoves sParty_Route403_Warren[] = {
     {
     .iv = 0,
-    .lvl = 15,
-    .species = SPECIES_CARVANHA,
+    .lvl = 17,
+    .heldItem = ITEM_ORAN_BERRY,
+    .species = SPECIES_MEOWTH,
+    .moves = {MOVE_PAY_DAY, MOVE_BITE, MOVE_SLASH, MOVE_TAUNT}
+    },
+    {
+    .iv = 0,
+    .lvl = 16,
+    .heldItem = ITEM_QUICK_CLAW,
+    .species = SPECIES_RATTATA,
+    .moves = {MOVE_CRUNCH, MOVE_FOCUS_ENERGY, MOVE_HYPER_FANG, MOVE_PURSUIT}
     }
 };
 

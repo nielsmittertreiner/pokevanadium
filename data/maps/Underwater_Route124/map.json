@@ -34,7 +34,7 @@
       "y": 51,
       "elevation": 0,
       "item": "ITEM_CARBOS",
-      "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_124_CARBOS"
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE_403_SUPER_POTION"
     },
     {
       "type": "hidden_item",
@@ -42,7 +42,7 @@
       "y": 40,
       "elevation": 0,
       "item": "ITEM_GREEN_SHARD",
-      "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_124_GREEN_SHARD"
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE_403_GREAT_BALL"
     },
     {
       "type": "hidden_item",

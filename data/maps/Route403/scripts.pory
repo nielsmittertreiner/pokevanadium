@@ -1,0 +1,111 @@
+const LOCALID_BUGCATCHER = 4
+const LOCALID_ZIGZAGOON = 5
+
+mapscripts Route403_MapScripts {}
+
+script Route403_EventScript_Timmy {
+    trainerbattle_single(TRAINER_ROUTE403_TIMMY, Route403_Text_TimmyIntro, Route403_Text_TimmyDefeat)
+    msgbox(Route403_Text_TimmyPostBattle, MSGBOX_NPC)
+    end
+}
+
+script Route403_EventScript_Anna {
+    trainerbattle_single(TRAINER_ROUTE403_ANNA, Route403_Text_AnnaIntro, Route403_Text_AnnaDefeat)
+    msgbox(Route403_Text_AnnaPostBattle, MSGBOX_NPC)
+    end
+}
+
+script Route403_EventScript_Warren {
+    trainerbattle_single(TRAINER_ROUTE403_WARREN, Route403_Text_WarrenIntro, Route403_Text_WarrenDefeat)
+    msgbox(Route403_Text_WarrenPostBattle, MSGBOX_NPC)
+    end
+}
+
+script Route403_EventScript_BugCatcher {
+    lock
+    msgbox("I'm training my ZIGZAGOON\n"
+           "so we can challenge PHYLLOS\l"
+           "one day!", MSGBOX_NPC)
+    applymovement(LOCALID_BUGCATCHER, Route403_Movement_YoungsterJumpInPlace)
+    applymovement(LOCALID_ZIGZAGOON, Route403_Movement_ZigzagoonJumpInPlace)
+    delay(8)
+    playmoncry(SPECIES_ZIGZAGOON, 0)
+    waitmovement(0)
+    release
+    end
+}
+
+script Route403_EventScript_Zigzagoon {
+    lock
+    faceplayer
+    playmoncry(SPECIES_ZIGZAGOON, 0)
+    waitmoncry
+    applymovement(LOCALID_ZIGZAGOON, Common_Movement_FaceRight)
+    waitmovement(0)
+    release
+    end
+}
+
+script Route403_EventScript_TrainerTipsSign {
+    msgbox("TRAINER TIPS\p"
+           "Always make sure you have enough\n"
+           "POKéBALLS in your bag!\p"
+           "You never know what you'll run into.", MSGBOX_SIGN)
+    end
+}
+
+movement Route403_Movement_YoungsterJumpInPlace {
+    face_left
+    jump_in_place_left * 3
+}
+
+movement Route403_Movement_ZigzagoonJumpInPlace {
+    jump_in_place_right * 3
+}
+
+text Route403_Text_TimmyIntro {
+    "My CLEFAIRY wields the power\n"
+    "of the stars!"
+}
+
+text Route403_Text_TimmyPostBattle {
+    "Now where did I keep that MOON STONE…?"
+}
+
+text Route403_Text_TimmyDefeat {
+    "Guess sometimes you should\n"
+    "get your head out of the stars\l"
+    "and come down to earth…"
+}
+
+text Route403_Text_AnnaIntro {
+    "Sleep tight and don't let the\n"
+    "bed bugs bite!"
+}
+
+text Route403_Text_AnnaDefeat {
+    "hwwwaahhhh.... Nooo JIGGLYPUFF don't\n"
+    "put ME to sleep!"
+}
+
+text Route403_Text_AnnaPostBattle {
+    "Maybe I should get into\n"
+    "CONTESTS instead…"
+}
+
+text Route403_Text_WarrenIntro {
+    "You'll regret coming round\n"
+    "here soon enough!\p"
+    "Go RATTATA!\n"
+    "Bite where it stings!"
+}
+
+text Route403_Text_WarrenDefeat {
+    "The only place that stings now\n"
+    "is my heart…\p"
+    "Fight me again when we're stronger!"
+}
+
+text Route403_Text_WarrenPostBattle {
+    "Fight me again when we're stronger!"
+}

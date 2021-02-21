@@ -4700,6 +4700,16 @@
       "secondary_tileset": "gTileset_BattleTent",
       "border_filepath": "data/layouts/FirwealdCity_TournamentHallPreBattleRoom/border.bin",
       "blockdata_filepath": "data/layouts/FirwealdCity_TournamentHallPreBattleRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE403",
+      "name": "Route403_Layout",
+      "width": 36,
+      "height": 28,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Route403/border.bin",
+      "blockdata_filepath": "data/layouts/Route403/map.bin"
     }
   ]
 }

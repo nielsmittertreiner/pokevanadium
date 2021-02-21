@@ -251,46 +251,46 @@ const struct Trainer gTrainers[] = {
         .party = {.ItemCustomMoves = sParty_FirwealdCity_TournamentBattleRoom_Phyllos},
     },
 
-    [TRAINER_GRUNT_WEATHER_INST_2] =
+    [TRAINER_ROUTE403_TIMMY] =
     {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
-        .trainerName = _("GRUNT"),
+        .partyFlags = F_TRAINER_PARTY_CUSTOM_MOVESET,
+        .trainerClass = TRAINER_CLASS_SCHOOL_KID,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_PIC_SCHOOL_KID_M,
+        .trainerName = _("TIMMY"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .partySize = ARRAY_COUNT(sParty_GruntWeatherInst2),
-        .party = {.NoItemDefaultMoves = sParty_GruntWeatherInst2},
+        .partySize = ARRAY_COUNT(sParty_Route403_Timmy),
+        .party = {.NoItemCustomMoves = sParty_Route403_Timmy},
     },
 
-    [TRAINER_GRUNT_WEATHER_INST_3] =
+    [TRAINER_ROUTE403_ANNA] =
     {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
-        .trainerName = _("GRUNT"),
+        .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_CUSTOM_MOVESET,
+        .trainerClass = TRAINER_CLASS_SCHOOL_KID,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_GIRL,
+        .trainerPic = TRAINER_PIC_SCHOOL_KID_F,
+        .trainerName = _("ANNA"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .partySize = ARRAY_COUNT(sParty_GruntWeatherInst3),
-        .party = {.NoItemDefaultMoves = sParty_GruntWeatherInst3},
+        .partySize = ARRAY_COUNT(sParty_Route403_Anna),
+        .party = {.ItemCustomMoves = sParty_Route403_Anna},
     },
 
-    [TRAINER_GRUNT_MUSEUM_1] =
+    [TRAINER_ROUTE403_WARREN] =
     {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
-        .trainerName = _("GRUNT"),
+        .partyFlags = F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_CUSTOM_MOVESET,
+        .trainerClass = TRAINER_CLASS_YOUNGSTER,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_PIC_YOUNGSTER,
+        .trainerName = _("WARREN"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .partySize = ARRAY_COUNT(sParty_GruntMuseum1),
-        .party = {.NoItemDefaultMoves = sParty_GruntMuseum1},
+        .partySize = ARRAY_COUNT(sParty_Route403_Warren),
+        .party = {.ItemCustomMoves = sParty_Route403_Warren},
     },
 
     [TRAINER_GRUNT_MUSEUM_2] =

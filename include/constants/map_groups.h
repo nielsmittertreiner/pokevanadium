@@ -64,8 +64,9 @@
 #define MAP_FIRWEALD_CITY       (59 | (0 << 8))
 #define MAP_ROUTE401            (60 | (0 << 8))
 #define MAP_ROUTE402            (61 | (0 << 8))
-#define MAP_ACREN_FOREST        (62 | (0 << 8))
-#define MAP_FOREST_TUNNEL       (63 | (0 << 8))
+#define MAP_ROUTE403            (62 | (0 << 8))
+#define MAP_ACREN_FOREST        (63 | (0 << 8))
+#define MAP_FOREST_TUNNEL       (64 | (0 << 8))
 
 // Map Group 1
 #define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (1 << 8))
