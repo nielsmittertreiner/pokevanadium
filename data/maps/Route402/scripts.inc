@@ -66,8 +66,8 @@ Route402_EventScript_Boy_Text_0:
 	.string "Achoo!$"
 
 Route402_EventScript_Triathlete_Text_0:
-	.string "Every day I run along this small lake.\n"
-	.string "The fresh air helps me run for longer!$"
+	.string "Every day I train at this small lake.\n"
+	.string "The fresh air helps me breathe easier!$"
 
 Route402_EventScript_Fisherman1_Text_0:
 	.string "I don't get a bite often with my OLD ROD…$"

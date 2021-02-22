@@ -17,8 +17,8 @@ script Route402_EventScript_Boy {
 }
 
 script Route402_EventScript_Triathlete {
-    msgbox("Every day I run along this small lake.\n"
-           "The fresh air helps me run for longer!", MSGBOX_NPC)
+    msgbox("Every day I train at this small lake.\n"
+           "The fresh air helps me breathe easier!", MSGBOX_NPC)
     end
 }
 
