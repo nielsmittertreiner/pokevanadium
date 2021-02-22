@@ -9,6 +9,7 @@
 #include "main.h"
 #include "map_name_popup.h"
 #include "menu.h"
+#include "pokemon.h"
 #include "region_map.h"
 #include "save_location.h"
 #include "script.h"
@@ -17,6 +18,7 @@
 #include "strings.h"
 #include "task.h"
 #include "constants/songs.h"
+#include "constants/items.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
 
@@ -38,6 +40,7 @@ static void DebugAction_Cancel(u8);
 static void DebugAction_HealParty(u8);
 static void DebugAction_GiveRareCandy(u8);
 static void DebugAction_ResetMapFlags(u8);
+static void DebugAction_PrepareTrades(u8);
 static void DebugAction_ToggleTrainers(u8);
 static void DebugAction_ToggleEncounters(u8);
 static void DebugAction_TogglePokedex(u8);
@@ -53,6 +56,7 @@ enum {
     DEBUG_MENU_ITEM_HEAL_PARTY,
     DEBUG_MENU_ITEM_GIVE_RARE_CANDY,
     DEBUG_MENU_ITEM_RESET_MAP_FLAGS,
+    DEBUG_MENU_ITEM_PREPARE_TRADES,
 };
 
 enum {
@@ -69,6 +73,7 @@ static const u8 gDebugText_Cancel[] = _("CANCEL");
 static const u8 gDebugText_HealParty[] = _("HEAL PARTY");
 static const u8 gDebugText_GiveRareCandy[] = _("GIVE RARE CANDY");
 static const u8 gDebugText_ResetAllMapFlags[] = _("RESET MAP FLAGS");
+static const u8 gDebugText_PrepareTrades[] = _("PREPARE TRADES");
 
 static const u8 gDebugText_Toggles_Trainers[] = _("TRAINERS");
 static const u8 gDebugText_Toggles_Encounters[] = _("ENCOUNTERS");
@@ -76,6 +81,7 @@ static const u8 gDebugText_Toggles_Pokedex[] = _("POKEDEX");
 static const u8 gDebugText_Toggles_Badges[] = _("BADGES");
 
 extern const u8 EventScript_ResetAllMapFlags[];
+extern const u8 Debug_EventScript_PrepareTrades[];
 
 static const struct ListMenuItem sDebugMenuItems_Main[] =
 {
@@ -89,6 +95,7 @@ static const struct ListMenuItem sDebugMenuItems_Utility[] =
     [DEBUG_MENU_ITEM_HEAL_PARTY] = {gDebugText_HealParty, DEBUG_MENU_ITEM_HEAL_PARTY},
     [DEBUG_MENU_ITEM_GIVE_RARE_CANDY] = {gDebugText_GiveRareCandy, DEBUG_MENU_ITEM_GIVE_RARE_CANDY},
     [DEBUG_MENU_ITEM_RESET_MAP_FLAGS] = {gDebugText_ResetAllMapFlags, DEBUG_MENU_ITEM_RESET_MAP_FLAGS},
+    [DEBUG_MENU_ITEM_PREPARE_TRADES] = {gDebugText_PrepareTrades, DEBUG_MENU_ITEM_PREPARE_TRADES},
 };
 
 static const struct ListMenuItem sDebugMenuItems_Toggles[] = 
@@ -111,6 +118,7 @@ static void (*const sDebugMenuActions_Utility[])(u8) =
     [DEBUG_MENU_ITEM_HEAL_PARTY] = DebugAction_HealParty,
     [DEBUG_MENU_ITEM_GIVE_RARE_CANDY] = DebugAction_GiveRareCandy,
     [DEBUG_MENU_ITEM_RESET_MAP_FLAGS] = DebugAction_ResetMapFlags,
+    [DEBUG_MENU_ITEM_PREPARE_TRADES] = DebugAction_PrepareTrades,
 };
 
 static void (*const sDebugMenuActions_Toggles[])(u8) =
@@ -388,6 +396,13 @@ static void DebugAction_ResetMapFlags(u8 taskId)
 {
     ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
     PlaySE(SE_USE_ITEM);
+}
+
+static void DebugAction_PrepareTrades(u8 taskId)
+{
+    Debug_DestroyMenu(taskId);
+    ScriptContext1_SetupScript(Debug_EventScript_PrepareTrades);
+    ScriptGiveMon(SPECIES_KECLEON, 20, ITEM_NONE, 0, 0, 0);
 }
 
 static void DebugAction_ToggleTrainers(u8 taskId)
