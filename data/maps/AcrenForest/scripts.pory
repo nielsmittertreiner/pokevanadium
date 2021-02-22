@@ -10,115 +10,121 @@ const LOCALID_LOGGER_4 = 20
 const LOCALID_PHYLLOS = 30
 
 mapscripts AcrenForest_MapScripts {
-    MAP_SCRIPT_ON_TRANSITION {
-        switch (var(VAR_ACREN_FOREST_STATE)) {
-            case 2:
-                setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
-	            setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
-	            setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
-	            setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
-	            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-	            setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
-	            setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
-                break
-            case 3:
-                setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
-	            setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
-	            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-	            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-                break
-            case 4:
-                setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	            setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-                setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-                setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-                break
-            case 5:
-                setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	            setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-                setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-                setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-                break
-            case 6:
-                setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	            setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-                setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	            setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-                setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-                break
-        }
-    }
-    MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_ACREN_FOREST_STATE, 0 {
-            lock
-            getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-            if (var(VAR_TEMP_0) == 29) {
-                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
-                waitmovement(0)
-            } elif (var(VAR_TEMP_0) > 29) {
-                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
-                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
-                applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
-                waitmovement(0)
-            }
-            load_speech_bubble(LOCALID_LOGGER_1)
-            msgbox("Hello there {PLAYER}!\p"
-	               "I heard from the boss we need to deal\n"
-	               "with those TEAM AIRLOCK GRUNTS\l"
-	               "back there…")
-            destroy_speech_bubble
-            closemessage
-            special(SpawnCameraObject)
-            applymovement(OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToGrunts)
-            waitmovement(0)
-            msgbox("Look, those are the GRUNTS we're\n"
-	               "talking about…")
-            closemessage
-            applymovement(OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToPlayer)
-            waitmovement(0)
-            special(RemoveCameraObject)
-            load_speech_bubble(LOCALID_LOGGER_1)
-            msgbox("I just need to check if you're\n"
-	               "official POKéMON TRAINER.\p"
-	               "May I see your POKéDEX please?")
-            destroy_speech_bubble
-            closemessage
-            msgbox("… … … … … … … … …\n"
-	               "… … … … … … … … …")
-            closemessage
-            load_speech_bubble(LOCALID_LOGGER_1)
-            msgbox("Hmmm…\n"
-	               "You don't seem to have a POKéDEX\l"
-	               "at all…\p"
-	               "You need to have a POKéDEX if you're\n"
-	               "an official POKéMON TRAINER.\p"
-	               "Go speak to the PROFESSOR about this.\p"
-	               "We'll handle it from here.")
-            destroy_speech_bubble
-            closemessage
-            setvar(VAR_ACREN_FOREST_STATE, 1)
-            release
-            end
-        }
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_TEMP_0, 0: AcrenForest_EventScript_SetUpObjects
     ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_ACREN_FOREST_STATE, 0: AcrenForest_EventScript_LoggersCutscene
+    ]
+}
+
+script AcrenForest_EventScript_SetUpObjects {
+    switch (var(VAR_ACREN_FOREST_STATE)) {
+        case 2:
+            setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+	        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+	        setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
+	        setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
+	        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+	        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+            break
+        case 3:
+            setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+	        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+	        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+	        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+            break
+        case 4:
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+            break
+        case 5:
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+            break
+        case 6:
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+            break
+    }
+}
+
+script AcrenForest_EventScript_LoggersCutscene {
+    lock
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    if (var(VAR_TEMP_0) == 29) {
+        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        waitmovement(0)
+    } elif (var(VAR_TEMP_0) > 29) {
+        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+        applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+        waitmovement(0)
+    }
+    load_speech_bubble(LOCALID_LOGGER_1)
+    msgbox("Hello there {PLAYER}!\p"
+           "I heard from the boss we need to deal\n"
+           "with those TEAM AIRLOCK GRUNTS\l"
+           "back there…")
+    destroy_speech_bubble
+    closemessage
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToGrunts)
+    waitmovement(0)
+    msgbox("Look, those are the GRUNTS we're\n"
+           "talking about…")
+    closemessage
+    applymovement(OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToPlayer)
+    waitmovement(0)
+    special(RemoveCameraObject)
+    load_speech_bubble(LOCALID_LOGGER_1)
+    msgbox("I just need to check if you're\n"
+           "official POKéMON TRAINER.\p"
+           "May I see your POKéDEX please?")
+    destroy_speech_bubble
+    closemessage
+    msgbox("… … … … … … … … …\n"
+           "… … … … … … … … …")
+    closemessage
+    load_speech_bubble(LOCALID_LOGGER_1)
+    msgbox("Hmmm…\n"
+           "You don't seem to have a POKéDEX\l"
+           "at all…\p"
+           "You need to have a POKéDEX if you're\n"
+           "an official POKéMON TRAINER.\p"
+           "Go speak to the PROFESSOR about this.\p"
+           "We'll handle it from here.")
+    destroy_speech_bubble
+    closemessage
+    setvar(VAR_ACREN_FOREST_STATE, 1)
+    release
+    end
 }
 
 script AcrenForest_EventScript_Logger1 {
