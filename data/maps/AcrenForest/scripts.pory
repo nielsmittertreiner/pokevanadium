@@ -1,3 +1,4 @@
+const LOCALID_BOY = 8
 const LOCALID_TEAMAIRLOCKGRUNT_1 = 9
 const LOCALID_TEAMAIRLOCKGRUNT_2 = 10
 const LOCALID_TEAMAIRLOCKGRUNT_GUARD = 29
@@ -8,6 +9,7 @@ const LOCALID_LOGGER_3 = 19
 const LOCALID_LOGGER_4 = 20
 
 const LOCALID_PHYLLOS = 30
+const LOCALID_PHYLLOS_2 = 31
 
 mapscripts AcrenForest_MapScripts {
     MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
@@ -15,64 +17,170 @@ mapscripts AcrenForest_MapScripts {
     ]
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_ACREN_FOREST_STATE, 0: AcrenForest_EventScript_LoggersCutscene
+        VAR_FIRWEALD_CITY_STATE, 1: AcrenForest_EventScript_PhyllosShrineCutscene
     ]
 }
 
 script AcrenForest_EventScript_SetUpObjects {
-    switch (var(VAR_ACREN_FOREST_STATE)) {
-        case 2:
-            setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
-	        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
-	        setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
-	        setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
-	        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-	        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
-	        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
-            break
-        case 3:
-            setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
-	        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
-	        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-	        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-            break
-        case 4:
-            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-            break
-        case 5:
-            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-            break
-        case 6:
-            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-            break
+    if (var(VAR_ACREN_FOREST_STATE) == 2) {
+        setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+        setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
+        setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
+        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+    } elif (var(VAR_ACREN_FOREST_STATE) == 3) {
+        setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+	    setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+	    setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+	    setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+    } elif (var(VAR_ACREN_FOREST_STATE) == 4) {
+        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+    } elif (var(VAR_ACREN_FOREST_STATE) == 4) {
+        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+    } elif (var(VAR_ACREN_FOREST_STATE) == 5) {
+        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+    } elif (var(VAR_ACREN_FOREST_STATE) == 5) {
+        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
     }
+}
+
+script AcrenForest_EventScript_PhyllosShrineCutscene {
+    playse(SE_PIN)
+    applymovement(LOCALID_PHYLLOS_2, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS_2)
+    msgbox("Hello {PLAYER}.\n"
+           "I have something important to\l"
+           "tell you.\p"
+           "Follow me if you will.")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS_2, AcrenForest_Movement_PhyllosWalkToShrine)
+    applymovement(OBJ_EVENT_ID_PLAYER, AcrenForest_Movement_PlayerWalkToShrine)
+    waitmovement(0)
+    delay(30)
+    load_speech_bubble(LOCALID_PHYLLOS_2)
+    msgbox("As you may or may not know\n"
+           "EURUS is divided in districts.\p"
+           "These districts each have a\n"
+           "dedicated shrine keeper.\p"
+           "Usually the shrine keepers are\n"
+           "important people.\p"
+           "Often Majors, TOURNAMENT MASTERS,\n"
+           "or both.\p"
+           "Basically, every shrine is meant\n"
+           "to honor a certain LEGENDARY\l"
+           "POKéMON.\p"
+           "As long as we worship these\n"
+           "POKéMON, they will remain docile.\p"
+           "As long as they stay docile, our\n"
+           "world will be in balance.\p"
+           "I am the shrine keeper of\n"
+           "FIRWEALD CITY and its area.")
+    destroy_speech_bubble
+    closemessage
+    delay(10)
+    setweather(WEATHER_SUNNY)
+    doweather
+    applymovement(LOCALID_PHYLLOS_2, Common_Movement_FaceUp)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS_2)
+    msgbox("This shrine you see here is\n"
+           "home to the LEGENDARY\l"
+           "POKéMON CELEBI.\p"
+           "Also known as the\n"
+           "GUARDIAN of the FOREST.")
+    destroy_speech_bubble
+    closemessage
+    resetweather
+    doweather
+    delay(10)
+    applymovement(LOCALID_PHYLLOS_2, Common_Movement_FaceLeft)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS_2)
+    msgbox("Anyways, I would like to\n"
+           "ask you for a favor…\p"
+           "Seeing as we had that run in\n"
+           "those strange men in the FOREST\l"
+           "the other day.\p"
+           "I was wondering if you could\n"
+           "check in with my colleague at\l"
+           "the shrine to KYOGRE.\p"
+           "I am worried a storm might be\n"
+           "brewing…\p"
+           "I cannot thank you enough, you\n"
+           "are clearly a skilled TRAINER.\p"
+           "And I'm not the one to take\n"
+           "this journey on at my age…\p"
+           "Har har har!")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS_2, Common_Movement_WalkInPlaceFastestLeft)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_PHYLLOS_2)
+    msgbox("Here, take this.")
+    destroy_speech_bubble
+    closemessage
+    giveitem(ITEM_BRIGHT_POWDER, 1)
+    load_speech_bubble(LOCALID_PHYLLOS_2)
+    msgbox("If you need me, I'll be at\n"
+           "the TOURNAMENT HALL.\p"
+           "Thank you once again, our battle\n"
+           "really sparked joy!")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_PHYLLOS_2, AcrenForest_Movement_PhyllosWalkFromShrine_1)
+    delay(32)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_SOUTH)
+    applymovement(LOCALID_PHYLLOS_2, AcrenForest_Movement_PhyllosWalkFromShrine_2)
+    delay(32)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_WEST)
+    applymovement(LOCALID_PHYLLOS_2, AcrenForest_Movement_PhyllosWalkFromShrine_3)
+    delay(32)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    waitmovement(0)
+    removeobject(LOCALID_PHYLLOS_2)
+    setvar(VAR_FIRWEALD_CITY_STATE, 2)
+    end
 }
 
 script AcrenForest_EventScript_LoggersCutscene {
@@ -319,6 +427,26 @@ script AcrenForest_EventScript_TrainerTipsHeldItems {
     end
 }
 
+script AcrenForest_EventScript_Boy {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_BOY)
+    msgbox("Did you know that jogging\n"
+           "burn 446 calories an hour?", MSGBOX_YESNO)
+    destroy_speech_bubble
+    switch (var(VAR_RESULT)) {
+        case YES:
+            msgbox("Oh did you now?", MSGBOX_NPC)
+            break
+        case NO:
+            msgbox("Well you look like you could\n"
+                   "use some excercise yourself!", MSGBOX_NPC)
+            break
+    }
+    release
+    end
+}
+
 script AcrenForest_EventScript_FlowerShopSign {
     msgbox("ELDER BERRY's GREENERY SHOP", MSGBOX_SIGN)
     end
@@ -425,4 +553,56 @@ movement AcrenForest_Movement_Logger4WalkRight {
 
 movement AcrenForest_Movement_PhyllosLaughterJump {
     jump_in_place_down
+}
+
+movement AcrenForest_Movement_PhyllosWalkToShrine {
+    walk_down
+    walk_left
+    walk_down * 3
+    walk_right
+    walk_down * 3
+    walk_right
+    walk_down
+    walk_right
+    walk_down * 5
+    walk_right * 4
+    walk_down * 6
+    walk_left
+    walk_down * 4
+    walk_right * 2
+    face_left
+}
+
+movement AcrenForest_Movement_PlayerWalkToShrine {
+    walk_down * 2
+    walk_left
+    walk_down * 3
+    walk_right
+    walk_down * 3
+    walk_right
+    walk_down
+    walk_right
+    walk_down * 5
+    walk_right * 4
+    walk_down * 6
+    walk_left
+    walk_down * 4
+    walk_right * 1
+    face_right
+}
+
+movement AcrenForest_Movement_PhyllosWalkFromShrine_1 {
+    walk_down
+    walk_left
+}
+
+movement AcrenForest_Movement_PhyllosWalkFromShrine_2 {
+    walk_left
+    walk_up
+}
+
+movement AcrenForest_Movement_PhyllosWalkFromShrine_3 {
+    walk_up * 3
+    walk_right
+    walk_up * 4
 }

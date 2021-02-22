@@ -1,18 +1,34 @@
 AcrenForest_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, AcrenForest_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION:
-	switch VAR_ACREN_FOREST_STATE
-	case 2, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_2
-	case 3, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_3
-	case 4, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_4
-	case 5, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_5
-	case 6, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_6
+AcrenForest_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
+	map_script_2 VAR_TEMP_0, 0, AcrenForest_EventScript_SetUpObjects
+	.2byte 0
+
+AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_ACREN_FOREST_STATE, 0, AcrenForest_EventScript_LoggersCutscene
+	map_script_2 VAR_FIRWEALD_CITY_STATE, 1, AcrenForest_EventScript_PhyllosShrineCutscene
+	.2byte 0
+
+
+AcrenForest_EventScript_SetUpObjects::
+	compare VAR_ACREN_FOREST_STATE, 2
+	goto_if_eq AcrenForest_EventScript_SetUpObjects_1
+	compare VAR_ACREN_FOREST_STATE, 3
+	goto_if_eq AcrenForest_EventScript_SetUpObjects_2
+	compare VAR_ACREN_FOREST_STATE, 4
+	goto_if_eq AcrenForest_EventScript_SetUpObjects_3
+	compare VAR_ACREN_FOREST_STATE, 4
+	goto_if_eq AcrenForest_EventScript_SetUpObjects_4
+	compare VAR_ACREN_FOREST_STATE, 5
+	goto_if_eq AcrenForest_EventScript_SetUpObjects_5
+	compare VAR_ACREN_FOREST_STATE, 5
+	goto_if_eq AcrenForest_EventScript_SetUpObjects_6
 	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
+AcrenForest_EventScript_SetUpObjects_1:
 	setobjectxyperm 17, 39, 11
 	setobjectxyperm 18, 39, 10
 	setobjectxyperm 19, 53, 5
@@ -25,7 +41,7 @@ AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
 	setobjectmovementtype 10, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT
 	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_3:
+AcrenForest_EventScript_SetUpObjects_2:
 	setobjectxyperm 17, 39, 11
 	setobjectxyperm 18, 39, 10
 	setobjectxyperm 19, 52, 6
@@ -36,7 +52,7 @@ AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_3:
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_4:
+AcrenForest_EventScript_SetUpObjects_3:
 	setobjectxyperm 17, 4, 6
 	setobjectxyperm 18, 4, 7
 	setobjectxyperm 19, 52, 6
@@ -47,7 +63,7 @@ AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_4:
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_5:
+AcrenForest_EventScript_SetUpObjects_4:
 	setobjectxyperm 17, 4, 6
 	setobjectxyperm 18, 4, 7
 	setobjectxyperm 19, 52, 6
@@ -58,7 +74,7 @@ AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_5:
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_6:
+AcrenForest_EventScript_SetUpObjects_5:
 	setobjectxyperm 17, 4, 6
 	setobjectxyperm 18, 4, 7
 	setobjectxyperm 19, 52, 6
@@ -69,55 +85,125 @@ AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_6:
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_ACREN_FOREST_STATE, 0, AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
-	.2byte 0
+AcrenForest_EventScript_SetUpObjects_6:
+	setobjectxyperm 17, 4, 6
+	setobjectxyperm 18, 4, 7
+	setobjectxyperm 19, 52, 6
+	setobjectxyperm 20, 55, 6
+	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
+	return
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
+
+AcrenForest_EventScript_PhyllosShrineCutscene::
+	playse SE_PIN
+	applymovement 31, Common_Movement_ExclamationMark
+	waitmovement 0
+	load_speech_bubble 31
+	msgbox AcrenForest_EventScript_PhyllosShrineCutscene_Text_0
+	destroy_speech_bubble
+	closemessage
+	applymovement 31, AcrenForest_Movement_PhyllosWalkToShrine
+	applymovement OBJ_EVENT_ID_PLAYER, AcrenForest_Movement_PlayerWalkToShrine
+	waitmovement 0
+	delay 30
+	load_speech_bubble 31
+	msgbox AcrenForest_EventScript_PhyllosShrineCutscene_Text_1
+	destroy_speech_bubble
+	closemessage
+	delay 10
+	setweather WEATHER_SUNNY
+	doweather
+	applymovement 31, Common_Movement_FaceUp
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	waitmovement 0
+	load_speech_bubble 31
+	msgbox AcrenForest_EventScript_PhyllosShrineCutscene_Text_2
+	destroy_speech_bubble
+	closemessage
+	resetweather
+	doweather
+	delay 10
+	applymovement 31, Common_Movement_FaceLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
+	waitmovement 0
+	load_speech_bubble 31
+	msgbox AcrenForest_EventScript_PhyllosShrineCutscene_Text_3
+	destroy_speech_bubble
+	closemessage
+	applymovement 31, Common_Movement_WalkInPlaceFastestLeft
+	waitmovement 0
+	load_speech_bubble 31
+	msgbox AcrenForest_EventScript_PhyllosShrineCutscene_Text_4
+	destroy_speech_bubble
+	closemessage
+	giveitem ITEM_BRIGHT_POWDER, 1
+	load_speech_bubble 31
+	msgbox AcrenForest_EventScript_PhyllosShrineCutscene_Text_5
+	destroy_speech_bubble
+	closemessage
+	applymovement 31, AcrenForest_Movement_PhyllosWalkFromShrine_1
+	delay 32
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_SOUTH
+	applymovement 31, AcrenForest_Movement_PhyllosWalkFromShrine_2
+	delay 32
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
+	applymovement 31, AcrenForest_Movement_PhyllosWalkFromShrine_3
+	delay 32
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
+	waitmovement 0
+	removeobject 31
+	setvar VAR_FIRWEALD_CITY_STATE, 2
+	end
+
+
+AcrenForest_EventScript_LoggersCutscene::
 	lock
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	compare VAR_TEMP_0, 29
-	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2
+	goto_if_eq AcrenForest_EventScript_LoggersCutscene_2
 	compare VAR_TEMP_0, 29
-	goto_if_gt AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_3
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
+	goto_if_gt AcrenForest_EventScript_LoggersCutscene_3
+AcrenForest_EventScript_LoggersCutscene_1:
 	load_speech_bubble 17
-	msgbox AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_0
+	msgbox AcrenForest_EventScript_LoggersCutscene_Text_0
 	destroy_speech_bubble
 	closemessage
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToGrunts
 	waitmovement 0
-	msgbox AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_1
+	msgbox AcrenForest_EventScript_LoggersCutscene_Text_1
 	closemessage
 	applymovement OBJ_EVENT_ID_CAMERA, AcrenForest_Movement_CameraToPlayer
 	waitmovement 0
 	special RemoveCameraObject
 	load_speech_bubble 17
-	msgbox AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_2
+	msgbox AcrenForest_EventScript_LoggersCutscene_Text_2
 	destroy_speech_bubble
 	closemessage
-	msgbox AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_3
+	msgbox AcrenForest_EventScript_LoggersCutscene_Text_3
 	closemessage
 	load_speech_bubble 17
-	msgbox AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_4
+	msgbox AcrenForest_EventScript_LoggersCutscene_Text_4
 	destroy_speech_bubble
 	closemessage
 	setvar VAR_ACREN_FOREST_STATE, 1
 	release
 	end
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
+AcrenForest_EventScript_LoggersCutscene_2:
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
 	waitmovement 0
-	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
+	goto AcrenForest_EventScript_LoggersCutscene_1
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_3:
+AcrenForest_EventScript_LoggersCutscene_3:
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
-	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
+	goto AcrenForest_EventScript_LoggersCutscene_1
 
 
 AcrenForest_EventScript_Logger1::
@@ -305,6 +391,28 @@ AcrenForest_EventScript_TrainerTipsHeldItems::
 	end
 
 
+AcrenForest_EventScript_Boy::
+	lock
+	faceplayer
+	load_speech_bubble 8
+	msgbox AcrenForest_EventScript_Boy_Text_0, MSGBOX_YESNO
+	destroy_speech_bubble
+	switch VAR_RESULT
+	case YES, AcrenForest_EventScript_Boy_3
+	case NO, AcrenForest_EventScript_Boy_4
+AcrenForest_EventScript_Boy_1:
+	release
+	end
+
+AcrenForest_EventScript_Boy_3:
+	msgbox AcrenForest_EventScript_Boy_Text_1, MSGBOX_NPC
+	goto AcrenForest_EventScript_Boy_1
+
+AcrenForest_EventScript_Boy_4:
+	msgbox AcrenForest_EventScript_Boy_Text_2, MSGBOX_NPC
+	goto AcrenForest_EventScript_Boy_1
+
+
 AcrenForest_EventScript_FlowerShopSign::
 	msgbox AcrenForest_EventScript_FlowerShopSign_Text_0, MSGBOX_SIGN
 	end
@@ -446,26 +554,181 @@ AcrenForest_Movement_PhyllosLaughterJump:
 	jump_in_place_down
 	step_end
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_0:
+AcrenForest_Movement_PhyllosWalkToShrine:
+	walk_down
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_down
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	face_left
+	step_end
+
+AcrenForest_Movement_PlayerWalkToShrine:
+	walk_down
+	walk_down
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_down
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	face_right
+	step_end
+
+AcrenForest_Movement_PhyllosWalkFromShrine_1:
+	walk_down
+	walk_left
+	step_end
+
+AcrenForest_Movement_PhyllosWalkFromShrine_2:
+	walk_left
+	walk_up
+	step_end
+
+AcrenForest_Movement_PhyllosWalkFromShrine_3:
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+AcrenForest_EventScript_PhyllosShrineCutscene_Text_0:
+	.string "Hello {PLAYER}.\n"
+	.string "I have something important to\l"
+	.string "tell you.\p"
+	.string "Follow me if you will.$"
+
+AcrenForest_EventScript_PhyllosShrineCutscene_Text_1:
+	.string "As you may or may not know\n"
+	.string "EURUS is divided in districts.\p"
+	.string "These districts each have a\n"
+	.string "dedicated shrine keeper.\p"
+	.string "Usually the shrine keepers are\n"
+	.string "important people.\p"
+	.string "Often Majors, TOURNAMENT MASTERS,\n"
+	.string "or both.\p"
+	.string "Basically, every shrine is meant\n"
+	.string "to honor a certain LEGENDARY\l"
+	.string "POKéMON.\p"
+	.string "As long as we worship these\n"
+	.string "POKéMON, they will remain docile.\p"
+	.string "As long as they stay docile, our\n"
+	.string "world will be in balance.\p"
+	.string "I am the shrine keeper of\n"
+	.string "FIRWEALD CITY and its area.$"
+
+AcrenForest_EventScript_PhyllosShrineCutscene_Text_2:
+	.string "This shrine you see here is\n"
+	.string "home to the LEGENDARY\l"
+	.string "POKéMON CELEBI.\p"
+	.string "Also known as the\n"
+	.string "GUARDIAN of the FOREST.$"
+
+AcrenForest_EventScript_PhyllosShrineCutscene_Text_3:
+	.string "Anyways, I would like to\n"
+	.string "ask you for a favor…\p"
+	.string "Seeing as we had that run in\n"
+	.string "those strange men in the FOREST\l"
+	.string "the other day.\p"
+	.string "I was wondering if you could\n"
+	.string "check in with my colleague at\l"
+	.string "the shrine to KYOGRE.\p"
+	.string "I am worried a storm might be\n"
+	.string "brewing…\p"
+	.string "I cannot thank you enough, you\n"
+	.string "are clearly a skilled TRAINER.\p"
+	.string "And I'm not the one to take\n"
+	.string "this journey on at my age…\p"
+	.string "Har har har!$"
+
+AcrenForest_EventScript_PhyllosShrineCutscene_Text_4:
+	.string "Here, take this.$"
+
+AcrenForest_EventScript_PhyllosShrineCutscene_Text_5:
+	.string "If you need me, I'll be at\n"
+	.string "the TOURNAMENT HALL.\p"
+	.string "Thank you once again, our battle\n"
+	.string "really sparked joy!$"
+
+AcrenForest_EventScript_LoggersCutscene_Text_0:
 	.string "Hello there {PLAYER}!\p"
 	.string "I heard from the boss we need to deal\n"
 	.string "with those TEAM AIRLOCK GRUNTS\l"
 	.string "back there…$"
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_1:
+AcrenForest_EventScript_LoggersCutscene_Text_1:
 	.string "Look, those are the GRUNTS we're\n"
 	.string "talking about…$"
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_2:
+AcrenForest_EventScript_LoggersCutscene_Text_2:
 	.string "I just need to check if you're\n"
 	.string "official POKéMON TRAINER.\p"
 	.string "May I see your POKéDEX please?$"
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_3:
+AcrenForest_EventScript_LoggersCutscene_Text_3:
 	.string "… … … … … … … … …\n"
 	.string "… … … … … … … … …$"
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_Text_4:
+AcrenForest_EventScript_LoggersCutscene_Text_4:
 	.string "Hmmm…\n"
 	.string "You don't seem to have a POKéDEX\l"
 	.string "at all…\p"
@@ -572,6 +835,17 @@ AcrenForest_EventScript_TrainerTipsHeldItems_Text_0:
 	.string "an item.\p"
 	.string "Always check if the POKéMON you\n"
 	.string "caught has an item!$"
+
+AcrenForest_EventScript_Boy_Text_0:
+	.string "Did you know that jogging\n"
+	.string "burn 446 calories an hour?$"
+
+AcrenForest_EventScript_Boy_Text_1:
+	.string "Oh did you now?$"
+
+AcrenForest_EventScript_Boy_Text_2:
+	.string "Well you look like you could\n"
+	.string "use some excercise yourself!$"
 
 AcrenForest_EventScript_FlowerShopSign_Text_0:
 	.string "ELDER BERRY's GREENERY SHOP$"
