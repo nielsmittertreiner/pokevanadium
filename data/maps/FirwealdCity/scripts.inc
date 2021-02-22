@@ -15,12 +15,19 @@ FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	setrespawn HEAL_LOCATION_FIRWEALD_CITY
 	setflag FLAG_VISITED_FIRWEALD_CITY
 	compare VAR_ACREN_FOREST_STATE, 7
-	goto_if_lt FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	goto_if_lt FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_2
+FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
+	compare VAR_FIRWEALD_CITY_STATE, 1
+	goto_if_ge FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_4
 	return
 
-FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
+FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
 	setobjectxyperm 6, 47, 18
 	setobjectmovementtype 6, MOVEMENT_TYPE_FACE_UP
+	goto FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+
+FirwealdCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_4:
+	setobjectxyperm 1, 36, 10
 	return
 
 
@@ -227,6 +234,26 @@ FirwealdCity_EventScript_LittleGirl_10:
 	goto FirwealdCity_EventScript_LittleGirl_9
 
 
+FirwealdCity_EventScript_OldWoman::
+	compare VAR_FIRWEALD_CITY_STATE, 1
+	goto_if_ge FirwealdCity_EventScript_OldWoman_1
+	goto_if_set FLAG_BADGE01_GET, FirwealdCity_EventScript_OldWoman_2
+	msgbox FirwealdCity_EventScript_OldWoman_Text_0, MSGBOX_NPC
+	end
+
+FirwealdCity_EventScript_OldWoman_1:
+	msgbox FirwealdCity_EventScript_OldWoman_Text_0, MSGBOX_NPC
+	end
+
+FirwealdCity_EventScript_OldWoman_2:
+	msgbox FirwealdCity_EventScript_OldWoman_Text_1, MSGBOX_NPC
+	applymovement 1, FirwealdCity_Movement_OldWomanWalkToLeft
+	waitmovement 0
+	setobjectxyperm 1, 36, 10
+	setvar VAR_FIRWEALD_CITY_STATE, 1
+	end
+
+
 EventScript_ClosedFirwealdDoor::
 	msgbox FirwealdCity_Text_DoorIsClosed, MSGBOX_SIGN
 	end
@@ -386,6 +413,11 @@ FirwealdCity_Movement_PhyllosWalkToForest:
 	walk_down
 	step_end
 
+FirwealdCity_Movement_OldWomanWalkToLeft:
+	walk_slow_left
+	face_down
+	step_end
+
 FirwealdCity_EventScript_ParkSign_Text_0:
 	.string "FIRWEALD PARK$"
 
@@ -492,6 +524,13 @@ FirwealdCity_EventScript_LittleGirl_Text_2:
 	.string "Shhh, I'm hiding from my big\n"
 	.string "sister.\p"
 	.string "Don't tell her I'm here!$"
+
+FirwealdCity_EventScript_OldWoman_Text_0:
+	.string "… … … … … …$"
+
+FirwealdCity_EventScript_OldWoman_Text_1:
+	.string "… … … … … …\p"
+	.string "I see…$"
 
 FirwealdCity_Text_DoorIsClosed::
 	.string "The door of the TOURNAMENT HALL\n"

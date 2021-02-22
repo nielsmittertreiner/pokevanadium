@@ -1,4 +1,5 @@
-const LOCALID_LITTLEGIRL = 2
+const LOCALID_OLD_WOMAN = 1
+const LOCALID_LITTLE_GIRL = 2
 const LOCALID_LASS = 3
 const LOCALID_FISHERMAN = 4
 const LOCALID_MANIAC = 6
@@ -6,18 +7,19 @@ const LOCALID_PHYLLOS = 9
 
 mapscripts FirwealdCity_MapScripts {
     MAP_SCRIPT_ON_LOAD {
-        if (flag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY))
-        {
+        if (flag(FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY)) {
             setmetatile(37, 16, METATILE_Petalburg_ClosedTournamentHallDoor, 1)
         }
     }
     MAP_SCRIPT_ON_TRANSITION {
         setrespawn(HEAL_LOCATION_FIRWEALD_CITY)
         setflag(FLAG_VISITED_FIRWEALD_CITY)
-        if (var(VAR_ACREN_FOREST_STATE) < 7)
-        {
+        if (var(VAR_ACREN_FOREST_STATE) < 7) {
             setobjectxyperm(LOCALID_MANIAC, 47, 18)
             setobjectmovementtype(LOCALID_MANIAC, MOVEMENT_TYPE_FACE_UP)
+        }
+        if (var(VAR_FIRWEALD_CITY_STATE) >= 1) {
+            setobjectxyperm(LOCALID_OLD_WOMAN, 36, 10)
         }
     }
 }
@@ -212,7 +214,7 @@ script FirwealdCity_EventScript_LittleGirl {
         playse(SE_PIN)
         applymovement(OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_NoticeLittleGirlHidingSpot)
         waitmovement(0)
-        load_speech_bubble(LOCALID_LITTLEGIRL)
+        load_speech_bubble(LOCALID_LITTLE_GIRL)
         msgbox("Are you helping my big sister?!\p"
                "You're such a meanie!")
         destroy_speech_bubble
@@ -232,15 +234,15 @@ script FirwealdCity_EventScript_LittleGirl {
         closemessage
         if (var(VAR_FACING) == DIR_SOUTH) {
             applymovement(LOCALID_LASS, FirwealdCity_Movement_LassWalkHomeFacingSouth)
-            applymovement(LOCALID_LITTLEGIRL, FirwealdCity_Movement_LittleGirlWalkHomeFacingSouth)
+            applymovement(LOCALID_LITTLE_GIRL, FirwealdCity_Movement_LittleGirlWalkHomeFacingSouth)
             waitmovement(0)
         } else {
             applymovement(LOCALID_LASS, FirwealdCity_Movement_LassWalkHomeFacingEastAndWest)
-            applymovement(LOCALID_LITTLEGIRL, FirwealdCity_Movement_LittleGirlWalkHomeFacingEastAndWest)
+            applymovement(LOCALID_LITTLE_GIRL, FirwealdCity_Movement_LittleGirlWalkHomeFacingEastAndWest)
             waitmovement(0)
         }
         removeobject(LOCALID_LASS, MAP_FIRWEALD_CITY)
-        removeobject(LOCALID_LITTLEGIRL, MAP_FIRWEALD_CITY)
+        removeobject(LOCALID_LITTLE_GIRL, MAP_FIRWEALD_CITY)
         clearflag(FLAG_HIDE_FIRWEALD_CITY_HOUSE1_LITTLE_GIRL)
         clearflag(FLAG_HIDE_FIRWEALD_CITY_HOUSE1_LASS)
         clearflag(FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT)
@@ -251,6 +253,24 @@ script FirwealdCity_EventScript_LittleGirl {
            "sister.\p"
            "Don't tell her I'm here!", MSGBOX_NPC)
     end
+}
+
+script FirwealdCity_EventScript_OldWoman {
+    if (var(VAR_FIRWEALD_CITY_STATE) >= 1) {
+        msgbox("… … … … … …", MSGBOX_NPC)
+        end
+    } elif (flag(FLAG_BADGE01_GET)) {
+        msgbox("… … … … … …\p"
+               "I see…", MSGBOX_NPC)
+        applymovement(LOCALID_OLD_WOMAN, FirwealdCity_Movement_OldWomanWalkToLeft)
+        waitmovement(0)
+        setobjectxyperm(LOCALID_OLD_WOMAN, 36, 10)
+        setvar(VAR_FIRWEALD_CITY_STATE, 1)
+        end
+    } else {
+        msgbox("… … … … … …", MSGBOX_NPC)
+        end
+    }
 }
 
 script EventScript_ClosedFirwealdDoor {
@@ -346,6 +366,11 @@ movement FirwealdCity_Movement_PhyllosWalkToForest {
     walk_down
     walk_left
     walk_down * 7
+}
+
+movement FirwealdCity_Movement_OldWomanWalkToLeft {
+    walk_slow_left
+    face_down
 }
 
 text FirwealdCity_Text_DoorIsClosed {
