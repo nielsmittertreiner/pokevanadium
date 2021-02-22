@@ -96,7 +96,7 @@
 #define FLAG_FIRWEALD_CITY_FISHERMAN_MART_EVENT      0x52
 #define FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT       0x53
 #define FLAG_RECIEVED_TERMINAL_PASS          0x54
-#define FLAG_UNUSED_0x55                     0x55
+#define FLAG_UNUSED_0x055                    0x55
 #define FLAG_HIDE_CONTEST_POKE_BALL          0x56  // Always set after new game, object it hides is added directly
 #define FLAG_MET_RIVAL_MOM                   0x57
 #define FLAG_BIRCH_AIDE_MET                  0x58
@@ -654,7 +654,7 @@
 #define FLAG_HIDE_ACREN_FOREST_CABIN_PHYLLOS                        0x276
 #define FLAG_HIDE_ACREN_FOREST_CABIN_POKE_BALL                      0x277
 #define FLAG_HIDE_ACREN_FOREST_CABIN_KECLEON                        0x278
-#define FLAG_UNUSED_0x279                                           0x279
+#define FLAG_HIDE_ACREN_FOREST_PHYLLOS_2                            0x279
 #define FLAG_UNUSED_0x27A                                           0x27A
 #define FLAG_UNUSED_0x27B                                           0x27B
 #define FLAG_UNUSED_0x27C                                           0x27C
