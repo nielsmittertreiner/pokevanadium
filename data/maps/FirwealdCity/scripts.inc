@@ -70,6 +70,7 @@ FirwealdCity_EventScript_PhyllosEncounter::
 	applymovement OBJ_EVENT_ID_PLAYER, FirwealdCity_Movement_PlayerWalkDownBackwards
 	applymovement 9, FirwealdCity_Movement_PhyllosWalkToForest
 	waitmovement 0
+	setmetatile 37, 16, METATILE_Petalburg_ClosedTournamentHallDoor, 1
 	removeobject 9
 	setflag FLAG_HIDE_ACREN_FOREST_GRUNTS_BLOCKING
 	setvar VAR_ACREN_FOREST_STATE, 4
@@ -152,9 +153,6 @@ FirwealdCity_EventScript_Triathlete::
 
 FirwealdCity_EventScript_Boy::
 	msgbox FirwealdCity_EventScript_Boy_Text_0, MSGBOX_NPC
-	clearflag FLAG_PHYLLOS_LEFT_TOURNAMENT_HALL_LOBBY
-	setmetatile 37, 16, METATILE_Petalburg_Door_BattleTent, 1
-	setvar VAR_TOURNAMENT_HALL_STATE, 0
 	end
 
 
