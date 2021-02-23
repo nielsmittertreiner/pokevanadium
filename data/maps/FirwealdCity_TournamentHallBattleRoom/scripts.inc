@@ -9,7 +9,7 @@ FirwealdCity_TournamentHallBattleRoom_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TAB
 
 FirwealdCity_TournamentHallBattleRoom_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TEMP_1, 0, FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom
-	map_script_2 VAR_TEMP_2, 0, FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals
+	map_script_2 VAR_TOURNAMENT_HALL_ROUND, 4, FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals
 	.2byte 0
 
 
@@ -36,7 +36,11 @@ FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_3:
 	goto FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_1
 
 FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects_6:
-	teleportcamera -10, -10
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_PHYLLOS
+	setobjectmovementtype 2, MOVEMENT_TYPE_FACE_RIGHT
+	turnobject 2, DIR_EAST
+	addobject 2
+	setobjectxy 2, 4, 5
 	setvar VAR_TEMP_1, 1
 	return
 
@@ -395,25 +399,14 @@ FirwealdCity_TournamentHallBattleRoom_EventScripts_Semifinals_12:
 
 
 FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals::
-	setvar VAR_TEMP_2, 1
+	applymovement 2, Common_Movement_ExclamationMark
+	fadescreenspeed FADE_TO_BLACK, -4
+	waitmovement 0
 	msgbox FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals_Text_0
 	closemessage
 	fadescreenspeed FADE_TO_WHITE, -1
-	resetcamera
-	removeobject 2
-	removeobject 1
-	removeobject 3
-	removeobject 4
-	delay 10
-	addobject 3
-	addobject 4
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_PHYLLOS
-	setobjectmovementtype 2, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_LEFT
-	turnobject 2, DIR_EAST
-	addobject 2
 	addobject 1
-	setobjectxy 2, 4, 5
 	setobjectxy 1, 10, 5
 	fadescreenspeed FADE_FROM_WHITE, -1
 	load_speech_bubble 1

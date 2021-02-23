@@ -12,7 +12,7 @@ mapscripts FirwealdCity_TournamentHallBattleRoom_MapScripts {
     ]
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TEMP_1, 0: FirwealdCity_TournamentHallBattleRoom_EventScripts_EnterRoom
-        VAR_TEMP_2, 0: FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals
+        VAR_TOURNAMENT_HALL_ROUND, 4: FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals
     ]
 }
 
@@ -27,7 +27,11 @@ script FirwealdCity_TournamentHallBattleRoom_EventScript_SetUpObjects {
         setvar(VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL)
     }
     if (var(VAR_TOURNAMENT_HALL_ROUND) == 4) {
-        teleportcamera(-10, -10)
+        setvar(VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_PHYLLOS)
+        setobjectmovementtype(LOCALID_PLAYER, MOVEMENT_TYPE_FACE_RIGHT)
+        turnobject(LOCALID_PLAYER, DIR_EAST)
+        addobject(LOCALID_PLAYER)
+        setobjectxy(LOCALID_PLAYER, 4, 5)
         setvar(VAR_TEMP_1, 1)
     }
 }
@@ -337,7 +341,9 @@ script FirwealdCity_TournamentHallBattleRoom_EventScripts_Semifinals {
 }
 
 script FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals {
-    setvar(VAR_TEMP_2, 1)
+    applymovement(LOCALID_PLAYER, Common_Movement_ExclamationMark)
+    fadescreenspeed(FADE_TO_BLACK, -4)
+    waitmovement(0)
     msgbox("And now, for the moment\n"
            "you've all been waiting for!\p"
            "Introducing our challenger,\n"
@@ -350,21 +356,8 @@ script FirwealdCity_TournamentHallBattleRoom_EventScripts_Finals {
            "will sing tonight.")
     closemessage
     fadescreenspeed(FADE_TO_WHITE, -1)
-    resetcamera
-    removeobject(LOCALID_PLAYER)
-    removeobject(LOCALID_OPPONENT)
-    removeobject(LOCALID_REFEREE)
-    removeobject(4)
-    delay(10)
-    addobject(LOCALID_REFEREE)
-    addobject(4)
-    setvar(VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_PHYLLOS)
-    setobjectmovementtype(LOCALID_PLAYER, MOVEMENT_TYPE_FACE_RIGHT)
     setobjectmovementtype(LOCALID_OPPONENT, MOVEMENT_TYPE_FACE_LEFT)
-    turnobject(LOCALID_PLAYER, DIR_EAST)
-    addobject(LOCALID_PLAYER)
     addobject(LOCALID_OPPONENT)
-    setobjectxy(LOCALID_PLAYER, 4, 5)
     setobjectxy(LOCALID_OPPONENT, 10, 5)
     fadescreenspeed(FADE_FROM_WHITE, -1)
     load_speech_bubble(LOCALID_OPPONENT)
