@@ -1,10 +1,10 @@
 #ifndef GUARD_REGIONMAPSEC_H
 #define GUARD_REGIONMAPSEC_H
 
-#define MAPSEC_SUNSET_TOWN              0x00
-#define MAPSEC_CEDARRED_TOWN                  0x01
-#define MAPSEC_FIRWEALD_CITY                 0x02
-#define MAPSEC_LAVARIDGE_TOWN               0x03
+#define MAPSEC_SUNSET_TOWN                  0x00
+#define MAPSEC_CEDARRED_TOWN                0x01
+#define MAPSEC_FIRWEALD_CITY                0x02
+#define MAPSEC_MURENA_CITY                  0x03
 #define MAPSEC_FALLARBOR_TOWN               0x04
 #define MAPSEC_VERDANTURF_TOWN              0x05
 #define MAPSEC_PACIFIDLOG_TOWN              0x06

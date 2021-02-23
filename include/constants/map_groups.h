@@ -62,11 +62,12 @@
 #define MAP_SUNSET_TOWN         (57 | (0 << 8))
 #define MAP_CEDARRED_TOWN       (58 | (0 << 8))
 #define MAP_FIRWEALD_CITY       (59 | (0 << 8))
-#define MAP_ROUTE401            (60 | (0 << 8))
-#define MAP_ROUTE402            (61 | (0 << 8))
-#define MAP_ROUTE403            (62 | (0 << 8))
-#define MAP_ACREN_FOREST        (63 | (0 << 8))
-#define MAP_FOREST_TUNNEL       (64 | (0 << 8))
+#define MAP_MURENA_CITY         (60 | (0 << 8))
+#define MAP_ROUTE401            (61 | (0 << 8))
+#define MAP_ROUTE402            (62 | (0 << 8))
+#define MAP_ROUTE403            (63 | (0 << 8))
+#define MAP_ACREN_FOREST        (64 | (0 << 8))
+#define MAP_FOREST_TUNNEL       (65 | (0 << 8))
 
 // Map Group 1
 #define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (1 << 8))

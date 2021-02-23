@@ -96,7 +96,7 @@
 #define FLAG_FIRWEALD_CITY_FISHERMAN_MART_EVENT      0x52
 #define FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT       0x53
 #define FLAG_RECIEVED_TERMINAL_PASS          0x54
-#define FLAG_UNUSED_0x055                    0x55
+#define FLAG_MURENA_NPC_TRADE_COMPLETED      0x55
 #define FLAG_HIDE_CONTEST_POKE_BALL          0x56  // Always set after new game, object it hides is added directly
 #define FLAG_MET_RIVAL_MOM                   0x57
 #define FLAG_BIRCH_AIDE_MET                  0x58
@@ -1338,7 +1338,7 @@
 #define FLAG_VISITED_SUNSET_TOWN                    (SYSTEM_FLAGS + 0xF)
 #define FLAG_VISITED_CEDARRED_TOWN                  (SYSTEM_FLAGS + 0x10)
 #define FLAG_VISITED_FIRWEALD_CITY                  (SYSTEM_FLAGS + 0x11)
-#define FLAG_VISITED_LAVARIDGE_TOWN                 (SYSTEM_FLAGS + 0x12)
+#define FLAG_VISITED_MURENA_CITY                 (SYSTEM_FLAGS + 0x12)
 #define FLAG_VISITED_FALLARBOR_TOWN                 (SYSTEM_FLAGS + 0x13)
 #define FLAG_VISITED_VERDANTURF_TOWN                (SYSTEM_FLAGS + 0x14)
 #define FLAG_VISITED_PACIFIDLOG_TOWN                (SYSTEM_FLAGS + 0x15)

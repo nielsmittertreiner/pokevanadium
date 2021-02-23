@@ -1,0 +1,78 @@
+const LOCALID_ARTIST = 9
+
+mapscripts MurenaCity_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_MURENA_CITY)
+        setflag(FLAG_VISITED_MURENA_CITY)
+    }
+}
+
+script MurenaCity_EventScript_ArtistTrader {
+    lock
+    faceplayer
+    if (flag(FLAG_MURENA_NPC_TRADE_COMPLETED) == TRUE) {
+        msgbox("Jusqu'ici I am able to understand\n"
+               "the ocean blue.", MSGBOX_NPC)
+        end
+    }
+    setvar(VAR_0x8008, INGAME_TRADE_SMEARGLE)
+    copyvar(VAR_0x8004, VAR_0x8008)
+    specialvar(VAR_RESULT, GetInGameTradeSpeciesInfo)
+    copyvar(VAR_0x8009, VAR_RESULT)
+    load_speech_bubble(LOCALID_ARTIST)
+    msgbox("The ocean is a canvas…\p"
+           "But to truly blend into it,\n"
+           "that deep dark blue…\p"
+           "Only one POKéMON knows the art…\n"
+           "Can you bring me one.\p"
+           "If you can find me a KECLEON,\n"
+           "I will give you my SMEARGLE…", MSGBOX_YESNO)
+    destroy_speech_bubble
+    closemessage
+    if (var(VAR_RESULT) == NO) {
+        goto(MurenaCity_EventScript_ArtistTrader_Decline)
+    }
+    special(ChoosePartyMon)
+    waitstate
+    copyvar(VAR_0x800A, VAR_0x8004)
+    if (var(VAR_0x8004) == 255) {
+        goto(MurenaCity_EventScript_ArtistTrader_Decline)
+    }
+    copyvar(VAR_0x8005, VAR_0x800A)
+    specialvar(VAR_RESULT, GetTradeSpecies)
+    copyvar(VAR_0x800B, VAR_RESULT)
+    compare(VAR_RESULT, VAR_0x8009)
+    goto_if_ne(MurenaCity_EventScript_ArtistTrader_NotRequestedMon)
+    copyvar(VAR_0x8004, VAR_0x8008)
+    copyvar(VAR_0x8005, VAR_0x800A)
+    special(CreateInGameTradePokemon)
+    special(DoInGameTradeScene)
+    waitstate
+    bufferspeciesname(0, VAR_0x8009)
+    load_speech_bubble(LOCALID_ARTIST)
+    msgbox("Magnificent…\n"
+           "Such color I have never seen.")
+    destroy_speech_bubble
+    closemessage
+    setflag(FLAG_MURENA_NPC_TRADE_COMPLETED)
+    release
+    end
+}
+
+script MurenaCity_EventScript_ArtistTrader_Decline {
+    load_speech_bubble(LOCALID_ARTIST)
+    msgbox("I see…\p"
+           "I guess true culture is hard to\n"
+           "come by in these parts…")
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}
+
+script MurenaCity_EventScript_ArtistTrader_NotRequestedMon {
+    bufferspeciesname(0, VAR_0x8009)
+    msgbox("What?! I was offering you a\n"
+           "{STR_VAR_1}, not a pair of glasses!", MSGBOX_NPC)
+    end
+}

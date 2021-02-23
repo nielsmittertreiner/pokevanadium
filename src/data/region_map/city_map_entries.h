@@ -16,7 +16,7 @@ static const struct CityMapEntry sPokenavCityMaps[NUM_CITY_MAPS] =
         .tilemap = gPokenavCityMap_Dewford_0,
     },
     {
-        .mapSecId = MAPSEC_LAVARIDGE_TOWN,
+        .mapSecId = MAPSEC_MURENA_CITY,
         .index = 0,
         .tilemap = gPokenavCityMap_Lavaridge_0,
     },

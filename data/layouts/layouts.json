@@ -4710,6 +4710,16 @@
       "secondary_tileset": "gTileset_Slateport",
       "border_filepath": "data/layouts/Route403/border.bin",
       "blockdata_filepath": "data/layouts/Route403/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY",
+      "name": "MurenaCity_Layout",
+      "width": 50,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/MurenaCity/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity/map.bin"
     }
   ]
 }

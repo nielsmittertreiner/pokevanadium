@@ -7,7 +7,7 @@ LavaridgeTown_MapScripts:: @ 81EA4D3
 	.byte 0
 
 LavaridgeTown_OnTransition: @ 81EA4DE
-	setflag FLAG_VISITED_LAVARIDGE_TOWN
+	setflag FLAG_VISITED_MURENA_CITY
 	call_if_set FLAG_WHITEOUT_TO_LAVARIDGE, LavaridgeTown_EventScript_ClearLavaridgeWhiteOut
 	call_if_set FLAG_DEFEATED_EVIL_TEAM_MT_CHIMNEY, LavaridgeTown_EventScript_ShowMtChimneyTrainers
 	call Common_EventScript_SetupRivalGfxId

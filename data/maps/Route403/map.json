@@ -17,6 +17,11 @@
       "direction": "left",
       "offset": -4,
       "map": "MAP_FIRWEALD_CITY"
+    },
+    {
+      "direction": "right",
+      "offset": -2,
+      "map": "MAP_MURENA_CITY"
     }
   ],
   "object_events": [

@@ -1092,3 +1092,4 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/maps/FirwealdCity_TournamentHallBattleRoom/scripts.inc"
 	.include "data/maps/FirwealdCity_TournamentHallPreBattleRoom/scripts.inc"
 	.include "data/maps/Route403/scripts.inc"
+	.include "data/maps/MurenaCity/scripts.inc"
