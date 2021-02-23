@@ -12,73 +12,74 @@ const LOCALID_PHYLLOS = 30
 const LOCALID_PHYLLOS_2 = 31
 
 mapscripts AcrenForest_MapScripts {
-    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
-        VAR_TEMP_0, 0: AcrenForest_EventScript_SetUpObjects
-    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        if (var(VAR_ACREN_FOREST_STATE) == 2) {
+            setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+            setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+            setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
+            setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+            setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+            setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+            setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+            setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+            setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
+        }
+        if (var(VAR_ACREN_FOREST_STATE) == 3) {
+            setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
+	        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
+	        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+	        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+        }
+        if (var(VAR_ACREN_FOREST_STATE) == 4) {
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+        }
+        if (var(VAR_ACREN_FOREST_STATE) == 4) {
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+        }
+        if (var(VAR_ACREN_FOREST_STATE) == 5) {
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+        }
+        if (var(VAR_ACREN_FOREST_STATE) == 5) {
+            setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
+	        setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
+            setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
+	        setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
+            setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
+	        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
+	        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
+        }
+    }
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_ACREN_FOREST_STATE, 0: AcrenForest_EventScript_LoggersCutscene
         VAR_FIRWEALD_CITY_STATE, 1: AcrenForest_EventScript_PhyllosShrineCutscene
     ]
-}
-
-script AcrenForest_EventScript_SetUpObjects {
-    if (var(VAR_ACREN_FOREST_STATE) == 2) {
-        setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
-        setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
-        setobjectxyperm(LOCALID_LOGGER_3, 53, 5)
-        setobjectxyperm(LOCALID_LOGGER_4, 54, 5)
-        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-        setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-        setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-        setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_1, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
-        setobjectmovementtype(LOCALID_TEAMAIRLOCKGRUNT_2, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT)
-    } elif (var(VAR_ACREN_FOREST_STATE) == 3) {
-        setobjectxyperm(LOCALID_LOGGER_1, 39, 11)
-	    setobjectxyperm(LOCALID_LOGGER_2, 39, 10)
-	    setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-	    setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT)
-	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-    } elif (var(VAR_ACREN_FOREST_STATE) == 4) {
-        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-    } elif (var(VAR_ACREN_FOREST_STATE) == 4) {
-        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-    } elif (var(VAR_ACREN_FOREST_STATE) == 5) {
-        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-    } elif (var(VAR_ACREN_FOREST_STATE) == 5) {
-        setobjectxyperm(LOCALID_LOGGER_1, 4, 6)
-	    setobjectxyperm(LOCALID_LOGGER_2, 4, 7)
-        setobjectxyperm(LOCALID_LOGGER_3, 52, 6)
-	    setobjectxyperm(LOCALID_LOGGER_4, 55, 6)
-        setobjectmovementtype(LOCALID_LOGGER_1, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_2, MOVEMENT_TYPE_FACE_RIGHT)
-	    setobjectmovementtype(LOCALID_LOGGER_3, MOVEMENT_TYPE_FACE_DOWN)
-	    setobjectmovementtype(LOCALID_LOGGER_4, MOVEMENT_TYPE_FACE_DOWN)
-    }
 }
 
 script AcrenForest_EventScript_PhyllosShrineCutscene {
@@ -341,6 +342,8 @@ script AcrenForest_EventScript_DescribeIllegalCamp {
         applymovement(LOCALID_PHYLLOS, Common_Movement_WalkLeft)
         waitmovement(0)
     }
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+    waitmovement(0)
     load_speech_bubble(LOCALID_PHYLLOS)
     msgbox("Hi again {PLAYER}.\n"
            "You've managed to find us.\l"
@@ -444,6 +447,14 @@ script AcrenForest_EventScript_Boy {
             break
     }
     release
+    end
+}
+
+script AcrenForest_EventScript_BugCatcher {
+    msgbox("You can harvest berries from\n"
+           "loamy soul and replant them.\p"
+           "That way you'll never have to\n"
+           "run out of berries!", MSGBOX_NPC)
     end
 }
 

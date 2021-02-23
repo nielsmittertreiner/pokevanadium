@@ -1,34 +1,29 @@
 AcrenForest_MapScripts::
-	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, AcrenForest_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE
+	map_script MAP_SCRIPT_ON_TRANSITION, AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
-AcrenForest_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
-	map_script_2 VAR_TEMP_0, 0, AcrenForest_EventScript_SetUpObjects
-	.2byte 0
-
-AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_ACREN_FOREST_STATE, 0, AcrenForest_EventScript_LoggersCutscene
-	map_script_2 VAR_FIRWEALD_CITY_STATE, 1, AcrenForest_EventScript_PhyllosShrineCutscene
-	.2byte 0
-
-
-AcrenForest_EventScript_SetUpObjects::
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	compare VAR_ACREN_FOREST_STATE, 2
-	goto_if_eq AcrenForest_EventScript_SetUpObjects_1
+	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_2
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	compare VAR_ACREN_FOREST_STATE, 3
-	goto_if_eq AcrenForest_EventScript_SetUpObjects_2
+	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_5
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_4:
 	compare VAR_ACREN_FOREST_STATE, 4
-	goto_if_eq AcrenForest_EventScript_SetUpObjects_3
+	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_8
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_7:
 	compare VAR_ACREN_FOREST_STATE, 4
-	goto_if_eq AcrenForest_EventScript_SetUpObjects_4
+	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_11
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_10:
 	compare VAR_ACREN_FOREST_STATE, 5
-	goto_if_eq AcrenForest_EventScript_SetUpObjects_5
+	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_14
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_13:
 	compare VAR_ACREN_FOREST_STATE, 5
-	goto_if_eq AcrenForest_EventScript_SetUpObjects_6
+	goto_if_eq AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_16
 	return
 
-AcrenForest_EventScript_SetUpObjects_1:
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
 	setobjectxyperm 17, 39, 11
 	setobjectxyperm 18, 39, 10
 	setobjectxyperm 19, 53, 5
@@ -39,9 +34,9 @@ AcrenForest_EventScript_SetUpObjects_1:
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
 	setobjectmovementtype 9, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT
 	setobjectmovementtype 10, MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT
-	return
+	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 
-AcrenForest_EventScript_SetUpObjects_2:
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_5:
 	setobjectxyperm 17, 39, 11
 	setobjectxyperm 18, 39, 10
 	setobjectxyperm 19, 52, 6
@@ -50,9 +45,42 @@ AcrenForest_EventScript_SetUpObjects_2:
 	setobjectmovementtype 18, MOVEMENT_TYPE_RUN_IN_PLACE_LEFT
 	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
-	return
+	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_4
 
-AcrenForest_EventScript_SetUpObjects_3:
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_8:
+	setobjectxyperm 17, 4, 6
+	setobjectxyperm 18, 4, 7
+	setobjectxyperm 19, 52, 6
+	setobjectxyperm 20, 55, 6
+	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
+	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_7
+
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_11:
+	setobjectxyperm 17, 4, 6
+	setobjectxyperm 18, 4, 7
+	setobjectxyperm 19, 52, 6
+	setobjectxyperm 20, 55, 6
+	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
+	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_10
+
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_14:
+	setobjectxyperm 17, 4, 6
+	setobjectxyperm 18, 4, 7
+	setobjectxyperm 19, 52, 6
+	setobjectxyperm 20, 55, 6
+	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
+	goto AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_13
+
+AcrenForest_MapScripts_MAP_SCRIPT_ON_TRANSITION_16:
 	setobjectxyperm 17, 4, 6
 	setobjectxyperm 18, 4, 7
 	setobjectxyperm 19, 52, 6
@@ -63,38 +91,10 @@ AcrenForest_EventScript_SetUpObjects_3:
 	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-AcrenForest_EventScript_SetUpObjects_4:
-	setobjectxyperm 17, 4, 6
-	setobjectxyperm 18, 4, 7
-	setobjectxyperm 19, 52, 6
-	setobjectxyperm 20, 55, 6
-	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
-	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
-	return
-
-AcrenForest_EventScript_SetUpObjects_5:
-	setobjectxyperm 17, 4, 6
-	setobjectxyperm 18, 4, 7
-	setobjectxyperm 19, 52, 6
-	setobjectxyperm 20, 55, 6
-	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
-	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
-	return
-
-AcrenForest_EventScript_SetUpObjects_6:
-	setobjectxyperm 17, 4, 6
-	setobjectxyperm 18, 4, 7
-	setobjectxyperm 19, 52, 6
-	setobjectxyperm 20, 55, 6
-	setobjectmovementtype 17, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype 18, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype 19, MOVEMENT_TYPE_FACE_DOWN
-	setobjectmovementtype 20, MOVEMENT_TYPE_FACE_DOWN
-	return
+AcrenForest_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_ACREN_FOREST_STATE, 0, AcrenForest_EventScript_LoggersCutscene
+	map_script_2 VAR_FIRWEALD_CITY_STATE, 1, AcrenForest_EventScript_PhyllosShrineCutscene
+	.2byte 0
 
 
 AcrenForest_EventScript_PhyllosShrineCutscene::
@@ -323,6 +323,8 @@ AcrenForest_EventScript_DescribeIllegalCamp::
 	compare VAR_TEMP_0, 5
 	goto_if_eq AcrenForest_EventScript_DescribeIllegalCamp_2
 AcrenForest_EventScript_DescribeIllegalCamp_1:
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
+	waitmovement 0
 	load_speech_bubble 30
 	msgbox AcrenForest_EventScript_DescribeIllegalCamp_Text_0
 	destroy_speech_bubble
@@ -411,6 +413,11 @@ AcrenForest_EventScript_Boy_3:
 AcrenForest_EventScript_Boy_4:
 	msgbox AcrenForest_EventScript_Boy_Text_2, MSGBOX_NPC
 	goto AcrenForest_EventScript_Boy_1
+
+
+AcrenForest_EventScript_BugCatcher::
+	msgbox AcrenForest_EventScript_BugCatcher_Text_0, MSGBOX_NPC
+	end
 
 
 AcrenForest_EventScript_FlowerShopSign::
@@ -846,6 +853,12 @@ AcrenForest_EventScript_Boy_Text_1:
 AcrenForest_EventScript_Boy_Text_2:
 	.string "Well you look like you could\n"
 	.string "use some excercise yourself!$"
+
+AcrenForest_EventScript_BugCatcher_Text_0:
+	.string "You can harvest berries from\n"
+	.string "loamy soul and replant them.\p"
+	.string "That way you'll never have to\n"
+	.string "run out of berries!$"
 
 AcrenForest_EventScript_FlowerShopSign_Text_0:
 	.string "ELDER BERRY's GREENERY SHOP$"
