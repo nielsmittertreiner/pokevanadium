@@ -538,3 +538,4 @@ gSpecials:: @ 81DBA64
 	def_special IsPlayerInMurenaCity
 	def_special SpawnMurenaCityWingullObject
 	def_special TentacoolSkewerIncreaseFriendship
+	def_special CheckMurenaCityRelicanth

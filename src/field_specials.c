@@ -132,6 +132,7 @@ static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
 bool8 IsPlayerInMurenaCity(void);
 void SpawnMurenaCityWingullObject(u8 taskId);
+bool8 CheckMurenaCityRelicanth(void);
 #ifndef FREE_LINK_BATTLE_RECORDS
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *linkRecords, u8 a, u8 b);
 #else
@@ -4502,4 +4503,12 @@ void TentacoolSkewerIncreaseFriendship(u8 taskId)
 
     for (i = 0; i < PARTY_SIZE; i++)
         AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_VITAMIN);
+}
+
+bool8 CheckMurenaCityRelicanth(void)
+{
+    if (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES2, 0) == SPECIES_RELICANTH)
+        return TRUE;
+
+    return FALSE;
 }
