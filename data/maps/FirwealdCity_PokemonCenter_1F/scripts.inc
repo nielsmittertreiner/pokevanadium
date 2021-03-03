@@ -48,55 +48,6 @@ FirwealdCity_PokemonCenter_1F_EventScript_Nurse_9:
 	goto FirwealdCity_PokemonCenter_1F_EventScript_Nurse_5
 
 
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal::
-	lock
-	goto_if_unset FLAG_BADGE03_GET, FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_3
-	checkitem ITEM_TERMINAL_PASS, 1
-	compare VAR_RESULT, FALSE
-	goto_if_eq FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_7
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestUp
-	msgbox FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_2
-	waitmovement 0
-	closemessage
-	playfanfare MUS_HEAL
-	waitfanfare
-	special HealPlayerParty
-	load_speech_bubble 1
-	msgbox FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_3
-	destroy_speech_bubble
-	closemessage
-	applymovement 1, Common_Movement_NurseBow
-	waitmovement 0
-	release
-	end
-
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_3:
-	playse SE_PIN
-	applymovement 1, Common_Movement_ExclamationMark
-	waitmovement 0
-	load_speech_bubble 1
-	msgbox FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_0
-	destroy_speech_bubble
-	closemessage
-	applymovement 1, Common_Movement_NurseBow
-	waitmovement 0
-	release
-	end
-
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_7:
-	playse SE_PIN
-	applymovement 1, Common_Movement_ExclamationMark
-	waitmovement 0
-	load_speech_bubble 1
-	msgbox FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_1
-	destroy_speech_bubble
-	closemessage
-	applymovement 1, Common_Movement_NurseBow
-	waitmovement 0
-	release
-	end
-
-
 FirwealdCity_PokemonCenter_1F_EventScript_Nurse_Text_0:
 	.string "Welcome to CEDARRED TOWN's\n"
 	.string "POKéMON CENTER.$"
@@ -125,20 +76,3 @@ FirwealdCity_PokemonCenter_1F_EventScript_Nurse_Text_4:
 FirwealdCity_PokemonCenter_1F_EventScript_Nurse_Text_5:
 	.string "Thanks you for visiting\n"
 	.string "CEDARRED TOWN's POKEMON CENTER!$"
-
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_0:
-	.string "The POKéMON CENTER TERMINAL is\n"
-	.string "still undergoing maintenance…\p"
-	.string "I'm sorry for the inconvenience.$"
-
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_1:
-	.string "You need a TERMINAL PASS to be able to\n"
-	.string "operate the POKéMON CENTER TERMINAL…\p"
-	.string "I'm sorry for the inconvenience.$"
-
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_2:
-	.string "{PLAYER} swiped the TERMINAL PASS…$"
-
-FirwealdCity_PokemonCenter_1F_EventScript_HealingTerminal_Text_3:
-	.string "Thank you for using our\n"
-	.string "POKéMON CENTER TERMINAL!$"
