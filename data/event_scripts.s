@@ -1062,6 +1062,7 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
 	.include "data/scripts/debug.inc"
+	.include "data/scripts/tentacool_skewer.inc"
 	.include "data/maps/SunsetTown/scripts.inc"
 	.include "data/maps/Route401/scripts.inc"
 	.include "data/maps/SunsetTown_PlayerHouse_1F/scripts.inc"

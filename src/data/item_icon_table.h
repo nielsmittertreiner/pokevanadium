@@ -405,6 +405,7 @@ const u32 *const gItemIconTable[][2] =
 
     // Vanadium
     [ITEM_TERMINAL_PASS] = {gItemIcon_TerminalPass, gItemIconPalette_TerminalPass},
+    [ITEM_TENTACOOL_SKEWER] = {gItemIcon_TentacoolSkewer, gItemIconPalette_TentacoolSkewer},
 
     // Return to field arrow
     [ITEM_FIELD_ARROW] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},

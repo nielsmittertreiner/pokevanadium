@@ -3860,6 +3860,8 @@ extern const u32 gItemIconPalette_OldSeaMap[];
 // Vanadium
 extern const u32 gItemIcon_TerminalPass[];
 extern const u32 gItemIconPalette_TerminalPass[];
+extern const u32 gItemIcon_TentacoolSkewer[];
+extern const u32 gItemIconPalette_TentacoolSkewer[];
 
 extern const u32 gItemIcon_ReturnToFieldArrow[];
 extern const u32 gItemIconPalette_ReturnToFieldArrow[];

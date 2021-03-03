@@ -741,3 +741,6 @@ const u32 gItemIconPalette_OldSeaMap[] = INCBIN_U32("graphics/items/icon_palette
 
 const u32 gItemIcon_TerminalPass[] = INCBIN_U32("graphics/items/icons/terminal_pass.4bpp.lz");
 const u32 gItemIconPalette_TerminalPass[] = INCBIN_U32("graphics/items/icon_palettes/terminal_pass.gbapal.lz");
+
+const u32 gItemIcon_TentacoolSkewer[] = INCBIN_U32("graphics/items/icons/tentacool_skewer.4bpp.lz");
+const u32 gItemIconPalette_TentacoolSkewer[] = INCBIN_U32("graphics/items/icon_palettes/tentacool_skewer.gbapal.lz");

@@ -71,6 +71,9 @@ static void Task_UseRepel(u8 taskId);
 static void Task_CloseCantUseKeyItemMessage(u8 taskId);
 static void SetDistanceOfClosestHiddenItem(u8 taskId, s16 x, s16 y);
 static void CB2_OpenPokeblockFromBag(void);
+static void ItemUseOnFieldCB_TentacoolSkewer(u8);
+static void Task_WaitForWingullMovement(u8 taskId);
+static void Task_CloseTentacoolSkewerMessage(u8 taskId);
 
 // EWRAM variables
 EWRAM_DATA static void(*sItemUseOnFieldCB)(u8 taskId) = NULL;
@@ -1156,6 +1159,20 @@ void ItemUseInBattle_EnigmaBerry(u8 taskId)
         ItemUseOutOfBattle_CannotUse(taskId);
         break;
     }
+}
+
+void ItemUseOutOfBattle_TentacoolSkewer(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_TentacoolSkewer;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+static void ItemUseOnFieldCB_TentacoolSkewer(u8 taskId)
+{
+    RemoveUsedItem();
+    ScriptContext2_Enable();
+    ScriptContext1_SetupScript(TentacoolSkewer_EventScript_ItemUseTentacoolSkewer);
+    DestroyTask(taskId);
 }
 
 void ItemUseOutOfBattle_CannotUse(u8 taskId)

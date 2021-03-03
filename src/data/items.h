@@ -4603,5 +4603,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .secondaryId = 0,
+    },
+    [ITEM_TENTACOOL_SKEWER] = 
+    {
+        .name = _("TENTACOOL SKEWER"),
+        .itemId = ITEM_TENTACOOL_SKEWER,
+        .price = 250,
+        .description = sTentacoolSkewerDesc,
+        .unk19 = 1,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_TentacoolSkewer,
+        .secondaryId = 0,
     }
 };

@@ -476,8 +476,9 @@
 
 // Vanadium
 #define ITEM_TERMINAL_PASS 377
+#define ITEM_TENTACOOL_SKEWER 378
 
-#define ITEMS_COUNT 378
+#define ITEMS_COUNT 379
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // Range of berries given out by various NPCS

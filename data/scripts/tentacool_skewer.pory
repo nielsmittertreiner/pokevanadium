@@ -1,0 +1,30 @@
+const LOCALID_WINGULL = 16
+
+script TentacoolSkewer_EventScript_ItemUseTentacoolSkewer {
+    specialvar(VAR_RESULT, IsPlayerInMurenaCity)
+    if (var(VAR_RESULT) == TRUE) {
+        fadescreenspeed(FADE_TO_WHITE, -1)
+        fadescreenspeed(FADE_FROM_WHITE, -1)
+        special(SpawnMurenaCityWingullObject)
+        delay(24)
+        msgbox("A WINGULL swooped to snatch your\n"
+               "TENTACOOL SKEWER!")
+        closemessage
+        playmoncry(SPECIES_WINGULL, 1)
+        waitmoncry
+        delay(10)
+        setwildbattle(SPECIES_WINGULL, 15, ITEM_TENTACOOL_SKEWER)
+        dowildbattle
+        fadescreen(FADE_TO_BLACK)
+        removeobject(LOCALID_WINGULL)
+        fadescreen(FADE_FROM_BLACK)
+        end
+    } else {
+        special(TentacoolSkewerIncreaseFriendship)
+        msgbox("The TENTACOOL SKEWER tasted just\n"
+               "like heaven!\p"
+               "Your POKéMON feel delighted.")
+        closemessage
+    }
+    end
+}

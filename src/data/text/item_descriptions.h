@@ -1555,3 +1555,8 @@ static const u8 sTerminalPassDesc[] = _(
     "A pass used to\n"
     "operate the\n"
     "HEALING TERMINAL.");
+
+static const u8 sTentacoolSkewerDesc[] = _(
+    "A tasty looking\n"
+    "skewer from\n"
+    "MURENA CITY.");

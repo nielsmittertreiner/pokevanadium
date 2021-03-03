@@ -36,6 +36,7 @@
 #include "rtc.h"
 #include "script.h"
 #include "script_menu.h"
+#include "script_movement.h"
 #include "sound.h"
 #include "starter_choose.h"
 #include "string_util.h"
@@ -129,6 +130,8 @@ static void Task_CloseBattlePikeCurtain(u8 taskId);
 static u8 DidPlayerGetFirstFans(void);
 static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
+bool8 IsPlayerInMurenaCity(void);
+void SpawnMurenaCityWingullObject(u8 taskId);
 #ifndef FREE_LINK_BATTLE_RECORDS
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *linkRecords, u8 a, u8 b);
 #else
@@ -4402,4 +4405,101 @@ void SetPlayerGotFirstFans(void)
 u8 Script_TryGainNewFanFromCounter(void)
 {
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
+}
+
+bool8 IsPlayerInMurenaCity(void)
+{
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MURENA_CITY)
+     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MURENA_CITY))
+        return TRUE;
+    
+    return FALSE;
+}
+
+static const u8 sMovement_WingullFlyToPlayerNorth[] =
+{
+    MOVEMENT_ACTION_WALK_FASTEST_DOWN,
+    MOVEMENT_ACTION_WALK_FASTEST_DOWN,
+    MOVEMENT_ACTION_WALK_FASTEST_DOWN,
+    MOVEMENT_ACTION_WALK_FASTEST_DOWN,
+    MOVEMENT_ACTION_STEP_END
+};
+
+static const u8 sMovement_WingullFlyToPlayerEast[] =
+{
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_WALK_FASTEST_LEFT,
+    MOVEMENT_ACTION_STEP_END
+};
+
+static const u8 sMovement_WingullFlyToPlayerSouth[] =
+{
+    MOVEMENT_ACTION_WALK_FASTEST_UP,
+    MOVEMENT_ACTION_WALK_FASTEST_UP,
+    MOVEMENT_ACTION_WALK_FASTEST_UP,
+    MOVEMENT_ACTION_WALK_FASTEST_UP,
+    MOVEMENT_ACTION_STEP_END
+};
+
+static const u8 sMovement_WingullFlyToPlayerWest[] =
+{
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_WALK_FASTEST_RIGHT,
+    MOVEMENT_ACTION_STEP_END
+};
+
+void SpawnMurenaCityWingullObject(u8 taskId)
+{
+    u8 playerDirection = GetPlayerFacingDirection();
+    u16 localId = 16;
+    u16 x;
+    u16 y;
+    const void *movementScript;
+
+    switch (playerDirection)
+    {
+        case DIR_NORTH:
+            x = gSaveBlock1Ptr->pos.x;
+            y = gSaveBlock1Ptr->pos.y - 5;
+            movementScript = sMovement_WingullFlyToPlayerNorth;
+            break;
+        case DIR_EAST:
+            x = gSaveBlock1Ptr->pos.x + 8;
+            y = gSaveBlock1Ptr->pos.y;
+            movementScript = sMovement_WingullFlyToPlayerEast;
+            break;
+        case DIR_SOUTH:
+            x = gSaveBlock1Ptr->pos.x;
+            y = gSaveBlock1Ptr->pos.y + 5;
+            movementScript = sMovement_WingullFlyToPlayerSouth;
+            break;
+        case DIR_WEST:
+            x = gSaveBlock1Ptr->pos.x - 8;
+            y = gSaveBlock1Ptr->pos.y;
+            movementScript = sMovement_WingullFlyToPlayerWest;
+            break;
+    }
+
+    TrySpawnObjectEvent(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+    TryMoveObjectEventToMapCoords(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, x, y);
+    Overworld_SetObjEventTemplateCoords(localId, x, y);
+    ScriptMovement_StartObjectMovementScript(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, movementScript);
+}
+
+void TentacoolSkewerIncreaseFriendship(u8 taskId)
+{
+    s32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+        AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_VITAMIN);
 }
