@@ -22,7 +22,7 @@
 #define TRAINER_ROUTE403_TIMMY               18
 #define TRAINER_ROUTE403_ANNA                19
 #define TRAINER_ROUTE403_WARREN              20
-#define TRAINER_GRUNT_MUSEUM_2               21
+#define TRAINER_MURENA_CITY_GRUNT            21
 #define TRAINER_GRUNT_SPACE_CENTER_1         22
 #define TRAINER_GRUNT_MT_PYRE_1              23
 #define TRAINER_GRUNT_MT_PYRE_2              24

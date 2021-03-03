@@ -155,7 +155,14 @@
     "LavaridgeTown_House",
     "LavaridgeTown_Mart",
     "LavaridgeTown_PokemonCenter_1F",
-    "LavaridgeTown_PokemonCenter_2F"
+    "LavaridgeTown_PokemonCenter_2F",
+    "MurenaCity_WailordFishingClub",
+    "MurenaCity_Shipyard",
+    "MurenaCity_House1",
+    "MurenaCity_House2",
+    "MurenaCity_PokemonCenter_1F",
+    "MurenaCity_PokemonCenter_2F",
+    "MurenaCity_Mart"
   ],
   "gMapGroup5": [
     "FallarborTown_Mart",

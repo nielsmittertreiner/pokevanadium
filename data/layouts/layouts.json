@@ -4715,11 +4715,81 @@
       "id": "LAYOUT_MURENA_CITY",
       "name": "MurenaCity_Layout",
       "width": 50,
-      "height": 40,
+      "height": 51,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Slateport",
       "border_filepath": "data/layouts/MurenaCity/border.bin",
       "blockdata_filepath": "data/layouts/MurenaCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_WAILORD_FISHING_CLUB",
+      "name": "MurenaCity_WailordFishingClub_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonFanClub",
+      "border_filepath": "data/layouts/MurenaCity_WailordFishingClub/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_WailordFishingClub/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_SHIPYARD",
+      "name": "MurenaCity_Shipyard_Layout",
+      "width": 17,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/MurenaCity_Shipyard/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_Shipyard/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_HOUSE1",
+      "name": "MurenaCity_House1_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/MurenaCity_House1/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_HOUSE2",
+      "name": "MurenaCity_House2_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/MurenaCity_House2/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_POKEMON_CENTER_1F",
+      "name": "MurenaCity_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/MurenaCity_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_POKEMON_CENTER_2F",
+      "name": "MurenaCity_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/MurenaCity_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MURENA_CITY_MART",
+      "name": "MurenaCity_Mart_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/MurenaCity_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/MurenaCity_Mart/map.bin"
     }
   ]
 }

@@ -1,0 +1,37 @@
+const LOCALID_CLERK = 1
+
+mapscripts MurenaCity_Mart_MapScripts {}
+
+script MurenaCity_Mart_EventScript_Clerk {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_CLERK)
+    message(gText_HowMayIServeYou)
+    waitmessage
+    pokemart(MurenaCity_Mart_Pokemart)
+    destroy_speech_bubble
+    msgbox(gText_PleaseComeAgain, MSGBOX_NPC)
+    release 
+    end
+}
+
+raw `
+MurenaCity_Mart_Pokemart:
+    .2byte ITEM_POKE_BALL
+    .2byte ITEM_GREAT_BALL
+    .2byte ITEM_POTION
+    .2byte ITEM_SUPER_POTION
+    .2byte ITEM_ANTIDOTE
+    .2byte ITEM_PARALYZE_HEAL
+    .2byte ITEM_HARBOR_MAIL
+    .2byte ITEM_NONE
+    release
+    end
+`
+
+script MurenaCity_Mart_EventScript_Gentleman {
+    msgbox("The people who work in these\n"
+           "shops truly work very hard.\l"
+           "The shelves are always stocked.", MSGBOX_NPC)
+    end
+}

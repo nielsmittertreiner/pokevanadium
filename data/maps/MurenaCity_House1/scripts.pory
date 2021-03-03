@@ -1,0 +1,7 @@
+mapscripts MurenaCity_House1_MapScripts {}
+
+script MurenaCity_House1_EventScript_Man {
+    msgbox("You can really smell the salty air\n"
+           "of the sea here.", MSGBOX_NPC)
+    end
+}

@@ -271,14 +271,14 @@ static const struct TrainerMonItemCustomMoves sParty_Route403_Warren[] = {
 
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntMuseum2[] = {
     {
-    .iv = 0,
-    .lvl = 14,
-    .species = SPECIES_ZUBAT,
+    .iv = 100,
+    .lvl = 17,
+    .species = SPECIES_SPEAROW,
     },
     {
-    .iv = 0,
-    .lvl = 14,
-    .species = SPECIES_CARVANHA,
+    .iv = 100,
+    .lvl = 18,
+    .species = SPECIES_ZUBAT,
     }
 };
 

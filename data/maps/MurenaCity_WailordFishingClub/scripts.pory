@@ -1,0 +1,62 @@
+const LOCALID_FISHERMAN_1 = 3
+const LOCALID_FISHERMAN_2 = 4
+
+mapscripts MurenaCity_WailordFishingClub_MapScripts {}
+
+script MurenaCity_WailordFishingClub_EventScript_ChairmanSign {
+    msgbox("It's a portrait of the CHAIRMAN…", MSGBOX_SIGN)
+    end
+}
+
+script MurenaCity_WailordFishingClub_EventScript_Chairman {
+    msgbox("Hello there.\n"
+           "I am the chairman of the\l"
+           "WAILORD FISHING CLUB.\p"
+           "Day and night, fishermen and\n"
+           "sailors are searching for the\l"
+           "almighty giant of the oceans!\p"
+           "Hoping to find a WAILORD…", MSGBOX_NPC)
+    end
+}
+
+script MurenaCity_WailordFishingClub_EventScript_Sailor {
+    msgbox("Every day I use my ship to\n"
+           "search for the aquatic giant.\p"
+           "The ship I use is a big fisherman's\n"
+           "ship with lots of gear to haul\l"
+           "the big guy in!", MSGBOX_NPC)
+    end
+}
+
+script MurenaCity_WailordFishingClub_EventScript_Fisherman {
+    lock
+    applymovement(LOCALID_FISHERMAN_1, Common_Movement_WalkInPlaceFastestRight)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_FISHERMAN_1)
+    msgbox("So, has anyone even seen a\n"
+           "WAILORD here?")
+    destroy_speech_bubble
+    closemessage
+    load_speech_bubble(LOCALID_FISHERMAN_2)
+    applymovement(LOCALID_FISHERMAN_2, Common_Movement_WalkInPlaceFastestLeft)
+    waitmovement(0)
+    msgbox("Well, yes of course…")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_FISHERMAN_1, Common_Movement_WalkInPlaceFastestRight)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_FISHERMAN_1)
+    msgbox("How big is it then?\n"
+           "I suppose you would know.")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_FISHERMAN_2, Common_Movement_WalkInPlaceFastestLeft)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_FISHERMAN_2)
+    msgbox("Oh uhm…\p"
+           "It's just really big y'know.")
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}

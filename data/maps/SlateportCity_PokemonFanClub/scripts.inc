@@ -6,7 +6,7 @@ SlateportCity_PokemonFanClub_EventScript_Chairman:: @ 8209E96
 	faceplayer
 	goto_if_unset FLAG_ENTERED_CONTEST, SlateportCity_PokemonFanClub_EventScript_ChairmanNotEnteredContest
 	call_if_unset FLAG_MET_SLATEPORT_FANCLUB_CHAIRMAN, SlateportCity_PokemonFanClub_EventScript_MeetChairman
-	switch VAR_SLATEPORT_FAN_CLUB_STATE
+	switch VAR_FISHERMAN_FERRY_LOCATION
 	case 0, SlateportCity_PokemonFanClub_EventScript_ChairmanFirstAssessment
 	case 1, SlateportCity_PokemonFanClub_EventScript_ChairmanTryAssessPokemon
 	case 2, SlateportCity_PokemonFanClub_EventScript_NoMoreScarves
@@ -14,7 +14,7 @@ SlateportCity_PokemonFanClub_EventScript_Chairman:: @ 8209E96
 	end
 
 SlateportCity_PokemonFanClub_EventScript_ChairmanFirstAssessment:: @ 8209ED2
-	setvar VAR_SLATEPORT_FAN_CLUB_STATE, 1
+	setvar VAR_FISHERMAN_FERRY_LOCATION, 1
 	msgbox SlateportCity_PokemonFanClub_Text_AllowMeToExamineYourPokemon, MSGBOX_DEFAULT
 	goto SlateportCity_PokemonFanClub_EventScript_ChairmanAssessLeadMon
 	end
@@ -28,7 +28,7 @@ SlateportCity_PokemonFanClub_EventScript_ChairmanTryAssessPokemon:: @ 8209EE5
 	call_if_set FLAG_RECEIVED_RED_SCARF, SlateportCity_PokemonFanClub_EventScript_CountReceivedScarf
 	compare VAR_TEMP_2, CONTEST_CATEGORIES_COUNT
 	call_if_eq SlateportCity_PokemonFanClub_EventScript_ReceivedAllScarves
-	compare VAR_SLATEPORT_FAN_CLUB_STATE, 2
+	compare VAR_FISHERMAN_FERRY_LOCATION, 2
 	goto_if_eq SlateportCity_PokemonFanClub_EventScript_NoMoreScarves
 	msgbox SlateportCity_PokemonFanClub_Text_HowIsYourPokemonGrowing, MSGBOX_DEFAULT
 	goto SlateportCity_PokemonFanClub_EventScript_ChairmanAssessLeadMon
@@ -59,7 +59,7 @@ SlateportCity_PokemonFanClub_EventScript_ChairmanAssessLeadMon:: @ 8209F45
 	end
 
 SlateportCity_PokemonFanClub_EventScript_ReceivedAllScarves:: @ 8209FCA
-	setvar VAR_SLATEPORT_FAN_CLUB_STATE, 2
+	setvar VAR_FISHERMAN_FERRY_LOCATION, 2
 	return
 
 SlateportCity_PokemonFanClub_EventScript_CountReceivedScarf:: @ 8209FD0

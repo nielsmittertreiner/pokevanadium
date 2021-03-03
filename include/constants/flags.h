@@ -97,8 +97,8 @@
 #define FLAG_FIRWEALD_CITY_HIDE_AND_SEEK_EVENT       0x53
 #define FLAG_RECIEVED_TERMINAL_PASS          0x54
 #define FLAG_MURENA_NPC_TRADE_COMPLETED      0x55
-#define FLAG_HIDE_CONTEST_POKE_BALL          0x56  // Always set after new game, object it hides is added directly
-#define FLAG_MET_RIVAL_MOM                   0x57
+#define FLAG_MURENA_BOUGHT_FEEBAS            0x56
+#define FLAG_MURENA_SHOWN_RELICANTH          0x57
 #define FLAG_BIRCH_AIDE_MET                  0x58
 #define FLAG_DECLINED_BIKE                   0x59
 #define FLAG_RECEIVED_BIKE                   0x5A
@@ -655,13 +655,13 @@
 #define FLAG_HIDE_ACREN_FOREST_CABIN_POKE_BALL                      0x277
 #define FLAG_HIDE_ACREN_FOREST_CABIN_KECLEON                        0x278
 #define FLAG_HIDE_ACREN_FOREST_PHYLLOS_2                            0x279
-#define FLAG_UNUSED_0x27A                                           0x27A
-#define FLAG_UNUSED_0x27B                                           0x27B
-#define FLAG_UNUSED_0x27C                                           0x27C
-#define FLAG_UNUSED_0x27D                                           0x27D
-#define FLAG_UNUSED_0x27E                                           0x27E
-#define FLAG_UNUSED_0x27F                                           0x27F
-#define FLAG_UNUSED_0x280                                           0x280
+#define FLAG_HIDE_MURENA_CITY_WINGULL                               0x27A
+#define FLAG_HIDE_ROUTE_403_GRUNTS                                  0x27B
+#define FLAG_HIDE_ROUTE_403_RICH_BOY                                0x27C
+#define FLAG_HIDE_MURENA_CITY_FISHERMAN                             0x27D
+#define FLAG_HIDE_MURENA_CITY_GRUNTS                                0x27E
+#define FLAG_HIDE_MURENA_CITY_SHIPYARD_FISHERMAN                    0x27F
+#define FLAG_HIDE_MURENA_CITY_SHIPYARD_BOAT                         0x280
 #define FLAG_UNUSED_0x281                                           0x281
 #define FLAG_UNUSED_0x282                                           0x282
 #define FLAG_UNUSED_0x283                                           0x283

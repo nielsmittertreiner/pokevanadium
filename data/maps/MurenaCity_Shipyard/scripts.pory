@@ -1,0 +1,38 @@
+const LOCALID_MURENA_BOAT = 0
+const LOCALID_MURENA_FISHERMAN = 1
+
+const LOCALID_ROUTE403_BOAT = 0
+const LOCALID_ROUTE403_FISHERMAN = 1
+
+const LOCALID_LITOR_BOAT = 0
+const LOCALID_LITOR_FISHERMAN = 1
+
+const LOCALID_MAN = 3
+
+mapscripts MurenaCity_Shipyard_MapScripts {}
+
+// 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+script MurenaCity_Shipyard_EventScript_Fisherman {
+    //msgbox()
+}
+
+script MurenaCity_Shipyard_EventScript_Man {
+    msgbox("Hey there!\n"
+           "Every day I check the sonar sensors\l"
+           "for any detections.\p"
+           "If there's too much rubble, no ships\n"
+           "are allowed to leave.", MSGBOX_NPC)
+    applymovement(LOCALID_MAN, Common_Movement_FaceUp)
+    waitmovement(0)
+    end
+}

@@ -212,7 +212,7 @@
 
 // Constants for AdjustFriendship
 #define FRIENDSHIP_EVENT_GROW_LEVEL       0
-#define FRIENDSHIP_EVENT_VITAMIN          1 // unused, handled by PokemonUseItemEffects
+#define FRIENDSHIP_EVENT_VITAMIN          1
 #define FRIENDSHIP_EVENT_BATTLE_ITEM      2 // unused, handled by PokemonUseItemEffects
 #define FRIENDSHIP_EVENT_LEAGUE_BATTLE    3
 #define FRIENDSHIP_EVENT_LEARN_TMHM       4

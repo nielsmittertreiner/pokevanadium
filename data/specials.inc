@@ -539,3 +539,4 @@ gSpecials:: @ 81DBA64
 	def_special SpawnMurenaCityWingullObject
 	def_special TentacoolSkewerIncreaseFriendship
 	def_special CheckMurenaCityRelicanth
+	def_special CheckPokeCenterLocation

@@ -1,0 +1,16 @@
+mapscripts MurenaCity_PokemonCenter_1F_MapScripts {}
+
+script MurenaCity_PokemonCenter_1F_EventScript_Girl {
+    msgbox("I wonder what's beyond the\n"
+           "MURENA strait…\p"
+           "I've only been on this part of\n"
+           "EURUS REGION before.", MSGBOX_NPC)
+    end
+}
+
+script MurenaCity_PokemonCenter_1F_EventScript_Boy {
+    msgbox("There's an old man at the MARKET\n"
+           "blabbering about some old fish…\p"
+           "He's a little creepy.", MSGBOX_NPC)
+    end
+}

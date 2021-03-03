@@ -133,6 +133,7 @@ static u16 PlayerGainRandomTrainerFan(void);
 bool8 IsPlayerInMurenaCity(void);
 void SpawnMurenaCityWingullObject(u8 taskId);
 bool8 CheckMurenaCityRelicanth(void);
+void CheckPokeCenterLocation(void);
 #ifndef FREE_LINK_BATTLE_RECORDS
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *linkRecords, u8 a, u8 b);
 #else
@@ -4511,4 +4512,9 @@ bool8 CheckMurenaCityRelicanth(void)
         return TRUE;
 
     return FALSE;
+}
+
+void CheckPokeCenterLocation(void)
+{
+    GetMapNameGeneric(gStringVar1, gMapHeader.regionMapSectionId);
 }

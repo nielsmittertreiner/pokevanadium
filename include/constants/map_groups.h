@@ -121,6 +121,13 @@
 #define MAP_LAVARIDGE_TOWN_MART              (4 | (4 << 8))
 #define MAP_LAVARIDGE_TOWN_POKEMON_CENTER_1F (5 | (4 << 8))
 #define MAP_LAVARIDGE_TOWN_POKEMON_CENTER_2F (6 | (4 << 8))
+#define MAP_MURENA_CITY_WAILORD_FISHING_CLUB (7 | (4 << 8))
+#define MAP_MURENA_CITY_SHIPYARD             (8 | (4 << 8))
+#define MAP_MURENA_CITY_HOUSE1               (9 | (4 << 8))
+#define MAP_MURENA_CITY_HOUSE2               (10 | (4 << 8))
+#define MAP_MURENA_CITY_POKEMON_CENTER_1F    (11 | (4 << 8))
+#define MAP_MURENA_CITY_POKEMON_CENTER_2F    (12 | (4 << 8))
+#define MAP_MURENA_CITY_MART                 (13 | (4 << 8))
 
 // Map Group 5
 #define MAP_FALLARBOR_TOWN_MART                    (0 | (5 << 8))

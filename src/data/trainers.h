@@ -293,10 +293,10 @@ const struct Trainer gTrainers[] = {
         .party = {.ItemCustomMoves = sParty_Route403_Warren},
     },
 
-    [TRAINER_GRUNT_MUSEUM_2] =
+    [TRAINER_MURENA_CITY_GRUNT] =
     {
         .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_TEAM_AIRLOCK,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
         .trainerName = _("GRUNT"),

@@ -1,0 +1,15 @@
+mapscripts MurenaCity_House2_MapScripts {}
+
+script MurenaCity_House2_EventScript_Sailors {
+    msgbox("Phew…\p"
+           "I just got back from an intense\n"
+           "journey on the seas.\p"
+           "My wife is happy to have me back.", MSGBOX_NPC)
+    end
+}
+
+script MurenaCity_House2_EventScript_Woman {
+    msgbox("I'm making a meal for my husband,\n"
+           "he must be hungry!", MSGBOX_NPC)
+    end
+}
