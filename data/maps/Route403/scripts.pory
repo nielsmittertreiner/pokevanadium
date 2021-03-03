@@ -1,5 +1,8 @@
 const LOCALID_BUGCATCHER = 4
 const LOCALID_ZIGZAGOON = 5
+const LOCALID_AIRLOCK_GRUNT_1 = 6
+const LOCALID_AIRLOCK_GRUNT_2 = 7
+const LOCALID_RICH_BOY = 8
 
 mapscripts Route403_MapScripts {}
 
@@ -46,6 +49,37 @@ script Route403_EventScript_Zigzagoon {
     end
 }
 
+script Route403_EventScript_RichBoy {
+    lock
+    applymovement(LOCALID_RICH_BOY, Route403_Movement_RichBoyJumpInPlace)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_RICH_BOY)
+    msgbox("Get outta here!\n"
+           "You blue collar scum!\p"
+           "My daddy's boat is about to arrive!")
+    destroy_speech_bubble
+    closemessage
+    if (var(VAR_FIRWEALD_CITY_STATE) > 0) {
+        applymovement(LOCALID_AIRLOCK_GRUNT_1, Route403_Movement_TeamAirlockGrunt1WalkBack)
+        applymovement(LOCALID_RICH_BOY, Route403_Movement_RichBoyWalkToMurenaCity)
+        waitmovement(0)
+        applymovement(LOCALID_AIRLOCK_GRUNT_1, Route403_Movement_TeamAirlockGruntsWalkToMurenaCity)
+        applymovement(LOCALID_AIRLOCK_GRUNT_2, Route403_Movement_TeamAirlockGruntsWalkToMurenaCity)
+        waitmovement(0)
+        removeobject(LOCALID_RICH_BOY)
+        removeobject(LOCALID_AIRLOCK_GRUNT_1)
+        removeobject(LOCALID_AIRLOCK_GRUNT_2)
+    }
+    release
+    end
+}
+
+script Route403_EventScript_Grunt {
+    msgbox("We got some business here, so\n"
+           "I'm keeping an eye out.", MSGBOX_NPC)
+    end
+}
+
 script Route403_EventScript_TrainerTipsSign {
     msgbox("TRAINER TIPS\p"
            "Always make sure you have enough\n"
@@ -61,6 +95,24 @@ movement Route403_Movement_YoungsterJumpInPlace {
 
 movement Route403_Movement_ZigzagoonJumpInPlace {
     jump_in_place_right * 3
+}
+
+movement Route403_Movement_RichBoyJumpInPlace {
+    jump_in_place_right * 2
+}
+
+movement Route403_Movement_TeamAirlockGrunt1WalkBack {
+    walk_right
+    walk_down
+    face_up
+}
+
+movement Route403_Movement_RichBoyWalkToMurenaCity {
+    walk_right * 7
+}
+
+movement Route403_Movement_TeamAirlockGruntsWalkToMurenaCity {
+    walk_right * 6
 }
 
 text Route403_Text_TimmyIntro {

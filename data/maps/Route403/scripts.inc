@@ -43,6 +43,38 @@ Route403_EventScript_Zigzagoon::
 	end
 
 
+Route403_EventScript_RichBoy::
+	lock
+	applymovement 8, Route403_Movement_RichBoyJumpInPlace
+	waitmovement 0
+	load_speech_bubble 8
+	msgbox Route403_EventScript_RichBoy_Text_0
+	destroy_speech_bubble
+	closemessage
+	compare VAR_FIRWEALD_CITY_STATE, 0
+	goto_if_gt Route403_EventScript_RichBoy_2
+Route403_EventScript_RichBoy_1:
+	release
+	end
+
+Route403_EventScript_RichBoy_2:
+	applymovement 6, Route403_Movement_TeamAirlockGrunt1WalkBack
+	applymovement 8, Route403_Movement_RichBoyWalkToMurenaCity
+	waitmovement 0
+	applymovement 6, Route403_Movement_TeamAirlockGruntsWalkToMurenaCity
+	applymovement 7, Route403_Movement_TeamAirlockGruntsWalkToMurenaCity
+	waitmovement 0
+	removeobject 8
+	removeobject 6
+	removeobject 7
+	goto Route403_EventScript_RichBoy_1
+
+
+Route403_EventScript_Grunt::
+	msgbox Route403_EventScript_Grunt_Text_0, MSGBOX_NPC
+	end
+
+
 Route403_EventScript_TrainerTipsSign::
 	msgbox Route403_EventScript_TrainerTipsSign_Text_0, MSGBOX_SIGN
 	end
@@ -61,10 +93,49 @@ Route403_Movement_ZigzagoonJumpInPlace:
 	jump_in_place_right
 	step_end
 
+Route403_Movement_RichBoyJumpInPlace:
+	jump_in_place_right
+	jump_in_place_right
+	step_end
+
+Route403_Movement_TeamAirlockGrunt1WalkBack:
+	walk_right
+	walk_down
+	face_up
+	step_end
+
+Route403_Movement_RichBoyWalkToMurenaCity:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+Route403_Movement_TeamAirlockGruntsWalkToMurenaCity:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
 Route403_EventScript_BugCatcher_Text_0:
 	.string "I'm training my ZIGZAGOON\n"
 	.string "so we can challenge PHYLLOS\l"
 	.string "one day!$"
+
+Route403_EventScript_RichBoy_Text_0:
+	.string "Get outta here!\n"
+	.string "You blue collar scum!\p"
+	.string "My daddy's boat is about to arrive!$"
+
+Route403_EventScript_Grunt_Text_0:
+	.string "We got some business here, so\n"
+	.string "I'm keeping an eye out.$"
 
 Route403_EventScript_TrainerTipsSign_Text_0:
 	.string "TRAINER TIPS\p"
