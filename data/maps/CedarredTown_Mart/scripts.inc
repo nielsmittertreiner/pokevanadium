@@ -9,7 +9,7 @@ CedarredTown_Mart_EventScript_Clerk::
 	load_speech_bubble 1
 	message gText_HowMayIServeYou
 	waitmessage
-	pokemart 0
+	pokemart CedarredTown_Mart_Pokemart
 	destroy_speech_bubble
 	msgbox gText_PleaseComeAgain, MSGBOX_NPC
 	release
@@ -19,6 +19,16 @@ CedarredTown_Mart_EventScript_Clerk_3:
 	msgbox CedarredTown_Mart_EventScript_Clerk_Text_0, MSGBOX_NPC
 	end
 
+
+CedarredTown_Mart_Pokemart:
+    .2byte ITEM_POKE_BALL
+    .2byte ITEM_POTION
+    .2byte ITEM_ANTIDOTE
+    .2byte ITEM_PARALYZE_HEAL
+    .2byte ITEM_AWAKENING
+    .2byte ITEM_NONE
+    release
+    end
 
 CedarredTown_Mart_EventScript_Gentleman::
 	msgbox CedarredTown_Mart_EventScript_Gentleman_Text_0, MSGBOX_NPC

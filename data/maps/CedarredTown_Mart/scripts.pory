@@ -14,12 +14,24 @@ script CedarredTown_Mart_EventScript_Clerk {
     load_speech_bubble(LOCALID_CLERK)
     message(gText_HowMayIServeYou)
     waitmessage
-    pokemart(0)
+    pokemart(CedarredTown_Mart_Pokemart)
     destroy_speech_bubble
     msgbox(gText_PleaseComeAgain, MSGBOX_NPC)
     release 
     end
 }
+
+raw `
+CedarredTown_Mart_Pokemart:
+    .2byte ITEM_POKE_BALL
+    .2byte ITEM_POTION
+    .2byte ITEM_ANTIDOTE
+    .2byte ITEM_PARALYZE_HEAL
+    .2byte ITEM_AWAKENING
+    .2byte ITEM_NONE
+    release
+    end
+`
 
 script CedarredTown_Mart_EventScript_Gentleman {
     msgbox("Did you know CEDARRED TOWN is\n"
