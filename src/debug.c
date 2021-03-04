@@ -45,6 +45,7 @@ static void DebugAction_ToggleTrainers(u8);
 static void DebugAction_ToggleEncounters(u8);
 static void DebugAction_TogglePokedex(u8);
 static void DebugAction_ToggleBadges(u8);
+static void DebugAction_ToggleCollision(u8);
 
 enum {
     DEBUG_MENU_ITEM_UTILITY,
@@ -64,6 +65,7 @@ enum {
     DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER,
     DEBUG_MENU_ITEM_TOGGLE_POKEDEX,
     DEBUG_MENU_ITEM_TOGGLE_BADGES,
+    DEBUG_MENU_ITEM_TOGGLE_COLLISION,
 };
 
 static const u8 gDebugText_Utility[] = _("UTILITY");
@@ -79,6 +81,7 @@ static const u8 gDebugText_Toggles_Trainers[] = _("TRAINERS");
 static const u8 gDebugText_Toggles_Encounters[] = _("ENCOUNTERS");
 static const u8 gDebugText_Toggles_Pokedex[] = _("POKEDEX");
 static const u8 gDebugText_Toggles_Badges[] = _("BADGES");
+static const u8 gDebugText_Toggles_Collision[] = _("COLLISION");
 
 extern const u8 EventScript_ResetAllMapFlags[];
 extern const u8 Debug_EventScript_PrepareTrades[];
@@ -104,6 +107,7 @@ static const struct ListMenuItem sDebugMenuItems_Toggles[] =
     [DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER] = {gDebugText_Toggles_Encounters, DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER},
     [DEBUG_MENU_ITEM_TOGGLE_POKEDEX] = {gDebugText_Toggles_Pokedex, DEBUG_MENU_ITEM_TOGGLE_POKEDEX},
     [DEBUG_MENU_ITEM_TOGGLE_BADGES] = {gDebugText_Toggles_Badges, DEBUG_MENU_ITEM_TOGGLE_BADGES},
+    [DEBUG_MENU_ITEM_TOGGLE_COLLISION] = {gDebugText_Toggles_Collision, DEBUG_MENU_ITEM_TOGGLE_COLLISION},
 };
 
 static void (*const sDebugMenuActions_Main[])(u8) =
@@ -127,6 +131,7 @@ static void (*const sDebugMenuActions_Toggles[])(u8) =
     [DEBUG_MENU_ITEM_TOGGLE_ENCOUNTER] = DebugAction_ToggleEncounters,
     [DEBUG_MENU_ITEM_TOGGLE_POKEDEX] = DebugAction_TogglePokedex,
     [DEBUG_MENU_ITEM_TOGGLE_BADGES] = DebugAction_ToggleBadges,
+    [DEBUG_MENU_ITEM_TOGGLE_COLLISION] = DebugAction_ToggleCollision,
 };
 
 static const struct WindowTemplate sDebugMainMenuWindowTemplate =
@@ -453,6 +458,16 @@ static void DebugAction_ToggleBadges(u8 taskId)
     FlagToggle(FLAG_BADGE06_GET);
     FlagToggle(FLAG_BADGE07_GET);
     FlagToggle(FLAG_BADGE08_GET);
+}
+
+static void DebugAction_ToggleCollision(u8 taskId)
+{
+    if (FlagGet(FLAG_DISABLE_OBJECT_COLLISION))
+        PlaySE(SE_PC_OFF);
+    else
+        PlaySE(SE_PC_LOGIN);
+    
+    FlagToggle(FLAG_DISABLE_OBJECT_COLLISION);
 }
 
 #endif

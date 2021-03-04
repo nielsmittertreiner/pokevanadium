@@ -45,7 +45,7 @@
 #define FLAG_DISABLE_BAG                0x21 // Disables Bag Use In Battle
 #define FLAG_DISABLE_CATCHING           0x22 // Disables Catching In Battle
 #define FLAG_DISABLE_TRAINERS           0x23 // Disables Trainers Seeing You
-#define FLAG_TOGGLE_0x024               0x24 // Unused Flag
+#define FLAG_DISABLE_OBJECT_COLLISION   0x24 // Disables Object Event Collision
 #define FLAG_UNUSED_0x025               0x25 // Unused Flag
 #define FLAG_UNUSED_0x026               0x26 // Unused Flag
 #define FLAG_UNUSED_0x027               0x27 // Unused Flag
