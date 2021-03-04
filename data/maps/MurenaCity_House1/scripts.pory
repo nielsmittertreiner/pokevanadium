@@ -5,3 +5,9 @@ script MurenaCity_House1_EventScript_Man {
            "of the sea here.", MSGBOX_NPC)
     end
 }
+
+script MurenaCity_House1_EventScript_Lass {
+    msgbox("My dad always gets us TENTACOOL\n"
+           "SKEWERS on fridays.", MSGBOX_NPC)
+    end
+}
