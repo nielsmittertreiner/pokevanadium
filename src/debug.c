@@ -416,6 +416,7 @@ static void DebugAction_ToggleTrainers(u8 taskId)
         PlaySE(SE_PC_LOGIN);
     else
         PlaySE(SE_PC_OFF);
+    
     FlagToggle(FLAG_DISABLE_TRAINERS);
 }
 
@@ -425,6 +426,7 @@ static void DebugAction_ToggleEncounters(u8 taskId)
         PlaySE(SE_PC_LOGIN);
     else
         PlaySE(SE_PC_OFF);
+    
     FlagToggle(FLAG_DISABLE_ENCOUNTERS);
 }
 
@@ -440,7 +442,8 @@ static void DebugAction_TogglePokedex(u8 taskId)
         EnableNationalPokedex();
         SetUnlockedPokedexFlags();
         PlaySE(SE_PC_LOGIN);
-    }  
+    }
+
     FlagToggle(FLAG_SYS_POKEDEX_GET);
 }
 
@@ -450,6 +453,7 @@ static void DebugAction_ToggleBadges(u8 taskId)
         PlaySE(SE_PC_OFF);
     else
         PlaySE(SE_PC_LOGIN);
+    
     FlagToggle(FLAG_BADGE01_GET);
     FlagToggle(FLAG_BADGE02_GET);
     FlagToggle(FLAG_BADGE03_GET);
