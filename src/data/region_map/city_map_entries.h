@@ -21,7 +21,7 @@ static const struct CityMapEntry sPokenavCityMaps[NUM_CITY_MAPS] =
         .tilemap = gPokenavCityMap_Lavaridge_0,
     },
     {
-        .mapSecId = MAPSEC_FALLARBOR_TOWN,
+        .mapSecId = MAPSEC_LITOR_TOWN,
         .index = 0,
         .tilemap = gPokenavCityMap_Fallarbor_0,
     },

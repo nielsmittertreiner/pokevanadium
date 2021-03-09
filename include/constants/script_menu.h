@@ -119,8 +119,8 @@
 #define MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE     15
 #define MULTI_TOURNAMENT_HALL_JOIN                  19
 #define MULTI_TOURNAMENT_HALL_PRE_BATTLE            21
-#define MULTI_UNUSED_22                    22
-#define MULTI_UNUSED_40                    40
+#define MULTI_FERRY_ON_LITOR                        22
+#define MULTI_LITOR_BAR_SHOP                        40
 #define MULTI_UNUSED_41                    41
 #define MULTI_UNUSED_51                    51
 

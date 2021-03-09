@@ -806,6 +806,21 @@ static const struct MenuAction MultichoiceList_TournamentHall_PreBattle[] =
     {gText_Exit},
 };
 
+static const struct MenuAction MultichoiceList_FerryOnLitor[] = 
+{
+    {gText_Murena},
+    {gText_Navire},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_LitorBarShop[] = 
+{
+    {gText_FreshWaterAndPrice},
+    {gText_SodaPopAndPrice},
+    {gText_LemonadeAndPrice},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_Exit[] =
 {
     {gText_Exit},
@@ -929,8 +944,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_CEDARRED_CHOOSE_STARTER_SET_THREE]     = MULTICHOICE(MultichoiceList_CedarredTown_StarterSet_Three),
     [MULTI_TOURNAMENT_HALL_JOIN]                  = MULTICHOICE(MultichoiceList_TournamentHall_Join),
     [MULTI_TOURNAMENT_HALL_PRE_BATTLE]            = MULTICHOICE(MultichoiceList_TournamentHall_PreBattle),
-    [MULTI_UNUSED_22]                  = MULTICHOICE(MultichoiceList_Exit),
-    [MULTI_UNUSED_40]                  = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_FERRY_ON_LITOR]             = MULTICHOICE(MultichoiceList_FerryOnLitor),
+    [MULTI_LITOR_BAR_SHOP]             = MULTICHOICE(MultichoiceList_LitorBarShop),
     [MULTI_UNUSED_41]                  = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_UNUSED_51]                  = MULTICHOICE(MultichoiceList_Exit),
 };

@@ -3,7 +3,7 @@ FallarborTown_MapScripts:: @ 81EB1FA
 	.byte 0
 
 FallarborTown_OnTransition: @ 81EB200
-	setflag FLAG_VISITED_FALLARBOR_TOWN
+	setflag FLAG_VISITED_LITOR_TOWN
 	setvar VAR_ROUTE402_STATE, 0
 	clearflag FLAG_CONTEST_SKETCH_CREATED
 	end

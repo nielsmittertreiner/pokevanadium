@@ -96,11 +96,13 @@
     "Underwater_Route125",
     "SunsetTown",
     "CedarredTown",
+    "LitorTown",
     "FirwealdCity",
     "MurenaCity",
     "Route401",
     "Route402",
     "Route403",
+    "Route404",
     "AcrenForest",
     "ForestTunnel"
   ],
@@ -172,7 +174,14 @@
     "FallarborTown_PokemonCenter_1F",
     "FallarborTown_PokemonCenter_2F",
     "FallarborTown_CozmosHouse",
-    "FallarborTown_MoveRelearnersHouse"
+    "FallarborTown_MoveRelearnersHouse",
+    "LitorTown_Bar",
+    "LitorTown_House1",
+    "LitorTown_House2",
+    "LitorTown_House3",
+    "LitorTown_Mart",
+    "LitorTown_PokemonCenter_1F",
+    "LitorTown_PokemonCenter_2F"
   ],
   "gMapGroup6": [
     "VerdanturfTown_BattleTentLobby",

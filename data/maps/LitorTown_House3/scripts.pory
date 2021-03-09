@@ -1,0 +1,15 @@
+mapscripts LitorTown_House3_MapScripts {}
+
+script LitorTown_House3_EventScript_Man {
+    msgbox("Did you know that MAGIKARP are\n"
+           "often eaten by the people?", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_House3_EventScript_Fisherman {
+    msgbox("The waters around LITOR are\n"
+           "great areas for fishing.\p"
+           "I've spotted a lot of different species\n"
+           "of POKéMON already.", MSGBOX_NPC)
+    end
+}

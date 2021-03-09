@@ -365,9 +365,12 @@ const u32 gObjectEventPic_HoOh[] = INCBIN_U32("graphics/object_events/pics/pokem
 const u16 gObjectEventPal_HoOh[] = INCBIN_U16("graphics/object_events/palettes/ho_oh.gbapal");
 
 const u32 gObjectEventPic_Julia[] = INCBIN_U32("graphics/object_events/pics/people/julia.4bpp");
-const u16 gObjectEventPalette_Julia[] = INCBIN_U16("graphics/object_events/pics/people/julia.gbapal");
 const u32 gObjectEventPic_AirlockMemberM[] = INCBIN_U32("graphics/object_events/pics/people/team_airlock/airlock_member_m.4bpp");
 const u32 gObjectEventPic_AirlockMemberF[] = INCBIN_U32("graphics/object_events/pics/people/team_airlock/airlock_member_f.4bpp");
-const u16 gObjectEventPalette_TeamAirlockGrunt[] = INCBIN_U16("graphics/object_events/pics/people/team_airlock/airlock_member_grunt.gbapal");
 const u32 gObjectEventPic_Phyllos[] = INCBIN_U32("graphics/object_events/pics/people/tournament_masters/phyllos.4bpp");
+const u32 gObjectEventPic_ScottShirtless[] = INCBIN_U32("graphics/object_events/pics/people/scott_shirtless.4bpp");
+
+const u16 gObjectEventPalette_Julia[] = INCBIN_U16("graphics/object_events/pics/people/julia.gbapal");
+const u16 gObjectEventPalette_TeamAirlockGrunt[] = INCBIN_U16("graphics/object_events/pics/people/team_airlock/airlock_member_grunt.gbapal");
 const u16 gObjectEventPalette_Phyllos[] = INCBIN_U16("graphics/object_events/pics/people/tournament_masters/phyllos.gbapal");
+const u16 gObjectEventPalette_ScottShirtless[] = INCBIN_U16("graphics/object_events/pics/people/scott_shirtless.gbapal");

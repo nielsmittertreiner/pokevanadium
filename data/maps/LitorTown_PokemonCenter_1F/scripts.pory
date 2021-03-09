@@ -1,0 +1,8 @@
+mapscripts LitorTown_PokemonCenter_1F_MapScripts {}
+
+script LitorTown_PokemonCenter_1F_EventScript_Beauty {
+    msgbox("It's nice and cool here in the\n"
+           "POKéMON CENTER.\p"
+           "It's so hot outside…", MSGBOX_NPC)
+    end
+}

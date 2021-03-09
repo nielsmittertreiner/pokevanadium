@@ -105,7 +105,7 @@
 #define VAR_CEDARRED_TOWN_STATE                          (TOWN_CITY_STATE_VARS_START + 0x1)
 #define VAR_FIRWEALD_CITY_STATE                          (TOWN_CITY_STATE_VARS_START + 0x2)
 #define VAR_MURENA_CITY_STATE                            (TOWN_CITY_STATE_VARS_START + 0x3)
-#define VAR_0x4054                                       (TOWN_CITY_STATE_VARS_START + 0x4)
+#define VAR_LITOR_TOWN_STATE                             (TOWN_CITY_STATE_VARS_START + 0x4)
 #define VAR_0x4055                                       (TOWN_CITY_STATE_VARS_START + 0x5) // Unused Var
 #define VAR_PACIFIDLOG_TOWN_STATE                        (TOWN_CITY_STATE_VARS_START + 0x6) // Unused Var
 #define VAR_PETALBURG_CITY_STATE                         (TOWN_CITY_STATE_VARS_START + 0x7)
@@ -145,7 +145,7 @@
 #define VAR_TOURNAMENT_HALL_ROUND                        (SPECIAL_STATE_VARS_START + 0x5)
 #define VAR_SUNSET_TOWN_FOLLOWER_STATE_2                 (SPECIAL_STATE_VARS_START + 0x6)
 #define VAR_FISHERMAN_FERRY_LOCATION                     (SPECIAL_STATE_VARS_START + 0x7) // Fisherman Ferry Location
-#define VAR_UNUSED_0x40B8                                (SPECIAL_STATE_VARS_START + 0x8) // Unused Var
+#define VAR_FISHERMAN_FERRY_STATE                        (SPECIAL_STATE_VARS_START + 0x8)
 #define VAR_MT_PYRE_STATE                                (SPECIAL_STATE_VARS_START + 0x9)
 #define VAR_NEW_MAUVILLE_STATE                           (SPECIAL_STATE_VARS_START + 0xA)
 #define VAR_UNUSED_0x40BB                                (SPECIAL_STATE_VARS_START + 0xB) // Unused Var

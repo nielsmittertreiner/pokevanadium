@@ -1,0 +1,380 @@
+const LOCALID_BOAT_MURENA = 10
+
+const LOCALID_BOAT_MURENA_SHIPYARD = 1
+const LOCALID_FISHERMAN_MURENA_SHIPYARD = 2
+
+const LOCALID_BOAT_LITOR = 1
+const LOCALID_FISHERMAN_LITOR = 2
+
+const LOCALID_SCOTT = 7
+const LOCALID_JULIA = 13
+
+mapscripts LitorTown_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        call(FishermanFerry_EventScript_UpdateFerryLocation)
+        setrespawn(HEAL_LOCATION_LITOR_TOWN)
+        setflag(FLAG_VISITED_LITOR_TOWN)
+    }
+}
+
+script LitorTown_EventScript_Fisherman {
+    lock
+    faceplayer
+    if (!flag(FLAG_MET_SCOTT_ON_LITOR) || !flag(FLAG_MET_JULIA_ON_LITOR)) {
+        load_speech_bubble(LOCALID_FISHERMAN_LITOR)
+        msgbox("Shall we head back to MURENA?", MSGBOX_YESNO)
+        switch (var(VAR_RESULT)) {
+            case YES:
+                goto(LitorTown_EventScript_ChooseMurena)
+            case NO:
+                goto(LitorTown_EventScript_CancelFerrySelect)
+            case MULTI_B_PRESSED:
+                goto(LitorTown_EventScript_CancelFerrySelect)
+        }
+    }
+    load_speech_bubble(LOCALID_FISHERMAN_LITOR)
+    message(LitorTown_Text_WhereAreWeHeaded)
+    waitmessage
+    multichoicedefault(21, 6, MULTI_FERRY_ON_LITOR, 1, 0)
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(LitorTown_EventScript_ChooseMurena)
+        case 1:
+            goto(LitorTown_EventScript_ChooseNavire)
+        case 2:
+            goto(LitorTown_EventScript_CancelFerrySelect)
+        case MULTI_B_PRESSED:
+            goto(LitorTown_EventScript_CancelFerrySelect)
+
+    }
+
+}
+
+script LitorTown_EventScript_ChooseMurena {
+    msgbox("We're headed to MURENA CITY!\n"
+           "Let's set sail!")
+    destroy_speech_bubble
+    closemessage
+    goto(LitorTown_EventScript_SailToMurena)
+}
+
+script LitorTown_EventScript_ChooseNavire {
+    msgbox("We're headed to NAVIRE CITY!\n"
+           "Let's set sail!")
+    destroy_speech_bubble
+    closemessage
+    goto(LitorTown_EventScript_SailToNavire)
+}
+
+script LitorTown_EventScript_CancelFerrySelect {
+    msgbox("Tell me whenever you need me\n"
+           "and my trusty boat.")
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}
+
+script LitorTown_EventScript_SailToMurena {
+    call(FishermanFerry_EventScript_BackupFerryLocation)
+    hideobjectat(LOCALID_BOAT_MURENA, MAP_MURENA_CITY)
+    setobjectpriority(LOCALID_FISHERMAN_LITOR, MAP_LITOR_TOWN, 0)
+    setobjectpriority(OBJ_EVENT_ID_PLAYER, MAP_LITOR_TOWN, 0)
+    applymovement(LOCALID_FISHERMAN_LITOR, Common_Movement_WalkRight)
+    waitmovement(0)
+    removeobject(LOCALID_FISHERMAN_LITOR)
+    switch (var(VAR_FACING)) {
+        case DIR_NORTH:
+            applymovement(OBJ_EVENT_ID_PLAYER, LitorTown_Movement_PlayerBoardBoatNorth)
+            waitmovement(0)
+            break
+        case DIR_EAST:
+            applymovement(OBJ_EVENT_ID_PLAYER, LitorTown_Movement_PlayerBoardBoatEast)
+            waitmovement(0)
+            break
+        case DIR_SOUTH:
+            applymovement(OBJ_EVENT_ID_PLAYER, LitorTown_Movement_PlayerBoardBoatSouth)
+            waitmovement(0)
+            break
+    }
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LITOR_TOWN)
+    setflag(FLAG_DONT_TRANSITION_MUSIC)
+    playbgm(MUS_SAILING, 0)
+    applymovement(OBJ_EVENT_ID_PLAYER, LitorTown_Movement_SailToMurena)
+    applymovement(LOCALID_BOAT_LITOR, LitorTown_Movement_SailToMurena)
+    waitmovement(0)
+    clearflag(FLAG_DONT_TRANSITION_MUSIC)
+    fadedefaultbgm
+    setvar(VAR_FISHERMAN_FERRY_STATE, 3)
+    warpsilent(MAP_MURENA_CITY_SHIPYARD, 0xFF, 8, 6)
+    waitstate
+    end
+}
+
+script LitorTown_EventScript_SailToNavire {
+    release
+    end
+}
+
+script LitorTown_EventScript_Scott {
+    lock
+    faceplayer
+    if (flag(FLAG_MET_SCOTT_ON_LITOR)) {
+        load_speech_bubble(LOCALID_SCOTT)
+        msgbox("Boot up that new POKéNAV of yours now!\p"
+               "And check out the map while you're at it,\n"
+               "you can even check out city views!")
+        destroy_speech_bubble
+        closemessage
+        release
+        end
+    } else {
+        load_speech_bubble(LOCALID_SCOTT)
+        msgbox("Hey there, my name is SCOTT.\n"
+               "I'm the founder of the HOENN\l"
+               "BATTLE FRONTIER.\p"
+               "… … … … … …\p"
+               "Hmmm, you seem familiar to me…")
+        destroy_speech_bubble
+        closemessage
+        playse(SE_PIN)
+        applymovement(LOCALID_SCOTT, Common_Movement_ExclamationMark)
+        waitmovement(0)
+        load_speech_bubble(LOCALID_SCOTT)
+        msgbox("Ah that's it!\n"
+               "I saw you on TV!\p"
+               "You won the FIRWEALD CITY TOURNAMENT,\n"
+               "didn't you?\p"
+               "I've always had an eye for\n"
+               "talented TRAINERS.\p"
+               "I think you're one of them.\p"
+               "I'll be keeping an eye out for you.\p"
+               "Let's register each other\n"
+               "in our POKéNAVs!\l"
+               "Wait, you don't have one?\p"
+               "Well, I know a solution for that.\n"
+               "Take this!")
+        destroy_speech_bubble
+        closemessage
+        playfanfare(MUS_OBTAIN_ITEM)
+        setflag(FLAG_SYS_POKENAV_GET)
+        setflag(FLAG_ADDED_MATCH_CALL_TO_POKENAV)
+        setflag(FLAG_HAS_MATCH_CALL)
+        msgbox("{PLAYER} recieved the POKéNAV\n"
+               "from SCOTT!")
+        waitfanfare
+        closemessage
+        load_speech_bubble(LOCALID_SCOTT)
+        msgbox("A POKéNAV is the perfect device for\n"
+               "any TRAINER!\p"
+               "You can view the map of the EURUS\n"
+               "REGION at any time you'd like.\p"
+               "And you can use MATCH CALL to\n"
+               "rematch registered TRAINERS.\p"
+               "Pretty handy device, ey?\p"
+               "I'll be staying here for a while, but\n"
+               "perhaps our paths cross again.")
+        destroy_speech_bubble
+        closemessage
+        setflag(FLAG_MET_SCOTT_ON_LITOR)
+        release
+        end
+    }
+    
+}
+
+script LitorTown_EventScript_JuliaEncounter {
+    playse(SE_EXIT)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    addobject(LOCALID_JULIA)
+    waitse
+    applymovement(LOCALID_JULIA, Common_Movement_WalkDown)
+    applymovement(OBJ_EVENT_ID_PLAYER, LitorTown_Movement_PlayerWalkDown)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_JULIA)
+    msgbox("Oh hey there {PLAYER}!\n"
+           "I didn't expect you here on LITOR too.\p"
+           "What a coincidence don't you agree?\n"
+           "First I meet you while I'm buying\l"
+           "flowers, and just now I bought a drink\l"
+           "from here.\p"
+           "Oh you should totally get a FRESH WATER!\n"
+           "It's important to stay hydrated\l"
+           "on an island like this!")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_JULIA, Common_Movement_QuestionMark)
+    waitmovement(0)
+    load_speech_bubble(LOCALID_JULIA)
+    msgbox("What? You want to battle me?\p"
+           "Oh no no, I'm not prepared for that now.\p"
+           "Maybe when we meet again we'll battle.\n"
+           "I promise, alright?!\p"
+           "Anyway emm… I'll be going again hehe…")
+    destroy_speech_bubble
+    closemessage
+    applymovement(LOCALID_JULIA, LitorTown_Movement_JuliaWalkOffscreen)
+    waitmovement(0)
+    removeobject(LOCALID_JULIA)
+    setflag(FLAG_MET_JULIA_ON_LITOR)
+    setvar(VAR_JULIA_STATE, 2)
+    release
+    end
+}
+
+script LitorTown_EventScript_TuberM {
+    msgbox("Hey! This is my floatie!", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_TuberMSwimmer {
+    msgbox("I can't swim too far"
+           "in the open sea.", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_TuberF1 {
+    msgbox("Did you know you can jump onto\n"
+           "the floaties in the water?", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_TuberF2 {
+    msgbox("My daddy makes the best drinks of LITOR!\n"
+           "I like his LEMONADE the most.", MSGBOX_NPC)
+    if (var(VAR_JULIA_STATE) < 2) {
+        msgbox("Sometimes a particular girl buys our\n"
+               "too. She says she likes flowers a lot,\l"
+               "and our FRESH WATER too.", MSGBOX_NPC)
+    }
+    end
+}
+
+script LitorTown_EventScript_Youngster {
+    msgbox("Sheesh, being in the hot sun all day\n"
+           "is tiring…", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_Beauty {
+    msgbox("Sunbathing in a chair like this…\n"
+           "I can do it all day.", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_Sailor {
+    msgbox("Ahh, finally some rest after a\n"
+           "exhausting day…", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_Gentleman {
+    msgbox("Renting a cottage at the beach really\n"
+           "was the right choice after all!\p"
+           "The grandkids love it!", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_Boy {
+    msgbox("These beach umbrellas are everywhere\n"
+           "to keep everyone from getting a\l"
+           "nasty sunburn.", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_EventScript_TownSign {
+    msgbox("LITOR TOWN\n"
+           "“A sunny, sandy palace.”", MSGBOX_SIGN)
+    end
+}
+
+script LitorTown_EventScript_BarSign {
+    msgbox("LITOR TOWN BAR\n"
+           "“Come get a drink!”", MSGBOX_SIGN)
+    end
+}
+
+movement LitorTown_Movement_PlayerBoardBoatNorth {
+    walk_up
+    walk_right
+}
+
+movement LitorTown_Movement_PlayerBoardBoatEast {
+    walk_right * 2
+}
+
+movement LitorTown_Movement_PlayerBoardBoatSouth {
+    walk_down
+    walk_right
+}
+
+movement LitorTown_Movement_SailToMurena {
+    walk_down
+    walk_fast_down * 2
+    walk_fastest_down * 2
+    walk_fast_down * 2
+    walk_down
+    walk_left
+    walk_fast_left * 2
+    walk_fastest_left * 7
+    walk_fast_left * 2
+    walk_left
+    walk_down
+    walk_fast_down
+    walk_down
+    walk_left
+    walk_fast_left * 2
+    walk_fastest_left * 10
+    walk_fast_left * 2
+    walk_left
+    walk_up
+    walk_fast_up * 2
+    walk_fastest_up * 12
+    walk_fast_up * 2
+    walk_up
+    walk_left
+    walk_fast_left * 2
+    walk_left
+    walk_up
+    walk_fast_up * 2
+    walk_up
+    walk_left
+    walk_fast_left * 2
+    walk_fastest_left * 65
+    walk_fast_left * 2
+    walk_left
+    walk_down
+    walk_fast_down * 4
+    walk_down
+    walk_left
+    walk_fast_left * 2
+    walk_fastest_left * 7
+    walk_fast_left * 2
+    walk_left
+    walk_up
+    walk_fast_up * 2
+    walk_fastest_up * 12
+    walk_fast_up * 2
+    walk_up
+    walk_right
+    walk_fast_right * 3
+    walk_right
+}
+
+movement LitorTown_Movement_PlayerWalkDown {
+    lock_facing_direction
+    walk_down
+    unlock_facing_direction
+}
+
+movement LitorTown_Movement_JuliaWalkOffscreen {
+    walk_right
+    walk_down * 2
+    walk_right * 5
+    walk_down * 5
+}
+
+text LitorTown_Text_WhereAreWeHeaded {
+    "Ahoy!\n"
+    "Where shall we sail to next?"
+}

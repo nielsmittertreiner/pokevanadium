@@ -1,0 +1,39 @@
+const LOCALID_CLERK = 1
+
+mapscripts LitorTown_Mart_MapScripts {}
+
+script LitorTown_Mart_EventScript_Clerk {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_CLERK)
+    message(gText_HowMayIServeYou)
+    waitmessage
+    pokemart(LitorTown_Mart_Pokemart)
+    destroy_speech_bubble
+    msgbox(gText_PleaseComeAgain, MSGBOX_NPC)
+    release 
+    end
+}
+
+raw `
+LitorTown_Mart_Pokemart:
+    .2byte ITEM_POKE_BALL
+    .2byte ITEM_GREAT_BALL
+    .2byte ITEM_POTION
+    .2byte ITEM_SUPER_POTION
+    .2byte ITEM_REPEL
+    .2byte ITEM_ANTIDOTE
+    .2byte ITEM_PARALYZE_HEAL
+    .2byte ITEM_AWAKENING
+    .2byte ITEM_FLUFFY_TAIL
+    .2byte ITEM_NONE
+    release
+    end
+`
+
+script LitorTown_Mart_EventScript_Youngster {
+    msgbox("Wow! Look at all the soda they\n"
+           "sell here!\p"
+           "It looks so delicious!", MSGBOX_NPC)
+    end
+}

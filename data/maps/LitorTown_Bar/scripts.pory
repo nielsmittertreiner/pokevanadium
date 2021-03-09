@@ -1,0 +1,205 @@
+const LOCALID_BARMAN = 1
+
+mapscripts LitorTown_Bar_MapScripts {}
+
+script LitorTown_Bar_EventScript_Barman {
+    lock
+    faceplayer
+    load_speech_bubble(LOCALID_BARMAN)
+    message(LitorTown_Bar_Text_WelcomeToMyBar)
+    waitmessage
+    destroy_speech_bubble
+    special(SpawnCameraObject)
+    goto(LitorTown_Bar_EventScript_SetUpShop)
+    end
+}
+
+script LitorTown_Bar_EventScript_SetUpShop {
+    call(LitorTown_Bar_EventScript_SetUpShopCamera)
+    load_speech_bubble(LOCALID_BARMAN)
+    message(LitorTown_Bar_Text_WhatDoYouFancy)
+    waitmessage
+    goto(LitorTown_Bar_EventScript_DrawShopMenu)
+}
+
+script LitorTown_Bar_EventScript_SetUpShopCamera {
+    applymovement(OBJ_EVENT_ID_CAMERA, LitorTown_Bar_Movement_MoveCameraShopView)
+    waitmovement(0)
+    return
+}
+
+script LitorTown_Bar_EventScript_ResetShopCamera {
+    applymovement(OBJ_EVENT_ID_CAMERA, LitorTown_Bar_Movement_ResetCameraShopView)
+    waitmovement(0)
+    return
+}
+
+script LitorTown_Bar_EventScript_DrawShopMenu {
+    showmoneybox(0, 0, 0)
+    multichoice(0, 4, MULTI_LITOR_BAR_SHOP, 0)
+    destroy_speech_bubble
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(LitorTown_Bar_EventScript_ChooseFreshWater)
+        case 1:
+            goto(LitorTown_Bar_EventScript_ChooseSodaPop)
+        case 2:
+            goto(LitorTown_Bar_EventScript_ChooseLemonade)
+        case 3:
+            call(LitorTown_Bar_EventScript_ResetShopCamera)
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+        case MULTI_B_PRESSED:
+            call(LitorTown_Bar_EventScript_ResetShopCamera)
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+}
+
+script LitorTown_Bar_EventScript_ChooseFreshWater {
+    call(LitorTown_Bar_EventScript_ResetShopCamera)
+    load_speech_bubble(LOCALID_BARMAN)
+    msgbox("Is one FRESH WATER your choice?", MSGBOX_YESNO)
+    destroy_speech_bubble
+    switch (var(VAR_RESULT)) {
+        case YES:
+            goto(LitorTown_Bar_EventScript_TryBuyFreshWater)
+        case NO:
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+        case MULTI_B_PRESSED:
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+}
+
+script LitorTown_Bar_EventScript_ChooseSodaPop {
+    call(LitorTown_Bar_EventScript_ResetShopCamera)
+    msgbox("Is one SODA POP your choice?", MSGBOX_YESNO)
+    switch (var(VAR_RESULT)) {
+        case YES:
+            goto(LitorTown_Bar_EventScript_TryBuySodaPop)
+        case NO:
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+        case MULTI_B_PRESSED:
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+}
+
+script LitorTown_Bar_EventScript_ChooseLemonade {
+    call(LitorTown_Bar_EventScript_ResetShopCamera)
+    msgbox("Is one LEMONADA your choice?", MSGBOX_YESNO)
+    switch (var(VAR_RESULT)) {
+        case YES:
+            goto(LitorTown_Bar_EventScript_TryBuyLemonade)
+        case NO:
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+        case MULTI_B_PRESSED:
+            goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+}
+
+
+script LitorTown_Bar_EventScript_TryBuyFreshWater {
+    checkmoney(200, 0)
+    if (var(VAR_RESULT) == FALSE) {
+        load_speech_bubble(LOCALID_BARMAN)
+        msgbox("You don't seem to have enough money…")
+        destroy_speech_bubble
+        closemessage
+        goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+    playse(SE_SHOP)
+    removemoney(200, 0)
+    updatemoneybox(0, 0)
+    delay(30)
+    hidemoneybox
+    giveitem(ITEM_FRESH_WATER, 1)
+    closemessage
+    goto(LitorTown_Bar_EventScript_SetUpShop)
+}
+
+script LitorTown_Bar_EventScript_TryBuySodaPop {
+    checkmoney(200, 0)
+    if (var(VAR_RESULT) == FALSE) {
+        load_speech_bubble(LOCALID_BARMAN)
+        msgbox("You don't seem to have enough money…")
+        destroy_speech_bubble
+        closemessage
+        goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+    playse(SE_SHOP)
+    removemoney(250, 0)
+    updatemoneybox(0, 0)
+    delay(30)
+    hidemoneybox
+    giveitem(ITEM_SODA_POP, 1)
+    closemessage
+    goto(LitorTown_Bar_EventScript_SetUpShop)
+}
+
+script LitorTown_Bar_EventScript_TryBuyLemonade {
+    checkmoney(200, 0)
+    if (var(VAR_RESULT) == FALSE) {
+        load_speech_bubble(LOCALID_BARMAN)
+        msgbox("You don't seem to have enough money…")
+        destroy_speech_bubble
+        closemessage
+        goto(LitorTown_Bar_EventScript_CancelBuyDrink)
+    }
+    playse(SE_SHOP)
+    removemoney(350, 0)
+    updatemoneybox(0, 0)
+    delay(30)
+    hidemoneybox
+    giveitem(ITEM_LEMONADE, 1)
+    closemessage
+    goto(LitorTown_Bar_EventScript_SetUpShop)
+}
+
+script LitorTown_Bar_EventScript_CancelBuyDrink {
+    load_speech_bubble(LOCALID_BARMAN)
+    msgbox("Have a nice day!")
+    destroy_speech_bubble
+    closemessage
+    goto(LitorTown_Bar_EventScript_ExitShop)
+}
+
+script LitorTown_Bar_EventScript_ExitShop {
+    hidemoneybox
+    special(RemoveCameraObject)
+    release
+    end
+}
+
+script LitorTown_Bar_EventScript_Lass {
+    msgbox("The barman makes his LEMONADE with\n"
+           "fresh lemons!", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_Bar_EventScript_Sailor {
+    msgbox("This FRESH WATER is a lot better\n"
+           "than a mouthful of salty sea water…", MSGBOX_NPC)
+    end
+}
+
+script LitorTown_Bar_EventScript_TuberM {
+    msgbox("My mom told me I could have a SODA POP!\n"
+           "Yay!", MSGBOX_NPC)
+    end
+}
+
+movement LitorTown_Bar_Movement_MoveCameraShopView {
+    walk_fastest_left * 3
+}
+
+movement LitorTown_Bar_Movement_ResetCameraShopView {
+    walk_fastest_right * 3
+}
+
+text LitorTown_Bar_Text_WelcomeToMyBar {
+    "Welcome to the LITOR BAR!\p"
+    "Here, you can buy the best\n"
+    "drinks of town!"
+}
+
+text LitorTown_Bar_Text_WhatDoYouFancy {
+    "What refreshment do you fancy?"
+}

@@ -99,8 +99,8 @@
 #define FLAG_MURENA_NPC_TRADE_COMPLETED      0x55
 #define FLAG_MURENA_BOUGHT_FEEBAS            0x56
 #define FLAG_MURENA_SHOWN_RELICANTH          0x57
-#define FLAG_BIRCH_AIDE_MET                  0x58
-#define FLAG_DECLINED_BIKE                   0x59
+#define FLAG_MET_SCOTT_ON_LITOR              0x58
+#define FLAG_MET_JULIA_ON_LITOR              0x59
 #define FLAG_RECEIVED_BIKE                   0x5A
 #define FLAG_WATTSON_REMATCH_AVAILABLE       0x5B
 #define FLAG_COLLECTED_ALL_SILVER_SYMBOLS    0x5C
@@ -662,11 +662,11 @@
 #define FLAG_HIDE_MURENA_CITY_GRUNTS                                0x27E
 #define FLAG_HIDE_MURENA_CITY_SHIPYARD_FISHERMAN                    0x27F
 #define FLAG_HIDE_MURENA_CITY_SHIPYARD_BOAT                         0x280
-#define FLAG_UNUSED_0x281                                           0x281
-#define FLAG_UNUSED_0x282                                           0x282
-#define FLAG_UNUSED_0x283                                           0x283
-#define FLAG_UNUSED_0x284                                           0x284
-#define FLAG_UNUSED_0x285                                           0x285
+#define FLAG_HIDE_LITOR_TOWN_BOAT                                   0x281
+#define FLAG_HIDE_LITOR_TOWN_FISHERMAN                              0x282
+#define FLAG_HIDE_MURENA_CITY_BOAT                                  0x283
+#define FLAG_HIDE_LITOR_TOWN_JULIA                                  0x284
+#define FLAG_HIDE_LITOR_TOWN_SCOTT                                  0x285
 #define FLAG_UNUSED_0x286                                           0x286
 #define FLAG_UNUSED_0x287                                           0x287
 #define FLAG_UNUSED_0x288                                           0x288
@@ -1338,8 +1338,8 @@
 #define FLAG_VISITED_SUNSET_TOWN                    (SYSTEM_FLAGS + 0xF)
 #define FLAG_VISITED_CEDARRED_TOWN                  (SYSTEM_FLAGS + 0x10)
 #define FLAG_VISITED_FIRWEALD_CITY                  (SYSTEM_FLAGS + 0x11)
-#define FLAG_VISITED_MURENA_CITY                 (SYSTEM_FLAGS + 0x12)
-#define FLAG_VISITED_FALLARBOR_TOWN                 (SYSTEM_FLAGS + 0x13)
+#define FLAG_VISITED_MURENA_CITY                    (SYSTEM_FLAGS + 0x12)
+#define FLAG_VISITED_LITOR_TOWN                     (SYSTEM_FLAGS + 0x13)
 #define FLAG_VISITED_VERDANTURF_TOWN                (SYSTEM_FLAGS + 0x14)
 #define FLAG_VISITED_PACIFIDLOG_TOWN                (SYSTEM_FLAGS + 0x15)
 #define FLAG_VISITED_PETALBURG_CITY                 (SYSTEM_FLAGS + 0x16)

@@ -94,7 +94,7 @@ static const u8 sTileBitAttributes[] =
     [MB_WESTWARD_CURRENT] = TILE_ATTRIBUTES(TRUE, TRUE, FALSE),
     [MB_NORTHWARD_CURRENT] = TILE_ATTRIBUTES(TRUE, TRUE, FALSE),
     [MB_SOUTHWARD_CURRENT] = TILE_ATTRIBUTES(TRUE, TRUE, FALSE),
-    [MB_UNUSED_54] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
+    [MB_JUMP_COMBINED] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_UNUSED_55] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_UNUSED_56] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
     [MB_UNUSED_57] = TILE_ATTRIBUTES(FALSE, FALSE, FALSE),
@@ -267,7 +267,7 @@ bool8 MetatileBehavior_IsEncounterTile(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsJumpEast(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_JUMP_EAST)
+    if (metatileBehavior == MB_JUMP_EAST || metatileBehavior == MB_JUMP_COMBINED)
         return TRUE;
     else
         return FALSE;
@@ -275,7 +275,7 @@ bool8 MetatileBehavior_IsJumpEast(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsJumpWest(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_JUMP_WEST)
+    if (metatileBehavior == MB_JUMP_WEST || metatileBehavior == MB_JUMP_COMBINED)
         return TRUE;
     else
         return FALSE;
@@ -1579,3 +1579,4 @@ bool8 MetatileBehavior_IsFirwealdClosedDoor(u8 metatileBehavior)
     else
         return FALSE;
 }
+

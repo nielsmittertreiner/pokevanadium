@@ -579,6 +579,7 @@ gStdScripts_End:: @ 81DC2CC
 
 EventScript_WhiteOut:: @ 8271857
 	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour
+	call FishermanFerry_EventScript_ResetFerryLocation
 	goto EventScript_ResetMrBriney
 	end
 
@@ -1063,6 +1064,7 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/text/birch_speech.inc"
 	.include "data/scripts/debug.inc"
 	.include "data/scripts/tentacool_skewer.inc"
+	.include "data/scripts/fisherman_ferry.inc"
 	.include "data/maps/SunsetTown/scripts.inc"
 	.include "data/maps/Route401/scripts.inc"
 	.include "data/maps/SunsetTown_PlayerHouse_1F/scripts.inc"
@@ -1101,3 +1103,12 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/maps/MurenaCity_PokemonCenter_1F/scripts.inc"
 	.include "data/maps/MurenaCity_PokemonCenter_2F/scripts.inc"
 	.include "data/maps/MurenaCity_Mart/scripts.inc"
+	.include "data/maps/Route404/scripts.inc"
+	.include "data/maps/LitorTown/scripts.inc"
+	.include "data/maps/LitorTown_Bar/scripts.inc"
+	.include "data/maps/LitorTown_House1/scripts.inc"
+	.include "data/maps/LitorTown_House2/scripts.inc"
+	.include "data/maps/LitorTown_House3/scripts.inc"
+	.include "data/maps/LitorTown_Mart/scripts.inc"
+	.include "data/maps/LitorTown_PokemonCenter_1F/scripts.inc"
+	.include "data/maps/LitorTown_PokemonCenter_2F/scripts.inc"

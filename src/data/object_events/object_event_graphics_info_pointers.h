@@ -248,6 +248,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Julia;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_AirlockMemberM;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_AirlockMemberF;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Phyllos;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ScottShirtless;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -493,6 +494,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_AIRLOCK_MEMBER_M] =         &gObjectEventGraphicsInfo_AirlockMemberM,
     [OBJ_EVENT_GFX_AIRLOCK_MEMBER_F] =         &gObjectEventGraphicsInfo_AirlockMemberF,
     [OBJ_EVENT_GFX_PHYLLOS] =                  &gObjectEventGraphicsInfo_Phyllos,
+    [OBJ_EVENT_GFX_SCOTT_SHIRTLESS] =          &gObjectEventGraphicsInfo_ScottShirtless,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

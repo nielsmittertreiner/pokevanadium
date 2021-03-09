@@ -612,5 +612,6 @@ extern const u8 EventScript_ConfirmLeaveTradeRoom[];
 extern const u8 EventScript_TerminateLink[];
 
 extern const u8 EventScript_ClosedFirwealdDoor[];
+extern const u8 FishermanFerry_EventScript_ResetFerryLocation[];
 
 #endif // GUARD_EVENT_SCRIPTS_H

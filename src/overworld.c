@@ -384,6 +384,7 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_FLASH);
     ScriptContext2_RunNewScript(EventScript_ResetMrBriney);
+    ScriptContext2_RunNewScript(FishermanFerry_EventScript_ResetFerryLocation);
 }
 
 void Overworld_ResetStateAfterDigEscRope(void)

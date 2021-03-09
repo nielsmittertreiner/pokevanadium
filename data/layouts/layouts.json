@@ -4790,6 +4790,96 @@
       "secondary_tileset": "gTileset_Shop",
       "border_filepath": "data/layouts/MurenaCity_Mart/border.bin",
       "blockdata_filepath": "data/layouts/MurenaCity_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE404",
+      "name": "Route404_Layout",
+      "width": 60,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Route404/border.bin",
+      "blockdata_filepath": "data/layouts/Route404/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN",
+      "name": "LitorTown_Layout",
+      "width": 64,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/LitorTown/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_BAR",
+      "name": "LitorTown_Bar_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_SeashoreHouse",
+      "border_filepath": "data/layouts/LitorTown_Bar/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_Bar/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_HOUSE1",
+      "name": "LitorTown_House1_Layout",
+      "width": 10,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/LitorTown_House1/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_HOUSE2",
+      "name": "LitorTown_House2_Layout",
+      "width": 10,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/LitorTown_House2/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_HOUSE3",
+      "name": "LitorTown_House3_Layout",
+      "width": 10,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/LitorTown_House3/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_House3/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_MART",
+      "name": "LitorTown_Mart_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/LitorTown_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_POKEMON_CENTER_1F",
+      "name": "LitorTown_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/LitorTown_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITOR_TOWN_POKEMON_CENTER_2F",
+      "name": "LitorTown_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/LitorTown_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/LitorTown_PokemonCenter_2F/map.bin"
     }
   ]
 }

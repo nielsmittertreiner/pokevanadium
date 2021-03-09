@@ -244,8 +244,9 @@
 #define OBJ_EVENT_GFX_AIRLOCK_MEMBER_M           240
 #define OBJ_EVENT_GFX_AIRLOCK_MEMBER_F           241
 #define OBJ_EVENT_GFX_PHYLLOS                    242
+#define OBJ_EVENT_GFX_SCOTT_SHIRTLESS            243
 
-#define NUM_OBJ_EVENT_GFX                        243
+#define NUM_OBJ_EVENT_GFX                        244
 
 
 // These are dynamic object gfx ids.

@@ -1,0 +1,7 @@
+mapscripts LitorTown_House1_MapScripts {}
+
+script LitorTown_House1_EventScript_Woman {
+    msgbox("My father took us and the kids to\n"
+           "LITOR. He's such a generous man.", MSGBOX_NPC)
+    end
+}
