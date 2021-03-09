@@ -1,29 +1,100 @@
-const LOCALID_MURENA_BOAT = 0
-const LOCALID_MURENA_FISHERMAN = 1
-
-const LOCALID_ROUTE403_BOAT = 0
-const LOCALID_ROUTE403_FISHERMAN = 1
-
-const LOCALID_LITOR_BOAT = 0
-const LOCALID_LITOR_FISHERMAN = 1
+const LOCALID_BOAT = 1
+const LOCALID_FISHERMAN = 2
 
 const LOCALID_MAN = 3
 
-mapscripts MurenaCity_Shipyard_MapScripts {}
+mapscripts MurenaCity_Shipyard_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_FISHERMAN_FERRY_STATE, 3: MurenaCity_Shipyard_EventScript_SetUpObjects
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_FISHERMAN_FERRY_STATE, 4: MurenaCity_Shipyard_EventScript_FinishSailToMurena
+    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_MURENA_CITY)
+        call(FishermanFerry_EventScript_UpdateFerryLocation)
+    }
+}
 
-// 
-//
-//
-//
-//
-//
-//
-//
-//
-//
+script MurenaCity_Shipyard_EventScript_SetUpObjects {
+    setvar(VAR_FISHERMAN_FERRY_STATE, 4)
+    clearflag(FLAG_HIDE_MURENA_CITY_SHIPYARD_FISHERMAN)
+    clearflag(FLAG_HIDE_MURENA_CITY_SHIPYARD_BOAT)
+    clearflag(FLAG_HIDE_MURENA_CITY_BOAT)
+    addobject(LOCALID_FISHERMAN)
+    addobject(LOCALID_BOAT)
+    showobjectat(OBJ_EVENT_ID_PLAYER, MAP_MURENA_CITY_SHIPYARD)
+    turnobject(LOCALID_FISHERMAN, DIR_SOUTH)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    end
+}
+
+script MurenaCity_Shipyard_EventScript_FinishSailToMurena {
+    setvar(VAR_FISHERMAN_FERRY_STATE, 0)
+    load_speech_bubble(LOCALID_FISHERMAN)
+    msgbox("Ahoy! We've hit the docks of MURENA!\n"
+           "Just come back to me if you need a ride!")
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}
 
 script MurenaCity_Shipyard_EventScript_Fisherman {
-    //msgbox()
+    lock
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    if (var(VAR_TEMP_0) == 9) {
+        applymovement(OBJ_EVENT_ID_PLAYER, MurenaCity_Shipyard_Movement_PlayerWalkToFisherman)
+        waitmovement(0)
+    }
+    load_speech_bubble(LOCALID_FISHERMAN)
+    msgbox("Hey there {PLAYER}!\n"
+           "So…\p"
+           "Wanna head to LITOR TOWN?", MSGBOX_YESNO)
+    destroy_speech_bubble
+    closemessage
+    switch (var(VAR_RESULT)) {
+        case YES:
+            load_speech_bubble(LOCALID_FISHERMAN)
+            msgbox("Alright!\n"
+                   "We're headed to LITOR TOWN!")
+            destroy_speech_bubble
+            closemessage
+            goto(MurenaCity_Shipyard_EventScript_SailToLitorTown)
+        case NO:
+            goto(MurenaCity_Shipyard_EventScript_CancelFerrySelect)
+        case MULTI_B_PRESSED:
+            goto(MurenaCity_Shipyard_EventScript_CancelFerrySelect)
+    }
+}
+
+script MurenaCity_Shipyard_EventScript_CancelFerrySelect {
+    load_speech_bubble(LOCALID_FISHERMAN)
+    msgbox("Tell me whenever you need me\n"
+           "and my trusty boat.")
+    destroy_speech_bubble
+    closemessage
+    release
+    end
+}
+
+script MurenaCity_Shipyard_EventScript_SailToLitorTown {
+    call(FishermanFerry_EventScript_BackupFerryLocation)
+    setobjectpriority(LOCALID_FISHERMAN, MAP_MURENA_CITY_SHIPYARD, 0)
+    setobjectpriority(OBJ_EVENT_ID_PLAYER, MAP_MURENA_CITY_SHIPYARD, 0)
+    applymovement(LOCALID_FISHERMAN, MurenaCity_Shipyard_Movement_FishermanBoardBoat)
+    waitmovement(0)
+    removeobject(LOCALID_FISHERMAN)
+    applymovement(OBJ_EVENT_ID_PLAYER, MurenaCity_Shipyard_Movement_PlayerBoardBoat)
+    waitmovement(0)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MURENA_CITY_SHIPYARD)
+    delay(24)
+    applymovement(LOCALID_BOAT, MurenaCity_Shipyard_Movement_BoatExitShipyard)
+    waitmovement(0)
+    setvar(VAR_FISHERMAN_FERRY_STATE, 1)
+    warpsilent(MAP_MURENA_CITY, 0xFF, 32, 26)
+    waitstate
+    end
 }
 
 script MurenaCity_Shipyard_EventScript_Man {
@@ -35,4 +106,32 @@ script MurenaCity_Shipyard_EventScript_Man {
     applymovement(LOCALID_MAN, Common_Movement_FaceUp)
     waitmovement(0)
     end
+}
+
+movement MurenaCity_Shipyard_Movement_PlayerWalkToFisherman {
+    walk_down
+    walk_left
+    face_up
+}
+
+movement MurenaCity_Shipyard_Movement_FishermanBoardBoat {
+    disable_jump_landing_ground_effect
+    face_left
+    delay_16
+    jump_left
+    enable_jump_landing_ground_effect
+}
+
+movement MurenaCity_Shipyard_Movement_PlayerBoardBoat {
+    disable_jump_landing_ground_effect
+    walk_up
+    face_left
+    delay_16
+    walk_in_place_fastest_left * 3
+    jump_left
+    enable_jump_landing_ground_effect
+}
+
+movement MurenaCity_Shipyard_Movement_BoatExitShipyard {
+    walk_left * 6
 }
