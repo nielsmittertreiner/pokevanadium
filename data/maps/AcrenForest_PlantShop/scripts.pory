@@ -5,7 +5,7 @@ const LOCALID_JULIA = 4
 mapscripts AcrenForest_PlantShop_MapScripts {}
 
 script AcrenForest_PlantShop_EventScript_ShopOwner {
-    while (var(VAR_JULIA_STATE) == 0) {
+    if (var(VAR_JULIA_STATE) == 0) {
         lock
         faceplayer
         playse(SE_EXIT)

@@ -4,7 +4,7 @@ AcrenForest_PlantShop_MapScripts::
 
 AcrenForest_PlantShop_EventScript_ShopOwner::
 	compare VAR_JULIA_STATE, 0
-	goto_if_eq AcrenForest_PlantShop_EventScript_ShopOwner_3
+	goto_if_eq AcrenForest_PlantShop_EventScript_ShopOwner_2
 	load_speech_bubble 1
 	message AcrenForest_PlantShop_EventScript_ShopOwner_Text_4
 	waitmessage
@@ -14,7 +14,7 @@ AcrenForest_PlantShop_EventScript_ShopOwner::
 	release
 	end
 
-AcrenForest_PlantShop_EventScript_ShopOwner_3:
+AcrenForest_PlantShop_EventScript_ShopOwner_2:
 	lock
 	faceplayer
 	playse SE_EXIT
