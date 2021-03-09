@@ -6,14 +6,76 @@ const LOCALID_AIRLOCK_GRUNT_1 = 18
 const LOCALID_AIRLOCK_GRUNT_2 = 19
 const LOCALID_FISHERMAN = 20
 
+const LOCALID_BOAT_MURENA = 10
+
+const LOCALID_BOAT_MURENA_SHIPYARD = 1
+const LOCALID_FISHERMAN_MURENA_SHIPYARD = 2
+
+const LOCALID_BOAT_LITOR = 1
+const LOCALID_FISHERMAN_LITOR = 2
+
+
 mapscripts MurenaCity_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_FISHERMAN_FERRY_STATE, 1: MurenaCity_EventScript_SetUpSailing
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+         VAR_FISHERMAN_FERRY_STATE, 2: MurenaCity_EventScript_SailToLitor
+    ]
+
     MAP_SCRIPT_ON_TRANSITION {
         if (var(VAR_MURENA_CITY_STATE) < 1) {
             setobjectxyperm(LOCALID_OLD_WOMAN, 41, 20)
         }
         setrespawn(HEAL_LOCATION_MURENA_CITY)
         setflag(FLAG_VISITED_MURENA_CITY)
+        call(FishermanFerry_EventScript_UpdateFerryLocation)
     }
+}
+
+script MurenaCity_EventScript_SetUpSailing {
+    setvar(VAR_FISHERMAN_FERRY_STATE, 2)
+    setflag(FLAG_DONT_TRANSITION_MUSIC)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MURENA_CITY)
+}
+
+script MurenaCity_EventScript_SailToLitor {
+    setvar(VAR_FISHERMAN_FERRY_STATE, 0)
+    playbgm(MUS_SAILING, 0)
+    applymovement(OBJ_EVENT_ID_PLAYER, MurenaCity_Movement_SailToLitor)
+    applymovement(LOCALID_BOAT_MURENA, MurenaCity_Movement_SailToLitor)
+    waitmovement(0)
+    clearflag(FLAG_DONT_TRANSITION_MUSIC)
+    fadedefaultbgm
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+    waitmovement(0)
+    showobjectat(OBJ_EVENT_ID_PLAYER, MAP_LITOR_TOWN)
+    applymovement(OBJ_EVENT_ID_PLAYER, MurenaCity_Movement_ExitBoatLitorTown)
+    waitmovement(0)
+    setobjectxyperm(LOCALID_FISHERMAN_LITOR, 34, 22)
+    addobject(LOCALID_FISHERMAN_LITOR)
+    setobjectpriority(LOCALID_FISHERMAN_LITOR, MAP_LITOR_TOWN, 0)
+    applymovement(LOCALID_FISHERMAN_LITOR, Common_Movement_WalkLeft)
+    waitmovement(0)
+    clearflag(FLAG_HIDE_LITOR_TOWN_FISHERMAN)
+    addobject(LOCALID_BOAT_LITOR)
+    setobjectpriority(LOCALID_BOAT_LITOR, MAP_LITOR_TOWN, 4)
+    clearflag(FLAG_HIDE_LITOR_TOWN_BOAT)
+    setflag(FLAG_HIDE_MURENA_CITY_SHIPYARD_BOAT)
+    setflag(FLAG_HIDE_MURENA_CITY_BOAT)
+    hideobjectat(LOCALID_BOAT_MURENA, MAP_MURENA_CITY)
+    hideobjectat(LOCALID_BOAT_MURENA_SHIPYARD, MAP_MURENA_CITY_SHIPYARD)
+    load_speech_bubble(LOCALID_FISHERMAN_LITOR)
+    msgbox("Ahoy! We've arrived at LITOR TOWN!\n"
+           "You can smell the salty sea here too.")
+    destroy_speech_bubble
+    closemessage
+    copyvar(VAR_FISHERMAN_FERRY_LOCATION, VAR_0x8008)
+    resetobjectpriority(OBJ_EVENT_ID_PLAYER, MAP_LITOR_TOWN)
+    resetobjectpriority(LOCALID_FISHERMAN_LITOR, MAP_LITOR_TOWN)
+    copyobjectxytoperm(LOCALID_FISHERMAN_LITOR)
+    release
+    end
 }
 
 script MurenaCity_EventScript_TeamAirlockEncounter {
@@ -482,6 +544,65 @@ movement MurenaCity_Movement_FishermanWalkToPlayer2 {
 movement MurenaCity_Movement_FishermanWalkToShipyard {
     walk_left * 2
     walk_up
+}
+
+movement MurenaCity_Movement_SailToLitor {
+    walk_left
+    walk_fast_left * 3
+    walk_left
+    walk_down
+    walk_fast_down * 2
+    walk_fastest_down * 12
+    walk_fast_down * 2
+    walk_down
+    walk_right
+    walk_fast_right * 2
+    walk_fastest_right * 7
+    walk_fast_right * 2
+    walk_right
+    walk_up
+    walk_fast_up * 4
+    walk_up
+    walk_right
+    walk_fast_right * 2
+    walk_fastest_right * 65
+    walk_fast_right * 2
+    walk_right
+    walk_down
+    walk_fast_down * 2
+    walk_down
+    walk_right
+    walk_fast_right * 2
+    walk_right
+    walk_down
+    walk_fast_down * 2
+    walk_fastest_down * 12
+    walk_fast_down * 2
+    walk_down
+    walk_right
+    walk_fast_right * 2
+    walk_fastest_right * 10
+    walk_fast_right * 2
+    walk_right
+    walk_up
+    walk_fast_up
+    walk_up
+    walk_right
+    walk_fast_right * 2
+    walk_fastest_right * 7
+    walk_fast_right * 2
+    walk_right
+    walk_up
+    walk_fast_up * 2
+    walk_fastest_up * 2
+    walk_fast_up * 2
+    walk_up
+    face_down
+}
+
+movement MurenaCity_Movement_ExitBoatLitorTown {
+    walk_left * 2
+    face_right
 }
 
 text MurenaCity_Text_GruntDefeat {

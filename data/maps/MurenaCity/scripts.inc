@@ -1,5 +1,7 @@
 MurenaCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, MurenaCity_MapScripts_MAP_SCRIPT_ON_TRANSITION
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, MurenaCity_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, MurenaCity_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
 MurenaCity_MapScripts_MAP_SCRIPT_ON_TRANSITION:
@@ -8,11 +10,65 @@ MurenaCity_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 MurenaCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	setrespawn HEAL_LOCATION_MURENA_CITY
 	setflag FLAG_VISITED_MURENA_CITY
+	call FishermanFerry_EventScript_UpdateFerryLocation
 	return
 
 MurenaCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
 	setobjectxyperm 12, 41, 20
 	goto MurenaCity_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+
+MurenaCity_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
+	map_script_2 VAR_FISHERMAN_FERRY_STATE, 1, MurenaCity_EventScript_SetUpSailing
+	.2byte 0
+
+MurenaCity_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_FISHERMAN_FERRY_STATE, 2, MurenaCity_EventScript_SailToLitor
+	.2byte 0
+
+
+MurenaCity_EventScript_SetUpSailing::
+	setvar VAR_FISHERMAN_FERRY_STATE, 2
+	setflag FLAG_DONT_TRANSITION_MUSIC
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_MURENA_CITY
+	return
+
+
+MurenaCity_EventScript_SailToLitor::
+	setvar VAR_FISHERMAN_FERRY_STATE, 0
+	playbgm MUS_SAILING, 0
+	applymovement OBJ_EVENT_ID_PLAYER, MurenaCity_Movement_SailToLitor
+	applymovement 10, MurenaCity_Movement_SailToLitor
+	waitmovement 0
+	clearflag FLAG_DONT_TRANSITION_MUSIC
+	fadedefaultbgm
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
+	waitmovement 0
+	showobjectat OBJ_EVENT_ID_PLAYER, MAP_LITOR_TOWN
+	applymovement OBJ_EVENT_ID_PLAYER, MurenaCity_Movement_ExitBoatLitorTown
+	waitmovement 0
+	setobjectxyperm 2, 34, 22
+	addobject 2
+	setobjectpriority 2, MAP_LITOR_TOWN, 0
+	applymovement 2, Common_Movement_WalkLeft
+	waitmovement 0
+	clearflag FLAG_HIDE_LITOR_TOWN_FISHERMAN
+	addobject 1
+	setobjectpriority 1, MAP_LITOR_TOWN, 4
+	clearflag FLAG_HIDE_LITOR_TOWN_BOAT
+	setflag FLAG_HIDE_MURENA_CITY_SHIPYARD_BOAT
+	setflag FLAG_HIDE_MURENA_CITY_BOAT
+	hideobjectat 10, MAP_MURENA_CITY
+	hideobjectat 1, MAP_MURENA_CITY_SHIPYARD
+	load_speech_bubble 2
+	msgbox MurenaCity_EventScript_SailToLitor_Text_0
+	destroy_speech_bubble
+	closemessage
+	copyvar VAR_FISHERMAN_FERRY_LOCATION, VAR_0x8008
+	resetobjectpriority OBJ_EVENT_ID_PLAYER, MAP_LITOR_TOWN
+	resetobjectpriority 2, MAP_LITOR_TOWN
+	copyobjectxytoperm 2
+	release
+	end
 
 
 MurenaCity_EventScript_TeamAirlockEncounter::
@@ -475,6 +531,199 @@ MurenaCity_Movement_FishermanWalkToShipyard:
 	walk_left
 	walk_up
 	step_end
+
+MurenaCity_Movement_SailToLitor:
+	walk_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_left
+	walk_down
+	walk_fast_down
+	walk_fast_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fast_down
+	walk_fast_down
+	walk_down
+	walk_right
+	walk_fast_right
+	walk_fast_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fast_right
+	walk_fast_right
+	walk_right
+	walk_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_up
+	walk_right
+	walk_fast_right
+	walk_fast_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fast_right
+	walk_fast_right
+	walk_right
+	walk_down
+	walk_fast_down
+	walk_fast_down
+	walk_down
+	walk_right
+	walk_fast_right
+	walk_fast_right
+	walk_right
+	walk_down
+	walk_fast_down
+	walk_fast_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fastest_down
+	walk_fast_down
+	walk_fast_down
+	walk_down
+	walk_right
+	walk_fast_right
+	walk_fast_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fast_right
+	walk_fast_right
+	walk_right
+	walk_up
+	walk_fast_up
+	walk_up
+	walk_right
+	walk_fast_right
+	walk_fast_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fastest_right
+	walk_fast_right
+	walk_fast_right
+	walk_right
+	walk_up
+	walk_fast_up
+	walk_fast_up
+	walk_fastest_up
+	walk_fastest_up
+	walk_fast_up
+	walk_fast_up
+	walk_up
+	face_down
+	step_end
+
+MurenaCity_Movement_ExitBoatLitorTown:
+	walk_left
+	walk_left
+	face_right
+	step_end
+
+MurenaCity_EventScript_SailToLitor_Text_0:
+	.string "Ahoy! We've arrived at LITOR TOWN!\n"
+	.string "You can smell the salty sea here too.$"
 
 MurenaCity_EventScript_TeamAirlockEncounter_Text_0:
 	.string "Hey!\n"
