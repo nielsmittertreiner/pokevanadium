@@ -3,27 +3,32 @@ static const struct CityMapEntry sPokenavCityMaps[NUM_CITY_MAPS] =
     {
         .mapSecId = MAPSEC_SUNSET_TOWN,
         .index = 0,
-        .tilemap = gPokenavCityMap_Littleroot_0,
+        .tilemap = gPokenavCityMap_Sunset_0,
     },
     {
         .mapSecId = MAPSEC_CEDARRED_TOWN,
         .index = 0,
-        .tilemap = gPokenavCityMap_Oldale_0,
+        .tilemap = gPokenavCityMap_Cedarred_0,
     },
     {
         .mapSecId = MAPSEC_FIRWEALD_CITY,
         .index = 0,
-        .tilemap = gPokenavCityMap_Dewford_0,
+        .tilemap = gPokenavCityMap_Firweald_0,
     },
     {
         .mapSecId = MAPSEC_MURENA_CITY,
         .index = 0,
-        .tilemap = gPokenavCityMap_Lavaridge_0,
+        .tilemap = gPokenavCityMap_Murena_0,
+    },
+    {
+        .mapSecId = MAPSEC_MURENA_CITY,
+        .index = 1,
+        .tilemap = gPokenavCityMap_Murena_1,
     },
     {
         .mapSecId = MAPSEC_LITOR_TOWN,
         .index = 0,
-        .tilemap = gPokenavCityMap_Fallarbor_0,
+        .tilemap = gPokenavCityMap_Litor_0,
     },
     {
         .mapSecId = MAPSEC_VERDANTURF_TOWN,

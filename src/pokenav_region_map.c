@@ -17,7 +17,7 @@
 #include "constants/songs.h"
 #include "constants/region_map_sections.h"
 
-#define NUM_CITY_MAPS 22
+#define NUM_CITY_MAPS 23
 
 struct Pokenav5Struct
 {
