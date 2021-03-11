@@ -14,6 +14,7 @@
 #include "constants/field_effects.h"
 #include "constants/songs.h"
 
+#define OBJ_EVENT_PAL_TAG_NPC_1 0x1103 // duplicate of define in event_object_movement.c
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 
 static void UpdateObjectReflectionSprite(struct Sprite *);
@@ -32,7 +33,7 @@ static void sub_8155850(struct Sprite *);
 static u32 ShowDisguiseFieldEffect(u8, u8);
 static void LoadFieldEffectPalette_(u8 fieldEffect, bool8 updateGammaType);
 
-void LoadSpecialReflectionPalette(struct Sprite *sprite);
+void LoadSpecialReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 
 extern u16 gReflectionPaletteBuffer[];
 
@@ -88,38 +89,76 @@ void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite 
         UpdateSpritePaletteWithWeather(sprite->oam.paletteNum);
     }
     else
-    {
-        LoadSpecialReflectionPalette(sprite);
-    }
+        LoadSpecialReflectionPalette(objectEvent, sprite);
 }
 
-void LoadSpecialReflectionPalette(struct Sprite *sprite)
+static void ApplyReflectionFilter(u8 paletteNum, u16 *dest)
 {
-    struct SpritePalette reflectionPalette;
+    u8 i, val, r, g, b;
+    u16 *src = gPlttBufferUnfaded + 0x100 + paletteNum * 16;
+    for (i = 0; i < 16; i++)
+    {
+        r = src[i] & 0x1F;
+        g = (src[i] >> 5) & 0x1F;
+        b = (src[i] >> 10) & 0x1F;
+        b += 10;
 
-    CpuCopy16(&gPlttBufferUnfaded[0x100 + sprite->oam.paletteNum * 16], gReflectionPaletteBuffer, 32);
-    TintPalette_CustomTone(gReflectionPaletteBuffer, 16, Q_8_8(1.2), Q_8_8(1.4), Q_8_8(2.0));
-    reflectionPalette.data = gReflectionPaletteBuffer;
-    reflectionPalette.tag = GetSpritePaletteTagByPaletteNum(sprite->oam.paletteNum) + 0x1000;
-    LoadSpritePalette(&reflectionPalette);
-    sprite->oam.paletteNum = IndexOfSpritePaletteTag(reflectionPalette.tag);
-    UpdatePaletteGammaType(sprite->oam.paletteNum, GAMMA_ALT);
-    UpdateSpritePaletteWithWeather(sprite->oam.paletteNum);
+        if (b > 31)
+            b = 31;
+        *dest++ = (b << 10) | (g << 5) | r;
+  }
+}
+
+void LoadSpecialReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u16 baseTag = gSprites[objectEvent->spriteId].oam.paletteNum;
+    u16 paletteTag = baseTag + OBJ_EVENT_PAL_TAG_NONE + 0x1000;
+    u8 paletteIndex = IndexOfSpritePaletteTag(paletteTag);
+    u16 filteredData[16] = {0};
+    const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    struct SpritePalette filteredPalette;
+
+    if (paletteIndex == 0xFF)
+    {
+        ApplyReflectionFilter(baseTag, filteredData);
+        filteredPalette.tag = paletteTag;
+        filteredPalette.data = filteredData;
+        paletteIndex = LoadSpritePalette(&filteredPalette);
+    }
+    sprite->oam.paletteNum = paletteIndex;
+    SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(8, 8));
+    sprite->oam.objMode = 1;
 }
 
 static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
 {
-    struct ObjectEvent *objectEvent;
-    struct Sprite *mainSprite;
+    struct ObjectEvent *objectEvent = &gObjectEvents[reflectionSprite->data[0]];
+    struct Sprite *mainSprite = &gSprites[objectEvent->spriteId];
+    struct SpritePalette filteredPalette;
+    u16 baseTag = mainSprite->oam.paletteNum;
+    u16 paletteTag = baseTag + OBJ_EVENT_PAL_TAG_NONE + 0x1000;
+    u8 paletteNum = IndexOfSpritePaletteTag(paletteTag);
+    u16 filteredData[16] = {0};
 
-    objectEvent = &gObjectEvents[reflectionSprite->sReflectionObjEventId];
-    mainSprite = &gSprites[objectEvent->spriteId];
-    if (!objectEvent->active || !objectEvent->hasReflection || objectEvent->localId != reflectionSprite->sReflectionObjEventLocalId)
+    if (!objectEvent->active || !objectEvent->hasReflection || objectEvent->localId != reflectionSprite->data[1])
     {
         reflectionSprite->inUse = FALSE;
+        FieldEffectFreePaletteIfUnused(reflectionSprite->oam.paletteNum);
     }
     else
     {
+        reflectionSprite->inUse = FALSE;
+        FieldEffectFreePaletteIfUnused(reflectionSprite->oam.paletteNum);
+        reflectionSprite->inUse = TRUE;
+
+        if (paletteNum == 0xFF)
+        {
+            ApplyReflectionFilter(baseTag, filteredData);
+            filteredPalette.tag = paletteTag;
+            filteredPalette.data = filteredData;
+            paletteNum = LoadSpritePalette(&filteredPalette);
+        }
+        reflectionSprite->oam.paletteNum = paletteNum;
         reflectionSprite->oam.shape = mainSprite->oam.shape;
         reflectionSprite->oam.size = mainSprite->oam.size;
         reflectionSprite->oam.matrixNum = mainSprite->oam.matrixNum | ST_OAM_VFLIP;
