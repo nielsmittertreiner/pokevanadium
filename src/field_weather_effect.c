@@ -103,6 +103,7 @@ void Clouds_InitVars(void)
     gWeatherPtr->gammaStepDelay = 20;
     gWeatherPtr->weatherGfxLoaded = FALSE;
     gWeatherPtr->initStep = 0;
+    Weather_SetBlendCoeffs(8, 10);
     if (gWeatherPtr->cloudSpritesCreated == FALSE)
         Weather_SetBlendCoeffs(0, 16);
 }
@@ -243,6 +244,7 @@ void Drought_InitVars(void)
     gWeatherPtr->weatherGfxLoaded = FALSE;
     gWeatherPtr->gammaTargetIndex = 0;
     gWeatherPtr->gammaStepDelay = 0;
+    Weather_SetBlendCoeffs(8, 10);
 }
 
 void Drought_InitAll(void)
@@ -484,6 +486,7 @@ void Rain_InitVars(void)
     gWeatherPtr->targetRainSpriteCount = 10;
     gWeatherPtr->gammaTargetIndex = 3;
     gWeatherPtr->gammaStepDelay = 20;
+    Weather_SetBlendCoeffs(8, 10);
     SetRainStrengthFromSoundEffect(SE_RAIN);
 }
 
@@ -778,6 +781,7 @@ void Snow_InitVars(void)
     gWeatherPtr->gammaStepDelay = 20;
     gWeatherPtr->targetSnowflakeSpriteCount = 16;
     gWeatherPtr->snowflakeVisibleCounter = 0;
+    Weather_SetBlendCoeffs(8, 10);
 }
 
 void Snow_InitAll(void)
@@ -1002,6 +1006,7 @@ void Thunderstorm_InitVars(void)
     gWeatherPtr->gammaStepDelay = 20;
     gWeatherPtr->weatherGfxLoaded = FALSE;  // duplicate assignment
     gWeatherPtr->thunderTriggered = 0;
+    Weather_SetBlendCoeffs(8, 10);
     SetRainStrengthFromSoundEffect(SE_THUNDERSTORM);
 }
 
@@ -1030,6 +1035,7 @@ void Downpour_InitVars(void)
     gWeatherPtr->gammaTargetIndex = 3;
     gWeatherPtr->gammaStepDelay = 20;
     gWeatherPtr->weatherGfxLoaded = FALSE;  // duplicate assignment
+    Weather_SetBlendCoeffs(8, 10);
     SetRainStrengthFromSoundEffect(SE_DOWNPOUR);
 }
 
@@ -1315,6 +1321,7 @@ void FogHorizontal_InitVars(void)
     gWeatherPtr->weatherGfxLoaded = FALSE;
     gWeatherPtr->gammaTargetIndex = 0;
     gWeatherPtr->gammaStepDelay = 20;
+    Weather_SetBlendCoeffs(8, 10);
     if (gWeatherPtr->fogHSpritesCreated == 0)
     {
         gWeatherPtr->fogHScrollCounter = 0;
@@ -1472,6 +1479,7 @@ void Ash_InitVars(void)
     gWeatherPtr->gammaTargetIndex = 0;
     gWeatherPtr->gammaStepDelay = 20;
     gWeatherPtr->unknown_6FE = 20;
+    Weather_SetBlendCoeffs(8, 10);
     if (!gWeatherPtr->ashSpritesCreated)
     {
         Weather_SetBlendCoeffs(0, 16);
@@ -1684,6 +1692,7 @@ void FogDiagonal_InitVars(void)
     gWeatherPtr->gammaStepDelay = 20;
     gWeatherPtr->fogHScrollCounter = 0;
     gWeatherPtr->fogHScrollOffset = 1;
+    Weather_SetBlendCoeffs(8, 10);
     if (!gWeatherPtr->fogDSpritesCreated)
     {
         gWeatherPtr->fogDScrollXCounter = 0;
@@ -1897,6 +1906,7 @@ void Sandstorm_InitVars(void)
     gWeatherPtr->weatherGfxLoaded = 0;
     gWeatherPtr->gammaTargetIndex = 0;
     gWeatherPtr->gammaStepDelay = 20;
+    Weather_SetBlendCoeffs(8, 10);
     if (!gWeatherPtr->sandstormSpritesCreated)
     {
         gWeatherPtr->sandstormXOffset = gWeatherPtr->sandstormYOffset = 0;
@@ -2194,6 +2204,7 @@ void Shade_InitVars(void)
     gWeatherPtr->initStep = 0;
     gWeatherPtr->gammaTargetIndex = 3;
     gWeatherPtr->gammaStepDelay = 20;
+    Weather_SetBlendCoeffs(8, 10);
 }
 
 void Shade_InitAll(void)
